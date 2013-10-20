@@ -21,7 +21,9 @@
     
      
     <!-- telling container to take care of annotations stuff -->  
-    <context:annotation-config />     
+    <context:annotation-config />   
+    
+    <mvc:annotation-driven />   
 
      <!-- declaring base package -->  
     <context:component-scan base-package="com.hashin.project" />
@@ -32,16 +34,6 @@
         <property name="suffix" value=".jsp" />
     </bean>
     
-    
-    <!--  initialization for data source -->
-    <!-- 
-    <bean id="dataSource"   class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-      <property name="url" value="jdbc:mysql://localhost:3306/mobile_voting"/>
-      <property name="username" value="root"/>
-      <property name="password" value="abc"/>
-    </bean>
-     -->
     
     <!-- Definition for  bean -->
     <bean id="electionsDao" class="com.hashin.project.dao.ElectionsDAOImpl" >

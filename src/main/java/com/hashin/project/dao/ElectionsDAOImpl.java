@@ -37,15 +37,23 @@ public class ElectionsDAOImpl implements ElectionsDAO
     
         
         
-    public void create(ElectionsBean election)
+    public int create(ElectionsBean election)
     {
 	String query = "insert into elections (ele_title, ele_start_dt, ele_end_dt, ele_desc) values (?, ?, ?, ?)";
-	jdbcTemplate.update( query, 
-		    	     election.getElectTitle(),
-		    	     election.getElectStartDate(),
-		    	     election.getElectEndDate(),
-		    	     election.getElectDescription() );
-	 return;
+	Object[] parameters = new Object[] 
+	{ 	election.getElectTitle(),
+		election.getElectStartDate(),
+	    	election.getElectEndDate(),
+	    	election.getElectDescription() 
+	};
+	int numRows = jdbcTemplate.update( query, parameters);
+	
+	logger.debug( "Query =>  insert into elections " +
+			"(ele_title, ele_start_dt, ele_end_dt, ele_desc) " +
+			"values (?, ?, ?, ?)");
+	logger.debug( "Result => rowCount= "+numRows);
+	
+	return numRows;
     }
 	
 	
@@ -67,7 +75,7 @@ public class ElectionsDAOImpl implements ElectionsDAO
     }
 	
 	
-    public List<ElectionsBean> searchByTitle(String searckKey)
+    public List<ElectionsBean> searchWildCard(String searckKey)
     {
 	searckKey = "%"+searckKey+"%";
 	String query = "select * from elections where ele_title like ?";

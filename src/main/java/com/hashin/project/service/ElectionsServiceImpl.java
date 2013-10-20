@@ -14,9 +14,10 @@ public class ElectionsServiceImpl implements ElectionsService
     	
     	//have to autowire since the spring is intializing the bean with datasource properties
 	
-    	public void create(ElectionsBean election)
+    	public int create(ElectionsBean election)
 	{
-    	electionsDao.create(election);
+    	    return electionsDao.create(election); 
+    	    //todo check if the the return value ==0 or <0; then then throw some database related custome exception
 	}
 	
 	public ElectionsBean getById(int electId)
@@ -31,8 +32,8 @@ public class ElectionsServiceImpl implements ElectionsService
 	    return electionList;
 	}
 	
-	public List<ElectionsBean> searchByTitle(String electTitle){
-	    List<ElectionsBean> electionList = electionsDao.searchByTitle(electTitle);
+	public List<ElectionsBean> searchWildCard(String electTitle){
+	    List<ElectionsBean> electionList = electionsDao.searchWildCard(electTitle);
 	    return electionList;
 	}
 

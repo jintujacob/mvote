@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.service.ElectionsService;
+import com.hashin.project.util.ElectionsExtractor;
 
 
 /**
@@ -34,12 +35,12 @@ public class ElectionsController {
     private static final Logger logger = Logger.getLogger(ElectionsController.class);
 
     
-    @RequestMapping(value="/getAll", method = RequestMethod.GET)
+    @RequestMapping(value="/elections", method = RequestMethod.GET)
     public ModelAndView listAllElections() 
     {
 	logger.debug("ElectionsController.listAllElections() -  Controller methode mapping done!");
 	List<ElectionsBean> electionsList= electionsService.listAll();
-	return new ModelAndView("ElectionsView", "electionsList", electionsList);
+	return new ModelAndView("ElectionsHome", "electionsList", electionsList);
     }   
     
     
@@ -51,12 +52,48 @@ public class ElectionsController {
     }
 
     
-    @RequestMapping(value="/searchByTitle", method = RequestMethod.GET)
+    @RequestMapping(value="/search", method = RequestMethod.GET)
     public ModelAndView getElectionBySearchKey(@RequestParam String searchKey) 
     {
-	List<ElectionsBean> electionsList = electionsService.searchByTitle(searchKey);
+	List<ElectionsBean> electionsList = electionsService.searchWildCard(searchKey);
 	return new ModelAndView("ElectionsView", "electionsList", electionsList);  
     }
 
+    @RequestMapping(value="/getForm", method = RequestMethod.GET)
+    public ModelAndView getElectionsForm(@ModelAttribute("election") ElectionsBean election) 
+    {
+	//manage drop down elements for jsp into map object and pass as mav 
+	logger.debug("#444 -- going to the form page");
+	return new ModelAndView("ElectionsForm", "command", election);  
+    }
+    
+    
+   @RequestMapping(value="/create", method = RequestMethod.GET)
+   public void createElectionEvent(@ModelAttribute("election") ElectionsBean election)
+   {
+       logger.debug("Inside > createElectionEvent");
+       int numRows = 0 ;
+       if(election != null)
+       {
+	   numRows = electionsService.create(election);
+       }
+       
+       if(numRows <= 0)
+       {
+	   //return "redirect:/elections";   return type should be String
+	   listAllElections();
+       }else{
+	   // return "redirect:/electionsError"; return type should be string
+	   manageElectionsError("Unable to complete request due to database error!");
+       }
+	   
+   }
+   
+
+   @RequestMapping(value="/electionsError", method = RequestMethod.GET)
+   public ModelAndView manageElectionsError(String msgError) 
+   {
+	return new ModelAndView("ElectionsError", "msgError", msgError);  
+   }
     
 }
