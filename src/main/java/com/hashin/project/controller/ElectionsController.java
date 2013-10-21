@@ -27,7 +27,6 @@ import com.hashin.project.util.ElectionsExtractor;
  */
 
 @Controller
-@RequestMapping("/elections")
 public class ElectionsController {
 
     @Autowired
@@ -44,7 +43,7 @@ public class ElectionsController {
     }   
     
     
-    @RequestMapping(value="/getById", method = RequestMethod.GET)
+    @RequestMapping(value="elections/getById", method = RequestMethod.GET)
     public ModelAndView getElectionById(@RequestParam int electId) 
     {
 	ElectionsBean election= electionsService.getById(electId);
@@ -52,24 +51,23 @@ public class ElectionsController {
     }
 
     
-    @RequestMapping(value="/search", method = RequestMethod.GET)
+    @RequestMapping(value="elections/search", method = RequestMethod.GET)
     public ModelAndView getElectionBySearchKey(@RequestParam String searchKey) 
     {
 	List<ElectionsBean> electionsList = electionsService.searchWildCard(searchKey);
 	return new ModelAndView("ElectionsView", "electionsList", electionsList);  
     }
 
-    @RequestMapping(value="/getForm", method = RequestMethod.GET)
+    @RequestMapping(value="elections/getForm", method = RequestMethod.GET)
     public ModelAndView getElectionsForm(@ModelAttribute("election") ElectionsBean election) 
     {
 	//manage drop down elements for jsp into map object and pass as mav 
-	logger.debug("#444 -- going to the form page");
 	return new ModelAndView("ElectionsForm", "command", election);  
     }
     
     
-   @RequestMapping(value="/create", method = RequestMethod.GET)
-   public void createElectionEvent(@ModelAttribute("election") ElectionsBean election)
+   @RequestMapping(value="elections/create", method = RequestMethod.GET)
+   public String createElectionEvent(@ModelAttribute("election") ElectionsBean election)
    {
        logger.debug("Inside > createElectionEvent");
        int numRows = 0 ;
@@ -80,18 +78,19 @@ public class ElectionsController {
        
        if(numRows <= 0)
        {
-	   //return "redirect:/elections";   return type should be String
-	   listAllElections();
-       }else{
-	   // return "redirect:/electionsError"; return type should be string
-	   manageElectionsError("Unable to complete request due to database error!");
-       }
+	   return "redirect:electionsError?msgError=Unable to complete request due to database error"; 
+	   //manageElectionsError("Unable to complete request due to database error!");
+	   //this should handle the exceptions as well
 	   
+	   
+       }else{
+	   return "redirect:/elections";   //return type should be String
+       }
    }
    
 
-   @RequestMapping(value="/electionsError", method = RequestMethod.GET)
-   public ModelAndView manageElectionsError(String msgError) 
+   @RequestMapping(value="elections/electionsError", method = RequestMethod.GET)
+   public ModelAndView manageElectionsError(@RequestParam String msgError) 
    {
 	return new ModelAndView("ElectionsError", "msgError", msgError);  
    }

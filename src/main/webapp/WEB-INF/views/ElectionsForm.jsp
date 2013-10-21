@@ -34,7 +34,7 @@ td {
 
 <body>
   <div>  
-   <form:form method="get" action="elections/create" modelAttribute="election">  
+   <form:form method="get" action="create" modelAttribute="election">  
     <table>  
      <tr>  
       <td>Election Title :</td>  

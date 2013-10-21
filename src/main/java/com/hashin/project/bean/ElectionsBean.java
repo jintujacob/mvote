@@ -12,8 +12,8 @@ public class ElectionsBean {
 
 	private int electId;
 	private String electTitle;
-	private Date electStartDate;
-	private Date electEndDate;
+	private String electStartDate;
+	private String electEndDate;
 	private String electDescription;
 	
 	
@@ -33,19 +33,20 @@ public class ElectionsBean {
 	{
 	    this.electTitle = electTitle;
 	}
-	public Date getElectStartDate()
+	
+	public String getElectStartDate()
 	{
 	    return electStartDate;
 	}
-	public void setElectStartDate(Date electStartDate)
+	public void setElectStartDate(String electStartDate)
 	{
 	    this.electStartDate = electStartDate;
 	}
-	public Date getElectEndDate()
+	public String getElectEndDate()
 	{
 	    return electEndDate;
 	}
-	public void setElectEndDate(Date electEndDate)
+	public void setElectEndDate(String electEndDate)
 	{
 	    this.electEndDate = electEndDate;
 	}

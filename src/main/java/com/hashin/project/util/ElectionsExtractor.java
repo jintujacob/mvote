@@ -18,8 +18,8 @@ public class ElectionsExtractor implements ResultSetExtractor<ElectionsBean>
 		    
 	  election.setElectId(rs.getInt("ele_id"));
 	  election.setElectTitle(rs.getString("ele_title"));
-	  election.setElectStartDate(rs.getDate("ele_start_dt"));
-	  election.setElectEndDate(rs.getDate("ele_end_dt"));
+	  election.setElectStartDate(rs.getDate("ele_start_dt").toString());
+	  election.setElectEndDate(rs.getDate("ele_end_dt").toString());
 	  election.setElectDescription(rs.getString("ele_desc"));		    
 	  return election;    
     }
