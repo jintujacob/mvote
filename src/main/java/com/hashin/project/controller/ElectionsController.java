@@ -34,7 +34,7 @@ public class ElectionsController {
     private static final Logger logger = Logger.getLogger(ElectionsController.class);
 
     
-    @RequestMapping(value="/elections", method = RequestMethod.GET)
+    @RequestMapping(value="elections/home", method = RequestMethod.GET)
     public ModelAndView listAllElections() 
     {
 	logger.debug("ElectionsController.listAllElections() -  Controller methode mapping done!");
@@ -47,7 +47,7 @@ public class ElectionsController {
     public ModelAndView getElectionById(@RequestParam int electId) 
     {
 	ElectionsBean election= electionsService.getById(electId);
-	return new ModelAndView("ElectionsView", "election", election);  
+	return new ModelAndView("ElectionsHome", "election", election);  
     }
 
     
@@ -55,7 +55,7 @@ public class ElectionsController {
     public ModelAndView getElectionBySearchKey(@RequestParam String searchKey) 
     {
 	List<ElectionsBean> electionsList = electionsService.searchWildCard(searchKey);
-	return new ModelAndView("ElectionsView", "electionsList", electionsList);  
+	return new ModelAndView("ElectionsHome", "electionsList", electionsList);  
     }
 
     @RequestMapping(value="elections/getForm", method = RequestMethod.GET)
@@ -94,5 +94,11 @@ public class ElectionsController {
    {
 	return new ModelAndView("ElectionsError", "msgError", msgError);  
    }
+   
+   
+   
+   /*
+    * add method for the deleteById methode
+    */
     
 }

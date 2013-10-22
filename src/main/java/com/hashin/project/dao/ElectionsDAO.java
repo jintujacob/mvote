@@ -12,5 +12,5 @@ public interface ElectionsDAO {
 	public ElectionsBean getById(int electId);
 	public List<ElectionsBean> listAll();
 	public List<ElectionsBean> searchWildCard(String electTitle);
-
+	public int deleteById(int electId);
 }

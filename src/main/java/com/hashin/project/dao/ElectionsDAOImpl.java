@@ -83,5 +83,14 @@ public class ElectionsDAOImpl implements ElectionsDAO
 	List<ElectionsBean> electionList = jdbcTemplate.query(query, parameters, new ElectionsRowMapper());
 	return electionList;
     }
+    
+    
+    public int deleteById(int electId)
+    {
+	String query = "delete from user where user_id= ?" ; 
+	Object[] parameters = new Object[] {electId};
+	int numRows = jdbcTemplate.update(query);
+	return numRows;
+    }
 	
 }

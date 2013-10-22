@@ -36,5 +36,10 @@ public class ElectionsServiceImpl implements ElectionsService
 	    List<ElectionsBean> electionList = electionsDao.searchWildCard(electTitle);
 	    return electionList;
 	}
+	
+	public int deleteById(int electId)
+	{
+	    return electionsDao.deleteById(electId);
+	}
 
 }

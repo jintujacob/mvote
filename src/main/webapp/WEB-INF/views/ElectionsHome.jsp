@@ -38,11 +38,24 @@ Add Elections :  <br/>
 Update/Delete Elections : <br/>
 Search/View Elections : <br/>
 
-  
+<c:if test="${not empty election}">
+<table>
+    <tr>
+      <td>${election.electId}</td>
+     <td>${election.electTitle}</td>
+     <td>${election.electStartDate}</td>
+     <td>${election.electEndDate}</td>
+     <td>${election.electDescription}</td>
+    </tr> 
+</table>     
+</c:if>
+
+
+
  <b>Elections List  </b>
  
   <table border="1">
-   <tr><td colspan="7"><a href="elections/getForm">Add New Election</a></td></tr>
+   <tr><td colspan="7"><a href="getForm">Add New Election</a></td></tr>
    <tr>
     <td class="heading">Election Id</td>
     <td class="heading">election Title</td>
@@ -52,6 +65,8 @@ Search/View Elections : <br/>
     <td class="heading">Edit</td>
     <td class="heading">Delete</td>
    </tr>
+   
+   
    <c:forEach var="election" items="${electionsList}">
     <tr>
      <td>${election.electId}</td>
