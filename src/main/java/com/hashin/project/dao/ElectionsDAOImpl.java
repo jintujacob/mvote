@@ -1,26 +1,18 @@
 package com.hashin.project.dao;
 
- import java.sql.PreparedStatement;
 import java.util.List;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 
 import com.hashin.project.bean.ElectionsBean;
-import com.hashin.project.controller.ElectionsController;
 import com.hashin.project.util.ElectionsRowMapper;
 import com.hashin.project.dao.ElectionsDAO;
 
 
-import java.sql.*;
-
 import javax.annotation.Resource;
-import javax.naming.*;
-import javax.sql.*;
 
 
 public class ElectionsDAOImpl implements ElectionsDAO
@@ -29,13 +21,13 @@ public class ElectionsDAOImpl implements ElectionsDAO
     private static final Logger logger = Logger.getLogger(ElectionsDAOImpl.class);
     private JdbcTemplate jdbcTemplate;
     
+    
     @Resource(name="dataSource")
     public void setDataSource(DataSource dataSource)
     {
 	this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
     
-        
         
     public int create(ElectionsBean election)
     {

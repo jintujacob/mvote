@@ -12,7 +12,6 @@ public class ElectionsServiceImpl implements ElectionsService
     	@Autowired
 	private ElectionsDAO electionsDao;
     	
-    	//have to autowire since the spring is intializing the bean with datasource properties
 	
     	public int create(ElectionsBean election)
 	{

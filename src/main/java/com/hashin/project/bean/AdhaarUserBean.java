@@ -29,4 +29,24 @@ public class AdhaarUserBean {
 	public String getPhone() {
 		return phone;
 	}
+	public void setAdhaarID(String adhaarID)
+	{
+	    this.adhaarID = adhaarID;
+	}
+	public void setNameFirst(String nameFirst)
+	{
+	    this.nameFirst = nameFirst;
+	}
+	public void setNameLast(String nameLast)
+	{
+	    this.nameLast = nameLast;
+	}
+	public void setAddress(String address)
+	{
+	    this.address = address;
+	}
+	public void setPhone(String phone)
+	{
+	    this.phone = phone;
+	}
 }

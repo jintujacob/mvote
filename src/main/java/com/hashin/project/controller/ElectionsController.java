@@ -44,11 +44,20 @@ public class ElectionsController {
     }   
     
     
+    /*
+     * http://localhost:8080/mvote/elections/getById?electId=11
+     */
     @RequestMapping(value="/getById", method = RequestMethod.GET)
     public ModelAndView getElectionById(@RequestParam int electId) 
     {
 	ElectionsBean election= electionsService.getById(electId);
-	return new ModelAndView("ElectionsHome", "election", election);  
+	if(election != null){
+	    return new ModelAndView("ElectionsHome", "election", election);
+	}
+	else{
+	    return manageElectionsError("User not found");
+	}
+	  
     }
 
     
@@ -70,7 +79,7 @@ public class ElectionsController {
     
     
    @RequestMapping(value="/create", method = RequestMethod.GET)
-   public String createElectionEvent(@ModelAttribute("election") ElectionsBean election)
+   public ModelAndView createElectionEvent(@ModelAttribute("election") ElectionsBean election)
    {
        logger.debug("Inside > createElectionEvent");
        int numRows = 0 ;
@@ -81,18 +90,16 @@ public class ElectionsController {
        
        if(numRows <= 0)
        {
-	   return "redirect:electionsError?msgError=Unable to complete request due to database error"; 
-	   //manageElectionsError("Unable to complete request due to database error!");
-	   //this should handle the exceptions as well
-	   
-	   
-       }else{
-	   return "redirect:/elections/";   //return type should be String
+	   return  manageElectionsError("Unable to complete request due to backend error");
+       }
+       else
+       {
+	   return listAllElections();
        }
    }
    
 
-   @RequestMapping(value="/electionsError", method = RequestMethod.GET)
+   @RequestMapping(value="/electionsError")
    public ModelAndView manageElectionsError(@RequestParam String msgError) 
    {
 	return new ModelAndView("ElectionsError", "msgError", msgError);  
