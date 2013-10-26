@@ -23,10 +23,11 @@ import com.hashin.project.util.ElectionsExtractor;
  * @author jintu.jacob@gmail.com
  * Oct 9, 2013
  * ElectionsController
- * Handles all default inputs ending with /
+ * Handles all default inputs ending with /elections
  */
 
 @Controller
+@RequestMapping("elections")
 public class ElectionsController {
 
     @Autowired
@@ -34,7 +35,7 @@ public class ElectionsController {
     private static final Logger logger = Logger.getLogger(ElectionsController.class);
 
     
-    @RequestMapping(value="elections/home", method = RequestMethod.GET)
+    @RequestMapping(value="/", method = RequestMethod.GET)
     public ModelAndView listAllElections() 
     {
 	logger.debug("ElectionsController.listAllElections() -  Controller methode mapping done!");
@@ -43,7 +44,7 @@ public class ElectionsController {
     }   
     
     
-    @RequestMapping(value="elections/getById", method = RequestMethod.GET)
+    @RequestMapping(value="/getById", method = RequestMethod.GET)
     public ModelAndView getElectionById(@RequestParam int electId) 
     {
 	ElectionsBean election= electionsService.getById(electId);
@@ -51,22 +52,24 @@ public class ElectionsController {
     }
 
     
-    @RequestMapping(value="elections/search", method = RequestMethod.GET)
+    // http://localhost:8080/mvote/elections/search?searchKey=x
+    @RequestMapping(value="/search", method = RequestMethod.GET)
     public ModelAndView getElectionBySearchKey(@RequestParam String searchKey) 
     {
 	List<ElectionsBean> electionsList = electionsService.searchWildCard(searchKey);
 	return new ModelAndView("ElectionsHome", "electionsList", electionsList);  
     }
 
-    @RequestMapping(value="elections/getForm", method = RequestMethod.GET)
+    
+    // http://localhost:8080/mvote/elections/getForm
+    @RequestMapping(value="/getForm", method = RequestMethod.GET)
     public ModelAndView getElectionsForm(@ModelAttribute("election") ElectionsBean election) 
     {
-	//manage drop down elements for jsp into map object and pass as mav 
 	return new ModelAndView("ElectionsForm", "command", election);  
     }
     
     
-   @RequestMapping(value="elections/create", method = RequestMethod.GET)
+   @RequestMapping(value="/create", method = RequestMethod.GET)
    public String createElectionEvent(@ModelAttribute("election") ElectionsBean election)
    {
        logger.debug("Inside > createElectionEvent");
@@ -84,12 +87,12 @@ public class ElectionsController {
 	   
 	   
        }else{
-	   return "redirect:/elections";   //return type should be String
+	   return "redirect:/elections/";   //return type should be String
        }
    }
    
 
-   @RequestMapping(value="elections/electionsError", method = RequestMethod.GET)
+   @RequestMapping(value="/electionsError", method = RequestMethod.GET)
    public ModelAndView manageElectionsError(@RequestParam String msgError) 
    {
 	return new ModelAndView("ElectionsError", "msgError", msgError);  

@@ -21,4 +21,10 @@ public class MainController {
 		String testmessage = "Hi There, welcome to Mobile Voting application";
 		return new ModelAndView("index", "message", testmessage);
 	}
+	
+	@RequestMapping(value="/create", method = RequestMethod.GET)
+	public ModelAndView testMethod(){
+		String testmessage = "Hi There, welcome to Mobile Voting application";
+		return new ModelAndView("index", "message", testmessage);
+	}
 }
