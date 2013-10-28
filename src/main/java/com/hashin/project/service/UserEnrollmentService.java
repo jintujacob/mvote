@@ -1,6 +1,11 @@
 package com.hashin.project.service;
 
+import com.hashin.project.bean.AdhaarUserBean;
+
 public interface UserEnrollmentService
 {
-    //to be implemented
+  
+    // adhaar service
+    
+    public AdhaarUserBean getUserById(String adhaarID);
 }

@@ -34,15 +34,7 @@
         <property name="suffix" value=".jsp" />
     </bean>
     
-    
-    <!-- Definition for  bean -->
-    <bean id="electionsDao" class="com.hashin.project.dao.ElectionsDAOImpl" >
-        <property name="dataSource" ref="dataSource" />    </bean>
-     
-    
-    <bean id="adhaarDao" class="com.hashin.project.dao.AdhaarDAOImpl" >
-        <property name="dataSource" ref="dataSource" />  </bean>    
-    
+    <!--  Service Modules Bean Defenition -->
     <bean id="adhaarService" class="com.hashin.project.service.AdhaarServiceImpl"   />
     <bean id="electionsService" class="com.hashin.project.service.ElectionsServiceImpl" />
     <bean id="electionMgmtService" class="com.hashin.project.service.ElectionManagementServiceImpl" />
@@ -50,6 +42,20 @@
     <bean id="userEnrollmentService" class="com.hashin.project.service.UserEnrollmentServiceImpl" />
     <bean id="voterListMgmtService" class="com.hashin.project.service.VoterListManagementServiceImpl" />
      
+
+    <!-- DAO Objects Bean Defenition -->
+    <bean id="electionsMgmtDao" class="com.hashin.project.dao.ElectionManagementDAOImpl" >
+        <property name="dataSource" ref="dataSource" />    </bean>
+    <bean id="onlineVoteMgmtDao" class="com.hashin.project.dao.OnlineVoteMgmtDAOImpl" >
+        <property name="dataSource" ref="dataSource" />  </bean>   
+    <bean id="userEnrollmentDao" class="com.hashin.project.dao.UserEnrollmentDAOImpl" >
+        <property name="dataSource" ref="dataSource" />  </bean>   
+    <bean id="voterListManagementDao" class="com.hashin.project.dao.VoterListManagementDAOImpl" >
+        <property name="dataSource" ref="dataSource" />  </bean>   
+    
+           
+        
+
     <!-- declare datasource bean -->  
      <bean id="dataSource"   class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
 	      <property name="driverClassName" value="com.mysql.jdbc.Driver" />  
