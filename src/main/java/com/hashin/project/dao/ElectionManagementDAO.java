@@ -8,6 +8,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.hashin.project.bean.ElectionsBean;
+import com.hashin.project.bean.ElectionsConstsBean;
 
 /**
  * @author jintu.jacob@gmail.com
@@ -23,4 +24,7 @@ public interface ElectionManagementDAO
     public ElectionsBean getElectionById(int electId);
     public List<ElectionsBean> searchElectionsWildCard(String searckKey);
     public int removeElectionById(int electId);
+    
+    
+    public List<ElectionsConstsBean> getElectionsListByConst(String constituency);
 }

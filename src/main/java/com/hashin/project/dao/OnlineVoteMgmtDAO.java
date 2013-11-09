@@ -3,6 +3,8 @@
  */
 package com.hashin.project.dao;
 
+import javax.sql.DataSource;
+
 import com.hashin.project.bean.VotersAdhaarUserBean;
 import com.hashin.project.bean.VotersUserBean;
 
@@ -13,9 +15,7 @@ import com.hashin.project.bean.VotersUserBean;
  */
 public interface OnlineVoteMgmtDAO
 {
-
-    public VotersAdhaarUserBean getEnrollmentStatus(String votingPin, String adhaarId, String voterId);
-    
+    public void setDataSource(DataSource dataSource);
     public Boolean getVotingStatus(String votingPIN, String electionId);
     
 }

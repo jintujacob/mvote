@@ -1,12 +1,12 @@
 package com.hashin.project.service;
 
+import java.util.List;
+
+import com.hashin.project.bean.ElectionsBean;
+import com.hashin.project.bean.ElectionsConstsBean;
+
 public interface OnlineVotingService
 {
-    public String manageOnlineVoting();
     
-    public String getEnrollmentStatus(String votingPin, String adhaarId, String voterId);
-    
-    public Boolean getVotingStatus(String votingPIN);
-    
-    
+    public List<ElectionsConstsBean> manageVoterEntry(String votingPin, String adhaarId, String voterId);
 }

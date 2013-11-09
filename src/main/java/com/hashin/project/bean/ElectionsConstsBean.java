@@ -6,28 +6,30 @@ package com.hashin.project.bean;
  * Oct 9, 2013
  * ElectionsConstsBean -> Elections_Constituencies
  */
-public class ElectionsConstsBean {
+public class ElectionsConstsBean extends ElectionsBean{  
 
-	private String unitEleId;
-	private String electId;
-	private String constId;
+	private int unitEleId;
+	private int constId;
 	
-	public String getUnitEleId() {
+	/* -----------------------------Properties from Parent
+	private int electId;
+	private String electTitle;
+	private String electStartDate;
+	private String electEndDate;
+	private String electDescription;
+	-----------------------------------------------------*/
+	
+	
+	public int getUnitEleId() {
 		return unitEleId;
 	}
-	public void setUnitEleId(String unitEleId) {
+	public void setUnitEleId(int unitEleId) {
 		this.unitEleId = unitEleId;
 	}
-	public String getElectId() {
-		return electId;
-	}
-	public void setElectId(String electId) {
-		this.electId = electId;
-	}
-	public String getConstId() {
+	public int getConstId() {
 		return constId;
 	}
-	public void setConstId(String constId) {
+	public void setConstId(int constId) {
 		this.constId = constId;
 	}
 

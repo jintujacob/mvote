@@ -103,5 +103,20 @@ public class UserEnrollmentDAOImpl implements UserEnrollmentDAO
     }
 
 
+    @Override
+    public int getEnrollmentStatus(String votingPin, String adhaarId,
+	    String voterId)
+    {
+	String query = "select count(*) from voters_adhaar " +
+			"where fk_adhaar_id = ? " +
+			"  and fk_voters_id = ? " +
+			"  and voting_pin = ? " +
+			"  and lockout_flag <> 'T' ";
+	Object[] parameters = new Object[] {adhaarId, voterId, votingPin };
+	int rowCount = jdbcTemplate.queryForInt(query, parameters);
+	return rowCount;
+    }
+
+
 
 }

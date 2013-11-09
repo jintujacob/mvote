@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 09, 2013 at 08:52 PM
+-- Generation Time: Nov 10, 2013 at 02:09 AM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -78,7 +78,19 @@ CREATE TABLE IF NOT EXISTS `constituencies` (
   `const_name` varchar(20) NOT NULL,
   `const_state` varchar(20) NOT NULL,
   PRIMARY KEY (`const_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `constituencies`
+--
+
+INSERT INTO `constituencies` (`const_id`, `const_name`, `const_state`) VALUES
+(1, 'Piravom', 'Kerala'),
+(2, 'Moovatupuzha', 'Kerala'),
+(3, 'Aluva', 'Kerala'),
+(4, 'Kottayam', 'Kerala'),
+(5, 'Chennai', 'Tamil Nadu'),
+(6, 'Vishakapatanam', 'Andhra Pradesh');
 
 -- --------------------------------------------------------
 
@@ -100,18 +112,8 @@ CREATE TABLE IF NOT EXISTS `elections` (
 --
 
 INSERT INTO `elections` (`ele_id`, `ele_title`, `ele_start_dt`, `ele_end_dt`, `ele_desc`) VALUES
-(1, 'elections title 1', '2013-10-07', '2013-10-31', 'Description for election title 1'),
-(2, 'election title 2', '2013-11-11', '2013-12-12', 'Description for election title 2'),
-(3, 'election title 3', '2013-02-12', '2012-10-10', 'Description for election title 3'),
-(4, '123', '2013-10-12', '2013-12-12', 'alsdjflajsdf'),
-(5, 'test', '2013-10-12', '2013-02-08', 'test descriptions'),
-(6, 'sdjg', '2013-10-11', '2013-02-08', 'eqjwerljqw'),
-(7, 'finaltest', '2013-10-11', '2013-12-12', 'final test description'),
-(8, 'test', '2013-03-03', '2013-04-04', 'teting again'),
-(9, 'test', '2013-03-03', '2013-04-04', 'teting again'),
-(10, 'uiuiu', '2000-01-01', '2000-02-02', 'uiuiui'),
-(11, 'testform', '2000-01-01', '2000-02-02', 'final test description 2'),
-(12, 'xzzzzz', '2013-10-12', '2013-04-04', 'zxzzzxzzz');
+(1, 'LokSabha Elections', '2013-10-10', '2013-11-10', 'Lok Sabha Elections / south zone'),
+(2, 'Rajya Sabha Elections', '2013-11-10', '2013-12-10', 'Rajya Sabha Elections / north zone');
 
 -- --------------------------------------------------------
 
@@ -141,7 +143,19 @@ CREATE TABLE IF NOT EXISTS `elections_consts` (
   PRIMARY KEY (`unit_ele_id`),
   KEY `ele_id` (`ele_id`),
   KEY `const_id` (`const_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=403 ;
+
+--
+-- Dumping data for table `elections_consts`
+--
+
+INSERT INTO `elections_consts` (`unit_ele_id`, `ele_id`, `const_id`) VALUES
+(301, 1, 1),
+(302, 1, 2),
+(303, 1, 3),
+(304, 1, 4),
+(401, 2, 5),
+(402, 2, 6);
 
 -- --------------------------------------------------------
 

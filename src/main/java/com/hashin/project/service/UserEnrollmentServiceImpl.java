@@ -64,7 +64,7 @@ public class UserEnrollmentServiceImpl implements UserEnrollmentService
     /*
      * Out of scope methode - used for auto verification of the user(non-Javadoc)
      * @see com.hashin.project.service.UserEnrollmentService#verifyUser(com.hashin.project.bean.UserFormBean)
-     */
+     
     @Override
     public VotersAdhaarUserBean verifyUser(UserFormBean user)
     {
@@ -86,6 +86,7 @@ public class UserEnrollmentServiceImpl implements UserEnrollmentService
 	}
 	return verifiedUsr;
     }
+    */
 
 
 }

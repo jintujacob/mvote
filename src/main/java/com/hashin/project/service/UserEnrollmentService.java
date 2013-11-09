@@ -15,8 +15,6 @@ public interface UserEnrollmentService
      */
     public Long manageUserEnrollement(String votersId, String adhaarId);
     
-    public VotersAdhaarUserBean verifyUser(UserFormBean user);
-    
     
     /**
      * Method fetches Adhaar information for the user for provided adhaar id

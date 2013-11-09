@@ -32,4 +32,8 @@ public interface UserEnrollmentDAO
     
     public String generateVotingPin(); 
     
+    public int getEnrollmentStatus(String votingPin, String adhaarId,
+	    String voterId);
+
+    
 }
