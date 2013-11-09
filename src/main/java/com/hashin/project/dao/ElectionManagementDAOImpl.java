@@ -21,7 +21,7 @@ import com.hashin.project.util.ElectionsRowMapper;
  */
 public class ElectionManagementDAOImpl implements ElectionManagementDAO
 {
-    private static final Logger logger = Logger.getLogger(ElectionsDAOImpl.class);
+    private static final Logger logger = Logger.getLogger(ElectionManagementDAOImpl.class);
     private JdbcTemplate jdbcTemplate;
     
     

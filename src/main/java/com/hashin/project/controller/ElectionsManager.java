@@ -16,8 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.service.ElectionManagementService;
-import com.hashin.project.service.ElectionsService;
-import com.hashin.project.util.ElectionsExtractor;
 
 
 /**
