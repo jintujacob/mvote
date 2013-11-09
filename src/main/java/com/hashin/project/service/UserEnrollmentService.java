@@ -56,7 +56,7 @@ public interface UserEnrollmentService
     
     
     // --can be private can be removed from the interface since it is not externally required
-    public String generateVotingPin();
+    //public String generateVotingPin();
   
    
 }

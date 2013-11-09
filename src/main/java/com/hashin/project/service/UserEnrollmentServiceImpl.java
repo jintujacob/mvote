@@ -25,17 +25,18 @@ public class UserEnrollmentServiceImpl implements UserEnrollmentService
     public Long manageUserEnrollement(String votersId, String adhaarId)
     {
 	VotersAdhaarUserBean  userToEnroll = new VotersAdhaarUserBean();
-	
-	String votingPIN = generateVotingPin();
-	
-	userToEnroll.setAdhaarId(adhaarId);
-	userToEnroll.setVotersId(votersId);
-	userToEnroll.setLockOutFlag("F");
-	userToEnroll.setVotingPIN(votingPIN);
-	//userToEnroll.setGenDate() - db to set the date 
-	
-	Long autoGenId = userEnrollmentDao.createVotersAdhaarUser(userToEnroll);
-	return autoGenId;
+	String votingPIN = userEnrollmentDao.generateVotingPin();
+	if(votingPIN !=null){
+	    userToEnroll.setAdhaarId(adhaarId);
+	    userToEnroll.setVotersId(votersId);
+	    userToEnroll.setLockOutFlag("F");
+	    userToEnroll.setVotingPIN(votingPIN);
+	    //userToEnroll.setGenDate() - db to set the date
+
+	    Long autoGenId = userEnrollmentDao.createVotersAdhaarUser(userToEnroll);
+	    return autoGenId;
+	}
+	return null;
     }
 
     
@@ -52,21 +53,6 @@ public class UserEnrollmentServiceImpl implements UserEnrollmentService
     }
 
 
-    /**
-     * @return String - contains encrypted voting pin
-     */
-    @Override
-    public String generateVotingPin()
-    {
-	userEnrollmentDao.getVotingPin();
-	
-	// do null check before return
-	// do encrypt the data 
-	return "votingpin";
-    }
-
-    
-    
     /*
      * Out of scope methode - used for auto verification of the user(non-Javadoc)
      * @see com.hashin.project.service.UserEnrollmentService#verifyUser(com.hashin.project.bean.UserFormBean)

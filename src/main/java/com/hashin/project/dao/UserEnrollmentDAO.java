@@ -30,6 +30,6 @@ public interface UserEnrollmentDAO
      */
     public Long createVotersAdhaarUser(VotersAdhaarUserBean userToEnroll);
     
-    public String getVotingPin(); 
+    public String generateVotingPin(); 
     
 }
