@@ -10,16 +10,20 @@ import com.hashin.project.bean.UserFormBean;
 import com.hashin.project.bean.VotersAdhaarUserBean;
 import com.hashin.project.bean.VotersUserBean;
 import com.hashin.project.dao.UserEnrollmentDAO;
+import com.hashin.project.dao.VoterListManagementDAO;
 
 public class UserEnrollmentServiceImpl implements UserEnrollmentService
 {
     @Autowired
     private UserEnrollmentDAO userEnrollmentDao;
     
+    @Autowired
+    private VoterListManagementDAO voterListManagementDao;
+    
     /*
-     * On the manual verification completes this methode is called to enroll the user
+     * On the manual verification completes this method is called to enroll the user
      * - generate voting pin
-     * - input the voting pin, adhhaarId, and votersId to the enrollement tables
+     * - input the voting pin, adhhaarId, and votersId to the enrollment tables
      */
     @Override
     public Long manageUserEnrollement(String votersId, String adhaarId)
@@ -41,18 +45,22 @@ public class UserEnrollmentServiceImpl implements UserEnrollmentService
 
     
     @Override
-    public VotersUserBean getVoterById(String voterID)
-    {
-	return userEnrollmentDao.getVoterUserById(voterID);
-    }
-
-    @Override
     public AdhaarUserBean getAdhaarUserById(String adhaarID)
     {
 	return userEnrollmentDao.getAdhaarUserById(adhaarID);
     }
 
 
+    /**
+     * fetch from the VoterListManagementDAO
+     */
+    @Override
+    public VotersUserBean getVoterUserById(String votersId)
+    {
+	return voterListManagementDao.getVoterUserById(votersId);
+    }
+
+    
     /*
      * Out of scope methode - used for auto verification of the user(non-Javadoc)
      * @see com.hashin.project.service.UserEnrollmentService#verifyUser(com.hashin.project.bean.UserFormBean)
@@ -62,7 +70,7 @@ public class UserEnrollmentServiceImpl implements UserEnrollmentService
     {
 	VotersAdhaarUserBean verifiedUsr = new VotersAdhaarUserBean();
 	AdhaarUserBean adhaarUsr = getAdhaarUserById(user.getAdhaarID());
-	VotersUserBean voterUsr = getVoterById(user.getVotersID());
+	VotersUserBean voterUsr = voterListManagementDao.getVoterUserById(user.getVotersID());
 	
 	if( adhaarUsr.getNameFirst().equals(voterUsr.getNameFirst()) &&
 		adhaarUsr.getNameLast().equals(voterUsr.getNameLast()) &&
@@ -79,8 +87,5 @@ public class UserEnrollmentServiceImpl implements UserEnrollmentService
 	return verifiedUsr;
     }
 
-   
-   
-    
 
 }

@@ -21,7 +21,7 @@ public interface UserEnrollmentDAO
     
     public AdhaarUserBean getAdhaarUserById(String adhaarID);
     
-    public VotersUserBean getVoterUserById(String voterID);
+    
     
     /**
      * 

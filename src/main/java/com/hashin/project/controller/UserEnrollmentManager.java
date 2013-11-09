@@ -43,14 +43,14 @@ public class UserEnrollmentManager
     //get Adhaar information for the provided adhaarId
     @RequestMapping(value="/getAdhaarInfo", method = RequestMethod.GET)
     public ModelAndView getAdhaarInfobyId(@RequestParam String adhaarId){
-	
+	userEnrollmentService.getAdhaarUserById(adhaarId);
 	return null;
     }
     
     //get Voters information for the provided adhaarId
     @RequestMapping(value="/getVoterInfo", method = RequestMethod.GET)
     public ModelAndView getVoterInfobyId(@RequestParam String voterId){
-	
+	userEnrollmentService.getVoterUserById(voterId);
 	return null;
     }
 

@@ -47,18 +47,6 @@ public class UserEnrollmentDAOImpl implements UserEnrollmentDAO
     }
 
 
-    @Override
-    public VotersUserBean getVoterUserById(String voterID)
-    {
-	String query = "select * from voters where voters_id= ?";
-	Object[] parameters = new Object[] {voterID};
-	List<VotersUserBean> userList= jdbcTemplate.query(query, parameters, new VotersRowMapper());
-
-	logger.debug("UserEnrollmentDaoImpl #getVoterUserById Query=> executed" );
-	logger.debug("UserEnrollmentDaoImpl #getVoterUserById result => "+ userList.get(0).getConstituency());
-	return userList.get(0);        
-    }
-
 
     @Override
     public Long createVotersAdhaarUser(final VotersAdhaarUserBean userToEnroll)
