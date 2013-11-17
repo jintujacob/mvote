@@ -6,12 +6,18 @@ package com.hashin.project.bean;
  * Oct 9, 2013
  * ElectionsCandidatesBean
  */
-public class ElectionsCandidatesBean {
+public class ElectionsCandidatesBean extends CandidatesBean {
 
 	private String eleCandidateId; //PK
 	private String unitEleId;
 	private String candId;    //FK
 	
+	/*---------------------  Properties from Parent
+	private String candId;
+	private String candName;
+	private String candLogo;
+	private String candBio;
+	-------------------------------------------- */
 	
 	public String getEleCandidateId() {
 		return eleCandidateId;

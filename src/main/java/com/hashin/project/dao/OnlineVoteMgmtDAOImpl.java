@@ -3,11 +3,19 @@
  */
 package com.hashin.project.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import com.hashin.project.bean.ElectionsBean;
+import com.hashin.project.service.set;
+import com.hashin.project.service.update;
+import com.hashin.project.service.where;
+import com.hashin.project.util.ElectionsRowMapper;
 
 /**
  * @author jintu.jacob@gmail.com
@@ -26,11 +34,41 @@ public class OnlineVoteMgmtDAOImpl implements OnlineVoteMgmtDAO
 	this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    
+    
+    /**
+     * returns non-zero/1 when the user is voted for the provided election
+     * returns zero when user is not voted.
+     */
     @Override
-    public Boolean getVotingStatus(String votingPIN, String electionId)
+    public int getVotingStatus(String votingPIN, String electionId)
     {
-	// TODO Auto-generated method stub
-	return null;
+	String query = " select count(*) from elections_votingstats " +
+			" where voting_pin = '?' " +
+			  " and ele_id = ? " +
+			  " and voting_stat = 'Y' ";
+	Object[] parameters = new Object[] {votingPIN, electionId };
+	int rowCount = jdbcTemplate.queryForInt(query, parameters);
+	return rowCount;
     }
+
+    
+    /**
+     * returns non-zero/1 when update is successful
+     * returns zero when update fails
+     */
+    @Override
+    public int udpateVotingStatusByPin(String votingPIN, String electionId)
+    {
+	String query = "update elections_votingstats " +
+			"set voting_stat = 'Y' " +
+			"where voting_pin = '?' " +
+			"and ele_id = ?";
+	Object[] parameters = new Object[] {votingPIN, electionId};
+	int rowCount = jdbcTemplate.queryForInt(query, parameters);
+	return rowCount;
+    }
+    
+    
 
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.hashin.project.bean.ElectionsBean;
+import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
 
 /**
@@ -27,4 +28,8 @@ public interface ElectionManagementDAO
     
     
     public List<ElectionsConstsBean> getElectionsListByConst(String constituency);
+    
+    public List<ElectionsCandidatesBean> getCandidatesListByUnitId(int unitElectionId);
+    
+    public int increamentVoteCountByCandidate(String candidateId);
 }

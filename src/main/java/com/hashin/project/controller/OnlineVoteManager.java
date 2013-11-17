@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
 import com.hashin.project.service.OnlineVotingService;
 
@@ -37,10 +38,6 @@ public class OnlineVoteManager
     public ModelAndView verifyUserLogin(@RequestParam String votingPIN, 
 	    @RequestParam String adhaarId, @RequestParam String votersId)
     {
-	//verify enrollment
-	//verify if already voted or not, internally identify the constituency
-	//if verified get list of elections for the constituency
-	
 	List<ElectionsConstsBean> electionList = onlineVotingService.manageVoterEntry(votingPIN, adhaarId, votersId);
 	if(electionList != null){
 	    // do the return the elections list to the ui
@@ -52,18 +49,35 @@ public class OnlineVoteManager
     }
     
     @RequestMapping(value="/getCandidates", method=RequestMethod.GET)
-    public ModelAndView getCandidatesByUnitElection(@RequestParam String unitElectionId)
+    public ModelAndView getCandidatesByUnitElection( @RequestParam String votingPIN, 
+	    @RequestParam String electionId,  @RequestParam String unitElectionId)
     {
-	//get list of candidates
+	//User selects the election,and submits. service layer should check if the user is already voted or not
+	List<ElectionsCandidatesBean> candidateList = onlineVotingService.getCandidatesList(votingPIN, 
+		electionId, unitElectionId);
+	
+	if(candidateList != null){
+	    // do return the candidate list to the UI
+	}else{
+	    //return the error message to the UI that the user is either voted 
+	    //or not able to pull the candidate for the election
+	}
 	return null;
     }
     
     @RequestMapping(value="/submitVote", method=RequestMethod.GET)
-    public ModelAndView submitVoteforCandidate(@RequestParam String candidateId)
+    public ModelAndView submitVoteforCandidate(@RequestParam String votingPIN, 
+	    @RequestParam String candidateId, @RequestParam String electionId)
     {
-	//update votecount
-	//update voting status
-	//return succes of fail
+	String message = onlineVotingService.submitVoteforCandidate(votingPIN, candidateId, electionId);
+	if (message != null){
+	    //show the confirmation message in UI that voting is completed successfully
+	}else{
+	    //show the confirmation message in UI to submit the request again.
+	    //it should not ask the user to input all the details again. 
+	    //Cache the details in the UI and ask him to just click the resubmit button again.
+	    //check if the transaction works 
+	}
 	return null;
     }
     
