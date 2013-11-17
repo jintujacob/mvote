@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 10, 2013 at 02:09 AM
+-- Generation Time: Nov 17, 2013 at 02:15 PM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -44,14 +44,17 @@ CREATE TABLE IF NOT EXISTS `adhaarDB` (
   `phone` varchar(15) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `adhaar_id` (`adhaar_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `adhaarDB`
 --
 
 INSERT INTO `adhaarDB` (`id`, `adhaar_id`, `nameFirst`, `nameLast`, `address`, `phone`) VALUES
-(1, '001002003004', 'Jintu', 'Jacob', 'Kalarikkaparambil, Chithrapuzha South, Irimpanam PO, Ernakulam', '9847361387');
+(1, '001002003004', 'Jintu', 'Jacob', 'Kalarikkaparambil, Chithrapuzha South, Irimpanam PO, Ernakulam', '9847361387'),
+(2, 'UID444', 'AdminFirst', 'AdminLast', 'AdminAddress', '9847361387'),
+(3, 'UID888', 'TestFirst', 'TestLast', 'TestAddress', '9847361387'),
+(4, 'UID666', 'QATestFirst', 'QATestLast', 'QATestAddress', '9847361387');
 
 -- --------------------------------------------------------
 
@@ -65,7 +68,19 @@ CREATE TABLE IF NOT EXISTS `candidates` (
   `cand_logo` varchar(100) NOT NULL,
   `cand_bio` varchar(100) NOT NULL,
   PRIMARY KEY (`cand_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `candidates`
+--
+
+INSERT INTO `candidates` (`cand_id`, `cand_name`, `cand_logo`, `cand_bio`) VALUES
+(1, 'Candidate1 Piravom', 'logopath', 'candidate1 Piravom bio'),
+(2, 'Candidate2 Piravom', 'logopath', 'candidate2 Piravom bio'),
+(3, 'Candidate3 Piravom', 'logopath', 'candidate3 Piravom bio'),
+(4, 'Candidate4 Aluva', 'logopath', 'candidate4 Aluva bio'),
+(5, 'Candidate5 Aluva', 'logopath', 'candidate5 Aluva bio'),
+(6, 'Candidate6 Mvtpza', 'logopath', 'candidate6 Mvtpza  bio');
 
 -- --------------------------------------------------------
 
@@ -105,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `elections` (
   `ele_end_dt` date NOT NULL,
   `ele_desc` text NOT NULL,
   PRIMARY KEY (`ele_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `elections`
@@ -128,7 +143,19 @@ CREATE TABLE IF NOT EXISTS `elections_candidates` (
   PRIMARY KEY (`ele_cand_id`),
   KEY `cand_id` (`cand_id`),
   KEY `unit_ele_id` (`unit_ele_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `elections_candidates`
+--
+
+INSERT INTO `elections_candidates` (`ele_cand_id`, `unit_ele_id`, `cand_id`) VALUES
+(1, 301, 1),
+(2, 301, 2),
+(3, 301, 3),
+(4, 303, 4),
+(5, 303, 5),
+(6, 302, 6);
 
 -- --------------------------------------------------------
 
@@ -171,7 +198,19 @@ CREATE TABLE IF NOT EXISTS `elections_results` (
   PRIMARY KEY (`ele_result_id`),
   KEY `ele_cand_id` (`ele_cand_id`),
   KEY `unit_ele_id` (`unit_ele_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `elections_results`
+--
+
+INSERT INTO `elections_results` (`ele_result_id`, `unit_ele_id`, `ele_cand_id`, `vote_count`) VALUES
+(1, 301, 1, 3001),
+(2, 301, 2, 5000),
+(3, 301, 3, 7000),
+(4, 303, 4, 2500),
+(5, 303, 5, 3500),
+(6, 302, 6, 1500);
 
 -- --------------------------------------------------------
 
@@ -201,7 +240,16 @@ CREATE TABLE IF NOT EXISTS `elections_votingstats` (
   PRIMARY KEY (`ev_id`),
   UNIQUE KEY `voting_pin` (`voting_pin`),
   KEY `ele_id` (`ele_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `elections_votingstats`
+--
+
+INSERT INTO `elections_votingstats` (`ev_id`, `voting_pin`, `ele_id`, `voting_stat`) VALUES
+(1, 'VPIN444', 1, 'Y'),
+(2, 'VPIN888', 1, 'N'),
+(3, 'VPIN666', 1, 'N');
 
 -- --------------------------------------------------------
 
@@ -238,7 +286,16 @@ CREATE TABLE IF NOT EXISTS `voters` (
   `place` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `voters_id` (`voters_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `voters`
+--
+
+INSERT INTO `voters` (`id`, `voters_id`, `name`, `const`, `place`) VALUES
+(1, 'v444', 'admin', '1', 'Ernakulam'),
+(2, 'v888', 'test', '1', 'Thripunithura'),
+(3, 'v666', 'qatest', '2', 'Muvattupuzha');
 
 -- --------------------------------------------------------
 
@@ -257,7 +314,16 @@ CREATE TABLE IF NOT EXISTS `voters_adhaar` (
   UNIQUE KEY `fk_voters_id` (`fk_voters_id`),
   UNIQUE KEY `fk_adhaar_id` (`fk_adhaar_id`),
   UNIQUE KEY `voting_pin` (`voting_pin`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `voters_adhaar`
+--
+
+INSERT INTO `voters_adhaar` (`id`, `fk_voters_id`, `fk_adhaar_id`, `voting_pin`, `gen_date`, `lockout_flag`) VALUES
+(1, 'v444', 'UID444', 'VPIN444', '2013-12-12', 'F'),
+(2, 'v888', 'UID888', 'VPIN888', '2013-12-12', 'F'),
+(3, 'v666', 'UID666', 'VPIN666', '2013-12-12', 'F');
 
 --
 -- Constraints for dumped tables
