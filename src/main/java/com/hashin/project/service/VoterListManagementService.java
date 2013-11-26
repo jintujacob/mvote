@@ -1,5 +1,7 @@
 package com.hashin.project.service;
 
+import java.util.List;
+
 import com.hashin.project.bean.VotersUserBean;
 
 public interface VoterListManagementService
@@ -11,4 +13,16 @@ public interface VoterListManagementService
      * public method due to reusability
      */
     public VotersUserBean getVoterById(String votersId);
+    
+    public List<VotersUserBean> getVotersByNameSearch(String voterName);
+    
+    public List<VotersUserBean> getVotersByNameAndConstituency(String voterName, String constId);
+    
+    public List<VotersUserBean> getVotersByNameConstAndLockoutFlag(String voterName, 
+	    String constId, String flag);
+    
+    public String insertNewVoter(VotersUserBean voterUser);
+    
+    public VotersUserBean updateVotersById(VotersUserBean voterUser);
+    
 }
