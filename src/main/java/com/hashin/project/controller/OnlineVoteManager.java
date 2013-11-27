@@ -21,7 +21,7 @@ public class OnlineVoteManager
 
     @Autowired
     private OnlineVotingService onlineVotingService; 
-    private static final Logger logger = Logger.getLogger(ElectionsManager.class);
+    private static final Logger logger = Logger.getLogger(OnlineVoteManager.class);
 
     @RequestMapping(value="/", method = RequestMethod.GET)
     public ModelAndView getHomeAction() 

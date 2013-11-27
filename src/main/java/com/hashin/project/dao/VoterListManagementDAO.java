@@ -9,11 +9,12 @@ import com.hashin.project.bean.VotersUserBean;
 public interface VoterListManagementDAO
 {
     public void setDataSource(DataSource dataSource);
+    
     public VotersUserBean getVoterUserById(String voterID);
     
     public List<VotersUserBean> getVotersByQueryName(String queryName, Object[] parameters);
     
-    public String insertNewVoter(VotersUserBean voterUser);
+    public int insertNewVoter(VotersUserBean voterUser);
     
     public VotersUserBean updateVotersById(VotersUserBean voterUser);
 }

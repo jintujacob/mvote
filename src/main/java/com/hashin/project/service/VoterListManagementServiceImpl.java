@@ -24,37 +24,48 @@ public class VoterListManagementServiceImpl implements
     @Override
     public List<VotersUserBean> getVotersByNameSearch(String voterName)
     {
-	// TODO Auto-generated method stub
-	return null;
+	List<VotersUserBean> userList = null; 
+	Object[] parameters = new Object[] { voterName };
+	userList = voterListManagementDao.getVotersByQueryName("GET_VOTERS_NAME", parameters);
+	return userList;
     }
 
     @Override
     public List<VotersUserBean> getVotersByNameAndConstituency(
 	    String voterName, String constId)
     {
-	// TODO Auto-generated method stub
-	return null;
+	List<VotersUserBean> userList = null; 
+	Object[] parameters = new Object[] { voterName, constId };
+	userList = voterListManagementDao.getVotersByQueryName("GET_VOTERS_NAME_CONST", parameters);
+	return userList;
     }
 
     @Override
     public List<VotersUserBean> getVotersByNameConstAndLockoutFlag(
 	    String voterName, String constId, String flag)
     {
-	// TODO Auto-generated method stub
-	return null;
+	List<VotersUserBean> userList = null;
+	Object[] parameters = new Object[] { voterName, constId, flag };
+	userList = voterListManagementDao.getVotersByQueryName("GET_VOTERS_NAME_CONST_FLAG", parameters);
+	return userList;
     }
 
     @Override
-    public String insertNewVoter(VotersUserBean voterUser)
+    public Boolean insertNewVoter(VotersUserBean voterUser)
     {
-	// TODO Auto-generated method stub
-	return null;
+	Boolean status = false;
+	int numRows =  voterListManagementDao.insertNewVoter(voterUser);
+	
+	if(numRows == 1){
+	    status = true;
+	}    
+	return status;
     }
 
     @Override
     public VotersUserBean updateVotersById(VotersUserBean voterUser)
     {
-	// TODO Auto-generated method stub
+	// to be implemented
 	return null;
     }
 

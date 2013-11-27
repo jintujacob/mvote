@@ -9,13 +9,58 @@ package com.hashin.project.bean;
 public class VotersUserBean {
 
 	private String votersId;
+	private String adhaarId;
+	private String votingPin;
+	private String genDate;
+	private String lockOutFlag;
 	private String name;
 	private String constituency;
 	private String place;
 	private String nameFirst;
 	private String nameLast;
+	private String state;
 	
 	
+	public String getState()
+	{
+	    return state;
+	}
+	public void setState(String state)
+	{
+	    this.state = state;
+	}
+	public String getAdhaarId()
+	{
+	    return adhaarId;
+	}
+	public void setAdhaarId(String adhaarId)
+	{
+	    this.adhaarId = adhaarId;
+	}
+	public String getVotingPin()
+	{
+	    return votingPin;
+	}
+	public void setVotingPin(String votingPin)
+	{
+	    this.votingPin = votingPin;
+	}
+	public String getGenDate()
+	{
+	    return genDate;
+	}
+	public void setGenDate(String genDate)
+	{
+	    this.genDate = genDate;
+	}
+	public String getLockOutFlag()
+	{
+	    return lockOutFlag;
+	}
+	public void setLockOutFlag(String lockOutFlag)
+	{
+	    this.lockOutFlag = lockOutFlag;
+	}
 	public String getNameFirst()
 	{
 	    return nameFirst;

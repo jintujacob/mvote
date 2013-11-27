@@ -21,7 +21,7 @@ public interface VoterListManagementService
     public List<VotersUserBean> getVotersByNameConstAndLockoutFlag(String voterName, 
 	    String constId, String flag);
     
-    public String insertNewVoter(VotersUserBean voterUser);
+    public Boolean insertNewVoter(VotersUserBean voterUser);
     
     public VotersUserBean updateVotersById(VotersUserBean voterUser);
     
