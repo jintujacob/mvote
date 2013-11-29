@@ -19,138 +19,89 @@ import com.hashin.project.util.ElectionsConstsMapper;
 import com.hashin.project.util.ElectionsRowMapper;
 
 /**
- * @author jintu.jacob@gmail.com
- * Oct 29, 2013
- * ElectionManagementDAOImpl
+ * @author jintu.jacob@gmail.com Oct 29, 2013 ElectionManagementDAOImpl
  */
-public class ElectionManagementDAOImpl implements ElectionManagementDAO
-{
-    private static final Logger logger = Logger.getLogger(ElectionManagementDAOImpl.class);
-    private JdbcTemplate jdbcTemplate;
-    
-    
-    @Resource(name="dataSource")
-    public void setDataSource(DataSource dataSource)
-    {
-	this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-    
-        
-    public int addNewElection(ElectionsBean election)
-    {
-	String query = "insert into elections (ele_title, ele_start_dt, ele_end_dt, ele_desc) values (?, ?, ?, ?)";
-	Object[] parameters = new Object[] 
-	{ 	election.getElectTitle(),
-		election.getElectStartDate(),
-	    	election.getElectEndDate(),
-	    	election.getElectDescription() 
-	};
-	int numRows = jdbcTemplate.update( query, parameters);
-	
-	logger.debug( "Query =>  insert into elections " +
-			"(ele_title, ele_start_dt, ele_end_dt, ele_desc) " +
-			"values (?, ?, ?, ?)");
-	logger.debug( "Result => rowCount= "+numRows);
-	
-	return numRows;
-    }
-	
-	
+public class ElectionManagementDAOImpl implements ElectionManagementDAO {
+	private static final Logger logger = Logger
+			.getLogger(ElectionManagementDAOImpl.class);
+	private JdbcTemplate jdbcTemplate;
 
-    public List<ElectionsBean> getAllElections()
-    {
-	String query = "select * from elections";
-	List<ElectionsBean> electionsList = jdbcTemplate.query(query, new ElectionsRowMapper());
-	return electionsList;
-    }
-	
-	
-    public ElectionsBean getElectionById(int electId)
-    {
-	String query = "select * from elections where ele_id = ?";
-	Object[] parameters = new Object[] {electId};
-	List<ElectionsBean> electionsList = jdbcTemplate.query(query, parameters, new ElectionsRowMapper());
-	return electionsList.get(0);
-    }
-	
-	
-    public List<ElectionsBean> searchElectionsWildCard(String searckKey)
-    {
-	searckKey = "%"+searckKey+"%";
-	String query = "select * from elections where ele_title like ?";
-	Object[] parameters = new Object[] {searckKey};
-	List<ElectionsBean> electionList = jdbcTemplate.query(query, parameters, new ElectionsRowMapper());
-	return electionList;
-    }
-    
-    
-    public int removeElectionById(int electId)
-    {
-	String query = "delete from user where user_id= ?" ; 
-	Object[] parameters = new Object[] {electId};
-	int numRows = jdbcTemplate.update(query);
-	return numRows;
-    }
+	@Resource(name = "dataSource")
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
 
+	public int addNewElection(ElectionsBean election) {
+		//String query = "insert into elections (ele_title, ele_start_dt, ele_end_dt, ele_desc) values (?, ?, ?, ?)";
+		Object[] parameters = new Object[] { 
+				election.getElectTitle(),
+				election.getElectStartDate(), 
+				election.getElectEndDate(),
+				election.getElectDescription() };
+		int numRows = jdbcTemplate.update(SQLConstants.INSERT_NEW_ELECTION, parameters);
 
-    @Override
-    public List<ElectionsConstsBean> getElectionsListByConst(String constId)
-    {
-	/*
-	 select ec.unit_ele_id, ec.ele_id, ec.const_id, 
-	 	e.ele_title, e.ele_start_dt, e.ele_end_dt, e.ele_desc 
-	 from elections_consts ec  
-	 left join elections e  
-	 on ec.ele_id=e.ele_id  
-	 where ec.const_id=4 
-	 */
-	String query = " select ec.unit_ele_id, ec.ele_id, ec.const_id, " +
-				" e.ele_title, e.ele_start_dt, e.ele_end_dt, e.ele_desc " +
-			" from elections_consts ec " +
-			" left join elections e " +
-			" on ec.ele_id=e.ele_id " +
-			" where ec.const_id= ?" ;
+		logger.debug("Query =>  insert into elections "
+				+ "(ele_title, ele_start_dt, ele_end_dt, ele_desc) "
+				+ "values (?, ?, ?, ?)");
+		logger.debug("Result => rowCount= " + numRows);
 
-	Object[] parameters = new Object[] {constId};
-	List<ElectionsConstsBean> electionList = jdbcTemplate.query(query, parameters, new ElectionsConstsMapper());
-	return electionList;
-    }
+		return numRows;
+	}
 
+	public List<ElectionsBean> getAllElections() {
+		List<ElectionsBean> electionsList = jdbcTemplate.query(SQLConstants.GET_ALL_ELECTIONS_BY_CRITERIA,
+				new ElectionsRowMapper());
+		return electionsList;
+	}
 
-    @Override
-    public List<ElectionsCandidatesBean> getCandidatesListByUnitId(int unitElectionId)
-    {
-	List<ElectionsCandidatesBean> candidateList = null;
-	String query = " select ec.ele_cand_id, ec.cand_id, " +
-			       " c.cand_name, c.cand_logo, c.cand_bio " +
-			" from elections_candidates ec " +
-			" join candidates c " +
-			" on ec.cand_id=c.cand_id " +
-			" where ec.unit_ele_id = ? ";
+	public ElectionsBean getElectionById(int electId) {
+		Object[] parameters = new Object[] { electId };
+		List<ElectionsBean> electionsList = jdbcTemplate.query(SQLConstants.GET_ELECTION_DETAIL_BY_ID,
+				parameters, new ElectionsRowMapper());
+		return electionsList.get(0);
+	}
 
-	Object[] parameters = new Object[] {unitElectionId};
-	candidateList = jdbcTemplate.query(query, parameters, new ElectionsCandidatesRowMapper());
-	return candidateList;
-    }
+	public List<ElectionsBean> searchElectionsWildCard(String searckKey) {
+		Object[] parameters = new Object[] { searckKey };
+		List<ElectionsBean> electionList = jdbcTemplate.query(SQLConstants.GET_ALL_ELECTIONS_BY_CRITERIA,
+				parameters, new ElectionsRowMapper());
+		return electionList;
+	}
 
+	public int removeElectionById(int electId) {
+		String query = "delete from user where user_id= ?";
+		Object[] parameters = new Object[] { electId };
+		int numRows = jdbcTemplate.update(query);
+		return numRows;
+	}
 
-    @Override
-    public int increamentVoteCountByCandidate(String candidateId)
-    {
-	int numRows = 0;
-	String query = "update elections_results " +
-			"set vote_count = vote_count+1 " +
-			"where ele_cand_id = ( " +
-				"select ele_cand_id " +
-				"from elections_candidates " +
-				"where cand_id = ? )";
-	Object[] parameters = new Object[] {candidateId };
-	numRows = jdbcTemplate.update( query, parameters);
+	@Override
+	public List<ElectionsConstsBean> getElectionsListByConst(String constId) {
+		Object[] parameters = new Object[] { constId };
+		List<ElectionsConstsBean> electionList = jdbcTemplate.query(SQLConstants.GET_ELECTIONS_BY_CONST_ID,
+				parameters, new ElectionsConstsMapper());
+		return electionList;
+	}
 
-	//non zero return ==> update is successfully executed.
-	//exception/zero on return ==> update failed 
-	return numRows;
-    }
+	@Override
+	public List<ElectionsCandidatesBean> getCandidatesListByUnitId(
+			int unitElectionId) {
+		List<ElectionsCandidatesBean> candidateList = null;
+		Object[] parameters = new Object[] { unitElectionId };
+		candidateList = jdbcTemplate.query(SQLConstants.GET_CANDIDATES_BY_UNIT_ELE_ID, parameters,
+				new ElectionsCandidatesRowMapper());
+		return candidateList;
+	}
 
+	@Override
+	public int increamentVoteCountByCandidate(String candidateId) {
+		int numRows = 0;
+		Object[] parameters = new Object[] { candidateId };
+		numRows = jdbcTemplate.update(SQLConstants.INCREMENT_VOTECOUNT_BY_CANDIDATE_ID, parameters);
+
+		// non zero return ==> update is successfully executed.
+		// exception/zero on return ==> update failed
+		return numRows;
+	}
 
 }
