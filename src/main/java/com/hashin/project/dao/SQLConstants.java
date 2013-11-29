@@ -8,8 +8,6 @@ public class SQLConstants {
 	
 	public static String GET_ELECTION_DETAIL_BY_ID = "select * from elections where ele_id = ?";
 	
-	//public static String GET_ALL_ELECTIONS = "select * from elections";
-	
 	public static String GET_ALL_ELECTIONS_BY_CRITERIA = "select * from elections where ele_title like %?%" ;
 	
 	public static String DELETE_ELECTION_BY_ID = "delete from user where user_id= ?";
@@ -30,5 +28,12 @@ public class SQLConstants {
 			+ 		"select ele_cand_id from elections_candidates where cand_id = ? "
 			+ ")";
 			
+	public static String GET_CANDIDATE_DETAIL_BY_ID = "select a.cand_id, a.cand_name, a.cand_logo, a.cand_bio, " 
+			+ "d.const_name, d.const_state, " 
+			+ "e.ele_id, c.unit_ele_id, e.ele_title, e.ele_desc " 
+			+ "from candidates a , elections_candidates b, elections_consts c, constituencies d, elections e " 
+			+ "where a.cand_id = b.cand_id and b.unit_ele_id = c.unit_ele_id " 
+			+ "and c.const_id = d.const_id and e.ele_id = c.ele_id " 
+			+ "a.cand_id = ?";
 	
 }

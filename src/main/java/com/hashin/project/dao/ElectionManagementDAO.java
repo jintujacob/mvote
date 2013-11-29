@@ -30,8 +30,20 @@ public interface ElectionManagementDAO {
 
 	public List<ElectionsConstsBean> getElectionsListByConst(String constituency);
 
-	public List<ElectionsCandidatesBean> getCandidatesListByUnitId(
-			int unitElectionId);
+	public List<ElectionsCandidatesBean> getCandidatesListByUnitId(int unitElectionId);
 
 	public int increamentVoteCountByCandidate(String candidateId);
+	
+	
+	
+	public Boolean enrollNewCandidate(ElectionsCandidatesBean candidate);
+
+	public ElectionsCandidatesBean getCandidateInfoById(String candidateId);
+	
+	public List<ElectionsCandidatesBean> getCandidatesByName(String candName);
+	
+	public List<ElectionsCandidatesBean> getCandidatesByConstituency(String constId);
+
+	
+	
 }

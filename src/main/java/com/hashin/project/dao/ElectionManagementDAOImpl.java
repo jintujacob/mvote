@@ -104,4 +104,36 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO {
 		return numRows;
 	}
 
+	@Override
+	public Boolean enrollNewCandidate(ElectionsCandidatesBean candidate)
+	{
+	    
+	    return null;
+	}
+
+	@Override
+	public ElectionsCandidatesBean getCandidateInfoById(String candidateId)
+	{
+	    Object[] parameters = new Object[] { candidateId};
+	    List<ElectionsCandidatesBean> candidateList = jdbcTemplate.query(SQLConstants.GET_CANDIDATE_DETAIL_BY_ID,
+				parameters, new ElectionsCandidatesRowMapper());
+	    return candidateList.get(0);
+		
+	}
+
+	@Override
+	public List<ElectionsCandidatesBean> getCandidatesByName(String candName)
+	{
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public List<ElectionsCandidatesBean> getCandidatesByConstituency(
+		String constId)
+	{
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
 }

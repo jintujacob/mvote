@@ -18,11 +18,18 @@ public class ElectionsCandidatesExtractor implements
     {
 	ElectionsCandidatesBean bean = new ElectionsCandidatesBean();
 	
-	bean.setEleCandidateId(rs.getString("ele_cand_id"));
-	bean.setCandId(rs.getString("cand_id"));
+	bean.setEleCandidateId(Integer.toString(rs.getInt("ele_cand_id")));
+	bean.setCandId(Integer.toString(rs.getInt("cand_id")));
 	bean.setCandName(rs.getString("cand_name"));
 	bean.setCandLogo(rs.getString("cand_logo"));
 	bean.setCandBio(rs.getString("cand_bio"));
+	
+	bean.setConstName(rs.getString("const_name"));
+	bean.setConstState(rs.getString("const_state"));
+	bean.setEleId(Integer.toString(rs.getInt("ele_id")));
+	bean.setUnitEleId(Integer.toString(rs.getInt("unit_ele_id")));
+	bean.setEleTitle(rs.getString("ele_title"));
+	bean.setEleDesc(rs.getString("ele_desc"));
 	
 	return bean;
     }
