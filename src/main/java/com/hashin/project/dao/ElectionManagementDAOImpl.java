@@ -115,7 +115,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO {
 	public ElectionsCandidatesBean getCandidateInfoById(String candidateId)
 	{
 	    Object[] parameters = new Object[] { candidateId};
-	    List<ElectionsCandidatesBean> candidateList = jdbcTemplate.query(SQLConstants.GET_CANDIDATE_DETAIL_BY_ID,
+	    List<ElectionsCandidatesBean> candidateList = jdbcTemplate.query(SQLConstants.GET_CANDIDATE_DEATAIL_BY_ID,
 				parameters, new ElectionsCandidatesRowMapper());
 	    return candidateList.get(0);
 		
@@ -124,16 +124,20 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO {
 	@Override
 	public List<ElectionsCandidatesBean> getCandidatesByName(String candName)
 	{
-	    // TODO Auto-generated method stub
-	    return null;
+	    Object[] parameters = new Object[] {candName};
+	    List<ElectionsCandidatesBean> candidateList = jdbcTemplate.query(SQLConstants.GET_CANDIDATES_BY_NAME,
+				parameters, new ElectionsCandidatesRowMapper());
+	    return candidateList;
 	}
 
 	@Override
 	public List<ElectionsCandidatesBean> getCandidatesByConstituency(
 		String constId)
 	{
-	    // TODO Auto-generated method stub
-	    return null;
+	    Object[] parameters = new Object[] {constId};
+	    List<ElectionsCandidatesBean> candidateList = jdbcTemplate.query(SQLConstants.GET_CANDIDATES_BY_CONSTITUENCY_ID,
+				parameters, new ElectionsCandidatesRowMapper());
+	    return candidateList;
 	}
 
 }

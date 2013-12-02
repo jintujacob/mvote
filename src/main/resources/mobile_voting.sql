@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 17, 2013 at 02:15 PM
+-- Generation Time: Dec 03, 2013 at 12:33 AM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -19,15 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `mobile_voting`
 --
-
-DELIMITER $$
---
--- Functions
---
-CREATE DEFINER=`root`@`localhost` FUNCTION `hello`(s CHAR(20)) RETURNS char(50) CHARSET latin1
-RETURN CONCAT('Hello, ',s,'!')$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -133,33 +124,6 @@ INSERT INTO `elections` (`ele_id`, `ele_title`, `ele_start_dt`, `ele_end_dt`, `e
 -- --------------------------------------------------------
 
 --
--- Table structure for table `elections_candidates`
---
-
-CREATE TABLE IF NOT EXISTS `elections_candidates` (
-  `ele_cand_id` int(10) NOT NULL AUTO_INCREMENT,
-  `unit_ele_id` int(20) NOT NULL,
-  `cand_id` int(20) NOT NULL,
-  PRIMARY KEY (`ele_cand_id`),
-  KEY `cand_id` (`cand_id`),
-  KEY `unit_ele_id` (`unit_ele_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
-
---
--- Dumping data for table `elections_candidates`
---
-
-INSERT INTO `elections_candidates` (`ele_cand_id`, `unit_ele_id`, `cand_id`) VALUES
-(1, 301, 1),
-(2, 301, 2),
-(3, 301, 3),
-(4, 303, 4),
-(5, 303, 5),
-(6, 302, 6);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `elections_consts`
 --
 
@@ -167,22 +131,12 @@ CREATE TABLE IF NOT EXISTS `elections_consts` (
   `unit_ele_id` int(20) NOT NULL AUTO_INCREMENT,
   `ele_id` int(10) NOT NULL,
   `const_id` int(10) NOT NULL,
+  `cand_id` int(10) NOT NULL,
   PRIMARY KEY (`unit_ele_id`),
   KEY `ele_id` (`ele_id`),
-  KEY `const_id` (`const_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=403 ;
-
---
--- Dumping data for table `elections_consts`
---
-
-INSERT INTO `elections_consts` (`unit_ele_id`, `ele_id`, `const_id`) VALUES
-(301, 1, 1),
-(302, 1, 2),
-(303, 1, 3),
-(304, 1, 4),
-(401, 2, 5),
-(402, 2, 6);
+  KEY `const_id` (`const_id`),
+  KEY `cand_id` (`cand_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -193,24 +147,12 @@ INSERT INTO `elections_consts` (`unit_ele_id`, `ele_id`, `const_id`) VALUES
 CREATE TABLE IF NOT EXISTS `elections_results` (
   `ele_result_id` int(10) NOT NULL AUTO_INCREMENT,
   `unit_ele_id` int(20) NOT NULL,
-  `ele_cand_id` int(10) NOT NULL,
+  `cand_id` int(10) NOT NULL,
   `vote_count` int(20) NOT NULL,
   PRIMARY KEY (`ele_result_id`),
-  KEY `ele_cand_id` (`ele_cand_id`),
-  KEY `unit_ele_id` (`unit_ele_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
-
---
--- Dumping data for table `elections_results`
---
-
-INSERT INTO `elections_results` (`ele_result_id`, `unit_ele_id`, `ele_cand_id`, `vote_count`) VALUES
-(1, 301, 1, 3001),
-(2, 301, 2, 5000),
-(3, 301, 3, 7000),
-(4, 303, 4, 2500),
-(5, 303, 5, 3500),
-(6, 302, 6, 1500);
+  KEY `unit_ele_id` (`unit_ele_id`),
+  KEY `cand_id` (`cand_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -250,27 +192,6 @@ INSERT INTO `elections_votingstats` (`ev_id`, `voting_pin`, `ele_id`, `voting_st
 (1, 'VPIN444', 1, 'Y'),
 (2, 'VPIN888', 1, 'N'),
 (3, 'VPIN666', 1, 'N');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `test`
---
-
-CREATE TABLE IF NOT EXISTS `test` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `name` varchar(10) NOT NULL,
-  `age` varchar(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `test`
---
-
-INSERT INTO `test` (`id`, `name`, `age`) VALUES
-(1, 'abc', '45'),
-(2, 'alsjdf', '2');
 
 -- --------------------------------------------------------
 
@@ -330,25 +251,19 @@ INSERT INTO `voters_adhaar` (`id`, `fk_voters_id`, `fk_adhaar_id`, `voting_pin`,
 --
 
 --
--- Constraints for table `elections_candidates`
---
-ALTER TABLE `elections_candidates`
-  ADD CONSTRAINT `elections_candidates_ibfk_1` FOREIGN KEY (`cand_id`) REFERENCES `candidates` (`cand_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `elections_candidates_ibfk_2` FOREIGN KEY (`unit_ele_id`) REFERENCES `elections_consts` (`unit_ele_id`) ON DELETE CASCADE;
-
---
 -- Constraints for table `elections_consts`
 --
 ALTER TABLE `elections_consts`
   ADD CONSTRAINT `elections_consts_ibfk_1` FOREIGN KEY (`ele_id`) REFERENCES `elections` (`ele_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `elections_consts_ibfk_2` FOREIGN KEY (`const_id`) REFERENCES `constituencies` (`const_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `elections_consts_ibfk_2` FOREIGN KEY (`const_id`) REFERENCES `constituencies` (`const_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `elections_consts_ibfk_3` FOREIGN KEY (`cand_id`) REFERENCES `candidates` (`cand_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `elections_results`
 --
 ALTER TABLE `elections_results`
-  ADD CONSTRAINT `elections_results_ibfk_1` FOREIGN KEY (`ele_cand_id`) REFERENCES `elections_candidates` (`ele_cand_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `elections_results_ibfk_2` FOREIGN KEY (`unit_ele_id`) REFERENCES `elections_consts` (`unit_ele_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `elections_results_ibfk_2` FOREIGN KEY (`unit_ele_id`) REFERENCES `elections_consts` (`unit_ele_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `elections_results_ibfk_3` FOREIGN KEY (`cand_id`) REFERENCES `candidates` (`cand_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `elections_schedules`
