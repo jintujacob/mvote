@@ -28,8 +28,8 @@ public class SQLConstants {
 			+ "where a.cand_id = b.cand_id and b.unit_ele_id = c.unit_ele_id " 
 			+ "and c.const_id = d.const_id and e.ele_id = c.ele_id " 
 			+ "a.cand_id = ?";
-	
 */
+	
 	public static String GET_CANDIDATE_DEATAIL_BY_ID = "select a.cand_id, a.cand_name, a.cand_logo, a.cand_bio, " 
 			+ "c.const_name, c.const_state, "
 			+ "d.ele_id, b.unit_ele_id, d.ele_title, d.ele_desc "
