@@ -38,15 +38,77 @@ public class SQLConstants {
         		+ "a.cand_id = ?";
 
 	public static String GET_CANDIDATES_BY_NAME = "select c.cand_id, c.cand_name, c.cand_logo, c.cand_bio " 
-			+ "from candidates c join elections_consts e " 
+			+ "from candidates c join elections_candidates e " 
 			+ "on c.cand_id = e.cand_id where c.cand_name like '%?%';"; 
 	
-	public static String GET_CANDIDATES_BY_CONSTITUENCY_ID = "select c.cand_id, c.cand_name, c.cand_logo, c.cand_bio " 
-			+ "from candidates c join elections_consts e " 
-			+ "on c.cand_id = e.cand_id where e.const_id = ? "; 
+	public static String GET_CANDIDATES_BY_CONSTITUENCY_ID = "select a.*, c.unit_ele_id " 
+			+ "from candidates a, elections_candidates b, elections_consts c " 
+			+ "where a.cand_id = b.cand_id and b.unit_ele_id = c.unit_ele_id " 
+			+ "and c.const_id = ?" ;
+	
+	//candidate register
 	public static String INSERT_CANDIDATE_IN_CANDIDATES = "insert into candidates (cand_name, cand_logo, cand_bio) " 
 			+ "values ( '?', '?', '?' )";
 	
+	//candidates enrolled
+	public static String INSERT_CANDIDATE_IN_ELECTION_CANDIDATES = "insert into elections_candidates "
+			+ "(unit_ele_id, cand_id) values (?, ?) " ;
+	
+	public static String INSERT_CANDIDATE_IN_ELECTION_RESULTS = " insert into elections_results " 
+			+ "(unit_ele_id, ele_cand_id, vote_count) values (?, ?, ?) " ;
+	
+	public static String INSERT_CONST_IN_CONSTITUENCIES = " insert into constituencies (const_name, const_state) " 
+			+ "values('?', '?') "; 
+	
+	public static String INSERT_CONST_IN_ELECTION_CONSTITUENCIES = " insert into elections_consts " 
+			+ "(ele_id, const_id) values ( ?, ? ) " ;
+	
+	public static String GET_VOTINGSTAT_BY_VOTINGPIN = " select count(*) from elections_votingstats " 
+			+ " where voting_pin = '?' and ele_id = ? and voting_stat = 'Y' ";
+	
+	public static String UPDATE_VOTINGSTAT_BY_VOTINGPIN = "update elections_votingstats " 
+			+ "set voting_stat = 'Y' " 
+			+ "where voting_pin = '?' and ele_id = ? " ;
+	
+	public static String GET_ADHAAR_USER_BY_ADHAAR_ID = " select * from adhaarDB where adhaar_id= '?' " ;
+	
+	public static String INSERT_ENRLD_USER_IN_VOTERSADHAAR = "insert into voters_adhaar " 
+			+ " (id, fk_voters_id, fk_adhaar_id, voting_pin, lockout_flag, gen_date) " 
+			+ " values (NULL, '?', '?', '?', '?', CURDATE()) ";
+	
+	public static String GET_ENRLMENT_STAT_BY_ALL_CRITERIA = "select count(*) from voters_adhaar " 
+			+ "where fk_adhaar_id = '?' and fk_voters_id = '?' " 
+			+ "and voting_pin = '?' and lockout_flag <> 'T' ";
+
+	public static String GET_VOTER_INFO_BY_VOTERID = "select * from voters where voters_id = '?' " ;
+	
+	public static String GET_VOTERS_BY_CONSTITUENCY =  "select " 
+			+ "va.fk_voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " 
+			+ "v.name, v.place, " 
+			+ "c.const_name, c.const_state " 
+			+ "from voters_adhaar va, voters v, constituencies c "
+			+ "where va.fk_voters_id = v.voters_id and v.const=c.const_id " 
+			+ "and v.const = '?' "; 
 	
 	
+	public static String GET_VOTERS_BY_NAME_CONST = "select " 
+			+ "va.fk_voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " 
+			+ "v.name,v.place, c.const_name, c.const_state " 
+			+ "from voters_adhaar va, voters v, constituencies c " 
+			+ "where va.fk_voters_id = v.voters_id and v.const=c.const_id " 
+			+ "and v.const = '?' and v.name like '%?%' ";
+	
+	public static String GET_VOTERS_BY_NAME_CONST_FLAG = "select " 
+			+ "va.fk_voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " 
+			+ "v.name,v.place, c.const_name, c.const_state " 
+			+ "from voters_adhaar va, voters v, constituencies c " 
+			+ "where va.fk_voters_id = v.voters_id and v.const=c.const_id " 
+			+ "and v.const = '?' and v.name like '%?%' and va.lockout_flag='?";
+	
+	public static String INSERT_NEW_VOTER_IN_VOTERS = "insert into voters " 
+			+ "( voters_id, name, const, place) " 
+			+ "values ('?', '?', ?, '?')" ;
+
+
+
 }

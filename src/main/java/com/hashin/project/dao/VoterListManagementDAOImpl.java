@@ -24,47 +24,14 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO
     private static final Logger logger = Logger.getLogger(VoterListManagementDAOImpl.class);
     private JdbcTemplate jdbcTemplate;
     
-    private static String GET_VOTERS_NAME = "GET_VOTERS_NAME";
-    private static String GET_VOTERS_NAME_CONST = "GET_VOTERS_NAME_CONST";
-    private static String GET_VOTERS_NAME_CONST_FLAG = "GET_VOTERS_NAME_CONST_FLAG";
+    private static String GET_VOTERS_BY_CONSTITUENCY = "GET_VOTERS_BY_CONSTITUENCY";
+    private static String GET_VOTERS_BY_NAME_CONST = "GET_VOTERS_BY_NAME_CONST";
+    private static String GET_VOTERS_BY_NAME_CONST_FLAG = "GET_VOTERS_BY_NAME_CONST_FLAG";
 
-    private static String SQL_GET_VOTER_INFO_ID = "select * from voters where voters_id = '?' " ;
-
-/*	    
-    private static String SQL_GET_VOTER_INFO_ID =
-	    "select va.fk_voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " +
-	    "v.name, v.place, " +
-	    "c.const_name, c.const_state " +
-	    "from voters_adhaar va, voters v, constituencies c " +
-	    "where va.fk_voters_id = v.voters_id and v.const=c.const_id " +
-	    "and va.fk_voters_id = '?'"; 
-*/    
-    private static String SQL_GET_VOTERS_NAME = 
-	    "select va.fk_voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " +
-	    "v.name, v.place, " +
-	    "c.const_name, c.const_state " +
-	    "from voters_adhaar va, voters v, constituencies c " +
-	    "where va.fk_voters_id = v.voters_id and v.const=c.const_id " +
-	    "and v.const = '?' "; 
 	    
-    private static String SQL_GET_VOTERS_NAME_CONST = 
-	    "select va.fk_voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " +
-	    "v.name,v.place, c.const_name, c.const_state " +
-	    "from voters_adhaar va, voters v, constituencies c " +
-	    "where va.fk_voters_id = v.voters_id and v.const=c.const_id " +
-	    "and v.const = '?' and v.name like '%?%' ";
     
-    private static String SQL_GET_VOTERS_NAME_CONST_FLAG = 
-	    "select va.fk_voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " +
-	    "v.name,v.place, c.const_name, c.const_state " +
-	    "from voters_adhaar va, voters v, constituencies c " +
-	    "where va.fk_voters_id = v.voters_id and v.const=c.const_id " +
-	    "and v.const = '?' and v.name like '%?%' and va.lockout_flag='?";
     
-    private static String SQL_INSERT_NEW_VOTER = 
-	    "insert into voters ( voters_id, name, const, place) " +
-	    "values ('?', '?', ?, '?')" ;
-
+    
     //private static String SQL_UPDATE_VOTER_BY_ID = "";
 
     
@@ -80,7 +47,8 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO
     public VotersUserBean getVoterUserById(String voterID)
     {
 	Object[] parameters = new Object[] {voterID};
-	List<VotersUserBean> userList= jdbcTemplate.query(SQL_GET_VOTER_INFO_ID, parameters, new VotersRowMapper());
+	List<VotersUserBean> userList= jdbcTemplate.query(SQLConstants.GET_VOTER_INFO_BY_VOTERID, 
+		parameters, new VotersRowMapper());
 
 	logger.debug("VoterListManagementDAOImpl #getVoterUserById Query=> executed" );
 	logger.debug("VoterListManagementDAOImpl #getVoterUserById result => "+ userList.get(0).getConstituency());
@@ -94,12 +62,12 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO
 	List<VotersUserBean> userList = null;
 	String query = null;
 	
-	if( queryName.equals(GET_VOTERS_NAME )){	
-	    query = SQL_GET_VOTERS_NAME ;
-	}else if ( queryName.equals(GET_VOTERS_NAME_CONST )){
-	    query = SQL_GET_VOTERS_NAME_CONST ;
-	}else if ( queryName.equals(GET_VOTERS_NAME_CONST_FLAG )){
-	    query = SQL_GET_VOTERS_NAME_CONST_FLAG ;
+	if( queryName.equals(GET_VOTERS_BY_CONSTITUENCY )){	
+	    query = SQLConstants.GET_VOTERS_BY_CONSTITUENCY ;
+	}else if ( queryName.equals(GET_VOTERS_BY_NAME_CONST )){
+	    query = SQLConstants.GET_VOTERS_BY_NAME_CONST ;
+	}else if ( queryName.equals(GET_VOTERS_BY_NAME_CONST_FLAG )){
+	    query = SQLConstants.GET_VOTERS_BY_NAME_CONST_FLAG ;
     	}
 	
 	
@@ -119,8 +87,8 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO
 		voterUser.getName(), voterUser.getConstituency(),
 		voterUser.getPlace() };
 	
-	numRows = jdbcTemplate.update( SQL_INSERT_NEW_VOTER, parameters);
-	logger.debug("VoterListManagementDAOImpl #insertNewVoter Query=> "+ SQL_INSERT_NEW_VOTER + "executed" );
+	numRows = jdbcTemplate.update( SQLConstants.INSERT_NEW_VOTER_IN_VOTERS, parameters);
+	logger.debug("VoterListManagementDAOImpl #insertNewVoter Query=> "+ SQLConstants.INSERT_NEW_VOTER_IN_VOTERS+ "executed" );
 	logger.debug("VoterListManagementDAOImpl #insertNewVoter result => "+ numRows);
 	
 	return numRows;

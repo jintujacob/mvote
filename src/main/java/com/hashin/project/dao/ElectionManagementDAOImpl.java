@@ -39,12 +39,6 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO {
 				election.getElectEndDate(),
 				election.getElectDescription() };
 		int numRows = jdbcTemplate.update(SQLConstants.INSERT_NEW_ELECTION, parameters);
-
-		logger.debug("Query =>  insert into elections "
-				+ "(ele_title, ele_start_dt, ele_end_dt, ele_desc) "
-				+ "values (?, ?, ?, ?)");
-		logger.debug("Result => rowCount= " + numRows);
-
 		return numRows;
 	}
 
@@ -110,7 +104,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO {
 	public ElectionsCandidatesBean getCandidateInfoById(String candidateId)
 	{
 	    Object[] parameters = new Object[] { candidateId};
-	    List<ElectionsCandidatesBean> candidateList = jdbcTemplate.query(SQLConstants.GET_CANDIDATE_DEATAIL_BY_ID,
+	    List<ElectionsCandidatesBean> candidateList = jdbcTemplate.query(SQLConstants.GET_CANDIDATE_DETAIL_BY_ID,
 				parameters, new ElectionsCandidatesRowMapper());
 	    return candidateList.get(0);
 		

@@ -43,12 +43,8 @@ public class OnlineVoteMgmtDAOImpl implements OnlineVoteMgmtDAO
     @Override
     public int getVotingStatus(String votingPIN, String electionId)
     {
-	String query = " select count(*) from elections_votingstats " +
-			" where voting_pin = '?' " +
-			  " and ele_id = ? " +
-			  " and voting_stat = 'Y' ";
 	Object[] parameters = new Object[] {votingPIN, electionId };
-	int rowCount = jdbcTemplate.queryForInt(query, parameters);
+	int rowCount = jdbcTemplate.queryForInt(SQLConstants.GET_VOTINGSTAT_BY_VOTINGPIN, parameters);
 	return rowCount;
     }
 
@@ -65,7 +61,7 @@ public class OnlineVoteMgmtDAOImpl implements OnlineVoteMgmtDAO
 			"where voting_pin = '?' " +
 			"and ele_id = ?";
 	Object[] parameters = new Object[] {votingPIN, electionId};
-	int rowCount = jdbcTemplate.queryForInt(query, parameters);
+	int rowCount = jdbcTemplate.queryForInt(SQLConstants.UPDATE_VOTINGSTAT_BY_VOTINGPIN, parameters);
 	return rowCount;
     }
     
