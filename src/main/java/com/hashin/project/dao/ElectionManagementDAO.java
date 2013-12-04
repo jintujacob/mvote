@@ -36,7 +36,7 @@ public interface ElectionManagementDAO {
 	
 	
 	
-	public Boolean enrollNewCandidate(ElectionsCandidatesBean candidate);
+	//public Boolean enrollNewCandidate(ElectionsCandidatesBean candidate);
 
 	public ElectionsCandidatesBean getCandidateInfoById(String candidateId);
 	

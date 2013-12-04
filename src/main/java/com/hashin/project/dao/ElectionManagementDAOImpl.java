@@ -104,12 +104,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO {
 		return numRows;
 	}
 
-	@Override
-	public Boolean enrollNewCandidate(ElectionsCandidatesBean candidate)
-	{
-	    
-	    return null;
-	}
+	
 
 	@Override
 	public ElectionsCandidatesBean getCandidateInfoById(String candidateId)
@@ -139,5 +134,9 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO {
 				parameters, new ElectionsCandidatesRowMapper());
 	    return candidateList;
 	}
+	
+	
+	
+	
 
 }
