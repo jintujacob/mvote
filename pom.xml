@@ -60,7 +60,31 @@
 		    <artifactId>commons-dbcp</artifactId>
 		    <version>1.2.2</version>
 		</dependency>
-		            
+		
+        <dependency><!-- jackson -->
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.thetransactioncompany</groupId>
+		    <artifactId>cors-filter</artifactId>
+		    <version>1.9</version>
+		</dependency>            
+        
+        <dependency>
+         <groupId>com.metaparadigm</groupId>
+         <artifactId>json-rpc</artifactId>
+        <version>1.0</version>
+      </dependency>
         
     </dependencies>
   

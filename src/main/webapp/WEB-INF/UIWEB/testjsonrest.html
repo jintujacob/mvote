@@ -1,0 +1,55 @@
+<html>
+
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" >
+$(document).ready(function(){
+	sendAjax();
+});
+ 
+
+	function sendAjax() {
+	      $.ajax({
+	            url: 'http://192.168.1.3:8080/mvote/main',
+	            type: 'GET',
+	            contentType: 'application/json; charset=utf-8',
+	            dataType: 'json',
+	            success: function(person){
+	                alert(person.candName);
+	            }
+	        }); 
+		
+	}
+	
+	function sendAjaxPost(){
+		
+		$.post(
+				'http://192.168.1.3:8080/mvote/main',
+	            function(data){
+					alert(data.city);
+	            }
+	        );  // end of $.post --
+	        
+	        
+	}
+
+	   function sendAjaxGet(){
+		   $.get( 'http://192.168.1.3:8080/mvote/main', 
+				   function(person) {
+               alert(person.candName+person.candBio);
+		        });
+	        
+	    }
+	   
+	   
+	   //working
+	   function getJson(){
+		   $.getJSON('http://192.168.1.3:8080/mvote/main', function(person) {
+                  alert(person.candName+person.candBio);
+               });
+	   }
+	    
+	
+	
+	
+</script>
+</html>

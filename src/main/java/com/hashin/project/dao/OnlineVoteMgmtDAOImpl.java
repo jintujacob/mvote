@@ -12,9 +12,6 @@ import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.hashin.project.bean.ElectionsBean;
-import com.hashin.project.service.set;
-import com.hashin.project.service.update;
-import com.hashin.project.service.where;
 import com.hashin.project.util.ElectionsRowMapper;
 
 /**

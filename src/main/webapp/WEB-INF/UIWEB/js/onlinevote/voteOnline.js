@@ -12,7 +12,33 @@ $(document).ready(function(){
 	$('.menuitem').menu();
 	
 	$('#btn_submitform').click(function(){
-		processLoginFormSubmit();
+		//processLoginFormSubmit();
+		
+		$.get(
+				'http://localhost:8080/springjson/rest/kfc/brands/kfc-kampar', 
+				function(response) {
+					alert('hello');
+					alert(response);
+		});
+		
+		/*$.ajax({
+			type : "GET",
+			url : "http://localhost:8080/mvote/vote/formBean",
+			data : JSON.stringify({
+				votersId:"444",
+				adhaarId:"445"
+			}),
+			contentType : 'application/json',
+			success : function(resp) {
+				alert('in success');
+			},
+			error : function(resp){
+				alert('in error');
+			}
+		
+		});*/
+	
+	
 	});
 	
 	$('#btn_clk_election').click(function(){
@@ -44,6 +70,51 @@ $(document).ready(function(){
 	    }
 	});
 	
+	
+	function processLoginFormSubmit(){
+		showAjaxLoader(msg_login_submit);
+		/*
+		 * Ajax to verify the login - return true or false
+		 */
+		
+		$.ajax({
+			type : "GET",
+			url : "http://localhost:8080/mvote/",
+			data : JSON.stringify({
+				votersId:"testing votersId 444",
+				adhaarId:"testing adhaar id 445"
+			}),
+			contentType : 'application/json',
+			success : function(resp) {
+				alert(resp);
+			},
+			error : function(resp){
+				alert(resp);
+			}
+		
+		});
+		
+		alert('ajaxed');
+		
+		chkFlag = true;
+		if(chkFlag==true){
+			showAjaxLoader(msg_get_election);
+			/*
+			 * Ajax to get the list of elections;
+			 */
+		//	if(list is not empty)
+		 		showPage('#pageElectionList');
+		//	else (list is empty)
+		//		showPage('#pageErrorNoOpenElection');
+			
+		}
+		else{
+			showPage('#pageErrorLogin');
+		}
+	}
+
+	
+	
 });
 
 function processVoteSubmission(){
@@ -67,27 +138,6 @@ function processCandidateSelection(){
 	return true;
 }
 
-function processLoginFormSubmit(){
-	showAjaxLoader(msg_login_submit);
-	/*
-	 * Ajax to verify the login - return true or false
-	 */
-	chkFlag = true;
-	if(chkFlag==true){
-		showAjaxLoader(msg_get_election);
-		/*
-		 * Ajax to get the list of elections;
-		 */
-	//	if(list is not empty)
-	 		showPage('#pageElectionList');
-	//	else (list is empty)
-	//		showPage('#pageErrorNoOpenElection');
-		
-	}
-	else{
-		showPage('#pageErrorLogin');
-	}
-}
 
 
 function hideAll(){
