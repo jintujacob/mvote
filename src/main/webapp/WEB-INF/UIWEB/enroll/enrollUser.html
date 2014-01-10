@@ -13,7 +13,7 @@
     </div>
     
     
-    <div id="pageEnrollUserSearchForm">
+<!--     <div id="pageEnrollUserSearchForm">
         <table>
 			<tr>
                 <td>Voters Id :</td>
@@ -28,19 +28,35 @@
         </div>    
     </div>
 
-
+ -->
 
     <div id="pageEnrollUserSearchResults">
         <div>
             <span> 
-	            <table>
-	                <tr> <td>Field</td> <td>Value</td> </tr>
+                <h2> Voter Enrollment Info</h2>
+                <hr>
+	            <table id="tableVoterForm">
+	                <tr> 
+	                   <td> Voters Id :</td> 
+	                   <td><input type="text" id="in_votersId" />
+	                       <button id="btn_search_voter"> search</button> </td> </tr> 
 	            </table>
+
+                <table id="tableVoterData">  <!-- table data from ajax --> </table>
+                
 	        </span>
 	        <span>
-	            <table>
-	                <tr> <td>Field</td> <td>Value</td> </tr>
+	            <h2> Adhaar enrollment info</h2>
+	            <hr>
+	            <table id="tableAdhaarForm">
+                    <tr> 
+                       <td> Adhaar Id :</td> 
+                       <td><input type="text" id="in_adhaarId" />
+                           <button id="btn_search_adhaar"> search</button> </td> </tr> 
 	            </table>
+	            
+	            <table id="tableAdhaarData">  <!-- table data from ajax --> </table>
+	            
 	        </span>
         </div>
       
@@ -49,27 +65,6 @@
             <button id="btn_verified"> search</button>
         </div>
     </div>
-   
-   
-   
-    <div id="pageEnrollCredentialsForm">
-        pageEnrollCredentialsForm
-        <table>
-			<tr>
-				<td>Username :</td>
-				<td><input type="text" id="in_username" /></td>
-				<td> ajax error message </td>	</tr>
-			<tr>
-			    <td>Password :</td>
-			    <td> <input type="text" id="in_password" /> </td>
-			    <td> ajax error message </td>    </tr>
-		</table>
-		<div class="clearLine">   
-            <button id="btn_reset_cred"> reset </button>
-            <button id="btn_cred"> submit credentials</button>
-        </div>    
-    </div>
-    
     
     
     <div id="pageEnrollResponseStatus">

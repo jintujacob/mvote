@@ -1,59 +1,103 @@
 $(document).ready(function(){
-	showPage('#pageEnrollUserSearchForm');
+	showPage('#pageEnrollUserSearchResults');
 	
-	$('#btn_search').click(function(){
-		processSearchFormClick();
-		showPage('#pageEnrollUserSearchResults');
+	$('#btn_search_voter').click(function(){
+		processSearchVoterClick();
+	});
+	
+	$('#btn_search_adhaar').click(function(){
+		processSearchAdhaarClick();
 	});
 	
 	
 	$('#btn_verified').click(function(){
 		processVerifyButtonClick();
-		showPage('#pageEnrollCredentialsForm');
-	});
-	
-	
-	$('#btn_cred').click(function(){
-		processCredentialsSubmit();
 		showPage('#pageEnrollResponseStatus');
 	});
 	
+	
+
 	$('#back_to_searchform').click(function(){
 		showPage('#pageEnrollUserSearchForm');
 	});
 	
-	$('#btn_reset_cred').click(function(){
-		$('#in_username').val("");
-		$('#in_password').val("");
-	});
-	
 });
 
-function processSearchFormClick(){
+function processSearchVoterClick(){
 	votersId = $('#in_votersId').val();
+	if(votersId != "")
+	{
+		obj = {"votersId":votersId}
+		jsonString =JSON.stringify(obj);
+		
+		$.ajax({
+		    type: "POST",
+		    url: 'http://localhost:8080/mvote/enroll/getVoterInfo',
+		    contentType: "application/json; charset=utf-8",
+		    dataType: "json",
+		    data: jsonString,
+		    success: function(response) {
+		    	populateVoterInfo(response);
+		    }
+		});
+	}
+		
+}
+
+function processSearchAdhaarClick(){
 	adhaarId = $('#in_adhaarId').val();
-	/*
-	 * submit ajax request and get the json resonse
-	 * process the response and set it to #pageEnrollUserSearchResults -> table fields inside the page
-	 */
+
+	if(adhaarId != "")
+	{
+		obj = {"adhaarID":adhaarId}
+		jsonString =JSON.stringify(obj);
+		
+		$.ajax({
+		    type: "POST",
+		    url: 'http://localhost:8080/mvote/enroll/getAdhaarInfo',
+		    contentType: "application/json; charset=utf-8",
+		    dataType: "json",
+		    data: jsonString,
+		    success: function(response) {
+		    	populateAdhaarInfo(response);
+		    }
+		});
+	}
 	return true;
+}
+
+
+function populateVoterInfo(voterUser){
+		str = 	"";
+		str+= 	'<tr> <td> Voter Number </td> <td> : '	+ voterUser.votersId + '</td> </tr>' ;
+		str+= 	'<tr> <td> Name </td> <td> : '			+ voterUser.name + '</td> </tr>' ;
+		str+= 	'<tr> <td> Place </td> <td> : '			+ voterUser.place + '</td> </tr>'	;
+		str+= 	'<tr> <td> Constituency </td> <td> : '	+ voterUser.constituency + '</td> </tr>' ;
+		
+		$('#tableVoterForm').hide();
+		$('#tableVoterData').append(str);
+}
+
+
+function populateAdhaarInfo(adhaarUser){
+		str = 	"";
+		str+= 	'<tr> <td> Adhaar Number </td> <td> : '+ adhaarUser.adhaarID + '</td> </tr>' ;
+		str+= 	'<tr> <td> First Name </td> <td> : '+ adhaarUser.nameFirst + '</td> </tr>' ;
+		str+= 	'<tr> <td> Last Name</td> <td> : '+ adhaarUser.nameLast + '</td> </tr>'	;
+		str+= 	'<tr> <td> Address</td> <td> : '+ adhaarUser.address + '</td> </tr>' ;
+		str+= 	'<tr> <td> Phone</td> <td> : '+ adhaarUser.phone + '</td> </tr>'  ;
+		
+		$('#tableAdhaarForm').hide();
+		$('#tableAdhaarData').append(str);
 }
 
 function processVerifyButtonClick(){
 	return true;
 }
 
-function processCredentialsSubmit(){
-	
-	return true;
-}
-
-
 function hideAll(){
 	$('#pageAjaxLoader').hide();
-	$('#pageEnrollUserSearchForm').hide();
 	$('#pageEnrollUserSearchResults').hide();
-	$('#pageEnrollCredentialsForm').hide();
 	$('#pageEnrollResponseStatus').hide();
 }
 
