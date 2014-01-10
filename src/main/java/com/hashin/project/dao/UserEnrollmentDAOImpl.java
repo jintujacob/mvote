@@ -50,7 +50,7 @@ public class UserEnrollmentDAOImpl implements UserEnrollmentDAO
 
 
     @Override
-    public Long createVotersAdhaarUser(final VotersAdhaarUserBean userToEnroll)
+    public VotersAdhaarUserBean createVotersAdhaarUser(final VotersAdhaarUserBean userToEnroll)
     {
 	KeyHolder keyHolder = new GeneratedKeyHolder();;
 	jdbcTemplate.update(
@@ -83,7 +83,8 @@ public class UserEnrollmentDAOImpl implements UserEnrollmentDAO
 	
 	---------------------------------------------------------------------endf old code*/
 	
-	return keyHolder.getKey().longValue();
+	//return keyHolder.getKey().longValue();
+	return null;
     }
     
 

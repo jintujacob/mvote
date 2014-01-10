@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hashin.project.bean.AdhaarUserBean;
 import com.hashin.project.bean.ElectionsBean;
+import com.hashin.project.bean.VotersAdhaarUserBean;
 import com.hashin.project.bean.VotersUserBean;
 import com.hashin.project.service.UserEnrollmentService;
 
@@ -34,7 +35,8 @@ public class UserEnrollmentManager
     @Autowired
     private UserEnrollmentService userEnrollmentService; 
     private static final Logger logger = Logger.getLogger(UserEnrollmentManager.class);
-
+    private static final String CUSTOM_MSG = "success" ;
+    
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getHomeAction() 
     {
@@ -54,6 +56,7 @@ public class UserEnrollmentManager
 	user.setAdhaarID(inputUser.getAdhaarID());
 	user.setNameFirst("Jintu Jacob");
 	user.setPhone("9847361387");
+	user.setCustomMessage(CUSTOM_MSG);
 
 	return user;
     }
@@ -61,7 +64,7 @@ public class UserEnrollmentManager
     
     
     
-    //get Voters information for the provided adhaarId
+    //get Voters information for the provided voterId
     @RequestMapping(value="/getVoterInfo", method = RequestMethod.POST)
     public @ResponseBody VotersUserBean getVoterInfobyId(@RequestBody VotersUserBean inputVoter)
     {
@@ -74,7 +77,7 @@ public class UserEnrollmentManager
 	voter.setConstituency("Piravom");
 	voter.setPlace("muvatupuzha");
 	voter.setName("Jintu Jacob");
-
+	voter.setCustomMessage(CUSTOM_MSG);
 	return voter;
     }
     
@@ -85,15 +88,41 @@ public class UserEnrollmentManager
      * are verified enroll the user, enrollment tables requires only voterId and adhaarId
      */
     @RequestMapping(value="/enrollUser", method = RequestMethod.POST)
-    public ModelAndView getElectionById(@RequestParam String votersId, @RequestParam String adhaarId){
-	logger.debug("Inside UserEnrollmentManager, votersId="+votersId+" AdhaarId="+adhaarId);
-	if(userEnrollmentService.manageUserEnrollement(votersId, adhaarId) != null){
-	   //return message that enrollment was success
-	}
-	else{
-	    //return message that enrollment failed 
-	}
-	return new ModelAndView("ReturnPage", "message", "message");
+    public @ResponseBody VotersAdhaarUserBean generateElectionId(@RequestBody VotersAdhaarUserBean verifiedUser)
+    {
+	logger.debug(">>________ VoterId recieved" + verifiedUser.getVotersId());
+	
+/*	VotersAdhaarUserBean user =   userEnrollmentService.manageUserEnrollement(verifiedUser.getVotersId(), 
+		verifiedUser.getAdhaarId()) ;
+*/	
+	VotersAdhaarUserBean enrolledUser= new VotersAdhaarUserBean();
+	enrolledUser.setAdhaarId(verifiedUser.getAdhaarId());
+	enrolledUser.setVotersId(verifiedUser.getVotersId());
+	enrolledUser.seteElectionId("GENERATED_ID");
+	enrolledUser.setCustomMessage(CUSTOM_MSG);
+	return enrolledUser;
     }
+    
+    
+    /* Once the VotersInfo from /getVotersInfo and adhaarInformation from /getAdhaarInfo
+     * are verified enroll the user, enrollment tables requires only voterId and adhaarId
+     */
+    @RequestMapping(value="/submitPIN", method = RequestMethod.POST)
+    public @ResponseBody VotersAdhaarUserBean setPinForElectionId(@RequestBody VotersAdhaarUserBean verifiedUser)
+    {
+	logger.debug(">>________ VoterId recieved" + verifiedUser.geteElectionId());
+	
+/*	VotersAdhaarUserBean user =   userEnrollmentService.manageUserEnrollement(verifiedUser.getVotersId(), 
+		verifiedUser.getAdhaarId()) ;
+*/	
+	VotersAdhaarUserBean enrolledUser= new VotersAdhaarUserBean();
+	enrolledUser.setAdhaarId(verifiedUser.getAdhaarId());
+	enrolledUser.setVotersId(verifiedUser.getVotersId());
+	enrolledUser.seteElectionId("GENERATED_ID");
+	enrolledUser.setCustomMessage(CUSTOM_MSG);
+	return enrolledUser;
+    }
+
+    
     
 }

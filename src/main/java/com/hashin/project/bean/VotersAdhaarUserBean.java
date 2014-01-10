@@ -10,9 +10,30 @@ public class VotersAdhaarUserBean {
 
 	private String votersId;
 	private String adhaarId;
+	private String eElectionId;
 	private String votingPIN;
 	private String genDate;
 	private String lockOutFlag;
+	private String customMessage;
+
+	
+	public String getCustomMessage()
+	{
+	    return customMessage;
+	}
+	public void setCustomMessage(String customMessage)
+	{
+	    this.customMessage = customMessage;
+	}
+	public String geteElectionId()
+	{
+	    return eElectionId;
+	}
+	public void seteElectionId(String eElectionId)
+	{
+	    this.eElectionId = eElectionId;
+	}
+
 	
 	public String getVotersId() {
 		return votersId;

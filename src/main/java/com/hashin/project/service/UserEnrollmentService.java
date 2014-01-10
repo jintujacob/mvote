@@ -13,7 +13,7 @@ public interface UserEnrollmentService
      * External methods should call this
      * rest of the methods are internal.
      */
-    public Long manageUserEnrollement(String votersId, String adhaarId);
+    public VotersAdhaarUserBean manageUserEnrollement(String votersId, String adhaarId);
     
     
     /**

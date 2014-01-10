@@ -26,7 +26,7 @@ public class UserEnrollmentServiceImpl implements UserEnrollmentService
      * - input the voting pin, adhhaarId, and votersId to the enrollment tables
      */
     @Override
-    public Long manageUserEnrollement(String votersId, String adhaarId)
+    public VotersAdhaarUserBean manageUserEnrollement(String votersId, String adhaarId)
     {
 	VotersAdhaarUserBean  userToEnroll = new VotersAdhaarUserBean();
 	String votingPIN = userEnrollmentDao.generateVotingPin();
@@ -37,8 +37,10 @@ public class UserEnrollmentServiceImpl implements UserEnrollmentService
 	    userToEnroll.setVotingPIN(votingPIN);
 	    //userToEnroll.setGenDate() - db to set the date
 
-	    Long autoGenId = userEnrollmentDao.createVotersAdhaarUser(userToEnroll);
-	    return autoGenId;
+	    //set the eElectionId; AutoIncrement
+	    
+	    VotersAdhaarUserBean enrolleduser = userEnrollmentDao.createVotersAdhaarUser(userToEnroll);
+	    return enrolleduser;
 	}
 	return null;
     }

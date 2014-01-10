@@ -20,7 +20,17 @@ public class VotersUserBean {
 	private String nameLast;
 	private String state;
 	
+	private String customMessage; 
 	
+	
+	public String getCustomMessage()
+	{
+	    return customMessage;
+	}
+	public void setCustomMessage(String customMessage)
+	{
+	    this.customMessage = customMessage;
+	}
 	public String getState()
 	{
 	    return state;
