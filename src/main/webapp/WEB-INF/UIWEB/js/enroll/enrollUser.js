@@ -1,34 +1,40 @@
-// Global variables
-
-VOTERSID = "";
-ADHAARID = "";
-
-
+adhaarId = "";
+votersId = "";
 $(document).ready(function(){
 	showPage('#pageEnrollUserSearchResults');
 	
 	$('#btn_search_voter').click(function(){
-		processSearchVoterClick();
+		votersId = $('#in_votersId').val();
+		$('#in_votersId').val("");
+		processSearchVoterClick(votersId);
 	});
 	
 	$('#btn_search_adhaar').click(function(){
-		processSearchAdhaarClick();
+		adhaarId = $('#in_adhaarId').val();	
+		$('#in_adhaarId').val("");
+		processSearchAdhaarClick(adhaarId);
+	});
+	
+	$('#reset_form').click(function(){
+		window.location.reload(true);
 	});
 	
 	
 	$('#btn_verified').click(function(){
-		processVerifyButtonClick();
+		if( (adhaarId != "") && (votersId != '') )
+			processVerifyButtonClick(adhaarId, votersId);
+		else
+			alert("Verification of User in Adhaar Sytem and Voter List is mandatory.");
 	});
 	
-
-	$('#back_to_searchform').click(function(){
-		showPage('#pageEnrollUserSearchForm');
+	$('#btn_homepage').click(function(){
+		window.location.reload(true);
 	});
 	
 });
 
-function processSearchVoterClick(){
-	votersId = $('#in_votersId').val();
+function processSearchVoterClick(votersId){
+		
 	if(votersId != "")
 	{
 		obj = {"votersId":votersId}
@@ -47,14 +53,11 @@ function processSearchVoterClick(){
 	}
 }
 
-function processSearchAdhaarClick(){
-	adhaarId = $('#in_adhaarId').val();
-
+function processSearchAdhaarClick(adhaarId){
 	if(adhaarId != "")
 	{
 		obj = {"adhaarID":adhaarId}
 		jsonString =JSON.stringify(obj);
-		
 		$.ajax({
 		    type: "POST",
 		    url: 'http://localhost:8080/mvote/enroll/getAdhaarInfo',
@@ -66,10 +69,9 @@ function processSearchAdhaarClick(){
 		    }
 		});
 	}
-	return true;
 }
 
-
+$('#in_votersId').val();
 function populateVoterInfo(voterUser){
 	str = 	"";
 	if(voterUser.customMessage == "success")
@@ -109,8 +111,7 @@ function populateAdhaarInfo(adhaarUser){
 
 function processVerifyButtonClick()
 {
-	obj = { "adhaarId":$('#in_adhaarId').val(),
-			"votersId":$('#in_votersId').val()	}
+	obj = { "adhaarId":adhaarId, "votersId":votersId	}
 	jsonString =JSON.stringify(obj);
 	
 	$.ajax({
@@ -127,6 +128,8 @@ function processVerifyButtonClick()
 
 function populateElectionSlip(enrolledUser)
 {
+	
+	$('#tableElectionCard').html('');
 	str = 	"";
 	if(enrolledUser.customMessage == "success")
 	{

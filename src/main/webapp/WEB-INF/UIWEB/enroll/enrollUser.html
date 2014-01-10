@@ -13,22 +13,6 @@
     </div>
     
     
-<!--     <div id="pageEnrollUserSearchForm">
-        <table>
-			<tr>
-                <td>Voters Id :</td>
-				<td>Adhaar Id :</td>    </tr>
-			<tr>
-		
-                <td><input type="text" id="in_votersId" /></td>
-                <td><input type="text" id="in_adhaarId" /></td>   </tr>
-        </table>
-	    <div class="clearLine">   
-            <button id="btn_search"> search</button>
-        </div>    
-    </div>
-
- -->
 
     <div id="pageEnrollUserSearchResults">
         <div>
@@ -39,7 +23,7 @@
 	                <tr> 
 	                   <td> Voters Id :</td> 
 	                   <td><input type="text" id="in_votersId" />
-	                       <button id="btn_search_voter"> search</button> </td> </tr> 
+	                       <button id="btn_search_voter"> Verify </button> </td> </tr> 
 	            </table>
 
                 <table id="tableVoterData">  <!-- table data from ajax --> </table>
@@ -52,7 +36,7 @@
                     <tr> 
                        <td> Adhaar Id :</td> 
                        <td><input type="text" id="in_adhaarId" />
-                           <button id="btn_search_adhaar"> search</button> </td> </tr> 
+                           <button id="btn_search_adhaar"> Verify </button> </td> </tr> 
 	            </table>
 	            
 	            <table id="tableAdhaarData">  <!-- table data from ajax --> </table>
@@ -61,15 +45,17 @@
         </div>
       
         <div class="clearLine">
-            <button id="back_to_searchform"> Back </button>
-            <button id="btn_verified"> search</button>
+            <button id="reset_form"> Reset  </button>
+            <button id="btn_verified"> Enroll </button>
         </div>
     </div>
     
     
     <div id="pageEnrollResponseStatus">
-    
-       <table id="tableElectionCard">  <!-- ajax it  --> </table>
+        <table id="tableElectionCard">  <!-- ajax it  --> </table>
+        <div class="clearLine">
+            <button id="btn_homepage"> Home </button>
+        </div>
     </div>
     
     
