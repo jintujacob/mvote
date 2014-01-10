@@ -7,39 +7,18 @@ $(document).ready(function(){
 	 
 	showPage('#pageloginForm');
 	
-	
-	
 	$('.menuitem').menu();
 	
+	
+	
+
+	
 	$('#btn_submitform').click(function(){
-		//processLoginFormSubmit();
+		processElectionSelection();
+		showPage('#pageCandidateList');
 		
-		$.get(
-				'http://localhost:8080/springjson/rest/kfc/brands/kfc-kampar', 
-				function(response) {
-					alert('hello');
-					alert(response);
-		});
-		
-		/*$.ajax({
-			type : "GET",
-			url : "http://localhost:8080/mvote/vote/formBean",
-			data : JSON.stringify({
-				votersId:"444",
-				adhaarId:"445"
-			}),
-			contentType : 'application/json',
-			success : function(resp) {
-				alert('in success');
-			},
-			error : function(resp){
-				alert('in error');
-			}
-		
-		});*/
-	
-	
 	});
+	
 	
 	$('#btn_clk_election').click(function(){
 		processElectionSelection();

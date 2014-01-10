@@ -25,6 +25,7 @@ public class ElectionsCandidatesBean extends CandidatesBean {
 	private String eleId;
 	private String eleTitle;
 	private String eleDesc;
+	
 	public String getEleCandidateId()
 	{
 	    return eleCandidateId;
