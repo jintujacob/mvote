@@ -88,19 +88,23 @@ public class OnlineVoteManager
     }
     
     @RequestMapping(value="/submitVote", method=RequestMethod.POST)
-    public @ResponseBody FormBeanGetCandidates submitVoteforCandidate( @RequestBody FormBeanGetCandidates formBean)
+    public @ResponseBody FormListBean submitVoteforCandidate( 
+	    @RequestBody FormBeanGetCandidates formBean)
     {
-	FormBeanGetCandidates votingStat = null;
+	logger.debug(">________recieved____: " + formBean.getVotingPIN()+", "+ 
+		formBean.getElectionId()+", "+ formBean.getCandidateId());
+	FormListBean votingStat = new FormListBean();
 	
 	String message = onlineVotingService.submitVoteforCandidate(formBean.getVotingPIN(), 
 		formBean.getCandidateId(), formBean.getElectionId());
 	if (message != null){
-	    //show the confirmation message in UI that voting is completed successfully
+	    votingStat.setCustomMessage(CUSTOM_MSG);
 	}else{
 	    //show the confirmation message in UI to submit the request again.
 	    //it should not ask the user to input all the details again. 
 	    //Cache the details in the UI and ask him to just click the resubmit button again.
-	    //check if the transaction works 
+	    //check if the transaction works
+	    votingStat.setCustomMessage("FAILED");
 	}
 	return votingStat;
     }

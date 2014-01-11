@@ -94,11 +94,33 @@ function populateCandidateList(){
 }
 
 function processVoteSubmission(){
+	//get the candidate selected from the global variable.
+	electionId = "1";
+	candidateId = "1";
+	votingPIN = "VPIN444";
+
+	obj = {"electionId":electionId,"candidateId":candidateId,"votingPIN":votingPIN  }
+	jsonString =JSON.stringify(obj);
 	
+	$.ajax({
+	    type: "POST",
+	    url: 'http://localhost:8080/mvote/vote/submitVote',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateVotingResponse(response);
+	    }
+	});		
+
 	
 	return true;
 }
 
+function populateVotingResponse(response){
+	alert(response.customMessage);
+	
+}
 
 
 function processElectionSelection(){

@@ -58,7 +58,9 @@ public class OnlineVoteMgmtDAOImpl implements OnlineVoteMgmtDAO
 			"where voting_pin = '?' " +
 			"and ele_id = ?";
 	Object[] parameters = new Object[] {votingPIN, electionId};
-	int rowCount = jdbcTemplate.queryForInt(SQLConstants.UPDATE_VOTINGSTAT_BY_VOTINGPIN, parameters);
+	int rowCount = jdbcTemplate.update(SQLConstants.UPDATE_VOTINGSTAT_BY_VOTINGPIN, parameters);
+	logger.debug("____________________rowcount for the update____________"+rowCount);
+	
 	return rowCount;
     }
     

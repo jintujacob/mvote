@@ -68,7 +68,7 @@ public class SQLConstants {
 	
 	public static String UPDATE_VOTINGSTAT_BY_VOTINGPIN = "update elections_votingstats " 
 			+ "set voting_stat = 'Y' " 
-			+ "where voting_pin = '?' and ele_id = ? " ;
+			+ "where voting_pin = ? and ele_id = ? " ;
 	
 	public static String GET_ADHAAR_USER_BY_ADHAAR_ID = " select * from adhaarDB where adhaar_id= '?' " ;
 	
