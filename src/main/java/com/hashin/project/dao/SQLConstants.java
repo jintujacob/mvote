@@ -64,7 +64,7 @@ public class SQLConstants {
 			+ "(ele_id, const_id) values ( ?, ? ) " ;
 	
 	public static String GET_VOTINGSTAT_BY_VOTINGPIN = " select count(*) from elections_votingstats " 
-			+ " where voting_pin = '?' and ele_id = ? and voting_stat = 'Y' ";
+			+ " where voting_pin = ? and ele_id = ? and voting_stat = 'Y' ";
 	
 	public static String UPDATE_VOTINGSTAT_BY_VOTINGPIN = "update elections_votingstats " 
 			+ "set voting_stat = 'Y' " 
@@ -77,10 +77,10 @@ public class SQLConstants {
 			+ " values (NULL, '?', '?', '?', '?', CURDATE()) ";
 	
 	public static String GET_ENRLMENT_STAT_BY_ALL_CRITERIA = "select count(*) from voters_adhaar " 
-			+ "where fk_adhaar_id = '?' and fk_voters_id = '?' " 
-			+ "and voting_pin = '?' and lockout_flag <> 'T' ";
+			+ "where fk_adhaar_id = ? and fk_voters_id = ? " 
+			+ "and voting_pin = ? and lockout_flag <> 'T' ";
 
-	public static String GET_VOTER_INFO_BY_VOTERID = "select * from voters where voters_id = '?' " ;
+	public static String GET_VOTER_INFO_BY_VOTERID = "select * from voters where voters_id = ? " ;
 	
 	public static String GET_VOTERS_BY_CONSTITUENCY =  "select " 
 			+ "va.fk_voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " 

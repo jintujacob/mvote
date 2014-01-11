@@ -10,12 +10,9 @@ $(document).ready(function(){
 	$('.menuitem').menu();
 	
 	
-	
-
-	
 	$('#btn_submitform').click(function(){
-		processElectionSelection();
-		showPage('#pageCandidateList');
+		processLoginFormSubmit();
+		showPage('#pageElectionList');
 		
 	});
 	
@@ -48,53 +45,53 @@ $(document).ready(function(){
 	        radio.click();
 	    }
 	});
-	
-	
-	function processLoginFormSubmit(){
-		showAjaxLoader(msg_login_submit);
-		/*
-		 * Ajax to verify the login - return true or false
-		 */
-		
-		$.ajax({
-			type : "GET",
-			url : "http://localhost:8080/mvote/",
-			data : JSON.stringify({
-				votersId:"testing votersId 444",
-				adhaarId:"testing adhaar id 445"
-			}),
-			contentType : 'application/json',
-			success : function(resp) {
-				alert(resp);
-			},
-			error : function(resp){
-				alert(resp);
-			}
-		
-		});
-		
-		alert('ajaxed');
-		
-		chkFlag = true;
-		if(chkFlag==true){
-			showAjaxLoader(msg_get_election);
-			/*
-			 * Ajax to get the list of elections;
-			 */
-		//	if(list is not empty)
-		 		showPage('#pageElectionList');
-		//	else (list is empty)
-		//		showPage('#pageErrorNoOpenElection');
-			
-		}
-		else{
-			showPage('#pageErrorLogin');
-		}
-	}
-
-	
-	
 });
+
+
+function processLoginFormSubmit(){
+	showAjaxLoader(msg_login_submit);
+
+	votersId = "v444";
+	adhaarId = "UID444";
+	votingPIN = "VPIN444"; 
+	
+	obj = {"votersId":votersId,"adhaarId":adhaarId,"votingPIN":votingPIN  }
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: 'http://localhost:8080/mvote/vote/verifyLogin',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateElectionList(response);
+	    }
+	});		
+/*		chkFlag = true;
+	if(chkFlag==true){
+		showAjaxLoader(msg_get_election);
+		
+		 * Ajax to get the list of elections;
+		 
+	//	if(list is not empty)
+	 		showPage('#pageElectionList');
+	//	else (list is empty)
+	//		showPage('#pageErrorNoOpenElection');
+		
+	}
+	else{
+		showPage('#pageErrorLogin');
+	}
+*/	}
+
+function  populateElectionList(){
+	alert("populating elections list");
+}
+
+function populateCandidateList(){
+	alert("populating candidates list");
+}
 
 function processVoteSubmission(){
 	
@@ -107,7 +104,29 @@ function processVoteSubmission(){
 function processElectionSelection(){
 	var selValue = $('input[name=election]:checked').val(); 
 	alert(selValue);
-	return true;
+	
+	//get list of candidates here
+	electionId = "1";
+	unitElectionId = "301";
+	votingPIN = "VPIN444"; 
+
+	
+	obj = {"votingPIN":votingPIN,"electionId":electionId,"unitElectionId":unitElectionId }
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: 'http://localhost:8080/mvote/vote/getCandidates',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateCandidateList(response);
+	    }
+	});		
+	
+	
+	
 }
 
 

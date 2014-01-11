@@ -104,6 +104,9 @@ public class UserEnrollmentDAOImpl implements UserEnrollmentDAO
     public int getEnrollmentStatus(String votingPin, String adhaarId,
 	    String voterId)
     {
+	
+	logger.debug("____________________________InDAO recieved"+ votingPin+adhaarId+voterId);
+	logger.debug("____________________________InDAO Query "+ SQLConstants.GET_ENRLMENT_STAT_BY_ALL_CRITERIA);
 	Object[] parameters = new Object[] {adhaarId, voterId, votingPin };
 	int rowCount = jdbcTemplate.queryForInt(SQLConstants.GET_ENRLMENT_STAT_BY_ALL_CRITERIA, parameters);
 	return rowCount;

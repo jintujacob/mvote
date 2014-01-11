@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
 import com.hashin.project.bean.FormBeanGetCandidates;
+import com.hashin.project.bean.FormListBean;
 import com.hashin.project.bean.VotersAdhaarUserBean;
 import com.hashin.project.service.OnlineVotingService;
 import com.hashin.project.bean.OnlineVoteManagerBean;
@@ -39,38 +40,51 @@ public class OnlineVoteManager
     
     
     
-    //form submit voting pin, adhaarid, votersId
+    // form submit voting pin, adhaarid, votersId
+    // testing status complete
     @RequestMapping(value="/verifyLogin", method = RequestMethod.POST)
-    public @ResponseBody List<ElectionsConstsBean> verifyUserLogin(VotersAdhaarUserBean loginUser)
+    public @ResponseBody FormListBean verifyUserLogin(@RequestBody VotersAdhaarUserBean loginUser)
     {
+	logger.debug(">>___________ >"+loginUser.getVotingPIN()
+		+","+loginUser.getAdhaarId()+","+loginUser.getVotersId());
+	
 	List<ElectionsConstsBean> electionList = null;
+	FormListBean elections = new FormListBean();
 		
-	//electionList = onlineVotingService.manageVoterEntry(votingPIN, adhaarId, votersId);
+	electionList = onlineVotingService.manageVoterEntry( loginUser.getVotingPIN(),
+		loginUser.getAdhaarId(), loginUser.getVotersId());
+	//electionList = onlineVotingService.manageVoterEntry( "VPIN444", "UID444", "v444");
 	if(electionList != null){
-	    // do the return the elections list to the ui
+	    elections.setElectionList(electionList);
+	    elections.setCustomMessage(CUSTOM_MSG);
 	}
 	else{
-	    //return the error message to the Ui that user is either not enrolled/ or no elections available for the user
+	    //User is either not enrolled/ or no elections available for the user
+	    elections.setCustomMessage("No Elections Available");
 	}
-	return electionList;
+	return elections;
     }
     
     @RequestMapping(value="/getCandidates", method=RequestMethod.POST)
-    public @ResponseBody List<ElectionsCandidatesBean> getCandidatesByUnitElection(
+    public @ResponseBody FormListBean getCandidatesByUnitElection(
 	    @RequestBody FormBeanGetCandidates formBean)
     {
+	logger.debug(">________recieved____: " + formBean.getVotingPIN()+", "+ 
+		formBean.getElectionId()+", "+ formBean.getUnitElectionId());
 	List<ElectionsCandidatesBean> candidateList = null;
+	FormListBean candidates = new FormListBean();
+	
 	//User selects the election,and submits. service layer should check if the user is already voted or not
 	candidateList = onlineVotingService.getCandidatesList( formBean.getVotingPIN(), 
 		formBean.getElectionId(), formBean.getUnitElectionId());
 	
 	if(candidateList != null){
-	    // do return the candidate list to the UI
+	    candidates.setCandidateList(candidateList);
+	    candidates.setCustomMessage(CUSTOM_MSG);
 	}else{
-	    //return the error message to the UI that the user is either voted 
-	    //or not able to pull the candidate for the election
+	    candidates.setCustomMessage("Your Vote is already recorded. You can not vote again for the same election");
 	}
-	return candidateList;
+	return candidates;
     }
     
     @RequestMapping(value="/submitVote", method=RequestMethod.POST)

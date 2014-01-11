@@ -2,6 +2,7 @@ package com.hashin.project.service;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ import com.hashin.project.bean.VotersUserBean;
 import com.hashin.project.dao.ElectionManagementDAO;
 import com.hashin.project.dao.OnlineVoteMgmtDAO;
 import com.hashin.project.dao.UserEnrollmentDAO;
+import com.hashin.project.dao.UserEnrollmentDAOImpl;
 import com.hashin.project.dao.VoterListManagementDAO;
 
 public class OnlineVotingServiceImpl implements OnlineVotingService
@@ -31,6 +33,7 @@ public class OnlineVotingServiceImpl implements OnlineVotingService
     @Autowired
     private ElectionManagementDAO electionsMgmtDao;
     
+    private static final Logger logger = Logger.getLogger(UserEnrollmentDAOImpl.class);
     
     @Override
     public List<ElectionsConstsBean> manageVoterEntry(String votingPin,
@@ -39,10 +42,15 @@ public class OnlineVotingServiceImpl implements OnlineVotingService
 	List<ElectionsConstsBean> electionsList = null;
 	
 	//check if the user is already enrolled
+	
+	logger.debug("__________1_______________calling getEnrollmentStatus(votingPin, adhaarId, voterId)") ;
 	if(getEnrollmentStatus(votingPin, adhaarId, voterId))
 	{
+		logger.debug("___________2_____________calling voterListManagementDao.getVoterUserById(voterId)") ;
+
 	    //Get constituency of the user and get list of elections that are applicable for the user
 	    VotersUserBean voter = voterListManagementDao.getVoterUserById(voterId);
+	    logger.debug("___________3_____________calling  getElectionsListByConst(voter.getConstituency()") ;
 	    electionsList = getElectionsListByConst(voter.getConstituency());
 	}
 	return electionsList;
@@ -68,7 +76,7 @@ public class OnlineVotingServiceImpl implements OnlineVotingService
 
     /**
      * transaction managed service methode.
-     * update votecount and status change should happen parallel.
+     * update votecount and statGET_VOTERS_BY_CONSTITUENCYus change should happen parallel.
      */
     @Override
     @Transactional
