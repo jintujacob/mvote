@@ -32,8 +32,27 @@ $(document).ready(function(){
 });
 
 function getVoterDetail(){
-	return true;
+	votersId = "v444";
+	
+	obj = { "votersId":votersId	}
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: 'http://localhost:8080/mvote/voterslist/getVoterInfoById',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateVoterDetail(response);
+	    }
+	});		
 }
+
+function populateVoterDetail(voterDetail){
+	alert(JSON.stringify(voterDetail));
+}
+
 
 function processVoterSearch(){
 	votersId = "";
@@ -62,8 +81,8 @@ function processVoterSearch(){
 
 }
 
-function populateVoterList(response){
-	alert(JSON.stringify(response));
+function populateVoterList(voterList){
+	alert(JSON.stringify(voterList));
 }
 
 

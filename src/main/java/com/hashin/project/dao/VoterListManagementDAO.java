@@ -20,4 +20,6 @@ public interface VoterListManagementDAO
     
     public List<VotersUserBean> searchVoter(VotersUserBean userToSearch);
     
+    public VotersUserBean getVoterDetailById(VotersUserBean userToSearch);
+    
 }

@@ -23,6 +23,8 @@ public interface VoterListManagementService
 */
     public List<VotersUserBean> searchVoter(VotersUserBean userToSearch);
     
+    public VotersUserBean getVoterDetailById(VotersUserBean userToSearch); 
+    
     public Boolean insertNewVoter(VotersUserBean voterUser);
     
     public VotersUserBean updateVotersById(VotersUserBean voterUser);

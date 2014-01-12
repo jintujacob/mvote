@@ -126,4 +126,20 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO
     }
 
 
+    @Override
+    public VotersUserBean getVoterDetailById(VotersUserBean userToSearch)
+    {
+	Object[] parameters = new Object[] { userToSearch.getVotersId() };
+	
+	List<VotersUserBean> userList = null;
+	
+	userList= jdbcTemplate.query(SQLConstants.GET_VOTER_DETAIL_BY_ID, 
+		parameters, new VotersAdvancedRowMapper());
+
+	logger.debug("VoterListManagementDAOImpl #getVoterDetailById Query=> executed" );
+	logger.debug("VoterListManagementDAOImpl #getVoterDetailById result count=> "+ userList.size());
+	return userList.get(0);        
+    }
+
+
 }

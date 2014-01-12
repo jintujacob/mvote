@@ -103,6 +103,16 @@ public class VoterListManagementServiceImpl implements
 	return voterList;
     }
 
+    @Override
+    public VotersUserBean getVoterDetailById(VotersUserBean userToSearch)
+    {
+	VotersUserBean voterDetail= null;
+
+	voterDetail = voterListManagementDao.getVoterDetailById(userToSearch);
+	return voterDetail;
+
+    }
+
 
 }
 

@@ -59,17 +59,21 @@ public class VoterListManager
     
     
     
-    @RequestMapping(value="/getVoterInfoById", method = RequestMethod.GET)
-    public ModelAndView getVoterInfoById(@RequestParam String voterId )
+    @RequestMapping(value="/getVoterInfoById", method = RequestMethod.POST)
+    public @ResponseBody VotersUserBean  getVoterInfoById(@RequestBody VotersUserBean voterToSearch)
     {
-	VotersUserBean voter = voterListMgmtService.getVoterById(voterId);
-	if(voter != null){
-	    //do something
+	logger.debug(">>__________________recieved query params:"+ voterToSearch.getVotersId() );
+
+	VotersUserBean voterDetail =  null;
+	voterDetail = voterListMgmtService.getVoterDetailById(voterToSearch);
+	if(voterDetail != null){
+	    voterDetail.setCustomMessage(CUSTOM_MSG);
 	}
 	else{
-	    //voter not found/ invalid voterId
+	    // in UI write check if custom message not equal SUCCESS
+	    //voterDetail.setCustomMessage("Unable to find information in the database");
 	}
-	return null;
+	return voterDetail;
     }
     
 /*    
