@@ -12,6 +12,8 @@ import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.hashin.project.bean.VotersUserBean;
+import com.hashin.project.util.VotersAdvancedExtractor;
+import com.hashin.project.util.VotersAdvancedRowMapper;
 import com.hashin.project.util.VotersRowMapper;
 
 /**
@@ -56,7 +58,7 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO
     }
 
 
-    @Override
+/*    @Override
     public List<VotersUserBean> getVotersByQueryName(String queryName,  Object[] parameters)
     {
 	List<VotersUserBean> userList = null;
@@ -77,7 +79,7 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO
 	logger.debug("VoterListManagementDAOImpl #getVotersByQueryName result => "+ userList.get(0).getConstituency());
 	return userList; 
     }
-
+*/
 
     @Override
     public int insertNewVoter(VotersUserBean voterUser)
@@ -101,6 +103,26 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO
     {
 	// to be implemented
 	return null;
+    }
+
+
+    @Override
+    public List<VotersUserBean> searchVoter(VotersUserBean userToSearch)
+    {
+	Object[] parameters = new Object[] {
+		"%"+userToSearch.getVotersId()+"%", 
+		"%"+userToSearch.getConstituency()+"%", 
+		"%"+userToSearch.getName()+"%", 
+		"%"+userToSearch.getLockOutFlag()+"%" };
+	
+	List<VotersUserBean> userList = null;
+	
+	userList= jdbcTemplate.query(SQLConstants.SEARCH_VOTERS_BY_MULTIPLE_PARAMS, 
+		parameters, new VotersAdvancedRowMapper());
+
+	logger.debug("VoterListManagementDAOImpl #searchVoter Query=> executed" );
+	logger.debug("VoterListManagementDAOImpl #searchVoter result count=> "+ userList.size());
+	return userList;        
     }
 
 

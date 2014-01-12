@@ -36,8 +36,36 @@ function getVoterDetail(){
 }
 
 function processVoterSearch(){
-	return true;
+	votersId = "";
+	lockOutFlag = "F";
+	name = ""; 
+	constituency = "2";
+	
+	obj = { "votersId":votersId,
+			"lockOutFlag":lockOutFlag,
+			"name":name,
+			"constituency":constituency 
+		}
+	
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: 'http://localhost:8080/mvote/voterslist/searchVoter',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateVoterList(response);
+	    }
+	});		
+
 }
+
+function populateVoterList(response){
+	alert(JSON.stringify(response));
+}
+
 
 function processVoterAddition(){
 	return true;

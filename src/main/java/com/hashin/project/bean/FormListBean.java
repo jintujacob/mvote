@@ -7,9 +7,19 @@ public class FormListBean
 
     private List<ElectionsConstsBean> electionList ;
     private List<ElectionsCandidatesBean> candidateList ;
+    private List<VotersUserBean> voterList;
     private String customMessage;
     
     
+    
+    public List<VotersUserBean> getVoterList()
+    {
+        return voterList;
+    }
+    public void setVoterList(List<VotersUserBean> voterList)
+    {
+        this.voterList = voterList;
+    }
     public String getCustomMessage()
     {
         return customMessage;

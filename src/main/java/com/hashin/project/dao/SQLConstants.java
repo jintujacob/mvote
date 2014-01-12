@@ -80,30 +80,45 @@ public class SQLConstants {
 			+ "where fk_adhaar_id = ? and fk_voters_id = ? " 
 			+ "and voting_pin = ? and lockout_flag <> 'T' ";
 
+	
+	/**
+	 * ------------------------------------------------------------------------------------------------------------
+	 * Queries for the VoterlistManagement module;
+	 */
 	public static String GET_VOTER_INFO_BY_VOTERID = "select * from voters where voters_id = ? " ;
 	
-	public static String GET_VOTERS_BY_CONSTITUENCY =  "select " 
+/*	public static String GET_VOTERS_BY_CONSTITUENCY =  "select " 
 			+ "va.fk_voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " 
 			+ "v.name, v.place, " 
 			+ "c.const_name, c.const_state " 
 			+ "from voters_adhaar va, voters v, constituencies c "
 			+ "where va.fk_voters_id = v.voters_id and v.const=c.const_id " 
 			+ "and v.const = '?' "; 
+*/	
 	
-	
-	public static String GET_VOTERS_BY_NAME_CONST = "select " 
+/*	public static String GET_VOTERS_BY_NAME_CONST = "select " 
 			+ "va.fk_voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " 
 			+ "v.name,v.place, c.const_name, c.const_state " 
 			+ "from voters_adhaar va, voters v, constituencies c " 
 			+ "where va.fk_voters_id = v.voters_id and v.const=c.const_id " 
 			+ "and v.const = '?' and v.name like '%?%' ";
-	
-	public static String GET_VOTERS_BY_NAME_CONST_FLAG = "select " 
+*/	
+
+/*	public static String GET_VOTERS_BY_NAME_CONST_FLAG = "select " 
 			+ "va.fk_voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " 
 			+ "v.name,v.place, c.const_name, c.const_state " 
 			+ "from voters_adhaar va, voters v, constituencies c " 
 			+ "where va.fk_voters_id = v.voters_id and v.const=c.const_id " 
 			+ "and v.const = '?' and v.name like '%?%' and va.lockout_flag='?";
+*/
+
+	public static String SEARCH_VOTERS_BY_MULTIPLE_PARAMS = "select " 
+        		+ "v.voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " 
+        		+ "v.name,v.place, c.const_name, c.const_state " 
+        		+ "from voters_adhaar va, voters v, constituencies c " 
+        		+ "where va.fk_voters_id = v.voters_id and v.const=c.const_id " 
+        		+ "and v.voters_id like ? and v.const like ? and v.name like ? and va.lockout_flag like ? ";
+
 	
 	public static String INSERT_NEW_VOTER_IN_VOTERS = "insert into voters " 
 			+ "( voters_id, name, const, place) " 

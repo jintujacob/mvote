@@ -104,7 +104,7 @@ function processVoteSubmission(){
 	
 	$.ajax({
 	    type: "POST",
-	    url: 'http://localhost:8080/mvote/vote/submitVote',
+	    url: 'http://localhost:8080/mvote/voterslist/submitVote',
 	    contentType: "application/json; charset=utf-8",
 	    dataType: "json",
 	    data: jsonString,
@@ -113,8 +113,6 @@ function processVoteSubmission(){
 	    }
 	});		
 
-	
-	return true;
 }
 
 function populateVotingResponse(response){

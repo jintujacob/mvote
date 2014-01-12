@@ -2,9 +2,11 @@ package com.hashin.project.service;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hashin.project.bean.VotersUserBean;
+import com.hashin.project.dao.UserEnrollmentDAOImpl;
 import com.hashin.project.dao.VoterListManagementDAO;
 
 public class VoterListManagementServiceImpl implements
@@ -13,6 +15,7 @@ public class VoterListManagementServiceImpl implements
     @Autowired
     private VoterListManagementDAO voterListManagementDao;
     
+    private static final Logger logger = Logger.getLogger(VoterListManagementServiceImpl.class);
 
     @Override
     public VotersUserBean getVoterById(String voterID)
@@ -20,7 +23,7 @@ public class VoterListManagementServiceImpl implements
 	return voterListManagementDao.getVoterUserById(voterID);
     }
 
-    
+/*    
     @Override
     public List<VotersUserBean> getVotersByNameSearch(String voterName)
     {
@@ -50,6 +53,8 @@ public class VoterListManagementServiceImpl implements
 	return userList;
     }
 
+*/
+    
     @Override
     public Boolean insertNewVoter(VotersUserBean voterUser)
     {
@@ -70,4 +75,34 @@ public class VoterListManagementServiceImpl implements
     }
 
 
+    @Override
+    public List<VotersUserBean> searchVoter(VotersUserBean userToSearch)
+    {
+	// id, const, name, locout lag
+	logger.debug(">>________________inside searchVoter__________________");
+	logger.debug(">>___recieved query params:"+ userToSearch.getVotersId() +" , " 
+			+ userToSearch.getConstituency() +" , "+ userToSearch.getName()+ " , "+ userToSearch.getLockOutFlag() );
+	
+	List<VotersUserBean> voterList =  null;
+	
+	//modify the query params 
+	if(userToSearch.getConstituency() == null )
+	    userToSearch.setConstituency("");
+	
+	if(userToSearch.getVotersId() == null)
+	    userToSearch.setVotersId("");
+	
+	if(userToSearch.getConstituency() == null)
+	    userToSearch.setConstituency("");
+	
+	if(userToSearch.getLockOutFlag() == null)
+	    userToSearch.setLockOutFlag("");
+	
+	voterList = voterListManagementDao.searchVoter(userToSearch);
+	
+	return voterList;
+    }
+
+
 }
+

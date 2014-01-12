@@ -12,9 +12,12 @@ public interface VoterListManagementDAO
     
     public VotersUserBean getVoterUserById(String voterID);
     
-    public List<VotersUserBean> getVotersByQueryName(String queryName, Object[] parameters);
+    //public List<VotersUserBean> getVotersByQueryName(String queryName, Object[] parameters);
     
     public int insertNewVoter(VotersUserBean voterUser);
     
     public VotersUserBean updateVotersById(VotersUserBean voterUser);
+    
+    public List<VotersUserBean> searchVoter(VotersUserBean userToSearch);
+    
 }
