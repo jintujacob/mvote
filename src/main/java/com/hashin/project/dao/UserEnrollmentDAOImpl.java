@@ -37,13 +37,18 @@ public class UserEnrollmentDAOImpl implements UserEnrollmentDAO
     @Override
     public AdhaarUserBean getAdhaarUserById(String adhaarID)
     {
-
+	List<AdhaarUserBean> userList =  null;
 	Object[] parameters = new Object[] {adhaarID};
-	List<AdhaarUserBean> userList= jdbcTemplate.query(SQLConstants.GET_ADHAAR_USER_BY_ADHAAR_ID,
+	
+	userList = jdbcTemplate.query(SQLConstants.GET_ADHAAR_USER_BY_ADHAAR_ID,
 		parameters, new AdhaarRowMapper());
 
 	logger.debug("UserEnrollmentDaoImpl #getAdhaarUserById Query=> executed" );
-	logger.debug("UserEnrollmentDaoImpl #getAdhaarUserById result => "+ userList.get(0).getNameFirst());
+	logger.debug("UserEnrollmentDaoImpl #getAdhaarUserById resultCount => "+ userList.size());
+	if(userList.size() == 0){
+	    return null;
+	}
+	
 	return userList.get(0);    
     }
 

@@ -138,6 +138,10 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO
 
 	logger.debug("VoterListManagementDAOImpl #getVoterDetailById Query=> executed" );
 	logger.debug("VoterListManagementDAOImpl #getVoterDetailById result count=> "+ userList.size());
+	if(userList.size()==0){
+	    return null;
+	}
+	
 	return userList.get(0);        
     }
 

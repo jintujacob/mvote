@@ -6,13 +6,18 @@ $(document).ready(function(){
 	$('#btn_search_voter').click(function(){
 		votersId = $('#in_votersId').val();
 		$('#in_votersId').val("");
-		processSearchVoterClick(votersId);
+		if(votersId != ""){
+			processSearchVoterClick(votersId);			
+		}
+
 	});
 	
 	$('#btn_search_adhaar').click(function(){
 		adhaarId = $('#in_adhaarId').val();	
 		$('#in_adhaarId').val("");
-		processSearchAdhaarClick(adhaarId);
+		if(adhaarId != ""){
+			processSearchAdhaarClick(adhaarId);
+		}
 	});
 	
 	$('#reset_form').click(function(){
@@ -34,29 +39,26 @@ $(document).ready(function(){
 });
 
 function processSearchVoterClick(votersId){
-		
-	if(votersId != "")
-	{
-		obj = {"votersId":votersId}
-		jsonString =JSON.stringify(obj);
-		
-		$.ajax({
-		    type: "POST",
-		    url: 'http://localhost:8080/mvote/enroll/getVoterInfo',
-		    contentType: "application/json; charset=utf-8",
-		    dataType: "json",
-		    data: jsonString,
-		    success: function(response) {
-		    	populateVoterInfo(response);
-		    }
-		});
-	}
+	//votersId1 = "v444";
+	obj = { "votersId":votersId};
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: 'http://localhost:8080/mvote/enroll/getVoterInfoById',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateVoterInfo(response);
+	    }
+	});		
+	
 }
 
 function processSearchAdhaarClick(adhaarId){
-	if(adhaarId != "")
-	{
-		obj = {"adhaarID":adhaarId}
+		//adhaarId='UID444';
+		obj = {"adhaarID":adhaarId};
 		jsonString =JSON.stringify(obj);
 		$.ajax({
 		    type: "POST",
@@ -68,13 +70,12 @@ function processSearchAdhaarClick(adhaarId){
 		    	populateAdhaarInfo(response);
 		    }
 		});
-	}
 }
 
-$('#in_votersId').val();
 function populateVoterInfo(voterUser){
+
 	str = 	"";
-	if(voterUser.customMessage == "success")
+	if(voterUser.customMessage == "SUCCESS")
 	{
 		$('#tableVoterForm').hide();
 		str+= 	'<tr> <td> Voter Number </td> <td> : '	+ voterUser.votersId + '</td> </tr>' ;
@@ -86,13 +87,13 @@ function populateVoterInfo(voterUser){
 		str+= 	'<tr> <td> No results for the search. Please search again! </td> </tr>' ;
 	}
 	
-	$('#tableVoterData').append(str);
+	$('#tableVoterData').html(str);
 }
 
 
 function populateAdhaarInfo(adhaarUser){
 	str = 	"";
-	if(adhaarUser.customMessage == "success")
+	if(adhaarUser.customMessage == "SUCCESS")
 	{
 		$('#tableAdhaarForm').hide();
 		str+= 	'<tr> <td> Adhaar Number </td> <td> : '+ adhaarUser.adhaarID + '</td> </tr>' ;
@@ -106,7 +107,7 @@ function populateAdhaarInfo(adhaarUser){
 		str+= 	'<tr> <td> No results for the search. Please search again! </td> </tr>' ;
 	}
 		
-	$('#tableAdhaarData').append(str);
+	$('#tableAdhaarData').html(str);
 }
 
 function processVerifyButtonClick()
@@ -131,7 +132,7 @@ function populateElectionSlip(enrolledUser)
 	
 	$('#tableElectionCard').html('');
 	str = 	"";
-	if(enrolledUser.customMessage == "success")
+	if(enrolledUser.customMessage == "SUCCESS")
 	{
 		str+= 	'<tr> <td> Voters ID </td> <td> : '			+ enrolledUser.votersId + '</td> </tr>' ;
 		str+= 	'<tr> <td> Adhaar ID </td> <td> : '			+ enrolledUser.adhaarId + '</td> </tr>' ;

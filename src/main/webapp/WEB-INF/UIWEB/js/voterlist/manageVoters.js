@@ -83,6 +83,7 @@ function processVoterSearch(){
 
 function populateVoterList(voterList){
 	alert(JSON.stringify(voterList));
+	//check the custom message value before making printing
 }
 
 

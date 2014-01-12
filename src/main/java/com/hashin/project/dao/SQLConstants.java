@@ -70,7 +70,7 @@ public class SQLConstants {
 			+ "set voting_stat = 'Y' " 
 			+ "where voting_pin = ? and ele_id = ? " ;
 	
-	public static String GET_ADHAAR_USER_BY_ADHAAR_ID = " select * from adhaarDB where adhaar_id= '?' " ;
+	public static String GET_ADHAAR_USER_BY_ADHAAR_ID = " select * from adhaarDB where adhaar_id= ? " ;
 	
 	public static String INSERT_ENRLD_USER_IN_VOTERSADHAAR = "insert into voters_adhaar " 
 			+ " (id, fk_voters_id, fk_adhaar_id, voting_pin, lockout_flag, gen_date) " 

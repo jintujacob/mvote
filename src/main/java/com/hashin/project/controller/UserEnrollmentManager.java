@@ -19,6 +19,7 @@ import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.VotersAdhaarUserBean;
 import com.hashin.project.bean.VotersUserBean;
 import com.hashin.project.service.UserEnrollmentService;
+import com.hashin.project.service.VoterListManagementService;
 
 
 /**
@@ -33,9 +34,12 @@ import com.hashin.project.service.UserEnrollmentService;
 public class UserEnrollmentManager
 {
     @Autowired
+    private VoterListManagementService voterListMgmtService; 
+
+    @Autowired
     private UserEnrollmentService userEnrollmentService; 
     private static final Logger logger = Logger.getLogger(UserEnrollmentManager.class);
-    private static final String CUSTOM_MSG = "success" ;
+    private static final String CUSTOM_MSG = "SUCCESS" ;
     
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getHomeAction() 
@@ -47,41 +51,45 @@ public class UserEnrollmentManager
     
     //get Adhaar information for the provided adhaarId
     @RequestMapping(value="/getAdhaarInfo", method = RequestMethod.POST)
-    public @ResponseBody AdhaarUserBean getAdhaarInfobyId(@RequestBody AdhaarUserBean inputUser)
+    public @ResponseBody AdhaarUserBean getAdhaarInfobyId(@RequestBody AdhaarUserBean formBean)
     {
-	logger.debug(">>_______ Adhaarid  recieved" + inputUser.getAdhaarID());
-	//AdhaarUserBean user =  userEnrollmentService.getAdhaarUserById(adhaarId);
+	AdhaarUserBean adhaarDetail = null;
+	AdhaarUserBean uiResponse =  new AdhaarUserBean();
 	
-	AdhaarUserBean user  =  new AdhaarUserBean();
-	user.setAdhaarID(inputUser.getAdhaarID());
-	user.setNameFirst("Jintu Jacob");
-	user.setPhone("9847361387");
-	user.setCustomMessage(CUSTOM_MSG);
+	adhaarDetail =  userEnrollmentService.getAdhaarUserById(formBean.getAdhaarID());
+	
+	if(adhaarDetail != null){
+	    uiResponse = adhaarDetail;
+	    uiResponse.setCustomMessage(CUSTOM_MSG);
+	}
+	else{
+	    uiResponse.setCustomMessage("User not found in Adhaar Database! Please search again");
+	}
+	return uiResponse;
+    }
+    
+    
+    
+    @RequestMapping(value="/getVoterInfoById", method = RequestMethod.POST)
+    public @ResponseBody VotersUserBean  getVoterInfoById(@RequestBody VotersUserBean voterToSearch)
+    {
+	logger.debug(">>__________________recieved query params:"+ voterToSearch.getVotersId() );
 
-	return user;
-    }
-    
-    
-    
-    
-    //get Voters information for the provided voterId
-    @RequestMapping(value="/getVoterInfo", method = RequestMethod.POST)
-    public @ResponseBody VotersUserBean getVoterInfobyId(@RequestBody VotersUserBean inputVoter)
-    {
-	logger.debug(">>________ VoterId recieved >" + inputVoter.getVotersId());
+	VotersUserBean voterDetail =  null;
+	VotersUserBean uiResponse =  new VotersUserBean();
 	
-	//VotersUserBean votersUserBean =   userEnrollmentService.getVoterUserById(voterId);
+	voterDetail = voterListMgmtService.getVoterDetailById(voterToSearch);
 	
-	VotersUserBean voter = new VotersUserBean();
-	voter.setVotersId(inputVoter.getVotersId());
-	voter.setConstituency("Piravom");
-	voter.setPlace("muvatupuzha");
-	voter.setName("Jintu Jacob");
-	voter.setCustomMessage(CUSTOM_MSG);
-	return voter;
+	if(voterDetail != null){
+	    uiResponse = voterDetail;
+	    uiResponse.setCustomMessage(CUSTOM_MSG);
+	}
+	else{
+	    uiResponse.setCustomMessage("No results for the search. Please search again! ");
+	}
+	return uiResponse;
     }
-    
-    
+
 
 
     /* Once the VotersInfo from /getVotersInfo and adhaarInformation from /getAdhaarInfo
