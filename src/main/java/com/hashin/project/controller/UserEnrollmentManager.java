@@ -78,15 +78,19 @@ public class UserEnrollmentManager
 	VotersUserBean voterDetail =  null;
 	VotersUserBean uiResponse =  new VotersUserBean();
 	
-	voterDetail = voterListMgmtService.getVoterDetailById(voterToSearch);
+	if(!voterToSearch.equals(""))
+	{
+	    voterDetail = userEnrollmentService.getVoterUserById(voterToSearch.getVotersId()); 
+	    if(voterDetail != null){
+		uiResponse = voterDetail;
+		uiResponse.setCustomMessage(CUSTOM_MSG);
+	    }else{
+		uiResponse.setCustomMessage("No results for the search. Please search again! ");
+	    }
+	}else{
+	    uiResponse.setCustomMessage("Invalid Search Criteria. Please search again ! ");
+	}
 	
-	if(voterDetail != null){
-	    uiResponse = voterDetail;
-	    uiResponse.setCustomMessage(CUSTOM_MSG);
-	}
-	else{
-	    uiResponse.setCustomMessage("No results for the search. Please search again! ");
-	}
 	return uiResponse;
     }
 
@@ -96,18 +100,27 @@ public class UserEnrollmentManager
      * are verified enroll the user, enrollment tables requires only voterId and adhaarId
      */
     @RequestMapping(value="/enrollUser", method = RequestMethod.POST)
-    public @ResponseBody VotersAdhaarUserBean generateElectionId(@RequestBody VotersAdhaarUserBean verifiedUser)
+    public @ResponseBody VotersAdhaarUserBean generateElectionId(@RequestBody VotersAdhaarUserBean userToEnroll)
     {
-	logger.debug(">>________ VoterId recieved > " + verifiedUser.getVotersId());
+	logger.debug(">>_________recieved params___> " + userToEnroll.getVotersId()+","+userToEnroll.getAdhaarId());
 	
-/*	VotersAdhaarUserBean user =   userEnrollmentService.manageUserEnrollement(verifiedUser.getVotersId(), 
-		verifiedUser.getAdhaarId()) ;
-*/	
 	VotersAdhaarUserBean enrolledUser= new VotersAdhaarUserBean();
-	enrolledUser.setAdhaarId(verifiedUser.getAdhaarId());
-	enrolledUser.setVotersId(verifiedUser.getVotersId());
-	enrolledUser.seteElectionId("GENERATED_ID");
-	enrolledUser.setCustomMessage(CUSTOM_MSG);
+	
+	if( !(userToEnroll.getVotersId().equals("")) && !(userToEnroll.getAdhaarId().equals("")))
+	{
+	    userToEnroll = userEnrollmentService.manageUserEnrollement(userToEnroll) ;
+	    if(userToEnroll != null){
+    	    	enrolledUser = userToEnroll;
+    	    	enrolledUser.setCustomMessage(CUSTOM_MSG);
+    	    }
+	    else{
+    		enrolledUser.setCustomMessage("User already enrolled in the Database");
+    	    }
+    	}
+	else{
+	    enrolledUser.setCustomMessage("Invalid VotersId or Adhaar ID submitted! Please resubmit");
+	}
+	
 	return enrolledUser;
     }
     

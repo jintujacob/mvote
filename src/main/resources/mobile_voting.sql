@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 17, 2013 at 02:15 PM
+-- Generation Time: Jan 14, 2014 at 01:15 AM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -304,71 +304,26 @@ INSERT INTO `voters` (`id`, `voters_id`, `name`, `const`, `place`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `voters_adhaar` (
-  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `e_election_id` bigint(25) NOT NULL AUTO_INCREMENT,
   `fk_voters_id` varchar(20) NOT NULL,
   `fk_adhaar_id` varchar(20) NOT NULL,
   `voting_pin` varchar(50) NOT NULL,
   `gen_date` date DEFAULT NULL,
   `lockout_flag` varchar(2) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`e_election_id`),
   UNIQUE KEY `fk_voters_id` (`fk_voters_id`),
   UNIQUE KEY `fk_adhaar_id` (`fk_adhaar_id`),
   UNIQUE KEY `voting_pin` (`voting_pin`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2147483647 ;
 
 --
 -- Dumping data for table `voters_adhaar`
 --
 
-INSERT INTO `voters_adhaar` (`id`, `fk_voters_id`, `fk_adhaar_id`, `voting_pin`, `gen_date`, `lockout_flag`) VALUES
-(1, 'v444', 'UID444', 'VPIN444', '2013-12-12', 'F'),
-(2, 'v888', 'UID888', 'VPIN888', '2013-12-12', 'F'),
-(3, 'v666', 'UID666', 'VPIN666', '2013-12-12', 'F');
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `elections_candidates`
---
-ALTER TABLE `elections_candidates`
-  ADD CONSTRAINT `elections_candidates_ibfk_1` FOREIGN KEY (`cand_id`) REFERENCES `candidates` (`cand_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `elections_candidates_ibfk_2` FOREIGN KEY (`unit_ele_id`) REFERENCES `elections_consts` (`unit_ele_id`) ON DELETE CASCADE;
-
---
--- Constraints for table `elections_consts`
---
-ALTER TABLE `elections_consts`
-  ADD CONSTRAINT `elections_consts_ibfk_1` FOREIGN KEY (`ele_id`) REFERENCES `elections` (`ele_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `elections_consts_ibfk_2` FOREIGN KEY (`const_id`) REFERENCES `constituencies` (`const_id`) ON DELETE CASCADE;
-
---
--- Constraints for table `elections_results`
---
-ALTER TABLE `elections_results`
-  ADD CONSTRAINT `elections_results_ibfk_1` FOREIGN KEY (`ele_cand_id`) REFERENCES `elections_candidates` (`ele_cand_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `elections_results_ibfk_2` FOREIGN KEY (`unit_ele_id`) REFERENCES `elections_consts` (`unit_ele_id`) ON DELETE CASCADE;
-
---
--- Constraints for table `elections_schedules`
---
-ALTER TABLE `elections_schedules`
-  ADD CONSTRAINT `elections_schedules_ibfk_1` FOREIGN KEY (`unit_ele_id`) REFERENCES `elections_consts` (`unit_ele_id`) ON DELETE CASCADE;
-
---
--- Constraints for table `elections_votingstats`
---
-ALTER TABLE `elections_votingstats`
-  ADD CONSTRAINT `elections_votingstats_ibfk_1` FOREIGN KEY (`ele_id`) REFERENCES `elections` (`ele_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `elections_votingstats_ibfk_2` FOREIGN KEY (`voting_pin`) REFERENCES `voters_adhaar` (`voting_pin`) ON DELETE CASCADE;
-
---
--- Constraints for table `voters_adhaar`
---
-ALTER TABLE `voters_adhaar`
-  ADD CONSTRAINT `voters_adhaar_ibfk_1` FOREIGN KEY (`fk_voters_id`) REFERENCES `voters` (`voters_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `voters_adhaar_ibfk_2` FOREIGN KEY (`fk_adhaar_id`) REFERENCES `adhaarDB` (`adhaar_id`) ON DELETE CASCADE;
+INSERT INTO `voters_adhaar` (`e_election_id`, `fk_voters_id`, `fk_adhaar_id`, `voting_pin`, `gen_date`, `lockout_flag`) VALUES
+(111122223330, 'v666', 'UID666', 'VPIN666', '2013-12-12', 'F'),
+(111122223333, 'v888', 'UID888', 'VPIN888', '2013-12-12', 'F'),
+(111122223334, 'v444', 'UID444', 'VPIN444', '2013-12-12', 'F');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

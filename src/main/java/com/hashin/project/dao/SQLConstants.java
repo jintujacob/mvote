@@ -73,8 +73,8 @@ public class SQLConstants {
 	public static String GET_ADHAAR_USER_BY_ADHAAR_ID = " select * from adhaarDB where adhaar_id= ? " ;
 	
 	public static String INSERT_ENRLD_USER_IN_VOTERSADHAAR = "insert into voters_adhaar " 
-			+ " (id, fk_voters_id, fk_adhaar_id, voting_pin, lockout_flag, gen_date) " 
-			+ " values (NULL, '?', '?', '?', '?', CURDATE()) ";
+			+ " (e_election_id, fk_voters_id, fk_adhaar_id, voting_pin, lockout_flag, gen_date) " 
+			+ " values (NULL, ?, ?, ?, ?, CURDATE()) ";
 	
 	public static String GET_ENRLMENT_STAT_BY_ALL_CRITERIA = "select count(*) from voters_adhaar " 
 			+ "where fk_adhaar_id = ? and fk_voters_id = ? " 

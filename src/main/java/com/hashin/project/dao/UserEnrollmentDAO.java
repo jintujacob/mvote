@@ -28,9 +28,8 @@ public interface UserEnrollmentDAO
      * @param userToEnroll
      * @return String - the auto generated Id of the user
      */
-    public VotersAdhaarUserBean createVotersAdhaarUser(VotersAdhaarUserBean userToEnroll);
+    public Long createVotersAdhaarUser(VotersAdhaarUserBean userToEnroll);
     
-    public String generateVotingPin(); 
     
     public int getEnrollmentStatus(String votingPin, String adhaarId,
 	    String voterId);

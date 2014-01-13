@@ -26,10 +26,13 @@ $(document).ready(function(){
 	
 	
 	$('#btn_verified').click(function(){
-		if( (adhaarId != "") && (votersId != '') )
-			processVerifyButtonClick(adhaarId, votersId);
-		else
-			alert("Verification of User in Adhaar Sytem and Voter List is mandatory.");
+		if(confirm("You are about to enroll. Please confirm?"))
+		{
+			if( (adhaarId != "") && (votersId != '') )
+				processVerifyButtonClick(adhaarId, votersId);
+			else
+				alert("Verification of User in Adhaar Sytem and Voter List is mandatory.");
+		}
 	});
 	
 	$('#btn_homepage').click(function(){
@@ -134,12 +137,15 @@ function populateElectionSlip(enrolledUser)
 	str = 	"";
 	if(enrolledUser.customMessage == "SUCCESS")
 	{
+		eid = enrolledUser.eElectionId ;
+		electionId = eid.substring(0,4)+ "-" + eid.substring(4,8) +"-" + eid.substring(8,12);
+		
 		str+= 	'<tr> <td> Voters ID </td> <td> : '			+ enrolledUser.votersId + '</td> </tr>' ;
 		str+= 	'<tr> <td> Adhaar ID </td> <td> : '			+ enrolledUser.adhaarId + '</td> </tr>' ;
-		str+= 	'<tr> <td> E - Election ID </td> <td> : '	+ enrolledUser.eElectionId + '</td> </tr>'	;
+		str+= 	'<tr> <td> E - Election ID </td> <td> : '	+ electionId + '</td> </tr>'	;
 	}else
 	{
-		str+= 	'<tr> <td> Enrollment Failed. Please Enroll again! </td> </tr>' ;
+		str+= 	'<tr> <td>' +enrolledUser.customMessage+ '</td> </tr>' ;
 	}
 	showPage('#pageEnrollResponseStatus');
 	$('#tableElectionCard').html(str);
