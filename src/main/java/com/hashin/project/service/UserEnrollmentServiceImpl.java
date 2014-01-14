@@ -69,9 +69,6 @@ public class UserEnrollmentServiceImpl implements UserEnrollmentService {
 	
 	public VotersAdhaarUserBean updatePinForEnrolledUser(VotersAdhaarUserBean user)
 	{
-		logger.debug(">>______________ EnrollmentService data > "+ user.getAdhaarId()
-				+", "+ user.geteElectionId()+", "+ user.getVotingPIN());
-		
 		if(userEnrollmentDao.udpateVotersAdhaarUserByPIN(user) == 0){
 			return null;
 		}

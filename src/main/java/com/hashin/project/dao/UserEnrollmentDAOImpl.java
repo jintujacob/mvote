@@ -100,8 +100,8 @@ public class UserEnrollmentDAOImpl implements UserEnrollmentDAO {
 	
 	@Override
 	public int udpateVotersAdhaarUserByPIN(VotersAdhaarUserBean userToUpdate) 
-	{
-		logger.debug("______________________________Inside DAO methode");
+	{	
+		logger.debug("______________________________Inside DAO>udpateVotersAdhaarUserByPIN");
 		
 		int numRows = 0;
 		Object[] parameters = new Object[] { 

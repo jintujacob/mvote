@@ -146,23 +146,27 @@ public class UserEnrollmentManager {
 				usrDetail.setCustomMessage("Login failed! User not found in the system!");
 			}
 		}else{
-			usrDetail.setCustomMessage("Invalid Election Id or Voter ID. Please try again!");
+			usrDetail.setCustomMessage("Invalid Election Id or Voter ID. Please Try Again!");
 		}
 		return usrDetail;
 	}
 
 	
-	/* chnage pin for Election Id */
+	/* change pin for Election Id */
 	@RequestMapping(value = "/changePinById", method = RequestMethod.POST)
 	public @ResponseBody
-	VotersAdhaarUserBean changeUserPin(@RequestBody VotersAdhaarUserBean newUser) {
-		logger.debug(">>________________ Recieved >" + newUser.geteElectionId()
-				+ "," + newUser.getVotingPIN());
+	VotersAdhaarUserBean changeUserPin(@RequestBody VotersAdhaarUserBean updateUser) {
+		logger.debug(">>________________ Recieved >" + updateUser.geteElectionId()
+				+ "," + updateUser.getVotingPIN()+ "," + updateUser.getAdhaarId());
 
-		VotersAdhaarUserBean enrolledUser = new VotersAdhaarUserBean();
-		enrolledUser.setVotingPIN("CHANGED PIN");
-		enrolledUser.setCustomMessage(CUSTOM_MSG);
-		return enrolledUser;
+		VotersAdhaarUserBean uiResponse = new VotersAdhaarUserBean();
+		if(userEnrollmentService.updatePinForEnrolledUser(updateUser) != null){
+			uiResponse.setCustomMessage(CUSTOM_MSG);
+		}else{
+			uiResponse.setCustomMessage("Unable to update PIN now ! Please try again later!");
+		}
+		
+		return uiResponse;
 	}
 
 }

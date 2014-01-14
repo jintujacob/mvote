@@ -25,8 +25,11 @@ $(document).ready(function(){
 	$('#btn_changePin').click(function(){
 		newPin =$('#in_PIN').val();
 		$('#in_PIN').val("");
-		if(newPin != "")
+		if(newPin.length == 6)
 			doChangePIN(electionId, newPin);
+		else{
+			alert("Minimum 6 characters required to proceed");
+		}
 	});
 
 	$('.btn_homepage').click(function(){
@@ -38,7 +41,11 @@ $(document).ready(function(){
 
 function doChangePIN(electionId, newPin)
 {
-		obj = {"eElectionId":electionId , "votingPIN":newPin }
+		obj = { 
+				"eElectionId":electionId,
+				"votingPIN":newPin,
+				"adhaarId":adhaarId 
+			  }
 		jsonString =JSON.stringify(obj);
 		
 		$.ajax({
@@ -76,21 +83,17 @@ function doProcessLogin(electionId)
 }
 
 
-function populatePinManagerHome(enrolledUsr){
-	
-	alert(enrolledUsr.votingPIN );
-	str = 	"";
+function populatePinManagerHome(enrolledUsr)
+{
+
 	if(enrolledUsr.customMessage == "SUCCESS")
 	{
-		str+= enrolledUsr.votingPIN ;
+		showPage('#pagePinManagerHome');
+		$('#pinBox').html(enrolledUsr.votingPIN);
 	}else{
-		str+= enrolledUsr.customMessage	 ;	
+		showPage('#pagePinManagerLogin');
+		$('#errormsg_login').html(enrolledUsr.customMessage);
 	}	
-	
-	showPage('#pagePinManagerHome');
-	alert(str);
-	$('#pinBox').html(str);
-	
 }
 
 
@@ -99,11 +102,11 @@ function populatePinManagerHome(enrolledUsr){
 function populatePINChangeStatus(modifiedUser)
 {
 	str = 	"";
-	if(modifiedUser.customMessage == "success")
+	if(modifiedUser.customMessage == "SUCCESS")
 	{
 		str+= " Successfully Changed the PIN number for election Id " + electionId	 ;
 	}else{
-		str+= " Unable to complete request. Please try again"	 ;	
+		str+= modifiedUser.customMessage ;	
 	}	
 	
 	showPage('#pagePinManagerSubmitResponse');
