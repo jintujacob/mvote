@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>m-vote</title>
+
+<link rel="stylesheet" type="text/css"
+	href="./css/jquery.mobile-1.3.1.min.css" />
+
+<!-- <link rel="stylesheet" type="text/css"
+	href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" /> -->
+<link rel="stylesheet" type="text/css" href="./css/application.css">
+<script src="./js/jquery-1.8.2.min.js"></script>
+<script src="./js/jquery.mobile-1.3.1.min.js"></script>
+<script src="./js/application.js"></script>
+
+<!-- <script language="JavaScript" type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+ -->
+</head>
+<body>
+	<div data-role="page">
+
+		<div data-role="header" data-theme="b">
+			<h1>MOBILE VOTING</h1>
+		</div>
+
+		<div data-role="content">
+			<div data-role="content" id="ContentLogin">
+				<form method="post" action="demoform.asp">
+				 <div class=errortext></div>
+					<p>Election ID</p>
+					<label for="fname" class="ui-hidden-accessible">Election ID</label>
+					<input type="text" name="electionid" id="in_eleid"
+						placeholder="electionid...">
+					<p>PIN</p>
+					<label for="PIN" class="ui-hidden-accessible">Election ID</label> 
+					<input
+						type="text" name="PIN" id="in_pin" placeholder="pin...">
+
+				</form>
+				<button id="btn_login">login</button>
+		  
+			</div>
+			<div data-role="cosntent" id="ContentElectionList">
+				<h1>ELECTION LIST</h1>
+				<fieldset data-role="controlgroup">
+					<legend> Choose an election: </legend>
+					<input type="radio" name="radio-choice" id="radio-choice-1"
+						value="choice-1" checked="checked" /> <label for="radio-choice-1">ele1</label>
+
+					<input type="radio" name="radio-choice" id="radio-choice-2"
+						value="choice-2" /> <label for="radio-choice-2">ele2</label> <input
+						type="radio" name="radio-choice" id="radio-choice-3"
+						value="choice-3" /> <label for="radio-choice-3">ele3</label> <input
+						type="radio" name="radio-choice" id="radio-choice-4"
+						value="choice-4" /> <label for="radio-choice-4">ele4</label>
+				</fieldset>
+				<button id="btn_elelist">next</button>
+				<!-- <button id="btn_elelist_back">back</button> -->
+				<div id="error"></div>
+			</div>
+			<div data-role="content" id="ContentCandidateList">
+				<p>
+				<h1>CANDIDATE LIST</h1>
+				</p>
+
+
+				<form>
+				<legend> Choose your candidate: </legend>
+					<label> <input type="radio" name="radio-choice-0"
+						id="radio-choice-0a">Name-1
+					</label> <label for="radio-choice-0b">Name-2 </label> <input type="radio"
+						name="radio-choice-0" id="radio-choice-0b" class="custom">
+				</form>
+				<button id="btn_candlist">next</button>
+				<button id="btn_candlist_back">back</button>
+				
+			</div>
+			<div data-role="content" id="ContentOverview">
+				<p>
+				<h1>Confirm your Candidate </h1>
+				</p>
+				<div>
+					<h2>Election name</h2>
+				</div>
+				<div>
+					<h2>Candidate name</h2>
+			    </div>
+				<button id="btn_overview">next</button>
+				<button id="btn_overview_back">back</button>
+			</div>
+			<div data-role="content" id="ContentConfirmation">
+				<p>successfully submitted vote</p>
+				<button id="btn_confirm">confirm</button>
+					<button id="btn_confirm_back">back</button>
+					
+				<div align="center">
+
+					<img border="0" src="./images/success.jpg" alt="error" width="200"
+						height="150"> 
+
+				</div>
+			</div>
+			<div data-role="content" id="ContentError">
+
+				<div align="center">
+					<p>
+						<b> error </b>
+					</p>
+					<img border="0" src="./images/error-icon.gif" alt="error" width="200"
+						height="150">
+					<button id="btn_error">click me</button>
+
+				</div>
+
+
+			</div>
+			<div data-role="content" id="ContentAjaxLoader">
+				<div align="center">
+
+					<img border="0" src="./images/loading.gif" alt="error" width="200"
+						height="150">
+
+				</div>
+			</div>
+		</div>
+
+		<div data-role="footer" data-theme="b">
+			<h1>Online voting system</h1>
+		</div>
+
+	</div>
+
+</body>
+</html>
