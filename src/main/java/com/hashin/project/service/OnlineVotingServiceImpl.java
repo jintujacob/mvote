@@ -46,8 +46,6 @@ public class OnlineVotingServiceImpl implements OnlineVotingService
 	logger.debug("__________1_______________calling getEnrollmentStatus(votingPin, adhaarId, voterId)") ;
 	if(getEnrollmentStatus(votingPin, adhaarId, voterId))
 	{
-		logger.debug("___________2_____________calling voterListManagementDao.getVoterUserById(voterId)") ;
-
 	    //Get constituency of the user and get list of elections that are applicable for the user
 	    VotersUserBean voter = voterListManagementDao.getVoterUserById(voterId);
 	    logger.debug("___________3_____________calling  getElectionsListByConst(voter.getConstituency()") ;

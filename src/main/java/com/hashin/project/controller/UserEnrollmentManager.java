@@ -21,139 +21,148 @@ import com.hashin.project.bean.VotersUserBean;
 import com.hashin.project.service.UserEnrollmentService;
 import com.hashin.project.service.VoterListManagementService;
 
-
 /**
- * @author jintu.jacob@gmail.com
- * Oct 9, 2013
- * UserEnrollmentManager
- * Handles all default inputs ending with /enroll
+ * @author jintu.jacob@gmail.com Oct 9, 2013 UserEnrollmentManager Handles all
+ *         default inputs ending with /enroll
  */
 
 @Controller
 @RequestMapping("/enroll")
-public class UserEnrollmentManager
-{
-    @Autowired
-    private VoterListManagementService voterListMgmtService; 
+public class UserEnrollmentManager {
+	@Autowired
+	private VoterListManagementService voterListMgmtService;
 
-    @Autowired
-    private UserEnrollmentService userEnrollmentService; 
-    private static final Logger logger = Logger.getLogger(UserEnrollmentManager.class);
-    private static final String CUSTOM_MSG = "SUCCESS" ;
-    
-    @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getHomeAction() 
-    {
-	logger.debug("in UserEnrollmentManager default");
-	return null;
-    }   
-    
-    
-    //get Adhaar information for the provided adhaarId
-    @RequestMapping(value="/getAdhaarInfo", method = RequestMethod.POST)
-    public @ResponseBody AdhaarUserBean getAdhaarInfobyId(@RequestBody AdhaarUserBean formBean)
-    {
-	AdhaarUserBean adhaarDetail = null;
-	AdhaarUserBean uiResponse =  new AdhaarUserBean();
-	
-	adhaarDetail =  userEnrollmentService.getAdhaarUserById(formBean.getAdhaarID());
-	
-	if(adhaarDetail != null){
-	    uiResponse = adhaarDetail;
-	    uiResponse.setCustomMessage(CUSTOM_MSG);
-	}
-	else{
-	    uiResponse.setCustomMessage("User not found in Adhaar Database! Please search again");
-	}
-	return uiResponse;
-    }
-    
-    
-    
-    @RequestMapping(value="/getVoterInfoById", method = RequestMethod.POST)
-    public @ResponseBody VotersUserBean  getVoterInfoById(@RequestBody VotersUserBean voterToSearch)
-    {
-	logger.debug(">>__________________recieved query params:"+ voterToSearch.getVotersId() );
+	@Autowired
+	private UserEnrollmentService userEnrollmentService;
+	private static final Logger logger = Logger
+			.getLogger(UserEnrollmentManager.class);
+	private static final String CUSTOM_MSG = "SUCCESS";
 
-	VotersUserBean voterDetail =  null;
-	VotersUserBean uiResponse =  new VotersUserBean();
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView getHomeAction() {
+		logger.debug("in UserEnrollmentManager default");
+		return null;
+	}
+
+	// get Adhaar information for the provided adhaarId
+	@RequestMapping(value = "/getAdhaarInfo", method = RequestMethod.POST)
+	public @ResponseBody
+	AdhaarUserBean getAdhaarInfobyId(@RequestBody AdhaarUserBean formBean) {
+		AdhaarUserBean adhaarDetail = null;
+		AdhaarUserBean uiResponse = new AdhaarUserBean();
+
+		adhaarDetail = userEnrollmentService.getAdhaarUserById(formBean
+				.getAdhaarID());
+
+		if (adhaarDetail != null) {
+			uiResponse = adhaarDetail;
+			uiResponse.setCustomMessage(CUSTOM_MSG);
+		} else {
+			uiResponse
+					.setCustomMessage("User not found in Adhaar Database! Please search again");
+		}
+		return uiResponse;
+	}
+
+	@RequestMapping(value = "/getVoterInfoById", method = RequestMethod.POST)
+	public @ResponseBody
+	VotersUserBean getVoterInfoById(@RequestBody VotersUserBean voterToSearch) {
+		logger.debug(">>__________________recieved query params:"
+				+ voterToSearch.getVotersId());
+
+		VotersUserBean voterDetail = null;
+		VotersUserBean uiResponse = new VotersUserBean();
+
+		if (!voterToSearch.equals("")) {
+			voterDetail = userEnrollmentService.getVoterUserById(voterToSearch
+					.getVotersId());
+			if (voterDetail != null) {
+				uiResponse = voterDetail;
+				uiResponse.setCustomMessage(CUSTOM_MSG);
+			} else {
+				uiResponse
+						.setCustomMessage("No results for the search. Please search again! ");
+			}
+		} else {
+			uiResponse
+					.setCustomMessage("Invalid Search Criteria. Please search again ! ");
+		}
+
+		return uiResponse;
+	}
+
+	/*
+	 * Once the VotersInfo from /getVotersInfo and adhaarInformation from
+	 * /getAdhaarInfo are verified enroll the user, enrollment tables requires
+	 * only voterId and adhaarId
+	 */
+	@RequestMapping(value = "/enrollUser", method = RequestMethod.POST)
+	public @ResponseBody
+	VotersAdhaarUserBean generateElectionId(
+			@RequestBody VotersAdhaarUserBean userToEnroll) {
+		logger.debug(">>_________recieved params___> "
+				+ userToEnroll.getVotersId() + "," + userToEnroll.getAdhaarId());
+
+		VotersAdhaarUserBean enrolledUser = new VotersAdhaarUserBean();
+
+		if (!(userToEnroll.getVotersId().equals(""))
+				&& !(userToEnroll.getAdhaarId().equals(""))) {
+			userToEnroll = userEnrollmentService
+					.manageUserEnrollement(userToEnroll);
+			if (userToEnroll != null) {
+				enrolledUser = userToEnroll;
+				enrolledUser.setCustomMessage(CUSTOM_MSG);
+			} else {
+				enrolledUser
+						.setCustomMessage("User already enrolled in the Database");
+			}
+		} else {
+			enrolledUser
+					.setCustomMessage("Invalid VotersId or Adhaar ID submitted! Please resubmit");
+		}
+
+		return enrolledUser;
+	}
+
 	
-	if(!voterToSearch.equals(""))
+	/* LoginWith Election Id & adhaar id*/
+	@RequestMapping(value = "/pinManagerLogin", method = RequestMethod.POST)
+	public @ResponseBody
+	VotersAdhaarUserBean getUserEnrollmentInfo(@RequestBody VotersAdhaarUserBean usrToFind) 
 	{
-	    voterDetail = userEnrollmentService.getVoterUserById(voterToSearch.getVotersId()); 
-	    if(voterDetail != null){
-		uiResponse = voterDetail;
-		uiResponse.setCustomMessage(CUSTOM_MSG);
-	    }else{
-		uiResponse.setCustomMessage("No results for the search. Please search again! ");
-	    }
-	}else{
-	    uiResponse.setCustomMessage("Invalid Search Criteria. Please search again ! ");
+		logger.debug(">>________________ Recieved > " + usrToFind.geteElectionId()
+				+ "," + usrToFind.getAdhaarId());
+
+		VotersAdhaarUserBean usrDetail = new VotersAdhaarUserBean();
+		
+		if( !("".equals(usrToFind.geteElectionId())) && 
+				!("".equals(usrToFind.getAdhaarId()))) {
+			
+			usrToFind = userEnrollmentService.getUserEnrollmentInfo(usrToFind);
+			if(usrToFind != null){
+				usrDetail = usrToFind;
+				usrDetail.setCustomMessage(CUSTOM_MSG);
+			}else{
+				usrDetail.setCustomMessage("Login failed! User not found in the system!");
+			}
+		}else{
+			usrDetail.setCustomMessage("Invalid Election Id or Voter ID. Please try again!");
+		}
+		return usrDetail;
 	}
-	
-	return uiResponse;
-    }
 
-
-
-    /* Once the VotersInfo from /getVotersInfo and adhaarInformation from /getAdhaarInfo
-     * are verified enroll the user, enrollment tables requires only voterId and adhaarId
-     */
-    @RequestMapping(value="/enrollUser", method = RequestMethod.POST)
-    public @ResponseBody VotersAdhaarUserBean generateElectionId(@RequestBody VotersAdhaarUserBean userToEnroll)
-    {
-	logger.debug(">>_________recieved params___> " + userToEnroll.getVotersId()+","+userToEnroll.getAdhaarId());
 	
-	VotersAdhaarUserBean enrolledUser= new VotersAdhaarUserBean();
-	
-	if( !(userToEnroll.getVotersId().equals("")) && !(userToEnroll.getAdhaarId().equals("")))
-	{
-	    userToEnroll = userEnrollmentService.manageUserEnrollement(userToEnroll) ;
-	    if(userToEnroll != null){
-    	    	enrolledUser = userToEnroll;
-    	    	enrolledUser.setCustomMessage(CUSTOM_MSG);
-    	    }
-	    else{
-    		enrolledUser.setCustomMessage("User already enrolled in the Database");
-    	    }
-    	}
-	else{
-	    enrolledUser.setCustomMessage("Invalid VotersId or Adhaar ID submitted! Please resubmit");
+	/* chnage pin for Election Id */
+	@RequestMapping(value = "/changePinById", method = RequestMethod.POST)
+	public @ResponseBody
+	VotersAdhaarUserBean changeUserPin(@RequestBody VotersAdhaarUserBean newUser) {
+		logger.debug(">>________________ Recieved >" + newUser.geteElectionId()
+				+ "," + newUser.getVotingPIN());
+
+		VotersAdhaarUserBean enrolledUser = new VotersAdhaarUserBean();
+		enrolledUser.setVotingPIN("CHANGED PIN");
+		enrolledUser.setCustomMessage(CUSTOM_MSG);
+		return enrolledUser;
 	}
-	
-	return enrolledUser;
-    }
-    
-    
-    /* LoginWith Election Id */
-    @RequestMapping(value="/pinManagerLogin", method = RequestMethod.POST)
-    public @ResponseBody VotersAdhaarUserBean getUserPinById(@RequestBody VotersAdhaarUserBean user)
-    {
-	//sent user.eElectionId to retrieve the autogenerated PIN 
-	// if the the Voting PIN is empty on the database, generate one and return
-	// if the voting pin is already on db, return that.
-	
-	logger.debug(">>________________ Recieved > " + user.geteElectionId() + "," + user.getAdhaarId());
-	
-	VotersAdhaarUserBean enrolledUser= new VotersAdhaarUserBean();
-	enrolledUser.setVotingPIN("AUTO GEN PIN");
-	enrolledUser.setCustomMessage(CUSTOM_MSG);
-	return enrolledUser;
-    }
 
-    
-    
-    /* chnage pin for Election Id */
-    @RequestMapping(value="/changePinById", method = RequestMethod.POST)
-    public @ResponseBody VotersAdhaarUserBean changeUserPin(@RequestBody VotersAdhaarUserBean newUser)
-    {
-	logger.debug(">>________________ Recieved >" + newUser.geteElectionId() + "," + newUser.getVotingPIN());
-	
-	VotersAdhaarUserBean enrolledUser= new VotersAdhaarUserBean();
-	enrolledUser.setVotingPIN("CHANGED PIN");
-	enrolledUser.setCustomMessage(CUSTOM_MSG);
-	return enrolledUser;
-    }
-    
-    
 }

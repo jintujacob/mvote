@@ -24,9 +24,17 @@ public interface UserEnrollmentService
      */
     public AdhaarUserBean getAdhaarUserById(String adhaarId);
     
-    
+    /**
+     * Direct querying of voters table only. Pre enrollment information fetch
+     * @param votersId
+     * @return
+     */
     public VotersUserBean getVoterUserById(String votersId);
     
+    public VotersAdhaarUserBean getUserEnrollmentInfo(VotersAdhaarUserBean usrToFind);
+    
+	public VotersAdhaarUserBean updatePinForEnrolledUser(VotersAdhaarUserBean usrToEnrl);
+
     
     // --can be private can be removed from the interface since it is not externally required
     //public String generateVotingPin();

@@ -69,12 +69,32 @@ function doProcessLogin(electionId)
 		    dataType: "json",
 		    data: jsonString,
 		    success: function(response) {
-		    	showPage('#pagePinManagerHome');
-		    	$('#pinBox').html(response.votingPIN);
+		    	populatePinManagerHome(response);
 		    }
 		});
 	}
 }
+
+
+function populatePinManagerHome(enrolledUsr){
+	
+	alert(enrolledUsr.votingPIN );
+	str = 	"";
+	if(enrolledUsr.customMessage == "SUCCESS")
+	{
+		str+= enrolledUsr.votingPIN ;
+	}else{
+		str+= enrolledUsr.customMessage	 ;	
+	}	
+	
+	showPage('#pagePinManagerHome');
+	alert(str);
+	$('#pinBox').html(str);
+	
+}
+
+
+
 
 function populatePINChangeStatus(modifiedUser)
 {
