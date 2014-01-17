@@ -11,10 +11,12 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.hashin.project.bean.ConstituenciesBean;
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
 import com.hashin.project.util.CandidatesRowMapper;
+import com.hashin.project.util.ConstituencyMapper;
 import com.hashin.project.util.ElectionsCandidatesRowMapper;
 import com.hashin.project.util.ElectionsConstsMapper;
 import com.hashin.project.util.ElectionsRowMapper;
@@ -128,6 +130,15 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO {
 	    List<ElectionsCandidatesBean> candidateList = jdbcTemplate.query(SQLConstants.GET_CANDIDATES_BY_CONSTITUENCY_ID,
 				parameters, new ElectionsCandidatesRowMapper());
 	    return candidateList;
+	}
+
+	@Override
+	public List<ConstituenciesBean> getAllConstituencies() {
+		 List<ConstituenciesBean> constList = null;
+		 constList = jdbcTemplate.query(SQLConstants.GET_ALL_CONSTS, new ConstituencyMapper());
+		 logger.debug("_______________________Fetched the constituecies list >> "
+		 		+ constList.size() );
+		 return constList;
 	}
 	
 	

@@ -28,7 +28,7 @@ import com.hashin.project.service.ElectionManagementService;
 @Controller
 @RequestMapping("elections")
 public class ElectionsManager {
-
+/*
     @Autowired
     private ElectionManagementService electionMgmtService; 
     private static final Logger logger = Logger.getLogger(ElectionsManager.class);
@@ -43,9 +43,9 @@ public class ElectionsManager {
     }   
     
     
-    /*
+    
      * http://localhost:8080/mvote/elections/getById?electId=11
-     */
+     
     @RequestMapping(value="/getById", method = RequestMethod.GET)
     public ModelAndView getElectionById(@RequestParam int electId) 
     {
@@ -104,7 +104,7 @@ public class ElectionsManager {
 	return new ModelAndView("ElectionsError", "msgError", msgError);  
    }
    
-   
+ */  
    
    /*
     * add method for the deleteById methode

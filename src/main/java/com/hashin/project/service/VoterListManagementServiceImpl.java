@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.hashin.project.bean.VotersUserBean;
 import com.hashin.project.dao.UserEnrollmentDAOImpl;
 import com.hashin.project.dao.VoterListManagementDAO;
+import com.hashin.project.dao.VoterListManagementDAOImpl;
 
 public class VoterListManagementServiceImpl implements
 	VoterListManagementService

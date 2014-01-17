@@ -22,17 +22,15 @@
 	        <div id="contentSearchVoterForm">
 	               contentSearchVoterForm <br><br>
 	               
-	               VoterId:<input type="text" id="in_voterid"> <br>
-	               Name:   <input type="text" id="in_voterid"> <br>
-	               Const : <select>
-	                          <option> const 1</option>
-	                          <option> const 1</option>
-	                          <option> const 1</option>
-	                          <option> const 1</option>
-	                          <option> const 1</option>     
+	               VoterId:<input type="text" id="in_srch_voterid"> <br>
+	               Name:   <input type="text" id="in_srch_name"> <br>
+	               Const : <select id="in_const">
+	               			  <option value="none"> select any </option> 
+	                          <option value="1"> const 1</option>
+	                          <option value="2"> const 2</option>     
 	                       </select>    <br>
-	               Flag :  Active<input type="radio" name="flag" value="true">
-	                       Inactive<input type="radio" name="flag" value="true">   <br><br>        
+	               Flag :  Active<input type="radio" name="in_srch_lockflag" value="F" checked>
+	                       Inactive<input type="radio" name="in_srch_lockflag" value="T">   <br><br>        
 	               
 	               <button id="btn_submit_search"> Find </button>
 	               

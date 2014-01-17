@@ -2,12 +2,13 @@ package com.hashin.project.service;
 
 import java.util.List;
 
+import com.hashin.project.bean.ConstituenciesBean;
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsCandidatesBean;
 
 public interface ElectionManagementService {
-
-	/* START________________________________________ Election Management API */
+/*
+	 START________________________________________ Election Management API 
 	
 	public int addNewElection(ElectionsBean election);
 
@@ -19,10 +20,10 @@ public interface ElectionManagementService {
 
 	public int removeElectionById(int electId);
 	
-	/* END Election Management API */
+	 END Election Management API 
 	
 	
-	/* START_______________________________________ Candidate Management API */
+	 START_______________________________________ Candidate Management API 
 	
 	public Boolean enrollNewCandidate(ElectionsCandidatesBean candidate);
 
@@ -32,12 +33,14 @@ public interface ElectionManagementService {
 	
 	public List<ElectionsCandidatesBean> getCandidatesByConstituency(String constId);
 	
-	/* END Candidate Management API */
+	 END Candidate Management API 
 	
-	
+*/	
 	/* START_______________________________________ Constituency Management API */
 	
 
+	public List<ConstituenciesBean> getAllConsts();
+	
 	/* END Constituency Management API */
 	
 }

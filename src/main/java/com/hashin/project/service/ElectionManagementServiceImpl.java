@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.hashin.project.bean.ConstituenciesBean;
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.dao.ElectionManagementDAO;
@@ -13,7 +14,7 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	@Autowired
 	private ElectionManagementDAO electionsMgmtDao;
 
-	public int addNewElection(ElectionsBean election) {
+/*	public int addNewElection(ElectionsBean election) {
 		return electionsMgmtDao.addNewElection(election);
 		// todo check if the the return value ==0 or <0; then then throw some
 		// change to boolean return
@@ -62,5 +63,10 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 			String constId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+*/
+	@Override
+	public List<ConstituenciesBean> getAllConsts() {
+		return electionsMgmtDao.getAllConstituencies();
 	}
 }

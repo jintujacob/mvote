@@ -67,6 +67,15 @@ public class SQLConstants {
 	
 	/**
 	 * ------------------------------------------------------------------------------------------------------------
+	 * Queries for the Constituency table;
+	 */
+	
+	public static String GET_ALL_CONSTS = "select * from constituencies";
+	
+	
+	
+	/**
+	 * ------------------------------------------------------------------------------------------------------------
 	 * Queries for the OnlineVoting module;
 	 */
 	
