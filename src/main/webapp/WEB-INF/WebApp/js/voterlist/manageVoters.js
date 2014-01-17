@@ -1,4 +1,4 @@
-constList = "";
+constsDropDownContent = "";
 
 $(document).ready(function(){
 	getHomeContents();
@@ -12,6 +12,8 @@ $(document).ready(function(){
 	$('#goto_add_voter').click(function(){
 		 $('#contentSearchVoterForm').hide();
 		 $('#contentAddVoterForm').show();
+		 $('#in_add_consts').html(constsDropDownContent);
+		 
 	});
 	 
 	$('#btn_submit_search').click(function(){
@@ -19,7 +21,7 @@ $(document).ready(function(){
 		votersId = $('#in_srch_voterid').val();
 		lockOutFlag = $("input[name='in_srch_lockflag']:checked").val();
 		name = $('#in_srch_name').val();
-		constituency = $('#in_const').val();
+		constituency = $('#in_srch_const').val();
 
 		/*	votersId = "";
 			lockOutFlag = "F";
@@ -94,8 +96,8 @@ function processVoterSearch(votersId, lockOutFlag, name, constituency ){
 }
 
 function populateVoterList(voterList){
-	alert(JSON.stringify(voterList));
-	showPage('#pageVoterListView');
+	//alert(JSON.stringify(voterList));
+	//showPage('#pageVoterListView');
 	
 	//check the custom message value before making printing
 }
@@ -129,30 +131,30 @@ function getHomeContents(){
 	    dataType: "json",
 	    //data: jsonString,
 	    success: function(response) {
-	    	populateHomeConstsDropDown(response.constsList);
+	    	list = response.constsList;
+	    	
+	    	str = "<option value='none'> Select any </option>" ;
+	     	for(var i=0; i<list.length; i++){
+	     		str += "<option value='"+ list[i].constId+ "'>"+ list[i].constName +", " +list[i].constState;
+	     	 	str += "</option>";
+	     	}
+	     	
+	     	constsDropDownContent = str; //to global
+	     	
+	    	populateHomeConstsDropDown();
 	    }
 	});		
 
 }
 
 
-function populateHomeConstsDropDown(list)
+function populateHomeConstsDropDown()
 {
 	hideAll();
 	$('#pageVoterManagerHome').show();
  	$('#contentAddVoterForm').hide();
  	$('#contentSearchVoterForm').show();
  	
- 	str = "" ;
- 	
- 	
- 	for(var i=0; i<list.length; i++){
- 	 	str += "<option value='"+ list[i].constId+ "'>"+ list[i].constName +", " +list[i].constState;
- 	 	str += "</option>";
- 	}
- 	
- 	
- 	
- 	$('#in_const').html(str);
+ 	$('#in_srch_const').html(constsDropDownContent);
 }
 

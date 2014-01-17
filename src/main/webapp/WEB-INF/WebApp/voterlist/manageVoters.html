@@ -24,10 +24,8 @@
 	               
 	               VoterId:<input type="text" id="in_srch_voterid"> <br>
 	               Name:   <input type="text" id="in_srch_name"> <br>
-	               Const : <select id="in_const">
-	               			  <option value="none"> select any </option> 
-	                          <option value="1"> const 1</option>
-	                          <option value="2"> const 2</option>     
+	               Const : <select id="in_srch_const">
+	               				<!--  ajax it -->
 	                       </select>    <br>
 	               Flag :  Active<input type="radio" name="in_srch_lockflag" value="F" checked>
 	                       Inactive<input type="radio" name="in_srch_lockflag" value="T">   <br><br>        
@@ -38,14 +36,10 @@
 	       <div id="contentAddVoterForm">
 	               contentAddVoterForm <br><br>
                    
-                   VoterId:<input type="text" id="in_voterid"> <br>
-                   Name:   <input type="text" id="in_voterid"> <br>
-                   Const : <select>
-                              <option> const 1</option>
-                              <option> const 1</option>
-                              <option> const 1</option>
-                              <option> const 1</option>
-                              <option> const 1</option>     
+                   VoterId:<input type="text" id="in_add_voterid"> <br>
+                   Name:   <input type="text" id="in_add_name"> <br>
+                   Const : <select id="in_add_consts">
+                             	<!--  ajax it  -->
                            </select>    <br><br><br>        
                    
                    <button id="btn_add_voter"> Register </button>
