@@ -9,10 +9,17 @@ public class FormListBean
     private List<ElectionsCandidatesBean> candidateList ;
     private List<VotersUserBean> voterList;
     private String customMessage;
+    private List<ConstituenciesBean> constsList;
     
     
-    
-    public List<VotersUserBean> getVoterList()
+  
+	public List<ConstituenciesBean> getConstsList() {
+		return constsList;
+	}
+	public void setConstsList(List<ConstituenciesBean> constsList) {
+		this.constsList = constsList;
+	}
+	public List<VotersUserBean> getVoterList()
     {
         return voterList;
     }
