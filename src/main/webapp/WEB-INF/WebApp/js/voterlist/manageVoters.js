@@ -131,16 +131,24 @@ function getHomeContents(){
 	    dataType: "json",
 	    //data: jsonString,
 	    success: function(response) {
-	    	list = response.constsList;
-	    	
+	    	alert("success");
 	    	str = "<option value='none'> Select any </option>" ;
-	     	for(var i=0; i<list.length; i++){
-	     		str += "<option value='"+ list[i].constId+ "'>"+ list[i].constName +", " +list[i].constState;
-	     	 	str += "</option>";
-	     	}
-	     	
+	    	if(response.customMessage == "SUCCESS"){
+		    	list = response.constsList;
+		     	for(var i=0; i<list.length; i++){
+		     		str += "<option value='"+ list[i].constId+ "'>"+ list[i].constName +", " +list[i].constState;
+		     	 	str += "</option>";
+		     	}
+	    	}else{
+	    		str = "<option value='none'> Information Unavailable</option>";
+	    	} 	
+	    	constsDropDownContent = str; //to global
+	    	populateHomeConstsDropDown();
+	    },
+	    error:function(){
+		    str = "<option value='none'> Information Unavailable</option>";
+	    	
 	     	constsDropDownContent = str; //to global
-	     	
 	    	populateHomeConstsDropDown();
 	    }
 	});		
