@@ -26,7 +26,7 @@ public class VoterListManager {
 	private VoterListManagementService voterListMgmtService;
 	private static final Logger logger = Logger
 			.getLogger(VoterListManager.class);
-	private static final String CUSTOM_MSG = "success";
+	private static final String CUSTOM_MSG = "SUCCESS";
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getHomeAction() {

@@ -29,7 +29,7 @@
 	                       </select>    <br>
 	               Flag :  Active<input type="radio" name="in_srch_lockflag" value="F" checked>
 	                       Inactive<input type="radio" name="in_srch_lockflag" value="T">   <br><br>        
-	               
+	               <p class="input_error_msg">  <!-- ajax it  --></p>
 	               <button id="btn_submit_search"> Find </button>
 	               
 	        </div>
@@ -42,6 +42,7 @@
                              	<!--  ajax it  -->
                            </select>    <br><br><br>        
                    
+                   <p class="input_error_msg">  <!-- ajax it  --></p>
                    <button id="btn_add_voter"> Register </button>
 	               
 	       </div>
@@ -50,55 +51,30 @@
 	
 	<div id="pageVoterListView">
 	    pageVoterListView
-		<table>
+	    <div class="clearLine"> <button class="btn_backto_home"> Back to Search</button> </div>
+	    <table id="tableVoterList">
 	        <thead>
 	            <tr>   
-	               <td>Heading1</td> <td>Heading2</td> <td>Heading3</td> <td>Heading4</td> </tr>
+	               <td>Name </td> <td>Voters ID</td> <td>Constituency</td> <td>Place</td> <td>Status</td> </tr>
 	        </thead>
 	        <tbody>
                 <!-- ajax it -->	            
-	            <tr> 
-	               <td><a id="content1"> content1 </a> </td>  <td> </td>  </tr>
-	            <tr> 
-    	           <td><a id="content2"> content2 </a> </td>  <td> </td>  </tr>
 	        </tbody>
     	</table>
 	</div>
 	
 	<div id="pageVoterDetailView">
-	   <span id="panelLeftDetailPage">
-	       panelLeftDetailPage>
+	       panelLeftDetailPage  <br><br>
+	       <table id="tableVoterDetail">  <!-- ajax it  -->  </table>
+	       <div class="clearLine" >
+               <button id="btn_activate"> Activate </button> <br/>
+               <button id="btn_deactivate"> Deactivate </button> <br/>
+	       </div>
 	       
-	       <br><br>
-	       Details of the User<br>
-	       get from the getVoterBydetail page<br>
-	       show as input=text disabled.<br>
-	       enable when right button is pressed<br>
-	       show/hide activate/deactivate button accordingly.
-	       <br><br>
-	       <table>
-	           <tr>
-	               <td> VoterId: </td> <td> test</td> </tr>
-	           <tr>
-                   <td> Name: </td> <td> test </td> </tr>
-               <tr>
-                   <td> Const: </td> <td> test </td> </tr>
-                   
-               <tr>
-                   <td> Username: </td> <td> Bring this? </td> </tr>
-                   
-               <tr>
-                   <td> Password </td> <td> Bring this? </td> </tr>        
-            	               
-	       </table>
-	   </span>
-	   <span id="panelRightDetailPage">
-	       panelRightDetailPage    <br/>
-	       <button id="btn_activate"> Activate </button> <br/>
-	       <button id="btn_deactivate"> Deactivate </button><br/>
-	       <button id="btn_credchange"> Chnage Credentials</button><br/>
-	       <button id="btn_delete"> Delete</button>
-	   </span>
+	       <div class="clearLine" >
+               <button class="btn_backto_home"> Back to Home </button> <br/>
+               <button class="btn_backto_reslt"> Back to Search Results </button> <br/>
+           </div>
 	</div>
 </div>    
 </body>
