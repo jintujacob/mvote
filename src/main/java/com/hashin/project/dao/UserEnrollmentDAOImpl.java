@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.security.sasl.SaslException;
+
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
@@ -17,10 +17,8 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import com.hashin.project.bean.AdhaarUserBean;
 import com.hashin.project.bean.VotersAdhaarUserBean;
-import com.hashin.project.bean.VotersUserBean;
 import com.hashin.project.util.AdhaarRowMapper;
 import com.hashin.project.util.VotersAdhaarRowMapper;
-import com.hashin.project.util.VotersRowMapper;
 
 public class UserEnrollmentDAOImpl implements UserEnrollmentDAO {
 
@@ -99,8 +97,7 @@ public class UserEnrollmentDAOImpl implements UserEnrollmentDAO {
 
 	
 	@Override
-	public int 
-(VotersAdhaarUserBean userToUpdate) 
+	public int udpateVotersAdhaarUserByPIN(VotersAdhaarUserBean userToUpdate) 
 	{	
 		logger.debug("______________________________Inside DAO>udpateVotersAdhaarUserByPIN");
 		

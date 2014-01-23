@@ -5,8 +5,6 @@ package com.hashin.project.dao;
 
 import javax.sql.DataSource;
 
-import com.hashin.project.bean.VotersAdhaarUserBean;
-import com.hashin.project.bean.VotersUserBean;
 
 /**
  * @author jintu.jacob@gmail.com
