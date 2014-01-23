@@ -1,8 +1,7 @@
 package com.hashin.project.controller;
 
-import java.util.List;
 
-import javax.jws.WebParam.Mode;
+
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hashin.project.bean.AdhaarUserBean;
-import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.VotersAdhaarUserBean;
 import com.hashin.project.bean.VotersUserBean;
 import com.hashin.project.service.UserEnrollmentService;
@@ -106,9 +103,13 @@ public class UserEnrollmentManager {
 		VotersAdhaarUserBean enrolledUser = new VotersAdhaarUserBean();
 
 		if (!(userToEnroll.getVotersId().equals(""))
-				&& !(userToEnroll.getAdhaarId().equals(""))) {
-			userToEnroll = userEnrollmentService
-					.manageUserEnrollement(userToEnroll);
+				&& !(userToEnroll.getAdhaarId().equals(""))) 
+		{
+			try {
+				userToEnroll = userEnrollmentService.manageUserEnrollement(userToEnroll);
+			} catch (Exception e) {
+				userToEnroll = null;
+			}
 			if (userToEnroll != null) {
 				enrolledUser = userToEnroll;
 				enrolledUser.setCustomMessage(CUSTOM_MSG);
@@ -136,9 +137,14 @@ public class UserEnrollmentManager {
 		VotersAdhaarUserBean usrDetail = new VotersAdhaarUserBean();
 		
 		if( !("".equals(usrToFind.geteElectionId())) && 
-				!("".equals(usrToFind.getAdhaarId()))) {
-			
-			usrToFind = userEnrollmentService.getUserEnrollmentInfo(usrToFind);
+				!("".equals(usrToFind.getAdhaarId()))) 
+		{
+			try {
+				usrToFind = userEnrollmentService.getUserEnrollmentInfo(usrToFind);
+			} catch (Exception e) {
+				logger.debug("________________info fetch exception___________________________");
+				usrToFind = null;
+			}
 			if(usrToFind != null){
 				usrDetail = usrToFind;
 				usrDetail.setCustomMessage(CUSTOM_MSG);
@@ -160,10 +166,15 @@ public class UserEnrollmentManager {
 				+ "," + updateUser.getVotingPIN()+ "," + updateUser.getAdhaarId());
 
 		VotersAdhaarUserBean uiResponse = new VotersAdhaarUserBean();
-		if(userEnrollmentService.updatePinForEnrolledUser(updateUser) != null){
-			uiResponse.setCustomMessage(CUSTOM_MSG);
-		}else{
-			uiResponse.setCustomMessage("Unable to update PIN now ! Please try again later!");
+		
+		try {
+			if(userEnrollmentService.updatePinForEnrolledUser(updateUser) != null){
+				uiResponse.setCustomMessage(CUSTOM_MSG);
+			}else{
+				uiResponse.setCustomMessage("Unable to update PIN now ! Please try again later!");
+			}
+		} catch (Exception e) {
+			uiResponse.setCustomMessage("Unable to update PIN now ! Exception at backend!");
 		}
 		
 		return uiResponse;

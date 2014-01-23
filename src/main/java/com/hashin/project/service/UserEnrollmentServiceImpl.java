@@ -1,19 +1,17 @@
 package com.hashin.project.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.UUID;
+
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hashin.project.bean.AdhaarUserBean;
-import com.hashin.project.bean.UserFormBean;
 import com.hashin.project.bean.VotersAdhaarUserBean;
 import com.hashin.project.bean.VotersUserBean;
 import com.hashin.project.dao.UserEnrollmentDAO;
 import com.hashin.project.dao.VoterListManagementDAO;
-import com.hashin.project.dao.VoterListManagementDAOImpl;
+import com.hashin.project.util.Encryption;
 
 public class UserEnrollmentServiceImpl implements UserEnrollmentService {
 	@Autowired
@@ -32,12 +30,15 @@ public class UserEnrollmentServiceImpl implements UserEnrollmentService {
 	 */
 	@Override
 	public VotersAdhaarUserBean manageUserEnrollement(
-			VotersAdhaarUserBean verifiedUser) {
+			VotersAdhaarUserBean verifiedUser) throws Exception 
+	{
 		logger.debug(">>______________ UserEnrollmentServiceImpl.manageUserEnrollement service methode called____________> ");
 		VotersAdhaarUserBean enrolled = null;
 
 		verifiedUser.setLockOutFlag("F");
-		verifiedUser.setVotingPIN(generatePin());
+		String generatedPin =  generatePin();
+		String encryptedPin= Encryption.getInstance().encrypt(generatedPin);
+		verifiedUser.setVotingPIN(encryptedPin);
 
 		Long eElectionId = userEnrollmentDao
 				.createVotersAdhaarUser(verifiedUser);
@@ -62,13 +63,30 @@ public class UserEnrollmentServiceImpl implements UserEnrollmentService {
 	}
 
 	@Override
-	public VotersAdhaarUserBean getUserEnrollmentInfo(VotersAdhaarUserBean usrToFind) {
-		return userEnrollmentDao.getEnrolledUserDetail(usrToFind);
+	public VotersAdhaarUserBean getUserEnrollmentInfo(VotersAdhaarUserBean usrToFind) 
+			throws Exception
+	{
+		VotersAdhaarUserBean userBean =  userEnrollmentDao.getEnrolledUserDetail(usrToFind);
+		logger.debug("___________________encrypted PIN from DB >> "+ userBean.getVotingPIN());
+		if(userBean !=null){
+			String encryptedPin = userBean.getVotingPIN(); //pin stored in DB
+			String decryptedPin =  Encryption.getInstance().decrypt(encryptedPin); 
+			userBean.setVotingPIN(decryptedPin); // storing decrypted pin 
+			
+			logger.debug("__________________decrypted PIN set to bean >> "+userBean.getVotingPIN());
+		}
+		return userBean;
 	}
 
 	
-	public VotersAdhaarUserBean updatePinForEnrolledUser(VotersAdhaarUserBean user)
+	public VotersAdhaarUserBean updatePinForEnrolledUser(VotersAdhaarUserBean user) 
+			throws Exception
 	{
+		
+		logger.debug("__________________PIN set by User >> "+user.getVotingPIN());
+		String encryptedPin = Encryption.getInstance().encrypt(user.getVotingPIN());
+		user.setVotingPIN(encryptedPin);
+		logger.debug("__________________encrypted PIN  >> "+user.getVotingPIN());
 		if(userEnrollmentDao.udpateVotersAdhaarUserByPIN(user) == 0){
 			return null;
 		}

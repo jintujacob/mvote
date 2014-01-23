@@ -1,7 +1,7 @@
 package com.hashin.project.service;
 
+
 import com.hashin.project.bean.AdhaarUserBean;
-import com.hashin.project.bean.UserFormBean;
 import com.hashin.project.bean.VotersAdhaarUserBean;
 import com.hashin.project.bean.VotersUserBean;
 
@@ -13,7 +13,8 @@ public interface UserEnrollmentService
      * External methods should call this
      * rest of the methods are internal.
      */
-    public VotersAdhaarUserBean manageUserEnrollement(VotersAdhaarUserBean userToEnroll);
+	public VotersAdhaarUserBean manageUserEnrollement(
+			VotersAdhaarUserBean verifiedUser) throws Exception;
     
     
     /**
@@ -31,9 +32,9 @@ public interface UserEnrollmentService
      */
     public VotersUserBean getVoterUserById(String votersId);
     
-    public VotersAdhaarUserBean getUserEnrollmentInfo(VotersAdhaarUserBean usrToFind);
+    public VotersAdhaarUserBean getUserEnrollmentInfo(VotersAdhaarUserBean usrToFind) throws Exception;
     
-	public VotersAdhaarUserBean updatePinForEnrolledUser(VotersAdhaarUserBean usrToEnrl);
+	public VotersAdhaarUserBean updatePinForEnrolledUser(VotersAdhaarUserBean usrToEnrl) throws Exception;
 
     
     // --can be private can be removed from the interface since it is not externally required

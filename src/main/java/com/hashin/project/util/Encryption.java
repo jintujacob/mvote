@@ -97,6 +97,9 @@ public class Encryption {
 		String toEncrypt = "A67776";
 		
 		String encrypted= Encryption.getInstance().encrypt(toEncrypt);
+		
+		encrypted = "727QV9UqsU0=";
+		
 		String decrypted = Encryption.getInstance().decrypt(encrypted);
 		
 		System.out.println(toEncrypt + " >> "+ encrypted + " >> "+decrypted);

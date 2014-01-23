@@ -99,7 +99,8 @@ public class UserEnrollmentDAOImpl implements UserEnrollmentDAO {
 
 	
 	@Override
-	public int udpateVotersAdhaarUserByPIN(VotersAdhaarUserBean userToUpdate) 
+	public int 
+(VotersAdhaarUserBean userToUpdate) 
 	{	
 		logger.debug("______________________________Inside DAO>udpateVotersAdhaarUserByPIN");
 		
