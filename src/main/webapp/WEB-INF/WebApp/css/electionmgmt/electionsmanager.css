@@ -1,0 +1,45 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+
+div{
+    border: 1px solid black;
+    overflow:auto;
+}
+
+.clearLine{
+    margin-top:10px;
+    clear:both;
+}    
+
+
+
+span{   
+     float:left; 
+     border:1px solid red;  
+     min-height:200px;  
+    }
+
+
+#pageElectionSearchSummary td{
+    border:1px solid #ccc;
+}
+
+    #pageElectionSearchSummary a{
+	        display: block;
+	        padding:3px;
+	        border:1px solid blue;
+	    }
+    
+        #pageElectionSearchSummary a:hover{
+            border:1px solid red;
+        }
+        
+        #pageElectionSearchSummary a:active{
+            background:#ccc;
+        }
+        
+#panelLeftElectionDetail div{
+	width:100%;
+}
