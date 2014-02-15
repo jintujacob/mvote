@@ -98,7 +98,9 @@ public class Encryption {
 		
 		String encrypted= Encryption.getInstance().encrypt(toEncrypt);
 		
-		encrypted = "727QV9UqsU0=";
+		encrypted = "727QV9UqsU0=";		// NEWPIN
+		encrypted = "JqfVovwgMVU=";		// 0C17AC
+		encrypted = "wK1jMRYAi4Y=";		// 882705
 		
 		String decrypted = Encryption.getInstance().decrypt(encrypted);
 		

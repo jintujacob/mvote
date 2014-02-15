@@ -16,106 +16,97 @@ import com.hashin.project.util.VotersAdvancedRowMapper;
 import com.hashin.project.util.VotersRowMapper;
 
 /**
- * @author jintu.jacob@gmail.com
- * Oct 29, 2013
- * VoterListManagementDAOImpl
+ * @author jintu.jacob@gmail.com Oct 29, 2013 VoterListManagementDAOImpl
  */
-public class VoterListManagementDAOImpl implements VoterListManagementDAO
-{
-    private static final Logger logger = Logger.getLogger(VoterListManagementDAOImpl.class);
-    private JdbcTemplate jdbcTemplate;
-    
-    
-    
-    @Resource(name="dataSource")
-    public void setDataSource(DataSource dataSource)
-    {
-	this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
+public class VoterListManagementDAOImpl implements VoterListManagementDAO {
+	private static final Logger logger = Logger
+			.getLogger(VoterListManagementDAOImpl.class);
+	private JdbcTemplate jdbcTemplate;
 
-    
-    @Override
-    public VotersUserBean getVoterUserById(String voterID)
-    {
-	List<VotersUserBean> userList = null;
-
-	Object[] parameters = new Object[] {voterID};
-	userList =  jdbcTemplate.query(SQLConstants.GET_VOTER_INFO_BY_VOTERID, 
-		parameters, new VotersRowMapper());
-
-	logger.debug("VoterListManagementDAOImpl #getVoterUserById Query=> executed" );
-	logger.debug("VoterListManagementDAOImpl #getVoterUserById resultCount => "+ userList.size());
-	
-	if(userList.size()== 0 ){
-	    return null;
+	@Resource(name = "dataSource")
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
-	return userList.get(0);        
-    }
 
+	@Override
+	public VotersUserBean getVoterUserById(String voterID) {
+		List<VotersUserBean> userList = null;
 
-    @Override
-    public int insertNewVoter(VotersUserBean voterUser)
-    {
-	int numRows = 0;
-	Object[] parameters = new Object[] { voterUser.getVotersId(),
-		voterUser.getName(), voterUser.getConstituency(),
-		voterUser.getPlace() };
-	
-	numRows = jdbcTemplate.update( SQLConstants.INSERT_NEW_VOTER_IN_VOTERS, parameters);
-	logger.debug("VoterListManagementDAOImpl #insertNewVoter Query=> "+ SQLConstants.INSERT_NEW_VOTER_IN_VOTERS+ "executed" );
-	logger.debug("VoterListManagementDAOImpl #insertNewVoter result => "+ numRows);
-	
-	return numRows;
-	//non zero - insert is success
-    }
+		Object[] parameters = new Object[] { voterID };
+		userList = jdbcTemplate.query(SQLConstants.GET_VOTER_INFO_BY_VOTERID,
+				parameters, new VotersRowMapper());
 
+		logger.debug("VoterListManagementDAOImpl #getVoterUserById Query=> executed");
+		logger.debug("VoterListManagementDAOImpl #getVoterUserById resultCount => "
+				+ userList.size());
 
-    @Override
-    public VotersUserBean updateVotersById(VotersUserBean voterUser)
-    {
-	// to be implemented
-	return null;
-    }
-
-
-    @Override
-    public List<VotersUserBean> searchVoter(VotersUserBean userToSearch)
-    {
-	Object[] parameters = new Object[] {
-		"%"+userToSearch.getVotersId()+"%", 
-		"%"+userToSearch.getConstituency()+"%", 
-		"%"+userToSearch.getName()+"%", 
-		"%"+userToSearch.getLockOutFlag()+"%" };
-	
-	List<VotersUserBean> userList = null;
-	
-	userList= jdbcTemplate.query(SQLConstants.SEARCH_VOTERS_BY_MULTIPLE_PARAMS, 
-		parameters, new VotersAdvancedRowMapper());
-
-	logger.debug("VoterListManagementDAOImpl #searchVoter Query=> executed" );
-	logger.debug("VoterListManagementDAOImpl #searchVoter result count=> "+ userList.size());
-	return userList;        
-    }
-
-
-    @Override
-    public VotersUserBean getVoterDetailById(VotersUserBean userToSearch)
-    {
-	Object[] parameters = new Object[] { userToSearch.getVotersId() };
-	
-	List<VotersUserBean> userList = null;
-	
-	userList= jdbcTemplate.query(SQLConstants.GET_VOTER_DETAIL_BY_ID, 
-		parameters, new VotersAdvancedRowMapper());
-
-	logger.debug("VoterListManagementDAOImpl #getVoterDetailById Query=> executed" );
-	logger.debug("VoterListManagementDAOImpl #getVoterDetailById result count=> "+ userList.size());
-	if(userList.size()==0){
-	    return null;
+		if (userList.size() == 0) {
+			return null;
+		}
+		return userList.get(0);
 	}
-	
-	return userList.get(0);        
-    }
 
+	@Override
+	public int insertNewVoter(VotersUserBean voterUser) {
+		int numRows = 0;
+		Object[] parameters = new Object[] { voterUser.getVotersId(),
+				voterUser.getName(), voterUser.getConstituency(),
+				voterUser.getPlace() };
+
+		numRows = jdbcTemplate.update(SQLConstants.INSERT_NEW_VOTER_IN_VOTERS,
+				parameters);
+		logger.debug("VoterListManagementDAOImpl #insertNewVoter Query=> "
+				+ SQLConstants.INSERT_NEW_VOTER_IN_VOTERS + "executed");
+		logger.debug("VoterListManagementDAOImpl #insertNewVoter result => "
+				+ numRows);
+
+		return numRows;
+		// non zero - insert is success
+	}
+
+	@Override
+	public VotersUserBean updateVotersById(VotersUserBean voterUser) {
+		// to be implemented
+		return null;
+	}
+
+	@Override
+	public List<VotersUserBean> searchVoter(VotersUserBean userToSearch) {
+		Object[] parameters = new Object[] {
+				"%" + userToSearch.getVotersId() + "%",
+				"%" + userToSearch.getConstituency() + "%",
+				"%" + userToSearch.getName() + "%",
+				"%" + userToSearch.getLockOutFlag() + "%" };
+
+		List<VotersUserBean> userList = null;
+
+		userList = jdbcTemplate.query(
+				SQLConstants.SEARCH_VOTERS_BY_MULTIPLE_PARAMS, parameters,
+				new VotersAdvancedRowMapper());
+
+		logger.debug("VoterListManagementDAOImpl #searchVoter Query=> executed");
+		logger.debug("VoterListManagementDAOImpl #searchVoter result count=> "
+				+ userList.size());
+		return userList;
+	}
+
+	@Override
+	public VotersUserBean getVoterDetailById(VotersUserBean userToSearch) {
+		Object[] parameters = new Object[] { userToSearch.getVotersId() };
+
+		List<VotersUserBean> userList = null;
+
+		userList = jdbcTemplate.query(SQLConstants.GET_VOTER_DETAIL_BY_ID,
+				parameters, new VotersAdvancedRowMapper());
+
+		logger.debug("VoterListManagementDAOImpl #getVoterDetailById Query=> executed");
+		logger.debug("VoterListManagementDAOImpl #getVoterDetailById result count=> "
+				+ userList.size());
+		if (userList.size() == 0) {
+			return null;
+		}
+
+		return userList.get(0);
+	}
 
 }

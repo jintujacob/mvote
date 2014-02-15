@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.Resource;
-
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
@@ -17,8 +16,10 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import com.hashin.project.bean.AdhaarUserBean;
 import com.hashin.project.bean.VotersAdhaarUserBean;
+import com.hashin.project.bean.VotersUserBean;
 import com.hashin.project.util.AdhaarRowMapper;
 import com.hashin.project.util.VotersAdhaarRowMapper;
+import com.hashin.project.util.VotersRowMapper;
 
 public class UserEnrollmentDAOImpl implements UserEnrollmentDAO {
 
@@ -82,7 +83,7 @@ public class UserEnrollmentDAOImpl implements UserEnrollmentDAO {
 		}
 	}
 
-	@Override
+/*	@Override
 	public int getEnrollmentStatus(String votingPin, String adhaarId,
 			String voterId) {
 
@@ -92,6 +93,20 @@ public class UserEnrollmentDAOImpl implements UserEnrollmentDAO {
 		Object[] parameters = new Object[] { adhaarId, voterId, votingPin };
 		int rowCount = jdbcTemplate.queryForInt(
 				SQLConstants.GET_ENRLMENT_STAT_BY_ALL_CRITERIA, parameters);
+		return rowCount;
+	}
+*/
+	
+	@Override
+	public int getEnrollmentStatus(String eElectionId, String votingPin) 
+	{
+		logger.debug("_____________ InDAO recieved" + eElectionId +"," + votingPin);
+		
+		Object[] parameters = new Object[] { eElectionId, votingPin };
+		int rowCount = jdbcTemplate.queryForInt(
+				SQLConstants.GET_ENRLMENT_STAT_BY_ALL_CRITERIA, parameters);
+		
+		logger.debug("_____________ InDAO result/rowCount" + rowCount);
 		return rowCount;
 	}
 
@@ -116,7 +131,8 @@ public class UserEnrollmentDAOImpl implements UserEnrollmentDAO {
 	
 	@Override
 	public VotersAdhaarUserBean getEnrolledUserDetail(
-			VotersAdhaarUserBean userToFind) {
+			VotersAdhaarUserBean userToFind) 
+	{
 		logger.debug("______________________________Inside DAO methode");
 		
 		List<VotersAdhaarUserBean> userList = null;
@@ -129,6 +145,25 @@ public class UserEnrollmentDAOImpl implements UserEnrollmentDAO {
 				new VotersAdhaarRowMapper());
 		
 		logger.debug("__________UserEnrollmentDaoImpl #getEnrolledUserDetail "
+				+ "resultCount => "+userList.size());
+		if(userList.size()==0){
+			return null;
+		}
+		return userList.get(0);
+	}
+
+	@Override
+	public VotersUserBean getVoterIdByEnrolledEID(String eElectionId) 
+	{
+		logger.debug("______________________________Inside DAO methode");
+		
+		List<VotersUserBean> userList = null;
+		Object[] parameters = new Object[] { eElectionId };
+		
+		userList = jdbcTemplate.query(SQLConstants.GET_VOTERS_ID_BY_eELECTIONID, parameters,
+				new VotersRowMapper());
+		
+		logger.debug("__________UserEnrollmentDaoImpl #getVoterIdByEnrolledEID "
 				+ "resultCount => "+userList.size());
 		if(userList.size()==0){
 			return null;

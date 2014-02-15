@@ -102,9 +102,11 @@ public class SQLConstants {
 			+ " values (NULL, ?, ?, ?, ?, CURDATE()) ";
 	
 	public static String GET_ENRLMENT_STAT_BY_ALL_CRITERIA = "select count(*) from voters_adhaar " 
-			+ "where fk_adhaar_id = ? and fk_voters_id = ? " 
-			+ "and voting_pin = ? and lockout_flag <> 'T' ";
+			+ "where e_election_id = ?  and voting_pin = ? and lockout_flag <> 'T' ";
 
+
+
+	
 	public static String UPDATE_PIN_FOR_ENRLD_USR_VTRS_ADHR = "update voters_adhaar set voting_pin= ? "
 			+ " where e_election_id = ? and fk_adhaar_id = ? ";
 	
@@ -112,6 +114,9 @@ public class SQLConstants {
 	public static String GET_USR_ENRLMNT_DETAIL = "select * from voters_adhaar "
 			+ "where e_election_id = ? and fk_adhaar_id = ? ";
 	
+	
+	public static String GET_VOTERS_ID_BY_eELECTIONID =  "select * from voters where "
+			+ "voters_id = (select fk_voters_id from voters_adhaar where e_election_id = ? ) ";
 		
 	/**
 	 * ------------------------------------------------------------------------------------------------------------

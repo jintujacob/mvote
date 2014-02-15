@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 
 import com.hashin.project.bean.AdhaarUserBean;
 import com.hashin.project.bean.VotersAdhaarUserBean;
+import com.hashin.project.bean.VotersUserBean;
 
 /**
  * @author jintu.jacob@gmail.com
@@ -33,8 +34,10 @@ public interface UserEnrollmentDAO
     
     public VotersAdhaarUserBean getEnrolledUserDetail(VotersAdhaarUserBean userToFind);
     
-    public int getEnrollmentStatus(String votingPin, String adhaarId,
-	    String voterId);
-
+    //public int getEnrollmentStatus(String votingPin, String adhaarId, String voterId);
     
+    public int getEnrollmentStatus(String eElectionId, String votingPin);
+    
+    public VotersUserBean getVoterIdByEnrolledEID(String eElectionId);
+   
 }

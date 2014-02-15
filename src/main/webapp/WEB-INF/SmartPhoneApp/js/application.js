@@ -5,20 +5,22 @@ $(document).ready(function(){
 	$("#btn_login").click(function(){
 		eid=$('#in_eleid').val();
 		pin=$('#in_pin').val();
-		/*if(eid==""){
+		if(eid==""){
 			alert("eid is null");
 			$(".errortext").html("election id is empty");
 		}
 		if(pin==""){
 			alert("pin is null");
 			$(".errortext").html("pin is empty");
-		}*/
+		}
 		if(eid==""&&pin==""){
 			$(".errortext").html("information missing");
 		}
-		else
-			showContent('#ContentElectionList');
+		else{
+			manageLogin(eid,pin);
+		}
 	});
+	
 	$("#btn_elelist").click(function(){
 		showContent('#ContentCandidateList');
 	});
@@ -39,6 +41,33 @@ $(document).ready(function(){
 		showContent('#ContentOverview');
 	});
   });
+
+
+function manageLogin(eid, pin){
+	obj = {"eElectionId":eid, "votingPIN":pin  }
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: 'http://localhost:8080/mvote/vote/verifyLogin',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	
+	    	//review
+	    	populateElectionList(response);
+	    	
+	    }
+	});	
+	
+	//review
+	//showContent('#ContentElectionList');
+}
+
+
+
+
  
 function hideAll(){
 	 $("#ContentLogin").hide();

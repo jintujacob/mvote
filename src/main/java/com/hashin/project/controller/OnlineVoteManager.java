@@ -41,14 +41,17 @@ public class OnlineVoteManager
     @RequestMapping(value="/verifyLogin", method = RequestMethod.POST)
     public @ResponseBody FormListBean verifyUserLogin(@RequestBody VotersAdhaarUserBean loginUser)
     {
-	logger.debug(">>___________ >"+loginUser.getVotingPIN()
-		+","+loginUser.getAdhaarId()+","+loginUser.getVotersId());
+	logger.debug(">>___________ "+ loginUser.geteElectionId()+" >"+loginUser.getVotingPIN());
 	
 	List<ElectionsConstsBean> electionList = null;
 	FormListBean elections = new FormListBean();
 		
-	electionList = onlineVotingService.manageVoterEntry( loginUser.getVotingPIN(),
-		loginUser.getAdhaarId(), loginUser.getVotersId());
+	try {
+		electionList = onlineVotingService.manageVoterEntry( loginUser.geteElectionId(),loginUser.getVotingPIN());
+	} catch (Exception e) {
+		logger.debug("Exception from backend -------> " + e.getMessage());
+		elections.setCustomMessage("Unable to perform requested Operation");
+	}
 	//electionList = onlineVotingService.manageVoterEntry( "VPIN444", "UID444", "v444");
 	if(electionList != null){
 	    elections.setElectionList(electionList);
