@@ -27,7 +27,6 @@
 
 		<div data-role="content">
 			<div data-role="content" id="ContentLogin">
-				<form method="post" action="demoform.asp">
 				 <div class=errortext></div>
 					<p>Election ID</p>
 					<label for="fname" class="ui-hidden-accessible">Election ID</label>
@@ -38,41 +37,28 @@
 					<input
 						type="text" name="PIN" id="in_pin" placeholder="pin...">
 
-				</form>
 				<button id="btn_login">login</button>
-		  
 			</div>
 			<div data-role="cosntent" id="ContentElectionList">
 				<h1>ELECTION LIST</h1>
-				<fieldset data-role="controlgroup">
-					<legend> Choose an election: </legend>
-					<input type="radio" name="radio-choice" id="radio-choice-1"
-						value="choice-1" checked="checked" /> <label for="radio-choice-1">ele1</label>
-
-					<input type="radio" name="radio-choice" id="radio-choice-2"
-						value="choice-2" /> <label for="radio-choice-2">ele2</label> <input
-						type="radio" name="radio-choice" id="radio-choice-3"
-						value="choice-3" /> <label for="radio-choice-3">ele3</label> <input
-						type="radio" name="radio-choice" id="radio-choice-4"
-						value="choice-4" /> <label for="radio-choice-4">ele4</label>
+				<legend> Choose an election: </legend>
+				<div id="fieldElectionList">
+						<!-- <input type="radio" name="radio-choice" id="radio-choice-1"
+						value="choice-1" checked="checked" /> <label for="radio-choice-1">ele1</label> --> 
+				</div>
 				</fieldset>
 				<button id="btn_elelist">next</button>
 				<!-- <button id="btn_elelist_back">back</button> -->
 				<div id="error"></div>
 			</div>
 			<div data-role="content" id="ContentCandidateList">
-				<p>
-				<h1>CANDIDATE LIST</h1>
-				</p>
+				<p> <h1>CANDIDATE LIST</h1>	</p>
 
-
-				<form>
 				<legend> Choose your candidate: </legend>
-					<label> <input type="radio" name="radio-choice-0"
-						id="radio-choice-0a">Name-1
-					</label> <label for="radio-choice-0b">Name-2 </label> <input type="radio"
-						name="radio-choice-0" id="radio-choice-0b" class="custom">
-				</form>
+				<div id="fieldCandidatesList">
+					<!-- <label> <input type="radio" name="radio-choice-0" id="radio-choice-0a">Name-1 </label> --> 
+				</div>
+					
 				<button id="btn_candlist">next</button>
 				<button id="btn_candlist_back">back</button>
 				
