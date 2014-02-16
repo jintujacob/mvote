@@ -80,11 +80,11 @@ public class SQLConstants {
 	 */
 	
 	public static String GET_VOTINGSTAT_BY_VOTINGPIN = " select count(*) from elections_votingstats " 
-			+ " where voting_pin = ? and ele_id = ? and voting_stat = 'Y' ";
+			+ " where e_election_id = ? and ele_id = ? and voting_stat = 'Y' ";
 	
 	public static String UPDATE_VOTINGSTAT_BY_VOTINGPIN = "update elections_votingstats " 
 			+ "set voting_stat = 'Y' " 
-			+ "where voting_pin = ? and ele_id = ? " ;
+			+ "where e_election_id = ? and ele_id = ? " ;
 	
 	
 	

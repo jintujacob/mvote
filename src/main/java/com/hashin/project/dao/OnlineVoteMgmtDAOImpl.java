@@ -35,9 +35,9 @@ public class OnlineVoteMgmtDAOImpl implements OnlineVoteMgmtDAO
      * returns zero when user is not voted.
      */
     @Override
-    public int getVotingStatus(String votingPIN, String electionId)
+    public int getVotingStatus(String eElectionId, String electionId)
     {
-	Object[] parameters = new Object[] {votingPIN, electionId };
+	Object[] parameters = new Object[] {eElectionId, electionId };
 	int rowCount = jdbcTemplate.queryForInt(SQLConstants.GET_VOTINGSTAT_BY_VOTINGPIN, parameters);
 	return rowCount;
     }
@@ -48,10 +48,10 @@ public class OnlineVoteMgmtDAOImpl implements OnlineVoteMgmtDAO
      * returns zero when update fails
      */
     @Override
-    public int udpateVotingStatusByPin(String votingPIN, String electionId)
+    public int udpateVotingStatusByPin(String voterEid, String electionId)
     {
 
-    Object[] parameters = new Object[] {votingPIN, electionId};
+    Object[] parameters = new Object[] {voterEid, electionId};
 	int rowCount = jdbcTemplate.update(SQLConstants.UPDATE_VOTINGSTAT_BY_VOTINGPIN, parameters);
 	logger.debug("____________________rowcount for the update____________"+rowCount);
 	

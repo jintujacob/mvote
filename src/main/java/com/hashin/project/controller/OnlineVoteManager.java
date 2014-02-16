@@ -47,7 +47,10 @@ public class OnlineVoteManager
 	FormListBean elections = new FormListBean();
 		
 	try {
+	    if(onlineVotingService.isValidUser( loginUser.geteElectionId(),loginUser.getVotingPIN()))
 		electionList = onlineVotingService.manageVoterEntry( loginUser.geteElectionId(),loginUser.getVotingPIN());
+	    else
+		elections.setCustomMessage("FAILED");
 	} catch (Exception e) {
 		logger.debug("Exception from backend -------> " + e.getMessage());
 		elections.setCustomMessage("Unable to perform requested Operation");
@@ -57,7 +60,7 @@ public class OnlineVoteManager
 	    elections.setElectionList(electionList);
 	    elections.setCustomMessage(CUSTOM_MSG);
 	}
-	else{
+	if(electionList.size() < 1){
 	    //User is either not enrolled/ or no elections available for the user
 	    elections.setCustomMessage("No Elections Available");
 	}
@@ -74,7 +77,7 @@ public class OnlineVoteManager
 	FormListBean candidates = new FormListBean();
 	
 	//User selects the election,and submits. service layer should check if the user is already voted or not
-	candidateList = onlineVotingService.getCandidatesList( formBean.getVotingPIN(), 
+	candidateList = onlineVotingService.getCandidatesList( formBean.geteElectionId(),  
 		formBean.getElectionId(), formBean.getUnitElectionId());
 	
 	if(candidateList != null){
@@ -94,7 +97,7 @@ public class OnlineVoteManager
 		formBean.getElectionId()+", "+ formBean.getCandidateId());
 	FormListBean votingStat = new FormListBean();
 	
-	String message = onlineVotingService.submitVoteforCandidate(formBean.getVotingPIN(), 
+	String message = onlineVotingService.submitVoteforCandidate(formBean.geteElectionId(), 
 		formBean.getCandidateId(), formBean.getElectionId());
 	if (message != null){
 	    votingStat.setCustomMessage(CUSTOM_MSG);

@@ -15,5 +15,5 @@ public interface OnlineVoteMgmtDAO
 {
     public void setDataSource(DataSource dataSource);
     public int getVotingStatus(String votingPIN, String electionId);
-    public int udpateVotingStatusByPin(String votingPIN, String electionId);    
+    public int udpateVotingStatusByPin(String voterEid, String electionId);    
 }

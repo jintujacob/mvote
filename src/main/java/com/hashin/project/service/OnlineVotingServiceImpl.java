@@ -36,52 +36,37 @@ public class OnlineVotingServiceImpl implements OnlineVotingService {
 	private static final Logger logger = Logger
 			.getLogger(UserEnrollmentDAOImpl.class);
 
-	/*
-	 * @Override public List<ElectionsConstsBean> manageVoterEntry(String
-	 * votingPin, String adhaarId, String voterId) { List<ElectionsConstsBean>
-	 * electionsList = null;
-	 * 
-	 * //check if the user is already enrolled
-	 * 
-	 * logger.debug(
-	 * "__________1_______________calling getEnrollmentStatus(votingPin, adhaarId, voterId)"
-	 * ) ; if(getEnrollmentStatus(votingPin, adhaarId, voterId)) { //Get
-	 * constituency of the user and get list of elections that are applicable
-	 * for the user VotersUserBean voter =
-	 * voterListManagementDao.getVoterUserById(voterId); logger.debug(
-	 * "___________3_____________calling  getElectionsListByConst(voter.getConstituency()"
-	 * ) ; electionsList = getElectionsListByConst(voter.getConstituency()); }
-	 * return electionsList; }
-	 */
-	@Override
-	public List<ElectionsConstsBean> manageVoterEntry(String eElectionId,
-			String votingPin)throws Exception {
-		List<ElectionsConstsBean> electionsList = null;
-		// check if the user is already enrolled
-		logger.debug("__________1 - calling getEnrollmentStatus(votingPin, adhaarId, voterId)");
+	
+	public Boolean isValidUser(String eElectionId, String votingPin) throws Exception
+	{
+	    	Boolean isValidUser = false;
+	    	
+	    	logger.debug("__________1 - calling getEnrollmentStatus(votingPin, adhaarId, voterId)");
 		votingPin =  Encryption.getInstance().encrypt(votingPin);
 		if (getEnrollmentStatus(eElectionId, votingPin)) {
-			// Get constituency of the user and get list of elections that are
-			// applicable for the user
-			
-			/*VotersUserBean voter = voterListManagementDao
-					.getVoterUserById(voterId);
-			*/
-			VotersUserBean voter = userEnrollmentDao.getVoterIdByEnrolledEID(eElectionId) ;
-			
-			logger.debug("___________3 - calling  getElectionsListByConst(voter.getConstituency()");
-			electionsList = getElectionsListByConst(voter.getConstituency());
+		    isValidUser = true;
 		}
+	    
+		return isValidUser;
+	}
+	
+	
+	@Override
+	public List<ElectionsConstsBean> manageVoterEntry(String eElectionId,	String votingPin)throws Exception {
+		List<ElectionsConstsBean> electionsList = null;
+		VotersUserBean voter = userEnrollmentDao.getVoterIdByEnrolledEID(eElectionId) ;
+		
+		electionsList = getElectionsListByConst(voter.getConstituency());
 		return electionsList;
 	}
 
 	@Override
-	public List<ElectionsCandidatesBean> getCandidatesList(String votingPIN,
+	public List<ElectionsCandidatesBean> getCandidatesList(String voterEid,
 			String electionId, String unitElectionId) {
 		List<ElectionsCandidatesBean> candidateList = null;
 
 		// check if the user already voted or not // allow if not voted
-		if (!getVotingStatus(votingPIN, electionId)) {
+		if (!getVotingStatus(voterEid, electionId)) {
 			// get list of candidates for the unit election id
 			candidateList = electionsMgmtDao
 					.getCandidatesListByUnitId(new Integer(unitElectionId));
@@ -97,13 +82,13 @@ public class OnlineVotingServiceImpl implements OnlineVotingService {
 	 */
 	@Override
 	@Transactional
-	public String submitVoteforCandidate(String votingPIN, String candidateId,
+	public String submitVoteforCandidate(String voterEid, String candidateId,
 			String electionId) {
 		String returnMessage = null;
 
 		int rowCount1 = electionsMgmtDao
 				.increamentVoteCountByCandidate(candidateId);
-		int rowCount2 = onlineVoteMgmtDao.udpateVotingStatusByPin(votingPIN,
+		int rowCount2 = onlineVoteMgmtDao.udpateVotingStatusByPin(voterEid,
 				electionId);
 
 		if (rowCount1 == 1 && rowCount2 == 1)
@@ -139,9 +124,9 @@ public class OnlineVotingServiceImpl implements OnlineVotingService {
 		return electionsList;
 	}
 
-	private Boolean getVotingStatus(String votingPIN, String electionId) {
+	private Boolean getVotingStatus(String voterEid, String electionId) {
 		Boolean votingStatus = false;
-		int rowCount = onlineVoteMgmtDao.getVotingStatus(votingPIN, electionId);
+		int rowCount = onlineVoteMgmtDao.getVotingStatus(voterEid, electionId);
 		if (rowCount != 0) {
 			// not zero means, user is already voted
 			votingStatus = true;

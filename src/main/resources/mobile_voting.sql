@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 16, 2014 at 10:15 AM
+-- Generation Time: Feb 16, 2014 at 11:37 PM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -205,12 +205,12 @@ CREATE TABLE IF NOT EXISTS `elections_results` (
 --
 
 INSERT INTO `elections_results` (`ele_result_id`, `unit_ele_id`, `ele_cand_id`, `vote_count`) VALUES
-(1, 301, 1, 3001),
-(2, 301, 2, 5000),
-(3, 301, 3, 7000),
+(1, 301, 1, 3004),
+(2, 301, 2, 5001),
+(3, 301, 3, 7003),
 (4, 303, 4, 2500),
 (5, 303, 5, 3500),
-(6, 302, 6, 1500);
+(6, 302, 6, 1501);
 
 -- --------------------------------------------------------
 
@@ -234,11 +234,10 @@ CREATE TABLE IF NOT EXISTS `elections_schedules` (
 
 CREATE TABLE IF NOT EXISTS `elections_votingstats` (
   `ev_id` int(20) NOT NULL AUTO_INCREMENT,
-  `voting_pin` varchar(50) NOT NULL,
+  `e_election_id` bigint(25) NOT NULL,
   `ele_id` int(11) NOT NULL,
   `voting_stat` varchar(2) NOT NULL,
   PRIMARY KEY (`ev_id`),
-  UNIQUE KEY `voting_pin` (`voting_pin`),
   KEY `ele_id` (`ele_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
@@ -246,10 +245,10 @@ CREATE TABLE IF NOT EXISTS `elections_votingstats` (
 -- Dumping data for table `elections_votingstats`
 --
 
-INSERT INTO `elections_votingstats` (`ev_id`, `voting_pin`, `ele_id`, `voting_stat`) VALUES
-(1, 'VPIN444', 1, 'Y'),
-(2, 'VPIN888', 1, 'N'),
-(3, 'VPIN666', 1, 'N');
+INSERT INTO `elections_votingstats` (`ev_id`, `e_election_id`, `ele_id`, `voting_stat`) VALUES
+(1, 888855556678, 1, 'Y'),
+(2, 888855556680, 1, 'Y'),
+(3, 888855556679, 1, 'N');
 
 -- --------------------------------------------------------
 

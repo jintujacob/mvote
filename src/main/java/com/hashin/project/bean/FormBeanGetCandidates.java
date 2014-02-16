@@ -9,7 +9,8 @@ public class FormBeanGetCandidates
     private String electionId ; 
     private String unitElectionId ;
     private String candidateId;
-    private String customMessage;
+    private String eElectionId;
+     private String customMessage;
     
     public String getCandidateId()
     {
@@ -43,7 +44,23 @@ public class FormBeanGetCandidates
     {
         this.unitElectionId = unitElectionId;
     }
-    
+    public String geteElectionId()
+    {
+        return eElectionId;
+    }
+    public void seteElectionId(String eElectionId)
+    {
+        this.eElectionId = eElectionId;
+    }
+    public String getCustomMessage()
+    {
+        return customMessage;
+    }
+    public void setCustomMessage(String customMessage)
+    {
+        this.customMessage = customMessage;
+    }
+
     
     
 }

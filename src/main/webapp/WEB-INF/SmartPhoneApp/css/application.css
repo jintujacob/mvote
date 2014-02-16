@@ -11,3 +11,7 @@ button{
 	font-size: large;
 	
 }
+
+#errButtonContainer button{
+	display:none;
+}
