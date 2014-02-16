@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 14, 2014 at 01:15 AM
+-- Generation Time: Feb 16, 2014 at 10:15 AM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -312,18 +312,17 @@ CREATE TABLE IF NOT EXISTS `voters_adhaar` (
   `lockout_flag` varchar(2) NOT NULL,
   PRIMARY KEY (`e_election_id`),
   UNIQUE KEY `fk_voters_id` (`fk_voters_id`),
-  UNIQUE KEY `fk_adhaar_id` (`fk_adhaar_id`),
-  UNIQUE KEY `voting_pin` (`voting_pin`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2147483647 ;
+  UNIQUE KEY `fk_adhaar_id` (`fk_adhaar_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=888855556681 ;
 
 --
 -- Dumping data for table `voters_adhaar`
 --
 
 INSERT INTO `voters_adhaar` (`e_election_id`, `fk_voters_id`, `fk_adhaar_id`, `voting_pin`, `gen_date`, `lockout_flag`) VALUES
-(111122223330, 'v666', 'UID666', 'VPIN666', '2013-12-12', 'F'),
-(111122223333, 'v888', 'UID888', 'VPIN888', '2013-12-12', 'F'),
-(111122223334, 'v444', 'UID444', 'VPIN444', '2013-12-12', 'F');
+(888855556678, 'v444', 'uid444', 'AXh+gjCQyzM=', '2014-02-16', 'F'),
+(888855556679, 'v666', 'uid666', 'AXh+gjCQyzM=', '2014-02-16', 'F'),
+(888855556680, 'v888', 'uid888', 'AXh+gjCQyzM=', '2014-02-16', 'F');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

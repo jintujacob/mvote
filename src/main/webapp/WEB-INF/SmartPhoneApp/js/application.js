@@ -30,9 +30,12 @@ $(document).ready(function(){
 		manageElectionSelection();
 	
 	});
+
 	$("#btn_candlist").click(function(){
-		showContent('#ContentOverview');
+		confirmUserSelection();
+
 	});
+	
 	$("#btn_overview").click(function(){
 		showContent('#ContentConfirmation');
 	});
@@ -48,13 +51,28 @@ $(document).ready(function(){
 	});
   });
 
+function confirmUserSelection()
+{
+	var index = $('input[name=candidateSelected]:checked').val();
+	_candSelected = _candidateList[index];
+	
+	
+	str_ele = _eleSelected.electTitle;
+	str_cand = _candSelected.candName;
+	
+	
+	showContent('#ContentOverview');
+	$("#overviewContentElec").html(str_ele);
+	$("#overviewContentCand").html(str_cand);
+}
+
 
 function manageElectionSelection()
 {
 	var index = $('input[name=electionSelected]:checked').val();
 	_eleSelected = _elctionList[index];
 
-	obj = {"votingPIN":_votingPin,"electionId":_eleSelected.electId ,"unitElectionId":_eleSelected.unitEleId }
+	obj = {"votingPIN":_votingPin,"electionId":_eleSelected.electId ,"unitElectionId":_eleSelected.unitEleId };
 	jsonString =JSON.stringify(obj);
 	
 	$.ajax({
@@ -81,8 +99,8 @@ function populateCandidateList(response){
 		}else{
 			for(i=0; i< _candidateList.length; i++){
 				
-				str += 	"<input type='radio' name='canidateSelected' " ;
-				str += 	"value='"+ _candidateList[i].candId +"' checked='checked' /> " ;
+				str += 	"<input type='radio' name='candidateSelected' " ;
+				str += 	"value='"+ i +"' checked='checked' /> " ;
 				str +=	 _candidateList[i].candName + ":" + _candidateList[i].candBio + "<br>" ;
 					
 			}
@@ -108,7 +126,10 @@ function manageLogin(eid, pin){
 	    data: jsonString,
 	    success: function(response) {
 	    	populateElectionList(response);
-	    }
+	    },
+		error: function(response){
+			alert("Unable to connect to server");
+		}
 	});	
 }
 
@@ -122,7 +143,7 @@ function populateElectionList(response){
 		{
 			str += "<p> No elections available for the user !</p>";
 		}else{
-			for(i=0; i<_elctionList.length; i++){
+			for(i=0; i< _elctionList.length; i++){
 				str += 	"<input type='radio' name='electionSelected' " ;
 				str += 	"value='"+ i +"' checked='checked' /> " ;
 				str +=	_elctionList[i].electTitle ;
