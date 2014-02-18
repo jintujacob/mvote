@@ -29,6 +29,10 @@ public interface VoterListManagementService
     
     public VotersUserBean updateVotersById(VotersUserBean voterUser);
     
+    public VotersUserBean activateVoterByVoterId(VotersUserBean voterToActivate);
+
+	public VotersUserBean deactivateVoterByVoterId(VotersUserBean voterToBlock);
+    
     
     
 }

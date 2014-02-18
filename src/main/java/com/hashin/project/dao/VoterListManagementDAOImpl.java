@@ -91,7 +91,8 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO {
 	}
 
 	@Override
-	public VotersUserBean getVoterDetailById(VotersUserBean userToSearch) {
+	public VotersUserBean getVoterDetailById(VotersUserBean userToSearch) 
+	{
 		Object[] parameters = new Object[] { userToSearch.getVotersId() };
 
 		List<VotersUserBean> userList = null;
@@ -108,5 +109,23 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO {
 
 		return userList.get(0);
 	}
+
+	@Override
+	public int changeVoterStatusByVoterId(String votersId, String status) 
+	{
+		int numRows = 0;
+		Object[] parameters = new Object[] { 
+				status,
+				votersId
+		};
+
+		numRows = jdbcTemplate.update(SQLConstants.UPDATE_VOTER_STATUS_IN_ENROLLMENT_TBL,
+				parameters);
+		logger.debug("VoterListManagementDAOImpl #insertNewVoter resultCount => "+ numRows);
+
+		return numRows;
+	}
+
+	
 
 }

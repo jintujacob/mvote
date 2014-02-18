@@ -1,6 +1,8 @@
 constsDropDownContent = "";
 searchResult = "";
 
+__VOTERID = "";
+
 $(document).ready(function(){
 	getHomeContents();
 	
@@ -28,7 +30,7 @@ $(document).ready(function(){
 		
 		if(votersId!= "" || lockOutFlag!="" || name != "" || constituency != ""){
 			constituency = (constituency == 'none' )? "":constituency;
-			console.log("|"+votersId+"|"+lockOutFlag+"|"+name+"|"+constituency+"|");
+			//console.log("|"+votersId+"|"+lockOutFlag+"|"+name+"|"+constituency+"|");
 			processVoterSearch(votersId, lockOutFlag, name, constituency );
 		}
 		
@@ -57,9 +59,62 @@ $(document).ready(function(){
 		populateVoterList(searchResult);
 	});
 	
+	$("#btn_activate").click(function(){
+		activateUser();
+	});
+	
+	
+	$("#btn_deactivate").click(function(){
+		deactivateUser();
+	});
 	
 	 
 });
+
+
+function activateUser()
+{
+	console.log(__VOTERID);
+	obj = { "votersId":__VOTERID	};
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: 'http://localhost:8080/mvote/voterslist/activateVoter',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateVoterDetail(response);
+	    },
+		error: function(){
+			alert("Unable to fetch Information now. System unavailable. Please try after sometime.");
+		}
+	});	
+}
+
+
+function deactivateUser()
+{
+	console.log(__VOTERID);
+	obj = { "votersId":__VOTERID	};
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: 'http://localhost:8080/mvote/voterslist/deActivateVoter',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateVoterDetail(response);
+	    },
+		error: function(){
+			alert("Unable to fetch Information now. System unavailable. Please try after sometime.");
+		}
+	});	
+}
+
 
 function getVoterDetail(votersId)
 {
@@ -84,31 +139,37 @@ function getVoterDetail(votersId)
 
 function populateVoterDetail(voterDetail)
 {
+	__VOTERID = voterDetail.votersId;
 	str = "";
-	status = "none";
+	statusFlag = "Inactive";
 	if(voterDetail.customMessage == "SUCCESS")
 	{
-		status = (voterDetail.lockOutFlag == 'F')? "Active":"Inactive" ;
+		if(voterDetail.lockOutFlag == "F"){
+			statusFlag = "Active";
+		}
 		
 		str += "<tr><td> Name </td> <td>:</td> 			<td>"+ voterDetail.name + "</td></tr>";
 		str += "<tr><td> Voters Id </td> <td>:</td> 	<td>"+ voterDetail.votersId + "</td></tr>";
 		str += "<tr><td> constituency</td><td>:</td>	<td>"+ voterDetail.constituency+ "</td></tr>";
-		str += "<tr><td> Status </td> <td>:</td> 		<td>"+ status + "</td></tr>";
+		str += "<tr><td> Status </td> <td>:</td> 		<td>"+ statusFlag + "</td></tr>";
 		str += "<tr><td> Place </td> <td>:</td> 		<td>"+ voterDetail.place + "</td></tr>";
 		str += "<tr><td> E - Election ID </td><td>:</td> <td>"+ "unavailable" + "</td></tr>";
 		str += "<tr><td> adhaar ID </td>  	<td>:</td> 	 <td>"+ voterDetail.adhaarId + "</td></tr>";
 	}
 	else{
-		str += "<tr><td colspan='5'>"+ response.customMessage +"</td></tr>"; 
+		str += "<tr><td colspan='5'>"+ voterDetail.customMessage +"</td></tr>"; 
 	}
 
 	showPage('#pageVoterDetailView');
 	$("#tableVoterDetail").html(str);
 	
-	if(status == "Active")
+	if(statusFlag == "Active"){
 		$("#btn_activate").hide();
-	else
+		$("#btn_deactivate").show();
+	}else{
 		$("#btn_deactivate").hide();
+		$("#btn_activate").show();
+	}
 }
 
 

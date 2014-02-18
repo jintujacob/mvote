@@ -19,8 +19,16 @@ public class VotersUserBean {
 	private String nameFirst;
 	private String nameLast;
 	private String state;
-	
+	private String EID;
 	private String customMessage; 
+	
+	public String getEID() {
+		return EID;
+	}
+	public void setEID(String eID) {
+		EID = eID;
+	}
+	
 	
 	
 	public String getCustomMessage()

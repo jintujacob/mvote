@@ -114,6 +114,30 @@ public class VoterListManagementServiceImpl implements
 
     }
 
+	@Override
+	public VotersUserBean activateVoterByVoterId(VotersUserBean voterToActivate) {
+		VotersUserBean voterDetail= null;
+		int numrows = 0;
+		numrows = voterListManagementDao.changeVoterStatusByVoterId(voterToActivate.getVotersId(), "F");
+		if(numrows > 0 ){
+			voterDetail = getVoterDetailById(voterToActivate);
+		}
+		
+		return voterDetail;
+	}
+
+	@Override
+	public VotersUserBean deactivateVoterByVoterId(VotersUserBean voterToBlock) {
+		VotersUserBean voterDetail= null;
+		int numrows = 0;
+		numrows = voterListManagementDao.changeVoterStatusByVoterId(voterToBlock.getVotersId(), "T");
+		if(numrows > 0 ){
+			voterDetail = getVoterDetailById(voterToBlock);
+		}
+		
+		return voterDetail;
+	}
+
 
 }
 

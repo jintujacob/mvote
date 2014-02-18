@@ -82,7 +82,44 @@ public class VoterListManager {
 	}
 
 
+	@RequestMapping(value = "/activateVoter", method = RequestMethod.POST)
+	public @ResponseBody
+	VotersUserBean activateVoter(@RequestBody VotersUserBean voterToActivate) {
+		logger.debug(">>__________________recieved query params:"
+				+ voterToActivate.getVotersId()+ "/" + voterToActivate.getLockOutFlag());
 
+		VotersUserBean voterDetail = null;
+		voterDetail = voterListMgmtService.activateVoterByVoterId(voterToActivate);
+		if (voterDetail != null) {
+			voterDetail.setCustomMessage(CUSTOM_MSG);
+		} else {
+			voterDetail= new VotersUserBean();
+			voterDetail.setCustomMessage("Unable to perform request!");
+		}
+		return voterDetail;
+	}
+	
+	@RequestMapping(value = "/deActivateVoter", method = RequestMethod.POST)
+	public @ResponseBody
+	VotersUserBean deActivateVoter(@RequestBody VotersUserBean voterToBlock) {
+		logger.debug(">>__________________recieved query params:"
+				+ voterToBlock.getVotersId());
+
+		VotersUserBean voterDetail = null;
+		voterDetail = voterListMgmtService.deactivateVoterByVoterId(voterToBlock);
+		if (voterDetail != null) {
+			voterDetail.setCustomMessage(CUSTOM_MSG);
+		} else {
+			voterDetail= new VotersUserBean();
+			voterDetail.setCustomMessage("Unable to perform request!");
+		}
+		return voterDetail;
+	}
+	
+	
+	
+	
+	
 	@RequestMapping(value = "/insertNewVoter", method = RequestMethod.GET)
 	public ModelAndView getVotersByNameConstAndFlag(
 			@RequestParam VotersUserBean voterUser) {

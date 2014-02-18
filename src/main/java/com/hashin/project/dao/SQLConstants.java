@@ -143,6 +143,8 @@ public class SQLConstants {
 			+ "( voters_id, name, const, place) " 
 			+ "values ('?', '?', ?, '?')" ;
 
+	public static String UPDATE_VOTER_STATUS_IN_ENROLLMENT_TBL = "update  voters_adhaar set lockout_flag= ? "
+			+ "where fk_voters_id = ? " ;
 
 
 }
