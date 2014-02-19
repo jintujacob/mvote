@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 16, 2014 at 11:37 PM
+-- Generation Time: Feb 19, 2014 at 11:39 PM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -100,12 +100,12 @@ CREATE TABLE IF NOT EXISTS `constituencies` (
 --
 
 INSERT INTO `constituencies` (`const_id`, `const_name`, `const_state`) VALUES
-(1, 'Piravom', 'Kerala'),
-(2, 'Moovatupuzha', 'Kerala'),
-(3, 'Aluva', 'Kerala'),
-(4, 'Kottayam', 'Kerala'),
-(5, 'Chennai', 'Tamil Nadu'),
-(6, 'Vishakapatanam', 'Andhra Pradesh');
+(1, 'Piravom', '1'),
+(2, 'Moovatupuzha', '1'),
+(3, 'Aluva', '1'),
+(4, 'Kottayam', '1'),
+(5, 'Chennai', '2'),
+(6, 'Vishakapatanam', '3');
 
 -- --------------------------------------------------------
 
@@ -225,6 +225,28 @@ CREATE TABLE IF NOT EXISTS `elections_schedules` (
   PRIMARY KEY (`sch_id`),
   KEY `unit_ele_id` (`unit_ele_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `elections_states`
+--
+
+CREATE TABLE IF NOT EXISTS `elections_states` (
+  `st_id` int(2) NOT NULL AUTO_INCREMENT,
+  `st_name` varchar(100) NOT NULL,
+  `st_desc` varchar(200) NOT NULL,
+  PRIMARY KEY (`st_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `elections_states`
+--
+
+INSERT INTO `elections_states` (`st_id`, `st_name`, `st_desc`) VALUES
+(1, 'Kerala', ''),
+(2, 'Tamil Nadu', ''),
+(3, 'Andhra Pradesh', '');
 
 -- --------------------------------------------------------
 
