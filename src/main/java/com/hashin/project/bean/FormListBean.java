@@ -2,6 +2,8 @@ package com.hashin.project.bean;
 
 import java.util.List;
 
+import com.hashin.project.util.ElectionStatesBean;
+
 public class FormListBean
 {
 
@@ -10,9 +12,9 @@ public class FormListBean
     private List<VotersUserBean> voterList;
     private String customMessage;
     private List<ConstituenciesBean> constsList;
+    private List<ElectionStatesBean> statesList;
+
     
-    
-  
 	public List<ConstituenciesBean> getConstsList() {
 		return constsList;
 	}
