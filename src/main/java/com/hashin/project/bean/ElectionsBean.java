@@ -15,6 +15,7 @@ public class ElectionsBean {
 	private String electStartDate;
 	private String electEndDate;
 	private String electDescription;
+	private String customMessage;
 	
 	public String getElectId() {
 		return electId;
@@ -54,6 +55,15 @@ public class ElectionsBean {
 	public void setElectDescription(String electDescription)
 	{
 	    this.electDescription = electDescription;
+	}
+	
+	public String getCustomMessage()
+	{
+	    return customMessage;
+	}
+	public void setCustomMessage(String customMessage)
+	{
+	    this.customMessage = customMessage;
 	}
 	@Override
 	public String toString() {

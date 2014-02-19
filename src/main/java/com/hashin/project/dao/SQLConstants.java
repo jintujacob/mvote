@@ -6,12 +6,13 @@ public class SQLConstants {
 			+ "(ele_title, ele_start_dt, ele_end_dt, ele_desc) "
 			+ "values (?, ?, ?, ?)" ;
 	
-	public static String GET_ELECTION_DETAIL_BY_ID = "select * from elections where ele_id = ?";
+	public static String GET_ELECTION_DETAIL_BY_ID = " select ec.unit_ele_id, ec.const_id, e.*"
+		+ "from elections_consts ec join elections e "
+		+ "on ec.ele_id=e.ele_id where e.ele_id= ? group by e.ele_id" ;
 	
-	public static String GET_ALL_ELECTIONS_BY_CRITERIA = "select * from elections where ele_title like %?%" ;
 	
-	public static String DELETE_ELECTION_BY_ID = "delete from user where user_id= ?";
 	
+	 
 	
 	public static String GET_ELECTIONS_BY_CONST_ID = " select ec.unit_ele_id, ec.ele_id, ec.const_id, "
 		+ "e.ele_title, e.ele_start_dt, e.ele_end_dt, e.ele_desc "
@@ -64,7 +65,7 @@ public class SQLConstants {
 			+ "(ele_id, const_id) values ( ?, ? ) " ;
 	
 	
-	public static String SEARCH_ELECTIONS_BY_ALL_CRITERIA =  "select distinct ELE.*, ELECON.unit_ele_id, CON.const_id "
+	public static String SEARCH_ELECTIONS_BY_ALL_CRITERIA =  "select ELE.*, ELECON.unit_ele_id, CON.const_id "
 			+ "from elections ELE, elections_consts ELECON, constituencies CON "
 			+ "where ELE.ele_id = ELECON.ele_id and ELECON.const_id = CON.const_id "
 			+ "and ELE.ele_title like ? "
@@ -72,6 +73,12 @@ public class SQLConstants {
 			+ "and CON.const_state like ? "
 			+ "group by ELE.ele_id";
 	
+	
+	public static String GET_STATES_BY_ELECTION_ID = "select EST.* "
+		+ "from elections ELE, elections_consts ECO, constituencies CON, elections_states EST "
+		+ "where ELE.ele_id = ECO.ele_id and ECO.const_id = CON.const_id and CON.const_state = EST.st_id "
+		+ "and ELE.ele_id = ? "
+		+ "group by EST.st_id";
 	
 	/**
 	 * ------------------------------------------------------------------------------------------------------------

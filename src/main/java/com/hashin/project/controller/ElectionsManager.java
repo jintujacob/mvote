@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hashin.project.bean.ElectionStatesBean;
+import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsConstsBean;
 import com.hashin.project.bean.FormListBean;
 import com.hashin.project.service.ElectionManagementService;
@@ -32,7 +34,7 @@ public class ElectionsManager {
 	@RequestMapping(value = "/searchElection", method = RequestMethod.POST)
 	public @ResponseBody
 	FormListBean searchElection(@RequestBody ElectionsConstsBean toSearch) {
-		logger.debug(">>___________ Search Params : " + toSearch.toString());
+		logger.debug(">>___________ /searchElection - Search Params : " + toSearch.toString());
 
 		List<ElectionsConstsBean> electionList = null;
 		FormListBean elections = new FormListBean();
@@ -53,37 +55,49 @@ public class ElectionsManager {
 			// user
 			elections.setCustomMessage("No Elections Available");
 		}
+		logger.debug("<<___________ /searchElection - Results : " + elections.toString());
 		return elections;
 	}
 	
 	
 	@RequestMapping(value = "/getElectionDetail", method = RequestMethod.POST)
 	public @ResponseBody
-	FormListBean getElectionDetailById(@RequestBody ElectionsConstsBean toSearch) {
-		logger.debug(">>___________ Search Params : " + toSearch.toString());
-
-		List<ElectionsConstsBean> electionList = null;
-		FormListBean elections = new FormListBean();
-
-		try {
-			electionList = electionMgmtService.searchElection(toSearch);
-
-		} catch (Exception e) {
-			logger.debug("Exception from backend -------> " + e.getMessage());
-			elections.setCustomMessage("Unable to perform requested Operation");
+	ElectionsBean getElectionDetailById(@RequestBody ElectionsBean eleToFind) 
+	{
+		logger.debug(">>___________ /getElectionDetail - Search Params : " + eleToFind.toString());
+		
+		ElectionsBean eleDetails =  electionMgmtService.getElectionDetail(eleToFind);
+		if(eleDetails != null) {
+		    eleDetails.setCustomMessage(CUSTOM_MSG);
 		}
-		if (electionList != null) {
-			elections.setElectionList(electionList);
-			elections.setCustomMessage(CUSTOM_MSG);
+		else{
+		    eleDetails = new ElectionsBean();
+		    eleDetails.setCustomMessage("No Election Detail available!"); 
 		}
-		if (electionList.size() < 1) {
-			// User is either not enrolled/ or no elections available for the
-			// user
-			elections.setCustomMessage("No Elections Available");
-		}
-		return elections;
+		
+		logger.debug("<<___________ /getElectionDetail - Results : " + eleDetails.toString());
+		return eleDetails;
 	}
-	
-	
 
+	@RequestMapping(value = "/getStatesListByElection", method = RequestMethod.POST)
+	public @ResponseBody FormListBean getStatesListByElection(@RequestBody ElectionsBean eleToFind) 
+	{
+		logger.debug(">>___________ Search Params : " + eleToFind.toString());
+		FormListBean formBean = new FormListBean();
+		
+		List<ElectionStatesBean> statesList = electionMgmtService.getStatesByElectionId(eleToFind);
+		
+		if(statesList != null){
+		    formBean.setStatesList(statesList);
+		    formBean.setCustomMessage(CUSTOM_MSG);
+		}else{
+		    formBean.setCustomMessage("No states Added for the searched Election!");
+		}
+
+		logger.debug("<<____________ /getStatesListByElection Results"+ formBean.toString());
+		return formBean;
+	}
+
+
+// END of the class
 }

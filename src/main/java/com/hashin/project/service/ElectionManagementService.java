@@ -3,6 +3,7 @@ package com.hashin.project.service;
 import java.util.List;
 
 import com.hashin.project.bean.ConstituenciesBean;
+import com.hashin.project.bean.ElectionStatesBean;
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
@@ -31,6 +32,10 @@ public interface ElectionManagementService {
 	public List<ConstituenciesBean> getAllConsts();
 
 	public List<ElectionsConstsBean> searchElection(ElectionsConstsBean toSearch);
+
+	public ElectionsBean getElectionDetail(ElectionsBean eleToFind);
+
+	public List<ElectionStatesBean> getStatesByElectionId(ElectionsBean eleToFind);
 	
 	/* END Constituency Management API */
 	

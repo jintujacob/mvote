@@ -24,7 +24,8 @@ $(document).ready(function(){
 	});
 	
 	$('#pageElectionSearchSummary a').click(function(){
-		getElectionDetail();
+		getElectionDetailBasic();
+		getElectionDetailStates();
 		showPage('#pageElectionDetail');
 	});
 	
@@ -37,10 +38,46 @@ $(document).ready(function(){
 	 
 });
 
-function getElectionDetail(){
-	//get ele by id
-	return true;
+function getElectionDetailBasic()
+{
+	obj = {	"electId":"1" };
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: host + '/elections/getElectionDetail',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateElectionList(response);
+	    },
+		error: function(response){
+			alert("unable to connect");
+		}
+	});	
 }
+
+function getElectionDetailStates()
+{
+	obj = {	"electId":"4" };
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: host + '/elections/getStatesListByElection',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	//populateElectionList(response);
+	    },
+		error: function(response){
+			alert("unable to connect");
+		}
+	});	
+}
+
 
 
 function processElectionsBasicForm(){
@@ -74,7 +111,7 @@ function processElectionsSearch(){
 
 
 function populateElectionList(response){
-	str = "";
+/* str = "";
 	if(response.customMessage == "SUCCESS")
 	{
 		_elctionList = response.electionList;
@@ -83,18 +120,18 @@ function populateElectionList(response){
 			str += "<tr><td colspan='5'> No Matches found! Please try again !</td></tr>";
 		}else{
 			for(i=0; i< _elctionList.length; i++){
-			/*	str += "<tr>" ;
+				str += "<tr>" ;
 				str += 	"<td><a onclick=getVoterDetail('"+voterList[i].votersId+"')>"+voterList[i].votersId+"</a></td>" ;
 				str +=	"<td>"+ voterList[i].name+"</td><td>"+ voterList[i].constituency+"</td>" ;
 				str += 	"<td>"+voterList[i].place+"</td><td>"+ voterList[i].lockOutFlag+"</td>" ;
-				str += "</tr>" ;*/
+				str += "</tr>" ;
 			}
 		}
 	}else if(response.customMessage == "FAILED"){
 		str += "<tr><td colspan='5'>"+ response.customMessage +"</td></tr>"; 
 	}
 	
-	
+*/	
 }
 
 
