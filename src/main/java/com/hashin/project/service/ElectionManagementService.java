@@ -5,22 +5,11 @@ import java.util.List;
 import com.hashin.project.bean.ConstituenciesBean;
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsCandidatesBean;
+import com.hashin.project.bean.ElectionsConstsBean;
 
 public interface ElectionManagementService {
 /*
-	 START________________________________________ Election Management API 
-	
-	public int addNewElection(ElectionsBean election);
 
-	public ElectionsBean getElectionById(int electId);
-
-	public List<ElectionsBean> getAllElections();
-
-	public List<ElectionsBean> searchElectionsWildCard(String electTitle);
-
-	public int removeElectionById(int electId);
-	
-	 END Election Management API 
 	
 	
 	 START_______________________________________ Candidate Management API 
@@ -40,6 +29,8 @@ public interface ElectionManagementService {
 	
 
 	public List<ConstituenciesBean> getAllConsts();
+
+	public List<ElectionsConstsBean> searchElection(ElectionsConstsBean toSearch);
 	
 	/* END Constituency Management API */
 	

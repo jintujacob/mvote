@@ -21,13 +21,6 @@ public interface ElectionManagementDAO {
 
 	public int addNewElection(ElectionsBean election);
 
-	public List<ElectionsBean> getAllElections();
-
-	public ElectionsBean getElectionById(int electId);
-
-	public List<ElectionsBean> searchElectionsWildCard(String searckKey);
-
-	public int removeElectionById(int electId);
 
 	public List<ElectionsConstsBean> getElectionsListByConst(String constituency);
 
@@ -50,5 +43,7 @@ public interface ElectionManagementDAO {
 	//_____________________________constituencies___________________________//
 	
 	public List<ConstituenciesBean> getAllConstituencies();
+
+	public List<ElectionsConstsBean> searchElections(ElectionsConstsBean toSearch);
 	
 }

@@ -64,6 +64,14 @@ public class SQLConstants {
 			+ "(ele_id, const_id) values ( ?, ? ) " ;
 	
 	
+	public static String SEARCH_ELECTIONS_BY_ALL_CRITERIA =  "select distinct ELE.*, ELECON.unit_ele_id, CON.const_id "
+			+ "from elections ELE, elections_consts ELECON, constituencies CON "
+			+ "where ELE.ele_id = ELECON.ele_id and ELECON.const_id = CON.const_id "
+			+ "and ELE.ele_title like ? "
+			+ "and CON.const_id like ? "
+			+ "and CON.const_state like ? "
+			+ "group by ELE.ele_id";
+	
 	
 	/**
 	 * ------------------------------------------------------------------------------------------------------------

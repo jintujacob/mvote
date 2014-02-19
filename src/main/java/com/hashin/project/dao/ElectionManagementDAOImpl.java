@@ -19,7 +19,7 @@ import com.hashin.project.util.CandidatesRowMapper;
 import com.hashin.project.util.ConstituencyMapper;
 import com.hashin.project.util.ElectionsCandidatesRowMapper;
 import com.hashin.project.util.ElectionsConstsMapper;
-import com.hashin.project.util.ElectionsRowMapper;
+
 
 /**
  * @author jintu.jacob@gmail.com Oct 29, 2013 ElectionManagementDAOImpl
@@ -45,32 +45,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO {
 		return numRows;
 	}
 
-	public List<ElectionsBean> getAllElections() {
-		List<ElectionsBean> electionsList = jdbcTemplate.query(SQLConstants.GET_ALL_ELECTIONS_BY_CRITERIA,
-				new ElectionsRowMapper());
-		return electionsList;
-	}
 
-	public ElectionsBean getElectionById(int electId) {
-		Object[] parameters = new Object[] { electId };
-		List<ElectionsBean> electionsList = jdbcTemplate.query(SQLConstants.GET_ELECTION_DETAIL_BY_ID,
-				parameters, new ElectionsRowMapper());
-		return electionsList.get(0);
-	}
-
-	public List<ElectionsBean> searchElectionsWildCard(String searckKey) {
-		Object[] parameters = new Object[] { searckKey };
-		List<ElectionsBean> electionList = jdbcTemplate.query(SQLConstants.GET_ALL_ELECTIONS_BY_CRITERIA,
-				parameters, new ElectionsRowMapper());
-		return electionList;
-	}
-
-	public int removeElectionById(int electId) {
-		String query = "delete from user where user_id= ?";
-		Object[] parameters = new Object[] { electId };
-		int numRows = jdbcTemplate.update(query);
-		return numRows;
-	}
 
 	@Override
 	public List<ElectionsConstsBean> getElectionsListByConst(String constId) {
@@ -139,6 +114,20 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO {
 		 logger.debug("_______________________Fetched the constituecies list >> "
 		 		+ constList.size() );
 		 return constList;
+	}
+
+	@Override
+	public List<ElectionsConstsBean> searchElections(ElectionsConstsBean toSearch) 
+	{
+		Object[] parameters = new Object[] {
+				"%" + toSearch.getElectTitle() + "%",
+				"%" + toSearch.getConstId()+ "%",
+				"%" + toSearch.getStateId() + "%",
+			};
+		
+		List<ElectionsConstsBean> electionList = jdbcTemplate.query(SQLConstants.SEARCH_ELECTIONS_BY_ALL_CRITERIA,
+				parameters, new ElectionsConstsMapper());
+		return electionList;
 	}
 	
 	

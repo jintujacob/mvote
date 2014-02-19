@@ -1,3 +1,5 @@
+
+host  = "http://localhost:8080/mvote"
 $(document).ready(function(){
 	showPageHome();
 	
@@ -47,9 +49,55 @@ function processElectionsBasicForm(){
 }
 
 function processElectionsSearch(){
-	//search and get list of matching elections
-	return true;
+	obj = {
+			"electTitle":"Lo", 
+			"constId" : "",
+			"stateId" : ""
+		  };
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: host + '/elections/searchElection',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateElectionList(response);
+	    },
+		error: function(response){
+			alert("unable to connect");
+		}
+	});	
 }
+
+
+
+function populateElectionList(response){
+	str = "";
+	if(response.customMessage == "SUCCESS")
+	{
+		_elctionList = response.electionList;
+		if(_elctionList.length == 0)
+		{
+			str += "<tr><td colspan='5'> No Matches found! Please try again !</td></tr>";
+		}else{
+			for(i=0; i< _elctionList.length; i++){
+			/*	str += "<tr>" ;
+				str += 	"<td><a onclick=getVoterDetail('"+voterList[i].votersId+"')>"+voterList[i].votersId+"</a></td>" ;
+				str +=	"<td>"+ voterList[i].name+"</td><td>"+ voterList[i].constituency+"</td>" ;
+				str += 	"<td>"+voterList[i].place+"</td><td>"+ voterList[i].lockOutFlag+"</td>" ;
+				str += "</tr>" ;*/
+			}
+		}
+	}else if(response.customMessage == "FAILED"){
+		str += "<tr><td colspan='5'>"+ response.customMessage +"</td></tr>"; 
+	}
+	
+	
+}
+
+
 
 function hideAll(){
 	$('#pageElectionsHome').hide();

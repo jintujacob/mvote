@@ -10,20 +10,17 @@ import java.util.Date;
  */
 public class ElectionsBean {
 
-	private int electId;
+	private String electId;
 	private String electTitle;
 	private String electStartDate;
 	private String electEndDate;
 	private String electDescription;
 	
-	
-	public int getElectId()
-	{
-	    return electId;
+	public String getElectId() {
+		return electId;
 	}
-	public void setElectId(int electId)
-	{
-	    this.electId = electId;
+	public void setElectId(String electId) {
+		this.electId = electId;
 	}
 	public String getElectTitle()
 	{
@@ -58,8 +55,16 @@ public class ElectionsBean {
 	{
 	    this.electDescription = electDescription;
 	}
+	@Override
+	public String toString() {
+		return "ElectionsBean [electId=" + electId + ", electTitle="
+				+ electTitle + ", electStartDate=" + electStartDate
+				+ ", electEndDate=" + electEndDate + ", electDescription="
+				+ electDescription + "]";
+	}
 	
 
+	
 	
 	
 }
