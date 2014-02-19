@@ -7,7 +7,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import com.hashin.project.bean.ElectionsBean;
 
-public class ElectionsExtractor implements ResultSetExtractor<ElectionsBean>
+public class ElectionDetailExtractor implements ResultSetExtractor<ElectionsBean>
 {
 
     @Override
