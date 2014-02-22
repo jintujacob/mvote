@@ -36,7 +36,8 @@ $(document).ready(function()
 	
 	$('#pageElectionSearchSummary a').click(function(){
 		//call method on hyperlink
-		populateElectionDetail("1");
+		electId = "1";
+		populateElectionDetail(electId);
 	});
 	
 	$('#btn_add_states').click(function(){
@@ -44,6 +45,12 @@ $(document).ready(function()
 		//processElectionsSearch();
 		//showPage('#pageElectionSearchSummary');
 	});
+	
+	$('#btn_enroll_voters').click(function(){
+		electId = "1";
+		enrollVotersForElection(electId);
+	});
+	
 	
 	
 /*	$('#pageAddElectionStatesForm input[type=checkbox]').change(function(){
@@ -60,6 +67,38 @@ $(document).ready(function()
 	
 });
 
+
+function enrollVotersForElection(electId)
+{
+	obj = {	"electId": electId  };
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: host + '/elections/enrollVotersForElection',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateVoterEnrollStatus(response);
+	    },
+		error: function(response){
+			alert("Connection Error. Network failure or Server unavailable");
+		}
+	});	
+
+}
+
+function populateVoterEnrollStatus(response)
+{
+	if(response.customMessage == "SUCCESS"){
+		alert("Successfully Enrolled Voters");
+	}
+	else{
+		alert(response.customMessage);
+	}
+
+}
 
 function populateElectionDetail(electId)
 {
@@ -89,7 +128,7 @@ function submitElectionInfo()
 	    	populateSubmitResult(response);
 	    },
 		error: function(response){
-			alert("Add Election feature is currently unavailable. Please report the issue or try after sometime!");
+			alert("Connection Error. Network failure or Server unavailable");
 		}
 	});	
 
@@ -103,8 +142,7 @@ function populateSubmitResult(response)
 		showPageHome();
 	}
 	else{
-		alert("Unable to add the election in the backend. System Error!");
-		
+		alert(response.customMessage);
 	}
 	
 }
@@ -124,7 +162,7 @@ function getAllStatesList()
 	    	//processElectionAddition(__allStates);
 	    },
 		error: function(response){
-			alert("Add Election feature is currently unavailable. Please report the issue or try after sometime!");
+			alert("Connection Error. Network failure or Server unavailable");
 		}
 	});	
 }
@@ -176,7 +214,7 @@ function getElectionDetailBasic(electId)
 	    	populateElectionList(response);
 	    },
 		error: function(response){
-			alert("unable to connect");
+			alert("Connection Error. Network failure or Server unavailable");
 		}
 	});	
 }
@@ -254,7 +292,7 @@ function processElectionsSearch(){
 	    	populateElectionList(response);
 	    },
 		error: function(response){
-			alert("unable to connect");
+			alert("Connection Error. Network failure or Server unavailable");
 		}
 	});	
 }

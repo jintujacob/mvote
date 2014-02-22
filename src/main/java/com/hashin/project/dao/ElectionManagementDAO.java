@@ -52,6 +52,12 @@ public interface ElectionManagementDAO {
 	public List<ElectionStatesBean> getStatesListByEleId(String electId);
 
 	public List<ElectionStatesBean> getAllStatesForMenu();
+
+	public int enrollVotersForElection(String electId);
+
+	public Boolean getVoterEnrollStatusByElection(String electId);
+
+	public int updateEnrlmntStatusForElection(String electId);
 	
 	
 }

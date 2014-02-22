@@ -40,6 +40,8 @@ public interface ElectionManagementService {
 	public List<ElectionStatesBean> getAllStatesForMenu();
 
 	public ElectionsBean addNewElection(ElectionsBean eleToFind);
+
+	public ElectionsBean enrollVotersForElection(ElectionsBean eleToFind);
 	
 	/* END Constituency Management API */
 	

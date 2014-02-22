@@ -3,6 +3,7 @@ package com.hashin.project.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hashin.project.bean.ConstituenciesBean;
 import com.hashin.project.bean.ElectionStatesBean;
@@ -75,6 +76,22 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 		 return eleToFind;
 	     }
 		 return null;
+	}
+
+	@Transactional
+	@Override
+	public ElectionsBean enrollVotersForElection(ElectionsBean eleToFind)
+	{
+	    ElectionsBean enrolledStatus = new ElectionsBean();
+	    Boolean enrlstatus = electionsMgmtDao.getVoterEnrollStatusByElection(eleToFind.getElectId());
+	    if(enrlstatus != true){
+		electionsMgmtDao.enrollVotersForElection(eleToFind.getElectId());
+		electionsMgmtDao.updateEnrlmntStatusForElection(eleToFind.getElectId());
+		enrolledStatus.setCustomMessage("SUCCESS");
+	    }else{
+		enrolledStatus.setCustomMessage("Unable to perform requested operation. Enrollment is already completed for the election.");
+	    }
+	    return enrolledStatus;
 	}
 	
 	

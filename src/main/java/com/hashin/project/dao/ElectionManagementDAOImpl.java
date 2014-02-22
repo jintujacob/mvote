@@ -43,7 +43,8 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 		election.getElectTitle(),
 		election.getElectStartDate(), 
 		election.getElectEndDate(),
-		election.getElectDescription() 
+		election.getElectDescription(), 
+		"N"
 		};
 	int numRows = jdbcTemplate.update(SQLConstants.INSERT_NEW_ELECTION,
 		parameters);
@@ -185,6 +186,42 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 		}
 
 		return null;
+	}
+
+	@Override
+	public int enrollVotersForElection(String electId)
+	{
+	    Object[] parameters = new Object[] { electId };
+	    int numRows = jdbcTemplate.update(SQLConstants.BATCH_RUN_INSERT_VOTERS_TO_VOTINGSTAT,
+			parameters);
+	    return numRows;
+	 
+	}
+
+	@Override
+	public Boolean getVoterEnrollStatusByElection(String electId)
+	{
+	    Boolean enrlmntStatus = false;
+	    int enrldCount = 0;
+	    Object[] parameters = new Object[] {   electId  	};
+	    
+	    enrldCount =  jdbcTemplate.queryForInt(SQLConstants.GET_ELECTIONS_VOTER_ENRLMNT_STATUS, parameters);
+	    if(enrldCount != 0 ){
+		enrlmntStatus = true;
+	    }
+	    return enrlmntStatus;
+	}
+
+	@Override
+	public int updateEnrlmntStatusForElection(String electId)
+	{
+	    Object[] parameters = new Object[] { 
+		    "Y",
+		    electId 
+	    	};
+	    int numRows = jdbcTemplate.update(SQLConstants.UPDATE_VOTER_ENRLMNT_STAT_FOR_ELE,
+			parameters);
+	    return numRows;
 	}
 
 

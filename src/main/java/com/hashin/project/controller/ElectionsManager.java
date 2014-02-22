@@ -121,17 +121,40 @@ public class ElectionsManager {
 	@RequestMapping(value = "/addNewElection", method = RequestMethod.POST)
 	public @ResponseBody FormListBean addNewElection(@RequestBody ElectionsBean eleToFind) 
 	{
-		logger.debug(">>___________ /getAllStates-> Search Params : " + null);
+		logger.debug(">>___________ /addNewElection -> Search Params : " + eleToFind);
 		FormListBean formBean = new FormListBean();
-		
-		ElectionsBean eleResp = electionMgmtService.addNewElection(eleToFind);
-		
-		
-		formBean.setCustomMessage(CUSTOM_MSG);
+		try{
+		    ElectionsBean eleResp = electionMgmtService.addNewElection(eleToFind);
+		    if(eleResp != null){
+			    formBean.setCustomMessage(CUSTOM_MSG);
+		    }else{
+			formBean.setCustomMessage("Unable to perform requested operation.");
+		    }
+		}catch(Exception e){
+		    formBean.setCustomMessage("System Exception.Unable to update data on the server side");
+		}
 
 		logger.debug("<<____________ /getAllStates -> Results"+ formBean.toString());
 		return formBean;
 	}
+	
+	@RequestMapping(value = "/enrollVotersForElection", method = RequestMethod.POST)
+	public @ResponseBody FormListBean enrollVotersForElection(@RequestBody ElectionsBean eleToFind) 
+	{
+		logger.debug(">>___________ /enrollVotersForElection -> Search Params : " + eleToFind);
+		FormListBean formBean = new FormListBean();
+		try{
+		    ElectionsBean eleResp = electionMgmtService.enrollVotersForElection(eleToFind);
+		    formBean.setCustomMessage(eleResp.getCustomMessage());
+		    
+		}catch(Exception e){
+		    formBean.setCustomMessage("System Exception.Unable to update data on the server side");
+		}
+
+		logger.debug("<<____________ /enrollVotersForElection -> Results"+ formBean.toString());
+		return formBean;
+	}
+
 
 
 // END of the class

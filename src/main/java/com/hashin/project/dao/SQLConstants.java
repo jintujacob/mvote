@@ -3,8 +3,8 @@ package com.hashin.project.dao;
 public class SQLConstants {
 
 	public static String INSERT_NEW_ELECTION = "insert into elections "
-			+ "(ele_title, ele_start_dt, ele_end_dt, ele_desc) "
-			+ "values (?, ?, ?, ?)" ;
+			+ "(ele_title, ele_start_dt, ele_end_dt, ele_desc, vtr_enrl_stat) "
+			+ "values (?, ?, ?, ?, ?)" ;
 	
 	public static String GET_ELECTION_DETAIL_BY_ID = " select ec.unit_ele_id, ec.const_id, e.*"
 		+ "from elections_consts ec join elections e "
@@ -82,6 +82,15 @@ public class SQLConstants {
 	
 	
 	public static String GET_ALL_STATES = "select * from elections_states";
+	
+	public static String GET_ELECTIONS_VOTER_ENRLMNT_STATUS = "select count(*) from elections where vtr_enrl_stat='Y' "
+		+ "and ele_id = ? ";
+	
+	public static String UPDATE_VOTER_ENRLMNT_STAT_FOR_ELE = "update elections set vtr_enrl_stat = ? where ele_id = ? " ;
+	
+	public static String BATCH_RUN_INSERT_VOTERS_TO_VOTINGSTAT = "INSERT INTO elections_votingstats "
+		+ "(e_election_id, ele_id, voting_stat) "
+		+ "SELECT e_election_id, ? , 'N' FROM voters_adhaar";
 	
 	/**
 	 * ------------------------------------------------------------------------------------------------------------
