@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 19, 2014 at 11:39 PM
+-- Generation Time: Nov 17, 2013 at 02:15 PM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -100,12 +100,12 @@ CREATE TABLE IF NOT EXISTS `constituencies` (
 --
 
 INSERT INTO `constituencies` (`const_id`, `const_name`, `const_state`) VALUES
-(1, 'Piravom', '1'),
-(2, 'Moovatupuzha', '1'),
-(3, 'Aluva', '1'),
-(4, 'Kottayam', '1'),
-(5, 'Chennai', '2'),
-(6, 'Vishakapatanam', '3');
+(1, 'Piravom', 'Kerala'),
+(2, 'Moovatupuzha', 'Kerala'),
+(3, 'Aluva', 'Kerala'),
+(4, 'Kottayam', 'Kerala'),
+(5, 'Chennai', 'Tamil Nadu'),
+(6, 'Vishakapatanam', 'Andhra Pradesh');
 
 -- --------------------------------------------------------
 
@@ -205,12 +205,12 @@ CREATE TABLE IF NOT EXISTS `elections_results` (
 --
 
 INSERT INTO `elections_results` (`ele_result_id`, `unit_ele_id`, `ele_cand_id`, `vote_count`) VALUES
-(1, 301, 1, 3004),
-(2, 301, 2, 5001),
-(3, 301, 3, 7003),
+(1, 301, 1, 3001),
+(2, 301, 2, 5000),
+(3, 301, 3, 7000),
 (4, 303, 4, 2500),
 (5, 303, 5, 3500),
-(6, 302, 6, 1501);
+(6, 302, 6, 1500);
 
 -- --------------------------------------------------------
 
@@ -229,37 +229,16 @@ CREATE TABLE IF NOT EXISTS `elections_schedules` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `elections_states`
---
-
-CREATE TABLE IF NOT EXISTS `elections_states` (
-  `st_id` int(2) NOT NULL AUTO_INCREMENT,
-  `st_name` varchar(100) NOT NULL,
-  `st_desc` varchar(200) NOT NULL,
-  PRIMARY KEY (`st_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `elections_states`
---
-
-INSERT INTO `elections_states` (`st_id`, `st_name`, `st_desc`) VALUES
-(1, 'Kerala', ''),
-(2, 'Tamil Nadu', ''),
-(3, 'Andhra Pradesh', '');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `elections_votingstats`
 --
 
 CREATE TABLE IF NOT EXISTS `elections_votingstats` (
   `ev_id` int(20) NOT NULL AUTO_INCREMENT,
-  `e_election_id` bigint(25) NOT NULL,
+  `voting_pin` varchar(50) NOT NULL,
   `ele_id` int(11) NOT NULL,
   `voting_stat` varchar(2) NOT NULL,
   PRIMARY KEY (`ev_id`),
+  UNIQUE KEY `voting_pin` (`voting_pin`),
   KEY `ele_id` (`ele_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
@@ -267,10 +246,10 @@ CREATE TABLE IF NOT EXISTS `elections_votingstats` (
 -- Dumping data for table `elections_votingstats`
 --
 
-INSERT INTO `elections_votingstats` (`ev_id`, `e_election_id`, `ele_id`, `voting_stat`) VALUES
-(1, 888855556678, 1, 'Y'),
-(2, 888855556680, 1, 'Y'),
-(3, 888855556679, 1, 'N');
+INSERT INTO `elections_votingstats` (`ev_id`, `voting_pin`, `ele_id`, `voting_stat`) VALUES
+(1, 'VPIN444', 1, 'Y'),
+(2, 'VPIN888', 1, 'N'),
+(3, 'VPIN666', 1, 'N');
 
 -- --------------------------------------------------------
 
@@ -325,25 +304,71 @@ INSERT INTO `voters` (`id`, `voters_id`, `name`, `const`, `place`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `voters_adhaar` (
-  `e_election_id` bigint(25) NOT NULL AUTO_INCREMENT,
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `fk_voters_id` varchar(20) NOT NULL,
   `fk_adhaar_id` varchar(20) NOT NULL,
   `voting_pin` varchar(50) NOT NULL,
   `gen_date` date DEFAULT NULL,
   `lockout_flag` varchar(2) NOT NULL,
-  PRIMARY KEY (`e_election_id`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `fk_voters_id` (`fk_voters_id`),
-  UNIQUE KEY `fk_adhaar_id` (`fk_adhaar_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=888855556681 ;
+  UNIQUE KEY `fk_adhaar_id` (`fk_adhaar_id`),
+  UNIQUE KEY `voting_pin` (`voting_pin`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `voters_adhaar`
 --
 
-INSERT INTO `voters_adhaar` (`e_election_id`, `fk_voters_id`, `fk_adhaar_id`, `voting_pin`, `gen_date`, `lockout_flag`) VALUES
-(888855556678, 'v444', 'uid444', 'AXh+gjCQyzM=', '2014-02-16', 'F'),
-(888855556679, 'v666', 'uid666', 'AXh+gjCQyzM=', '2014-02-16', 'F'),
-(888855556680, 'v888', 'uid888', 'AXh+gjCQyzM=', '2014-02-16', 'F');
+INSERT INTO `voters_adhaar` (`id`, `fk_voters_id`, `fk_adhaar_id`, `voting_pin`, `gen_date`, `lockout_flag`) VALUES
+(1, 'v444', 'UID444', 'VPIN444', '2013-12-12', 'F'),
+(2, 'v888', 'UID888', 'VPIN888', '2013-12-12', 'F'),
+(3, 'v666', 'UID666', 'VPIN666', '2013-12-12', 'F');
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `elections_candidates`
+--
+ALTER TABLE `elections_candidates`
+  ADD CONSTRAINT `elections_candidates_ibfk_1` FOREIGN KEY (`cand_id`) REFERENCES `candidates` (`cand_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `elections_candidates_ibfk_2` FOREIGN KEY (`unit_ele_id`) REFERENCES `elections_consts` (`unit_ele_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `elections_consts`
+--
+ALTER TABLE `elections_consts`
+  ADD CONSTRAINT `elections_consts_ibfk_1` FOREIGN KEY (`ele_id`) REFERENCES `elections` (`ele_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `elections_consts_ibfk_2` FOREIGN KEY (`const_id`) REFERENCES `constituencies` (`const_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `elections_results`
+--
+ALTER TABLE `elections_results`
+  ADD CONSTRAINT `elections_results_ibfk_1` FOREIGN KEY (`ele_cand_id`) REFERENCES `elections_candidates` (`ele_cand_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `elections_results_ibfk_2` FOREIGN KEY (`unit_ele_id`) REFERENCES `elections_consts` (`unit_ele_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `elections_schedules`
+--
+ALTER TABLE `elections_schedules`
+  ADD CONSTRAINT `elections_schedules_ibfk_1` FOREIGN KEY (`unit_ele_id`) REFERENCES `elections_consts` (`unit_ele_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `elections_votingstats`
+--
+ALTER TABLE `elections_votingstats`
+  ADD CONSTRAINT `elections_votingstats_ibfk_1` FOREIGN KEY (`ele_id`) REFERENCES `elections` (`ele_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `elections_votingstats_ibfk_2` FOREIGN KEY (`voting_pin`) REFERENCES `voters_adhaar` (`voting_pin`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `voters_adhaar`
+--
+ALTER TABLE `voters_adhaar`
+  ADD CONSTRAINT `voters_adhaar_ibfk_1` FOREIGN KEY (`fk_voters_id`) REFERENCES `voters` (`voters_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `voters_adhaar_ibfk_2` FOREIGN KEY (`fk_adhaar_id`) REFERENCES `adhaarDB` (`adhaar_id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -10,14 +10,10 @@ import com.hashin.project.bean.ElectionsConstsBean;
 public interface OnlineVotingService
 {
     
-
-    public Boolean isValidUser(String eElectionId, String votingPin) throws Exception;
-    
-    public List<ElectionsConstsBean> manageVoterEntry(String eElectionId, String votingPin ) throws Exception;
+    public List<ElectionsConstsBean> manageVoterEntry(String votingPin, String adhaarId, String voterId);
     
     public List<ElectionsCandidatesBean> getCandidatesList(String votingPIN, String electionId, String unitElectionId);
     
-    public String submitVoteforCandidate(String voterEid, String candidateId, String electionId);
-    
+    public String submitVoteforCandidate(String votingPIN, String candidateId, String electionId);
     
 }

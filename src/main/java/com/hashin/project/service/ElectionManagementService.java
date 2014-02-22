@@ -2,18 +2,27 @@ package com.hashin.project.service;
 
 import java.util.List;
 
-import com.hashin.project.bean.ConstituenciesBean;
-import com.hashin.project.bean.ElectionStatesBean;
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsCandidatesBean;
-import com.hashin.project.bean.ElectionsConstsBean;
 
 public interface ElectionManagementService {
-/*
 
+	/* START________________________________________ Election Management API */
+	
+	public int addNewElection(ElectionsBean election);
+
+	public ElectionsBean getElectionById(int electId);
+
+	public List<ElectionsBean> getAllElections();
+
+	public List<ElectionsBean> searchElectionsWildCard(String electTitle);
+
+	public int removeElectionById(int electId);
+	
+	/* END Election Management API */
 	
 	
-	 START_______________________________________ Candidate Management API 
+	/* START_______________________________________ Candidate Management API */
 	
 	public Boolean enrollNewCandidate(ElectionsCandidatesBean candidate);
 
@@ -23,20 +32,12 @@ public interface ElectionManagementService {
 	
 	public List<ElectionsCandidatesBean> getCandidatesByConstituency(String constId);
 	
-	 END Candidate Management API 
+	/* END Candidate Management API */
 	
-*/	
+	
 	/* START_______________________________________ Constituency Management API */
 	
 
-	public List<ConstituenciesBean> getAllConsts();
-
-	public List<ElectionsConstsBean> searchElection(ElectionsConstsBean toSearch);
-
-	public ElectionsBean getElectionDetail(ElectionsBean eleToFind);
-
-	public List<ElectionStatesBean> getStatesByElectionId(ElectionsBean eleToFind);
-	
 	/* END Constituency Management API */
 	
 }

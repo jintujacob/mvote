@@ -6,13 +6,12 @@ public class SQLConstants {
 			+ "(ele_title, ele_start_dt, ele_end_dt, ele_desc) "
 			+ "values (?, ?, ?, ?)" ;
 	
-	public static String GET_ELECTION_DETAIL_BY_ID = " select ec.unit_ele_id, ec.const_id, e.*"
-		+ "from elections_consts ec join elections e "
-		+ "on ec.ele_id=e.ele_id where e.ele_id= ? group by e.ele_id" ;
+	public static String GET_ELECTION_DETAIL_BY_ID = "select * from elections where ele_id = ?";
 	
+	public static String GET_ALL_ELECTIONS_BY_CRITERIA = "select * from elections where ele_title like %?%" ;
 	
+	public static String DELETE_ELECTION_BY_ID = "delete from user where user_id= ?";
 	
-	 
 	
 	public static String GET_ELECTIONS_BY_CONST_ID = " select ec.unit_ele_id, ec.ele_id, ec.const_id, "
 		+ "e.ele_title, e.ele_start_dt, e.ele_end_dt, e.ele_desc "
@@ -64,102 +63,52 @@ public class SQLConstants {
 	public static String INSERT_CONST_IN_ELECTION_CONSTITUENCIES = " insert into elections_consts " 
 			+ "(ele_id, const_id) values ( ?, ? ) " ;
 	
-	
-	public static String SEARCH_ELECTIONS_BY_ALL_CRITERIA =  "select ELE.*, ELECON.unit_ele_id, CON.const_id "
-			+ "from elections ELE, elections_consts ELECON, constituencies CON "
-			+ "where ELE.ele_id = ELECON.ele_id and ELECON.const_id = CON.const_id "
-			+ "and ELE.ele_title like ? "
-			+ "and CON.const_id like ? "
-			+ "and CON.const_state like ? "
-			+ "group by ELE.ele_id";
-	
-	
-	public static String GET_STATES_BY_ELECTION_ID = "select EST.* "
-		+ "from elections ELE, elections_consts ECO, constituencies CON, elections_states EST "
-		+ "where ELE.ele_id = ECO.ele_id and ECO.const_id = CON.const_id and CON.const_state = EST.st_id "
-		+ "and ELE.ele_id = ? "
-		+ "group by EST.st_id";
-	
-	/**
-	 * ------------------------------------------------------------------------------------------------------------
-	 * Queries for the Constituency table;
-	 */
-	
-	public static String GET_ALL_CONSTS = "select * from constituencies";
-	
-	
-	
-	/**
-	 * ------------------------------------------------------------------------------------------------------------
-	 * Queries for the OnlineVoting module;
-	 */
-	
 	public static String GET_VOTINGSTAT_BY_VOTINGPIN = " select count(*) from elections_votingstats " 
-			+ " where e_election_id = ? and ele_id = ? and voting_stat = 'Y' ";
+			+ " where voting_pin = '?' and ele_id = ? and voting_stat = 'Y' ";
 	
 	public static String UPDATE_VOTINGSTAT_BY_VOTINGPIN = "update elections_votingstats " 
 			+ "set voting_stat = 'Y' " 
-			+ "where e_election_id = ? and ele_id = ? " ;
+			+ "where voting_pin = '?' and ele_id = ? " ;
 	
-	
-	
-		
-	
-	/**
-	 * ------------------------------------------------------------------------------------------------------------
-	 * Queries for the UserEnrollment module;
-	 */
-	
-	public static String GET_ADHAAR_USER_BY_ADHAAR_ID = " select * from adhaarDB where adhaar_id= ? " ;
+	public static String GET_ADHAAR_USER_BY_ADHAAR_ID = " select * from adhaarDB where adhaar_id= '?' " ;
 	
 	public static String INSERT_ENRLD_USER_IN_VOTERSADHAAR = "insert into voters_adhaar " 
-			+ " (e_election_id, fk_voters_id, fk_adhaar_id, voting_pin, lockout_flag, gen_date) " 
-			+ " values (NULL, ?, ?, ?, ?, CURDATE()) ";
+			+ " (id, fk_voters_id, fk_adhaar_id, voting_pin, lockout_flag, gen_date) " 
+			+ " values (NULL, '?', '?', '?', '?', CURDATE()) ";
 	
 	public static String GET_ENRLMENT_STAT_BY_ALL_CRITERIA = "select count(*) from voters_adhaar " 
-			+ "where e_election_id = ?  and voting_pin = ? and lockout_flag <> 'T' ";
+			+ "where fk_adhaar_id = '?' and fk_voters_id = '?' " 
+			+ "and voting_pin = '?' and lockout_flag <> 'T' ";
 
-
-
+	public static String GET_VOTER_INFO_BY_VOTERID = "select * from voters where voters_id = '?' " ;
 	
-	public static String UPDATE_PIN_FOR_ENRLD_USR_VTRS_ADHR = "update voters_adhaar set voting_pin= ? "
-			+ " where e_election_id = ? and fk_adhaar_id = ? ";
+	public static String GET_VOTERS_BY_CONSTITUENCY =  "select " 
+			+ "va.fk_voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " 
+			+ "v.name, v.place, " 
+			+ "c.const_name, c.const_state " 
+			+ "from voters_adhaar va, voters v, constituencies c "
+			+ "where va.fk_voters_id = v.voters_id and v.const=c.const_id " 
+			+ "and v.const = '?' "; 
 	
 	
-	public static String GET_USR_ENRLMNT_DETAIL = "select * from voters_adhaar "
-			+ "where e_election_id = ? and fk_adhaar_id = ? ";
+	public static String GET_VOTERS_BY_NAME_CONST = "select " 
+			+ "va.fk_voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " 
+			+ "v.name,v.place, c.const_name, c.const_state " 
+			+ "from voters_adhaar va, voters v, constituencies c " 
+			+ "where va.fk_voters_id = v.voters_id and v.const=c.const_id " 
+			+ "and v.const = '?' and v.name like '%?%' ";
 	
-	
-	public static String GET_VOTERS_ID_BY_eELECTIONID =  "select * from voters where "
-			+ "voters_id = (select fk_voters_id from voters_adhaar where e_election_id = ? ) ";
-		
-	/**
-	 * ------------------------------------------------------------------------------------------------------------
-	 * Queries for the VoterlistManagement module;
-	 */
-	public static String GET_VOTER_INFO_BY_VOTERID = "select * from voters where voters_id = ? " ;
-	
-
-	public static String SEARCH_VOTERS_BY_MULTIPLE_PARAMS = "select " 
-        		+ "v.voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " 
-        		+ "v.name,v.place, c.const_name, c.const_state " 
-        		+ "from voters_adhaar va, voters v, constituencies c " 
-        		+ "where va.fk_voters_id = v.voters_id and v.const=c.const_id " 
-        		+ "and v.voters_id like ? and v.const like ? and v.name like ? and va.lockout_flag like ? ";
-
-	public static String GET_VOTER_DETAIL_BY_ID = "select " 
-        		+ "v.voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " 
-        		+ "v.name,v.place, c.const_name, c.const_state " 
-        		+ "from voters_adhaar va, voters v, constituencies c " 
-        		+ "where va.fk_voters_id = v.voters_id and v.const=c.const_id " 
-        		+ "and v.voters_id = ? ";
+	public static String GET_VOTERS_BY_NAME_CONST_FLAG = "select " 
+			+ "va.fk_voters_id,va.fk_adhaar_id, va.voting_pin, va.gen_date, va.lockout_flag, " 
+			+ "v.name,v.place, c.const_name, c.const_state " 
+			+ "from voters_adhaar va, voters v, constituencies c " 
+			+ "where va.fk_voters_id = v.voters_id and v.const=c.const_id " 
+			+ "and v.const = '?' and v.name like '%?%' and va.lockout_flag='?";
 	
 	public static String INSERT_NEW_VOTER_IN_VOTERS = "insert into voters " 
 			+ "( voters_id, name, const, place) " 
 			+ "values ('?', '?', ?, '?')" ;
 
-	public static String UPDATE_VOTER_STATUS_IN_ENROLLMENT_TBL = "update  voters_adhaar set lockout_flag= ? "
-			+ "where fk_voters_id = ? " ;
 
 
 }

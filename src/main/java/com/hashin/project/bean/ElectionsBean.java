@@ -10,18 +10,20 @@ import java.util.Date;
  */
 public class ElectionsBean {
 
-	private String electId;
+	private int electId;
 	private String electTitle;
 	private String electStartDate;
 	private String electEndDate;
 	private String electDescription;
-	private String customMessage;
 	
-	public String getElectId() {
-		return electId;
+	
+	public int getElectId()
+	{
+	    return electId;
 	}
-	public void setElectId(String electId) {
-		this.electId = electId;
+	public void setElectId(int electId)
+	{
+	    this.electId = electId;
 	}
 	public String getElectTitle()
 	{
@@ -57,24 +59,7 @@ public class ElectionsBean {
 	    this.electDescription = electDescription;
 	}
 	
-	public String getCustomMessage()
-	{
-	    return customMessage;
-	}
-	public void setCustomMessage(String customMessage)
-	{
-	    this.customMessage = customMessage;
-	}
-	@Override
-	public String toString() {
-		return "ElectionsBean [electId=" + electId + ", electTitle="
-				+ electTitle + ", electStartDate=" + electStartDate
-				+ ", electEndDate=" + electEndDate + ", electDescription="
-				+ electDescription + "]";
-	}
-	
 
-	
 	
 	
 }

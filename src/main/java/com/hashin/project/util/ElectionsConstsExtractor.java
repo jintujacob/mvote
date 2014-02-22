@@ -17,9 +17,9 @@ public class ElectionsConstsExtractor implements ResultSetExtractor<ElectionsCon
     {
 	ElectionsConstsBean constElection = new ElectionsConstsBean();
 	
-	constElection.setUnitEleId(""+rs.getInt("unit_ele_id"));
-	constElection.setElectId(""+rs.getInt("ele_id"));
-	constElection.setConstId(""+rs.getInt("const_id"));
+	constElection.setUnitEleId(rs.getInt("unit_ele_id"));
+	constElection.setElectId(rs.getInt("ele_id"));
+	constElection.setConstId(rs.getInt("const_id"));
 	constElection.setElectTitle(rs.getString("ele_title"));
 	constElection.setElectStartDate(rs.getDate("ele_start_dt").toString());
 	constElection.setElectEndDate(rs.getDate("ele_end_dt").toString());
