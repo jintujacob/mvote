@@ -32,7 +32,7 @@ span{
 	        border:1px solid blue;
 	    }
     
-        #pageElectionSearchSummary a:hover{
+        #pageElectionSearchSummary a:hover$("input[type='checkbox']").val();$("input[type='checkbox']").val();$("input[type='checkbox']").val();{
             border:1px solid red;
         }
         
@@ -43,3 +43,19 @@ span{
 #panelLeftElectionDetail div{
 	width:100%;
 }
+
+
+
+#panelLeftElectionBasic{
+	
+	padding:20px;
+	
+}
+
+#panelRightElectionStates table td{
+	margin:0;
+	padding:0;
+	padding-top: 10px;
+}
+
+

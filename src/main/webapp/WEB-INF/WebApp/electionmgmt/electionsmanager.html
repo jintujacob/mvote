@@ -31,10 +31,10 @@
             <div id="contentAddElectionForm">
                    contentAddElectionForm <br><br>
                    
-                   Title :   <input type="text" id="in_find_ele"> <br>
-                   Desc :   <input type="text" id="in_find_ele"> <br>
-                   From :   <input type="text" id="in_find_ele"> <br>
-                   To :   <input type="text" id="in_find_ele"> <br>
+                   Title :   <input type="text" id="in_add_title"> <br>
+                   Desc :   <input type="text" id="in_add_desc"> <br>
+                   From :   <input type="text" id="in_add_fromdt"> <br>
+                   To :   <input type="text" id="in_add_todt"> <br>
                    
                    <button id="btn_add_ele"> Register </button>
                    
@@ -43,12 +43,17 @@
     </div>
     
     <div id="pageAddElectionStatesForm">
-        pageAddElectionStatesForm<br>
-        <span id="panelLeftElectionStates">
-            panelLeftElectionStates
+        <!-- pageAddElectionStatesForm --><br>
+        <span id="panelLeftElectionBasic">
+            
             
             <br>
-            Basic Info in table
+            <b>Basic Election Information </b>
+            
+            <table id="tbl_basicElectionInfoAdd">  <!-- ajax it  --> </table>
+            
+            
+            
             
         </span>
         <span id="panelRightElectionStates">
@@ -56,20 +61,15 @@
             
             states selections <br>
             
-            <input type="checkbox" /> st1 
-            <input type="checkbox" /> st2 <br>
-            <input type="checkbox" /> st3 
-            <input type="checkbox" /> st4 <br>
-            <input type="checkbox" /> st5
-            <input type="checkbox" /> st6 <br>
-            
-            <input type="checkbox" /> st1 
-            <input type="checkbox" /> st2 <br>
-            <input type="checkbox" /> st3 
-            <input type="checkbox" /> st4 <br>
-            <input type="checkbox" /> st5
-            <input type="checkbox" /> st6 <br><br>
-
+            <input type="checkbox"> test
+            <table >
+            	<tr> 
+            		<td class="statesListLeft">  <!-- ajax it  --></td>
+            		<td class="statesListRight">  <!-- ajax it --></td>
+            	</tr>
+            </table>
+           
+       
             <button id="btn_add_states"> Add States</button>
         </span>
     </div>

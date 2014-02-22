@@ -60,6 +60,12 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	    List<ElectionStatesBean> statesList = electionsMgmtDao.getStatesListByEleId(eleToFind.getElectId());
 	    return statesList;
 	}
+
+	@Override
+	public List<ElectionStatesBean> getAllStatesForMenu() {
+		
+		return electionsMgmtDao.getAllStatesForMenu();
+	}
 	
 	
 	

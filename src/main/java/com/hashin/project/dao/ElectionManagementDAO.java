@@ -50,6 +50,8 @@ public interface ElectionManagementDAO {
 	public ElectionsConstsBean getElectionDetail( String electId);
 
 	public List<ElectionStatesBean> getStatesListByEleId(String electId);
+
+	public List<ElectionStatesBean> getAllStatesForMenu();
 	
 	
 }

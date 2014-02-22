@@ -80,6 +80,9 @@ public class SQLConstants {
 		+ "and ELE.ele_id = ? "
 		+ "group by EST.st_id";
 	
+	
+	public static String GET_ALL_STATES = "select * from elections_states";
+	
 	/**
 	 * ------------------------------------------------------------------------------------------------------------
 	 * Queries for the Constituency table;

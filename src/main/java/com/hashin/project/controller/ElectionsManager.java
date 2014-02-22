@@ -98,6 +98,25 @@ public class ElectionsManager {
 		return formBean;
 	}
 
+	
+	@RequestMapping(value = "/getAllStates", method = RequestMethod.POST)
+	public @ResponseBody FormListBean getAllStates() 
+	{
+		logger.debug(">>___________ /getAllStates-> Search Params : " + null);
+		FormListBean formBean = new FormListBean();
+		
+		List<ElectionStatesBean> statesList = electionMgmtService.getAllStatesForMenu();
+		
+		if(statesList != null){
+		    formBean.setStatesList(statesList);
+		    formBean.setCustomMessage(CUSTOM_MSG);
+		}else{
+		    formBean.setCustomMessage("Unable to fetch States List!");
+		}
+
+		logger.debug("<<____________ /getAllStates -> Results"+ formBean.toString());
+		return formBean;
+	}
 
 // END of the class
 }

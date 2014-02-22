@@ -36,6 +36,8 @@ public interface ElectionManagementService {
 	public ElectionsBean getElectionDetail(ElectionsBean eleToFind);
 
 	public List<ElectionStatesBean> getStatesByElectionId(ElectionsBean eleToFind);
+
+	public List<ElectionStatesBean> getAllStatesForMenu();
 	
 	/* END Constituency Management API */
 	

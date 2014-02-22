@@ -173,5 +173,18 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	return null;
     }
 
+	@Override
+	public List<ElectionStatesBean> getAllStatesForMenu() 
+	{
+		List<ElectionStatesBean> statesList =  jdbcTemplate.query(
+			SQLConstants.GET_ALL_STATES, new ElectionsStatesMapper());
+		
+		if(statesList.size() > 0 ){
+		    return statesList;
+		}
+
+		return null;
+	}
+
 
 }
