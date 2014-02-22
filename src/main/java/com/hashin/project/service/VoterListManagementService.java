@@ -14,15 +14,25 @@ public interface VoterListManagementService
      */
     public VotersUserBean getVoterById(String votersId);
     
-    public List<VotersUserBean> getVotersByNameSearch(String voterName);
+/*    public List<VotersUserBean> getVotersByNameSearch(String voterName);
     
     public List<VotersUserBean> getVotersByNameAndConstituency(String voterName, String constId);
     
     public List<VotersUserBean> getVotersByNameConstAndLockoutFlag(String voterName, 
 	    String constId, String flag);
+*/
+    public List<VotersUserBean> searchVoter(VotersUserBean userToSearch);
+    
+    public VotersUserBean getVoterDetailById(VotersUserBean userToSearch); 
     
     public Boolean insertNewVoter(VotersUserBean voterUser);
     
     public VotersUserBean updateVotersById(VotersUserBean voterUser);
+    
+    public VotersUserBean activateVoterByVoterId(VotersUserBean voterToActivate);
+
+	public VotersUserBean deactivateVoterByVoterId(VotersUserBean voterToBlock);
+    
+    
     
 }

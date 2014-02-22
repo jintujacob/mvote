@@ -30,10 +30,14 @@ public interface UserEnrollmentDAO
      */
     public Long createVotersAdhaarUser(VotersAdhaarUserBean userToEnroll);
     
-    public String generateVotingPin(); 
+    public int udpateVotersAdhaarUserByPIN(VotersAdhaarUserBean userToUpdate);
     
-    public int getEnrollmentStatus(String votingPin, String adhaarId,
-	    String voterId);
-
+    public VotersAdhaarUserBean getEnrolledUserDetail(VotersAdhaarUserBean userToFind);
     
+    //public int getEnrollmentStatus(String votingPin, String adhaarId, String voterId);
+    
+    public int getEnrollmentStatus(String eElectionId, String votingPin);
+    
+    public VotersUserBean getVoterIdByEnrolledEID(String eElectionId);
+   
 }

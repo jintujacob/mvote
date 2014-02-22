@@ -8,11 +8,12 @@ package com.hashin.project.bean;
  */
 public class ElectionsConstsBean extends ElectionsBean{  
 
-	private int unitEleId;
-	private int constId;
+	private String unitEleId;
+	private String constId;
+	private String stateId;
 	
 	/* -----------------------------Properties from Parent
-	private int electId;
+	private String electId;
 	private String electTitle;
 	private String electStartDate;
 	private String electEndDate;
@@ -20,19 +21,40 @@ public class ElectionsConstsBean extends ElectionsBean{
 	-----------------------------------------------------*/
 	
 	
-	public int getUnitEleId() {
+	
+	public String getUnitEleId() {
 		return unitEleId;
 	}
-	public void setUnitEleId(int unitEleId) {
+
+	@Override
+	public String toString() {
+		
+		return super.toString()+"ElectionsConstsBean [unitEleId=" + unitEleId + ", constId="
+				+ constId + ", stateId=" + stateId + "]";
+	}
+
+	public void setUnitEleId(String unitEleId) {
 		this.unitEleId = unitEleId;
 	}
-	public int getConstId() {
+
+	public String getConstId() {
 		return constId;
 	}
-	public void setConstId(int constId) {
+
+	public void setConstId(String constId) {
 		this.constId = constId;
 	}
 
+	public String getStateId() {
+		return stateId;
+	}
+
+	public void setStateId(String stateId) {
+		this.stateId = stateId;
+	}
+
+	
+	
 	
 }
 

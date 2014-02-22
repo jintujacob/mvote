@@ -5,13 +5,16 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
+import com.hashin.project.bean.FormBeanGetCandidates;
+import com.hashin.project.bean.FormListBean;
+import com.hashin.project.bean.VotersAdhaarUserBean;
 import com.hashin.project.service.OnlineVotingService;
 
 @Controller
@@ -22,63 +25,90 @@ public class OnlineVoteManager
     @Autowired
     private OnlineVotingService onlineVotingService; 
     private static final Logger logger = Logger.getLogger(OnlineVoteManager.class);
-
-    @RequestMapping(value="/", method = RequestMethod.GET)
-    public ModelAndView getHomeAction() 
+    private static final String CUSTOM_MSG = "SUCCESS" ;
+    
+    @RequestMapping( method = RequestMethod.GET)
+    public String getHomeAction() 
     {
 	logger.debug("in Online Voting Module");
-	// do something
-	return new ModelAndView("OnlineVotingHome", "testvar", "testval");
+	return null;
     }   
     
     
     
-    //form submit voting pin, adhaarid, votersId
-    @RequestMapping(value="/verifyLogin", method = RequestMethod.GET)
-    public ModelAndView verifyUserLogin(@RequestParam String votingPIN, 
-	    @RequestParam String adhaarId, @RequestParam String votersId)
+    // form submit voting pin, adhaarid, votersId
+    // testing status complete
+    @RequestMapping(value="/verifyLogin", method = RequestMethod.POST)
+    public @ResponseBody FormListBean verifyUserLogin(@RequestBody VotersAdhaarUserBean loginUser)
     {
-	List<ElectionsConstsBean> electionList = onlineVotingService.manageVoterEntry(votingPIN, adhaarId, votersId);
+	logger.debug(">>___________ "+ loginUser.geteElectionId()+" >"+loginUser.getVotingPIN());
+	
+	List<ElectionsConstsBean> electionList = null;
+	FormListBean elections = new FormListBean();
+		
+	try {
+	    if(onlineVotingService.isValidUser( loginUser.geteElectionId(),loginUser.getVotingPIN()))
+		electionList = onlineVotingService.manageVoterEntry( loginUser.geteElectionId(),loginUser.getVotingPIN());
+	    else
+		elections.setCustomMessage("FAILED");
+	} catch (Exception e) {
+		logger.debug("Exception from backend -------> " + e.getMessage());
+		elections.setCustomMessage("Unable to perform requested Operation");
+	}
+	//electionList = onlineVotingService.manageVoterEntry( "VPIN444", "UID444", "v444");
 	if(electionList != null){
-	    // do the return the elections list to the ui
+	    elections.setElectionList(electionList);
+	    elections.setCustomMessage(CUSTOM_MSG);
 	}
-	else{
-	    //return the error message to the Ui that user is either not enrolled/ or no elections available for the user
+	if(electionList.size() < 1){
+	    //User is either not enrolled/ or no elections available for the user
+	    elections.setCustomMessage("No Elections Available");
 	}
-	return null;
+	return elections;
     }
     
-    @RequestMapping(value="/getCandidates", method=RequestMethod.GET)
-    public ModelAndView getCandidatesByUnitElection( @RequestParam String votingPIN, 
-	    @RequestParam String electionId,  @RequestParam String unitElectionId)
+    @RequestMapping(value="/getCandidates", method=RequestMethod.POST)
+    public @ResponseBody FormListBean getCandidatesByUnitElection(
+	    @RequestBody FormBeanGetCandidates formBean)
     {
+	logger.debug(">________recieved____: " + formBean.getVotingPIN()+", "+ 
+		formBean.getElectionId()+", "+ formBean.getUnitElectionId());
+	List<ElectionsCandidatesBean> candidateList = null;
+	FormListBean candidates = new FormListBean();
+	
 	//User selects the election,and submits. service layer should check if the user is already voted or not
-	List<ElectionsCandidatesBean> candidateList = onlineVotingService.getCandidatesList(votingPIN, 
-		electionId, unitElectionId);
+	candidateList = onlineVotingService.getCandidatesList( formBean.geteElectionId(),  
+		formBean.getElectionId(), formBean.getUnitElectionId());
 	
 	if(candidateList != null){
-	    // do return the candidate list to the UI
+	    candidates.setCandidateList(candidateList);
+	    candidates.setCustomMessage(CUSTOM_MSG);
 	}else{
-	    //return the error message to the UI that the user is either voted 
-	    //or not able to pull the candidate for the election
+	    candidates.setCustomMessage("Your Vote is already recorded. You can not vote again for the same election");
 	}
-	return null;
+	return candidates;
     }
     
-    @RequestMapping(value="/submitVote", method=RequestMethod.GET)
-    public ModelAndView submitVoteforCandidate(@RequestParam String votingPIN, 
-	    @RequestParam String candidateId, @RequestParam String electionId)
+    @RequestMapping(value="/submitVote", method=RequestMethod.POST)
+    public @ResponseBody FormListBean submitVoteforCandidate( 
+	    @RequestBody FormBeanGetCandidates formBean)
     {
-	String message = onlineVotingService.submitVoteforCandidate(votingPIN, candidateId, electionId);
+	logger.debug(">________recieved____: " + formBean.getVotingPIN()+", "+ 
+		formBean.getElectionId()+", "+ formBean.getCandidateId());
+	FormListBean votingStat = new FormListBean();
+	
+	String message = onlineVotingService.submitVoteforCandidate(formBean.geteElectionId(), 
+		formBean.getCandidateId(), formBean.getElectionId());
 	if (message != null){
-	    //show the confirmation message in UI that voting is completed successfully
+	    votingStat.setCustomMessage(CUSTOM_MSG);
 	}else{
 	    //show the confirmation message in UI to submit the request again.
 	    //it should not ask the user to input all the details again. 
 	    //Cache the details in the UI and ask him to just click the resubmit button again.
-	    //check if the transaction works 
+	    //check if the transaction works
+	    votingStat.setCustomMessage("FAILED");
 	}
-	return null;
+	return votingStat;
     }
     
     
