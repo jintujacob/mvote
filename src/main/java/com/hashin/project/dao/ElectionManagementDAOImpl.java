@@ -113,12 +113,12 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
     }
 
     @Override
-    public ElectionsConstsBean getElectionDetail(String  electId)
+    public ElectionsBean getElectionDetail(String  electId)
     {
 	Object[] parameters = new Object[] { electId };
-	List<ElectionsConstsBean> electionList = jdbcTemplate.query(
+	List<ElectionsBean> electionList = jdbcTemplate.query(
 		SQLConstants.GET_ELECTION_DETAIL_BY_ID, parameters,
-		new ElectionsConstsMapper());
+		new ElectionDetailRowMapper());
 
 	if (electionList.size() > 0)
 	{

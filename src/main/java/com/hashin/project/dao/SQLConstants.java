@@ -6,9 +6,10 @@ public class SQLConstants {
 			+ "(ele_title, ele_start_dt, ele_end_dt, ele_desc, vtr_enrl_stat, delete_stat) "
 			+ "values (?, ?, ?, ?, ?, ?)" ;
 	
-	public static String GET_ELECTION_DETAIL_BY_ID = " select ec.unit_ele_id, ec.const_id, e.*"
-		+ "from elections_consts ec join elections e "
-		+ "on ec.ele_id=e.ele_id where e.ele_id= ? and e.delete_stat <> 'Y' group by e.ele_id" ;
+	public static String GET_ELECTION_DETAIL_BY_ID = " select e.ele_id, e.ele_title, e.ele_start_dt, "
+		+ "e.ele_end_dt, e.ele_desc, e.vtr_enrl_stat "
+		+ "from elections e "
+		+ "where e.ele_id= ? and e.delete_stat <> 'Y' " ;
 	
 	
 	
@@ -84,7 +85,8 @@ public class SQLConstants {
 	public static String GET_STATES_BY_ELECTION_ID = "select EST.* "
 		+ "from elections ELE, elections_consts ECO, constituencies CON, elections_states EST "
 		+ "where ELE.ele_id = ECO.ele_id and ECO.const_id = CON.const_id and CON.const_state = EST.st_id "
-		+ "and ELE.ele_id = ? and ELE.delete_stat <> 'Y' "
+		+ "and ELE.ele_id = ? and "
+		+ "ELE.delete_stat <> 'Y' "
 		+ "group by EST.st_id";
 	
 	

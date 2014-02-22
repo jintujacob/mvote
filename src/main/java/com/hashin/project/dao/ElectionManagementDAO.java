@@ -37,7 +37,7 @@ public interface ElectionManagementDAO {
 
 	public List<ElectionsBean> searchElections(String eleTitle);
 	
-	public ElectionsConstsBean getElectionDetail( String electId);
+	public ElectionsBean getElectionDetail( String electId);
 
 	public List<ElectionStatesBean> getStatesListByEleId(String electId);
 

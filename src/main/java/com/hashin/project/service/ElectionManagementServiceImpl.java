@@ -39,17 +39,8 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	@Override
 	public ElectionsBean getElectionDetail(ElectionsBean eleToFind)
 	{
-	    ElectionsConstsBean eleDao = electionsMgmtDao.getElectionDetail(eleToFind.getElectId());
-	    if(eleDao != null){
-		eleToFind.setElectId(eleDao.getElectId());
-		eleToFind.setElectStartDate(eleDao.getElectStartDate());
-		eleToFind.setElectEndDate(eleDao.getElectEndDate());
-		eleToFind.setElectTitle(eleDao.getElectTitle());
-		eleToFind.setElectDescription(eleDao.getElectDescription());
-		
-		return eleToFind;
-	    }
-	    return null;
+	   return  electionsMgmtDao.getElectionDetail(eleToFind.getElectId());
+	    
 	}
 
 	@Override

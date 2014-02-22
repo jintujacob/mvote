@@ -26,7 +26,8 @@ $(document).ready(function()
 	});
 	
 	$('#btn_search_ele').click(function(){
-		processElectionsSearch();
+		searchKey = "";
+		processElectionsSearch(searchKey);
 		showPage('#pageElectionSearchSummary');
 	});
 	
@@ -36,7 +37,7 @@ $(document).ready(function()
 	
 	$('#pageElectionSearchSummary a').click(function(){
 		//call method on hyperlink
-		electId = "3";
+		electId = "5";
 		populateElectionDetail(electId);
 	});
 	
@@ -47,12 +48,12 @@ $(document).ready(function()
 	});
 	
 	$('#btn_enroll_voters').click(function(){
-		electId = "3";
+		electId = "5";
 		enrollVotersForElection(electId);
 	});
 	
 	$('#btn_delete').click(function(){
-		electId = "1";
+		electId = "5";
 		deleteElection(electId);
 	});
 
@@ -234,7 +235,7 @@ function loadElectionStates()
   			//console.log(strRight);
   		}
   	}
-  	
+
   	$('.statesListLeft').html(strLeft);
   	$('.statesListRight').html(strRight);
 
@@ -318,10 +319,8 @@ function processElectionAddition(){
   	}
 }
 
-function processElectionsSearch(){
-	obj = {
-			"electTitle":"test", 
-		  };
+function processElectionsSearch(searchKey){
+	obj = {	"electTitle": searchKey };
 	jsonString =JSON.stringify(obj);
 	
 	$.ajax({
