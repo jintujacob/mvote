@@ -8,7 +8,7 @@ __allStates = "";
 
 host  = "http://localhost:8080/mvote" ;
 
-	
+
 	
 $(document).ready(function()
 {
@@ -35,27 +35,79 @@ $(document).ready(function()
 	});
 	
 	$('#pageElectionSearchSummary a').click(function(){
-		getElectionDetailBasic();
-		getElectionDetailStates();
-		showPage('#pageElectionDetail');
+		//call method on hyperlink
+		populateElectionDetail("1");
 	});
 	
 	$('#btn_add_states').click(function(){
-		//emulate searching  == same as $('#btn_search_ele').click()
-		processElectionsSearch();
-		showPage('#pageElectionSearchSummary');
+		submitElectionInfo();
+		//processElectionsSearch();
+		//showPage('#pageElectionSearchSummary');
 	});
 	
 	
-	$('#panelRightElectionStates input[type=checkbox]').change(function(){
+/*	$('#pageAddElectionStatesForm input[type=checkbox]').change(function(){
 		alert(this.val());
 		
 	});
+*/
 	
+	$("body").on("change", "#pageAddElectionStatesForm input[type=checkbox]", function(event){
+	    alert('gotClicked');
+	    alert($("#pageAddElectionStatesForm input[type=checkbox]").val());
+	});
+		    
 	
-	
-	 
 });
+
+
+function populateElectionDetail(electId)
+{
+	getElectionDetailBasic(electId);
+	getElectionDetailStates(electId);
+	showPage('#pageElectionDetail');
+
+}
+
+function submitElectionInfo()
+{
+	obj = {	"electTitle":__addTitle ,
+			"electStartDate" : __addFromDt,
+			"electEndDate" : __addToDt,
+			"electDescription" : __addDesc
+		  };
+	
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: host + '/elections/addNewElection',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateSubmitResult(response);
+	    },
+		error: function(response){
+			alert("Add Election feature is currently unavailable. Please report the issue or try after sometime!");
+		}
+	});	
+
+}
+
+
+function populateSubmitResult(response)
+{
+	if(response.customMessage == "SUCCESS"){
+		alert("Successfully added election");
+		showPageHome();
+	}
+	else{
+		alert("Unable to add the election in the backend. System Error!");
+		
+	}
+	
+}
 
 
 function getAllStatesList()
@@ -67,7 +119,6 @@ function getAllStatesList()
 	    dataType: "json",
 	    success: function(response) {
 	    	__allStates = response.statesList;
-	    	
 	    	loadElectionStates(__allStates);
 	    	
 	    	//processElectionAddition(__allStates);
@@ -87,19 +138,18 @@ function loadElectionStates()
   	strRight = "";
   	for(i=0; i < __allStates.length; i++)
   	{
-  		console.log(i);
   		if(i%2 != 0 )
   		{
   			strLeft +=  " <input type='checkbox' name='check"+ __allStates[i].stateId 
   					+ "' value='"+ __allStates[i].stateId +"'/> "
   					+ __allStates[i].stateName +" <br>" ;
-  			console.log(strLeft);
+  			//console.log(strLeft);
   		}else{
   			strRight +=  " <input type='checkbox' name='check"+ __allStates[i].stateId 
 				+ "' value='"+ __allStates[i].stateId +"'/> "
 				+ __allStates[i].stateName +" <br>" ;
   			
-  			console.log(strRight);
+  			//console.log(strRight);
   		}
   	}
   	
@@ -111,9 +161,9 @@ function loadElectionStates()
 }
 
 
-function getElectionDetailBasic()
+function getElectionDetailBasic(electId)
 {
-	obj = {	"electId":"1" };
+	obj = {	"electId": electId};
 	jsonString =JSON.stringify(obj);
 	
 	$.ajax({
@@ -131,9 +181,9 @@ function getElectionDetailBasic()
 	});	
 }
 
-function getElectionDetailStates()
+function getElectionDetailStates(electId)
 {
-	obj = {	"electId":"1" };
+	obj = {	"electId":electId };
 	jsonString =JSON.stringify(obj);
 	
 	$.ajax({
@@ -161,12 +211,12 @@ function processElectionAddition(){
   	__addFromDt = $('#in_add_fromdt').val();
   	__addToDt = $('#in_add_todt').val();
   	
-	__addTitle ="1";
+/*	__addTitle ="1";
   	__addDesc = "2";
   	__addFromDt = "3";
   	__addToDt = "4";
 	
-
+*/
     //alert(addTitle +"|"+ addDesc +"|"+ addFromDt +"|"+ addToDt);
   	
   	//populate entered info in the second page

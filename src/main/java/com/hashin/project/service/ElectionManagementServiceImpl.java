@@ -66,6 +66,16 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 		
 		return electionsMgmtDao.getAllStatesForMenu();
 	}
+
+	@Override
+	public ElectionsBean addNewElection(ElectionsBean eleToFind)
+	{
+	     int rowCount = electionsMgmtDao.addNewElection(eleToFind);
+	     if(rowCount > 0 ){
+		 return eleToFind;
+	     }
+		 return null;
+	}
 	
 	
 	

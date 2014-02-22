@@ -39,11 +39,12 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 
     public int addNewElection(ElectionsBean election)
     {
-	// String query =
-	// "insert into elections (ele_title, ele_start_dt, ele_end_dt, ele_desc) values (?, ?, ?, ?)";
-	Object[] parameters = new Object[] { election.getElectTitle(),
-		election.getElectStartDate(), election.getElectEndDate(),
-		election.getElectDescription() };
+	Object[] parameters = new Object[] { 
+		election.getElectTitle(),
+		election.getElectStartDate(), 
+		election.getElectEndDate(),
+		election.getElectDescription() 
+		};
 	int numRows = jdbcTemplate.update(SQLConstants.INSERT_NEW_ELECTION,
 		parameters);
 	return numRows;

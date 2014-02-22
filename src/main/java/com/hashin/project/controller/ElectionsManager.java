@@ -117,6 +117,22 @@ public class ElectionsManager {
 		logger.debug("<<____________ /getAllStates -> Results"+ formBean.toString());
 		return formBean;
 	}
+	
+	@RequestMapping(value = "/addNewElection", method = RequestMethod.POST)
+	public @ResponseBody FormListBean addNewElection(@RequestBody ElectionsBean eleToFind) 
+	{
+		logger.debug(">>___________ /getAllStates-> Search Params : " + null);
+		FormListBean formBean = new FormListBean();
+		
+		ElectionsBean eleResp = electionMgmtService.addNewElection(eleToFind);
+		
+		
+		formBean.setCustomMessage(CUSTOM_MSG);
+
+		logger.debug("<<____________ /getAllStates -> Results"+ formBean.toString());
+		return formBean;
+	}
+
 
 // END of the class
 }
