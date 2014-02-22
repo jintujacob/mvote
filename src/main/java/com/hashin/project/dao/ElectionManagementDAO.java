@@ -31,21 +31,11 @@ public interface ElectionManagementDAO {
 	
 	
 	
-	//public Boolean enrollNewCandidate(ElectionsCandidatesBean candidate);
-
-	public ElectionsCandidatesBean getCandidateInfoById(String candidateId);
-	
-	public List<ElectionsCandidatesBean> getCandidatesByName(String candName);
-	
-	public List<ElectionsCandidatesBean> getCandidatesByConstituency(String constId);
-
-	
-	
 	//_____________________________constituencies___________________________//
 	
 	public List<ConstituenciesBean> getAllConstituencies();
 
-	public List<ElectionsConstsBean> searchElections(ElectionsConstsBean toSearch);
+	public List<ElectionsBean> searchElections(String eleTitle);
 	
 	public ElectionsConstsBean getElectionDetail( String electId);
 
@@ -58,6 +48,8 @@ public interface ElectionManagementDAO {
 	public Boolean getVoterEnrollStatusByElection(String electId);
 
 	public int updateEnrlmntStatusForElection(String electId);
+
+	public int deleteElectionInElections(String electId);
 	
 	
 }

@@ -16,7 +16,18 @@ public class ElectionsBean {
 	private String electEndDate;
 	private String electDescription;
 	private String customMessage;
+	private String voterEnrollStat; 
 	
+	
+	
+	public String getVoterEnrollStat()
+	{
+	    return voterEnrollStat;
+	}
+	public void setVoterEnrollStat(String voterEnrollStat)
+	{
+	    this.voterEnrollStat = voterEnrollStat;
+	}
 	public String getElectId() {
 		return electId;
 	}

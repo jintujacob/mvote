@@ -2,14 +2,15 @@ package com.hashin.project.service;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hashin.project.bean.ConstituenciesBean;
 import com.hashin.project.bean.ElectionStatesBean;
 import com.hashin.project.bean.ElectionsBean;
-import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
+import com.hashin.project.controller.ElectionsManager;
 import com.hashin.project.dao.ElectionManagementDAO;
 
 
@@ -17,26 +18,22 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	@Autowired
 	private ElectionManagementDAO electionsMgmtDao;
 
-
+	private static final Logger logger = Logger
+		.getLogger(ElectionManagementServiceImpl.class);
+	
 	@Override
 	public List<ConstituenciesBean> getAllConsts() {
 		return electionsMgmtDao.getAllConstituencies();
 	}
 
 	@Override
-	public List<ElectionsConstsBean> searchElection(ElectionsConstsBean toSearch) 
+	public List<ElectionsBean> searchElection(ElectionsBean toSearch) 
 	{
 		if(toSearch.getElectTitle() == null ){
 			toSearch.setElectTitle("");
 		}
-		if(toSearch.getConstId()== null) {
-			toSearch.setConstId("");
-		}
-		if(toSearch.getStateId() == null ){
-			toSearch.setStateId("");
-		}
 		
-		return electionsMgmtDao.searchElections(toSearch);
+		return electionsMgmtDao.searchElections(toSearch.getElectTitle());
 	}
 
 	@Override
@@ -72,6 +69,9 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	public ElectionsBean addNewElection(ElectionsBean eleToFind)
 	{
 	     int rowCount = electionsMgmtDao.addNewElection(eleToFind);
+	     
+	     //add the election into elections constituencies also
+	     
 	     if(rowCount > 0 ){
 		 return eleToFind;
 	     }
@@ -84,14 +84,44 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	{
 	    ElectionsBean enrolledStatus = new ElectionsBean();
 	    Boolean enrlstatus = electionsMgmtDao.getVoterEnrollStatusByElection(eleToFind.getElectId());
+	    int votingstatTableflag = 0;
+	    int electionTableflag = 0;
+	    
 	    if(enrlstatus != true){
-		electionsMgmtDao.enrollVotersForElection(eleToFind.getElectId());
-		electionsMgmtDao.updateEnrlmntStatusForElection(eleToFind.getElectId());
+		logger.debug("_____________________not enrolled_________________________");
+		votingstatTableflag = electionsMgmtDao.enrollVotersForElection(eleToFind.getElectId());
+		if(votingstatTableflag >0 ){
+			electionTableflag = electionsMgmtDao.updateEnrlmntStatusForElection(eleToFind.getElectId());		    
+		}
+	    }
+	    else{
+		logger.debug("_____________________already enrolled_________________________");
+		enrolledStatus.setCustomMessage("Unable to perform requested operation. Enrollment already completed");
+	    }
+	    
+	    if(electionTableflag > 0){
+		logger.debug("_____________________newly enrolled_________________________");
 		enrolledStatus.setCustomMessage("SUCCESS");
 	    }else{
-		enrolledStatus.setCustomMessage("Unable to perform requested operation. Enrollment is already completed for the election.");
+		logger.debug("_____________________enroll failed due to sys_________________________");
+		enrolledStatus.setCustomMessage("Unable to perform requested operation. Database Error");
 	    }
 	    return enrolledStatus;
+	}
+
+	@Override
+	public ElectionsBean deleteElection(ElectionsBean eleToDelete)
+	{
+	   ElectionsBean deleteStat = new ElectionsBean();
+	   int rowCount  = 0;
+	   rowCount  = electionsMgmtDao.deleteElectionInElections(eleToDelete.getElectId());
+	  
+	   if(rowCount> 0 ){
+	       deleteStat.setCustomMessage("SUCCESS");
+	   }else{
+	       deleteStat.setCustomMessage("Delete Operation failed due to Database Error");
+	   }
+	   return deleteStat;
 	}
 	
 	

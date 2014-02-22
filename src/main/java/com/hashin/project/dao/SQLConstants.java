@@ -3,12 +3,12 @@ package com.hashin.project.dao;
 public class SQLConstants {
 
 	public static String INSERT_NEW_ELECTION = "insert into elections "
-			+ "(ele_title, ele_start_dt, ele_end_dt, ele_desc, vtr_enrl_stat) "
-			+ "values (?, ?, ?, ?, ?)" ;
+			+ "(ele_title, ele_start_dt, ele_end_dt, ele_desc, vtr_enrl_stat, delete_stat) "
+			+ "values (?, ?, ?, ?, ?, ?)" ;
 	
 	public static String GET_ELECTION_DETAIL_BY_ID = " select ec.unit_ele_id, ec.const_id, e.*"
 		+ "from elections_consts ec join elections e "
-		+ "on ec.ele_id=e.ele_id where e.ele_id= ? group by e.ele_id" ;
+		+ "on ec.ele_id=e.ele_id where e.ele_id= ? and e.delete_stat <> 'Y' group by e.ele_id" ;
 	
 	
 	
@@ -17,7 +17,8 @@ public class SQLConstants {
 	public static String GET_ELECTIONS_BY_CONST_ID = " select ec.unit_ele_id, ec.ele_id, ec.const_id, "
 		+ "e.ele_title, e.ele_start_dt, e.ele_end_dt, e.ele_desc "
 		+ "from elections_consts ec left join elections e "
-		+ "on ec.ele_id=e.ele_id where ec.const_id= ?" ; 
+		+ "on ec.ele_id=e.ele_id where ec.const_id= ?"
+		+ "and e.delete_stat <> 'Y' " ; 
 
         public static String GET_CANDIDATES_BY_UNIT_ELE_ID = " select ec.ele_cand_id, ec.cand_id, "
         		+ "c.cand_name, c.cand_logo, c.cand_bio "
@@ -65,19 +66,25 @@ public class SQLConstants {
 			+ "(ele_id, const_id) values ( ?, ? ) " ;
 	
 	
-	public static String SEARCH_ELECTIONS_BY_ALL_CRITERIA =  "select ELE.*, ELECON.unit_ele_id, CON.const_id "
+/*	public static String SEARCH_ELECTIONS_BY_ALL_CRITERIA =  "select ELE.*, ELECON.unit_ele_id, CON.const_id "
 			+ "from elections ELE, elections_consts ELECON, constituencies CON "
 			+ "where ELE.ele_id = ELECON.ele_id and ELECON.const_id = CON.const_id "
 			+ "and ELE.ele_title like ? "
 			+ "and CON.const_id like ? "
 			+ "and CON.const_state like ? "
+			+ "and ELE.delete_stat <> 'Y' "
 			+ "group by ELE.ele_id";
+*/
 	
+	public static String SEARCH_ELECTIONS_BY_ALL_CRITERIA =  "select * from elections ELE "
+		+ "where ELE.ele_title like ? "
+		+ "and ELE.delete_stat <> 'Y' "; 
+
 	
 	public static String GET_STATES_BY_ELECTION_ID = "select EST.* "
 		+ "from elections ELE, elections_consts ECO, constituencies CON, elections_states EST "
 		+ "where ELE.ele_id = ECO.ele_id and ECO.const_id = CON.const_id and CON.const_state = EST.st_id "
-		+ "and ELE.ele_id = ? "
+		+ "and ELE.ele_id = ? and ELE.delete_stat <> 'Y' "
 		+ "group by EST.st_id";
 	
 	
@@ -91,6 +98,9 @@ public class SQLConstants {
 	public static String BATCH_RUN_INSERT_VOTERS_TO_VOTINGSTAT = "INSERT INTO elections_votingstats "
 		+ "(e_election_id, ele_id, voting_stat) "
 		+ "SELECT e_election_id, ? , 'N' FROM voters_adhaar";
+	
+	public static String DELETE_ELE_IN_ELECTIONS = "update elections set delete_stat = ? where ele_id = ? " ;
+	
 	
 	/**
 	 * ------------------------------------------------------------------------------------------------------------

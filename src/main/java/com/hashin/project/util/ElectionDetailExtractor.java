@@ -20,7 +20,9 @@ public class ElectionDetailExtractor implements ResultSetExtractor<ElectionsBean
 	  election.setElectTitle(rs.getString("ele_title"));
 	  election.setElectStartDate(rs.getDate("ele_start_dt").toString());
 	  election.setElectEndDate(rs.getDate("ele_end_dt").toString());
-	  election.setElectDescription(rs.getString("ele_desc"));		    
+	  election.setElectDescription(rs.getString("ele_desc"));
+	  election.setVoterEnrollStat(rs.getString("vtr_enrl_stat"));
+	  
 	  return election;    
     }
 

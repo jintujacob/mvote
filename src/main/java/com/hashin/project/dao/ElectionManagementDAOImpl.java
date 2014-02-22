@@ -18,6 +18,7 @@ import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
 import com.hashin.project.util.CandidatesRowMapper;
 import com.hashin.project.util.ConstituencyMapper;
+import com.hashin.project.util.ElectionDetailRowMapper;
 import com.hashin.project.util.ElectionsCandidatesRowMapper;
 import com.hashin.project.util.ElectionsConstsMapper;
 import com.hashin.project.util.ElectionsStatesMapper;
@@ -44,6 +45,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 		election.getElectStartDate(), 
 		election.getElectEndDate(),
 		election.getElectDescription(), 
+		"N",
 		"N"
 		};
 	int numRows = jdbcTemplate.update(SQLConstants.INSERT_NEW_ELECTION,
@@ -86,38 +88,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	return numRows;
     }
 
-    @Override
-    public ElectionsCandidatesBean getCandidateInfoById(String candidateId)
-    {
-	Object[] parameters = new Object[] { candidateId };
-	List<ElectionsCandidatesBean> candidateList = jdbcTemplate.query(
-		SQLConstants.GET_CANDIDATE_DETAIL_BY_ID, parameters,
-		new ElectionsCandidatesRowMapper());
-	return candidateList.get(0);
-
-    }
-
-    @Override
-    public List<ElectionsCandidatesBean> getCandidatesByName(String candName)
-    {
-	Object[] parameters = new Object[] { candName };
-	List<ElectionsCandidatesBean> candidateList = jdbcTemplate.query(
-		SQLConstants.GET_CANDIDATES_BY_NAME, parameters,
-		new ElectionsCandidatesRowMapper());
-	return candidateList;
-    }
-
-    @Override
-    public List<ElectionsCandidatesBean> getCandidatesByConstituency(
-	    String constId)
-    {
-	Object[] parameters = new Object[] { constId };
-	List<ElectionsCandidatesBean> candidateList = jdbcTemplate.query(
-		SQLConstants.GET_CANDIDATES_BY_CONSTITUENCY_ID, parameters,
-		new ElectionsCandidatesRowMapper());
-	return candidateList;
-    }
-
+    
     @Override
     public List<ConstituenciesBean> getAllConstituencies()
     {
@@ -130,17 +101,14 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
     }
 
     @Override
-    public List<ElectionsConstsBean> searchElections(
-	    ElectionsConstsBean toSearch)
+    public List<ElectionsBean> searchElections(String titleToSearch)
     {
 	Object[] parameters = new Object[] {
-		"%" + toSearch.getElectTitle() + "%",
-		"%" + toSearch.getConstId() + "%",
-		"%" + toSearch.getStateId() + "%", };
+		"%" + titleToSearch + "%"  };
 
-	List<ElectionsConstsBean> electionList = jdbcTemplate.query(
+	List<ElectionsBean> electionList = jdbcTemplate.query(
 		SQLConstants.SEARCH_ELECTIONS_BY_ALL_CRITERIA, parameters,
-		new ElectionsConstsMapper());
+		new ElectionDetailRowMapper());
 	return electionList;
     }
 
@@ -220,6 +188,20 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 		    electId 
 	    	};
 	    int numRows = jdbcTemplate.update(SQLConstants.UPDATE_VOTER_ENRLMNT_STAT_FOR_ELE,
+			parameters);
+	    return numRows;
+	}
+
+	@Override
+	public int deleteElectionInElections(String electId)
+	{
+	    //Not deleting changing the status elections:vtr_enrlmnt_stat to "N"
+	    //key change testing is still pending;
+	    Object[] parameters = new Object[] { 
+		    "Y",
+		    electId 
+	    	};
+	    int numRows = jdbcTemplate.update(SQLConstants.DELETE_ELE_IN_ELECTIONS,
 			parameters);
 	    return numRows;
 	}

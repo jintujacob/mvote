@@ -16,6 +16,20 @@ public class FormListBean
     private List<VotersUserBean> voterList;
     private List<ConstituenciesBean> constsList;
     private List<ElectionStatesBean> statesList;
+    private List<ElectionsBean> electionBasicDetailList;
+    
+    
+    
+    public List<ElectionsBean> getElectionBasicDetailList()
+    {
+        return electionBasicDetailList;
+    }
+
+    public void setElectionBasicDetailList(
+    	List<ElectionsBean> electionBasicDetailList)
+    {
+        this.electionBasicDetailList = electionBasicDetailList;
+    }
 
     public List<ConstituenciesBean> getConstsList()
     {

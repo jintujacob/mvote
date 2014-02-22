@@ -36,7 +36,7 @@ $(document).ready(function()
 	
 	$('#pageElectionSearchSummary a').click(function(){
 		//call method on hyperlink
-		electId = "1";
+		electId = "3";
 		populateElectionDetail(electId);
 	});
 	
@@ -47,9 +47,17 @@ $(document).ready(function()
 	});
 	
 	$('#btn_enroll_voters').click(function(){
-		electId = "1";
+		electId = "3";
 		enrollVotersForElection(electId);
 	});
+	
+	$('#btn_delete').click(function(){
+		electId = "1";
+		deleteElection(electId);
+	});
+
+	
+	
 	
 	
 	
@@ -66,6 +74,42 @@ $(document).ready(function()
 		    
 	
 });
+
+
+function deleteElection(electId)
+{
+	obj = {	"electId": electId  };
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: host + '/elections/deleteElection',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateDeleteElectionStatus(response);
+	    },
+		error: function(response){
+			alert("Connection Error. Network failure or Server unavailable");
+		}
+	});	
+
+}
+
+function populateDeleteElectionStatus(response)
+{
+	if(response.customMessage == "SUCCESS"){
+		alert("Successfully Deleted Election");
+	}
+	else{
+		alert(response.customMessage);
+	}
+
+	
+}
+
+
 
 
 function enrollVotersForElection(electId)
@@ -276,9 +320,7 @@ function processElectionAddition(){
 
 function processElectionsSearch(){
 	obj = {
-			"electTitle":"Lo", 
-			"constId" : "",
-			"stateId" : ""
+			"electTitle":"test", 
 		  };
 	jsonString =JSON.stringify(obj);
 	

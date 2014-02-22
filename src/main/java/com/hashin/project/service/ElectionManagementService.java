@@ -31,7 +31,7 @@ public interface ElectionManagementService {
 
 	public List<ConstituenciesBean> getAllConsts();
 
-	public List<ElectionsConstsBean> searchElection(ElectionsConstsBean toSearch);
+	public List<ElectionsBean> searchElection(ElectionsBean toSearch);
 
 	public ElectionsBean getElectionDetail(ElectionsBean eleToFind);
 
@@ -42,6 +42,8 @@ public interface ElectionManagementService {
 	public ElectionsBean addNewElection(ElectionsBean eleToFind);
 
 	public ElectionsBean enrollVotersForElection(ElectionsBean eleToFind);
+
+	public ElectionsBean deleteElection(ElectionsBean eleToDelete);
 	
 	/* END Constituency Management API */
 	

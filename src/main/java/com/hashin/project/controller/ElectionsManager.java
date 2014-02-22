@@ -33,10 +33,10 @@ public class ElectionsManager {
 
 	@RequestMapping(value = "/searchElection", method = RequestMethod.POST)
 	public @ResponseBody
-	FormListBean searchElection(@RequestBody ElectionsConstsBean toSearch) {
+	FormListBean searchElection(@RequestBody ElectionsBean toSearch) {
 		logger.debug(">>___________ /searchElection - Search Params : " + toSearch.toString());
 
-		List<ElectionsConstsBean> electionList = null;
+		List<ElectionsBean> electionList = null;
 		FormListBean elections = new FormListBean();
 
 		try {
@@ -47,7 +47,7 @@ public class ElectionsManager {
 			elections.setCustomMessage("Unable to perform requested Operation");
 		}
 		if (electionList != null) {
-			elections.setElectionList(electionList);
+			elections.setElectionBasicDetailList(electionList);
 			elections.setCustomMessage(CUSTOM_MSG);
 		}
 		if (electionList.size() < 1) {
@@ -155,6 +155,23 @@ public class ElectionsManager {
 		return formBean;
 	}
 
+
+	@RequestMapping(value = "/deleteElection", method = RequestMethod.POST)
+	public @ResponseBody FormListBean deleteElection(@RequestBody ElectionsBean eleToDelete) 
+	{
+		logger.debug(">>___________ /deleteElection -> Search Params : " + eleToDelete);
+		FormListBean formBean = new FormListBean();
+		try{
+		    ElectionsBean eleResp = electionMgmtService.deleteElection(eleToDelete);
+		    formBean.setCustomMessage(eleResp.getCustomMessage());
+		    
+		}catch(Exception e){
+		    formBean.setCustomMessage("System Exception.Unable to update data on the server side");
+		}
+
+		logger.debug("<<____________ /deleteElection -> Results"+ formBean.toString());
+		return formBean;
+	}
 
 
 // END of the class
