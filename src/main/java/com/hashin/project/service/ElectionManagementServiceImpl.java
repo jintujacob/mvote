@@ -57,16 +57,34 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	}
 
 	@Override
-	public ElectionsBean addNewElection(ElectionsBean eleToFind)
+	public ElectionsBean addNewElection(ElectionsBean eleToFind, List<ElectionStatesBean> stateList)
 	{
-	     int rowCount = electionsMgmtDao.addNewElection(eleToFind);
+	     electionsMgmtDao.addNewElection(eleToFind);
+	     int statsUnitEleCreation = 0; 
 	     
-	     //add the election into elections constituencies also
+	     ElectionsBean beanJustAdded = electionsMgmtDao.getElectionDetail(eleToFind.getElectTitle(), 
+		     eleToFind.getElectDescription(), eleToFind.getElectStartDate());
+	     logger.debug("--------------->>>"+beanJustAdded.toString());
 	     
-	     if(rowCount > 0 ){
-		 return eleToFind;
+	     if(beanJustAdded != null){
+		 if(stateList != null && stateList.size() > 0){
+		     statsUnitEleCreation = electionsMgmtDao.createUnitConstituencyElections(beanJustAdded.getElectId(), stateList);
+		 }
+		 else{
+		     stateList = electionsMgmtDao.getAllStatesForMenu();
+		     logger.debug("---------------going to elections_consts__ statesList---->>>"+stateList.toString());
+		     statsUnitEleCreation = electionsMgmtDao.createUnitConstituencyElections(beanJustAdded.getElectId(), stateList);
+		     logger.debug("---------------count of affected row---->>>"+statsUnitEleCreation);
+		 }
 	     }
+	     
+	     if(statsUnitEleCreation > 0){
+		 return beanJustAdded;
+	     }
+	     else{
 		 return null;
+	     }
+		 
 	}
 
 	@Transactional

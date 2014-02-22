@@ -124,7 +124,14 @@ public class ElectionsManager {
 		logger.debug(">>___________ /addNewElection -> Search Params : " + eleToFind);
 		FormListBean formBean = new FormListBean();
 		try{
-		    ElectionsBean eleResp = electionMgmtService.addNewElection(eleToFind);
+		    
+		    /* pass states list -  null is passed to add to all
+		     * ElectionsBean eleResp = electionMgmtService.addNewElection(eleToFind,statesList);
+		     */
+		    ElectionsBean eleResp = electionMgmtService.addNewElection(eleToFind,null);
+		    
+		    
+		    
 		    if(eleResp != null){
 			    formBean.setCustomMessage(CUSTOM_MSG);
 		    }else{

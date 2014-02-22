@@ -6,14 +6,25 @@ public class SQLConstants {
 			+ "(ele_title, ele_start_dt, ele_end_dt, ele_desc, vtr_enrl_stat, delete_stat) "
 			+ "values (?, ?, ?, ?, ?, ?)" ;
 	
+
+/*	public static String BATCH_CREATE_UNIT_ELECTIONS_BY_EID_STATES = "INSERT INTO elections_consts "
+		+ "(ele_id, const_id) "
+		+ "SELECT ? , const_id FROM "
+		+ "(select CON.const_id from constituencies CON, elections_states STA "
+		+ "where CON.const_state = STA.st_id and STA.st_id in(?)) as test";
+*/	
+	
 	public static String GET_ELECTION_DETAIL_BY_ID = " select e.ele_id, e.ele_title, e.ele_start_dt, "
 		+ "e.ele_end_dt, e.ele_desc, e.vtr_enrl_stat "
 		+ "from elections e "
 		+ "where e.ele_id= ? and e.delete_stat <> 'Y' " ;
 	
-	
-	
-	 
+	public static String GET_LAST_ELECTION_BASIC_ADDED = " select e.ele_id, e.ele_title, e.ele_start_dt, "
+		+ "e.ele_end_dt, e.ele_desc, e.vtr_enrl_stat "
+		+ "from elections e "
+		+ "where e.ele_title= ? and e.ele_desc = ? and e.ele_start_dt = ? "
+		+ "and e.delete_stat <> 'Y' " ;
+		 
 	
 	public static String GET_ELECTIONS_BY_CONST_ID = " select ec.unit_ele_id, ec.ele_id, ec.const_id, "
 		+ "e.ele_title, e.ele_start_dt, e.ele_end_dt, e.ele_desc "
@@ -100,6 +111,8 @@ public class SQLConstants {
 	public static String BATCH_RUN_INSERT_VOTERS_TO_VOTINGSTAT = "INSERT INTO elections_votingstats "
 		+ "(e_election_id, ele_id, voting_stat) "
 		+ "SELECT e_election_id, ? , 'N' FROM voters_adhaar";
+	
+	
 	
 	public static String DELETE_ELE_IN_ELECTIONS = "update elections set delete_stat = ? where ele_id = ? " ;
 	

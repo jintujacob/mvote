@@ -38,6 +38,8 @@ public interface ElectionManagementDAO {
 	public List<ElectionsBean> searchElections(String eleTitle);
 	
 	public ElectionsBean getElectionDetail( String electId);
+	
+	public ElectionsBean getElectionDetail(String  eleTitle, String eleDesc, String eleStartDt);
 
 	public List<ElectionStatesBean> getStatesListByEleId(String electId);
 
@@ -50,6 +52,9 @@ public interface ElectionManagementDAO {
 	public int updateEnrlmntStatusForElection(String electId);
 
 	public int deleteElectionInElections(String electId);
+
+	public int createUnitConstituencyElections(String electId,
+		List<ElectionStatesBean> stateList);
 	
 	
 }

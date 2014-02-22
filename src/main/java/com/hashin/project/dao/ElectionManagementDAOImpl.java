@@ -3,6 +3,7 @@
  */
 package com.hashin.project.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,6 +11,8 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.hashin.project.bean.ConstituenciesBean;
 import com.hashin.project.bean.ElectionStatesBean;
@@ -125,8 +128,30 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	    return electionList.get(0);
 	}
 	return null;
-
     }
+    
+    
+    @Override
+    public ElectionsBean getElectionDetail(String eleTitle, String eleDesc,
+		String eleStartDt)
+    {
+	Object[] parameters = new Object[] { 
+			eleTitle,
+			eleDesc,
+			eleStartDt
+		};
+	List<ElectionsBean> electionList = jdbcTemplate.query(
+		SQLConstants.GET_LAST_ELECTION_BASIC_ADDED, parameters,
+		new ElectionDetailRowMapper());
+
+	if (electionList.size() > 0)
+	{
+	    return electionList.get(0);
+	}
+	return null;
+    }
+    
+    
 
     @Override
     public List<ElectionStatesBean> getStatesListByEleId(String electId)
@@ -205,6 +230,47 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 			parameters);
 	    return numRows;
 	}
+
+	@Override
+	public int createUnitConstituencyElections(String electId,
+		List<ElectionStatesBean> stateList)
+	{
+	    List<String> paramList = new ArrayList<String>();
+	    Object[] parameters = new Object[] {};
+	    int i = 0;
+	    
+	    paramList.add(electId);	//in first position.add(electId);	
+	    parameters[i++] = electId;
+	    logger.debug("++++++++++++++++++++++++++++++++++"+paramList.toString());
+	   
+	    
+	    String qMarks = "";
+	    int itr = 0;
+	    for (ElectionStatesBean state: stateList) 
+	    {
+		 qMarks += " ? ";
+		 
+		 paramList.add(state.getStateId());
+		 parameters[i++] = state.getStateId(); 
+		 if(itr != stateList.size()-1){
+		     qMarks += "," ;
+		 }
+		 itr++;
+		 logger.debug("______________________________"+paramList.toString());
+	    }
+	    
+	    String SQL = "INSERT INTO elections_consts (ele_id, const_id) SELECT ? , const_id FROM "
+			+ "(select CON.const_id from constituencies CON, elections_states STA "
+			+ "where CON.const_state = STA.st_id and STA.st_id in("+ qMarks + ")) as test";
+
+	    logger.debug("______________>> constructed Query :"+SQL);
+	    logger.debug("--------------->parameters---->>>"+parameters.toString());
+	    
+	    
+	    int numRows = jdbcTemplate.update(SQL,parameters);
+	    return numRows;
+	}
+
 
 
 }
