@@ -48,6 +48,8 @@ public interface ElectionManagementService {
 	public List<ConstituenciesBean> searchConstsByName(ConstituenciesBean toSearch);
 
 	public List<ElectionsCandidatesBean> searchCandidate(ElectionsCandidatesBean toSearch)throws Exception;
+
+	public ElectionsCandidatesBean deleteCandidate(ElectionsCandidatesBean toDelete)throws Exception;
 	
 	/* END Constituency Management API */
 	

@@ -60,6 +60,8 @@ public interface ElectionManagementDAO {
 
 	public List<ElectionsCandidatesBean> searchCandidateByNameConst(
 		String candName, String constId)throws Exception;  //incoming data is constId, however it is stored in the constName var
+
+	public int deleteCandidate(String candId);
 	
 	
 }

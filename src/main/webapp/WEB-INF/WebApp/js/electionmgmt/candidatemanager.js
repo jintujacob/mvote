@@ -1,5 +1,6 @@
 constsDropDownContent = "";
-searchResult = "";
+candidatResults = "";
+
 
 $(document).ready(function(){
 	getHomeContents();
@@ -73,7 +74,8 @@ function processCandidateSearch(name, constituency )
 	    dataType: "json",
 	    data: jsonString,
 	    success: function(response) {
-	    	//populateSearchResults(response);
+	    	candidatResults = response.candidateList;
+	    	populateSearchResults(response);
 	    },
 	    error:function(){
 	    	alert("Connection Error. Network failure or Server unavailable");
@@ -87,17 +89,17 @@ function populateSearchResults(response)
 	str = "";
 	if(response.customMessage == "SUCCESS")
 	{
-		candidateDetailList = response.candidateList;
-		if(candidateDetailList.length == 0)
+		candidateList = response.candidateList;
+		if(candidateList.length == 0)
 		{
 			str += "<tr><td colspan='5'> No Matches found! Please try again !</td></tr>";
 		}else
 		{
-			for(i=0; i<candidateDetailList.length; i++){
+			for(i=0; i<candidateList.length; i++){
 				str += "<tr>" ;
-				str += 	"<td><a onclick=getVoterDetail('"+candidateDetailList[i].votersId+"')>"+voterList[i].votersId+"</a></td>" ;
-				str +=	"<td>"+ voterList[i].name+"</td><td>"+ voterList[i].constituency+"</td>" ;
-				str += 	"<td>"+voterList[i].place+"</td><td>"+ voterList[i].lockOutFlag+"</td>" ;
+				str += 	"<td><a onclick=getCandidateDetail("+i+")>"+candidateList[i].candId+"</a></td>" ;
+				str +=	"<td>"+ candidateList[i].candName+"</td><td>"+ candidateList[i].eleTitle+"</td>" ;
+				str += 	"<td>"+candidateList[i].constName+","+ candidateList[i].constState +"</td>" ;
 				str += "</tr>" ;
 			}
 		}
@@ -105,8 +107,58 @@ function populateSearchResults(response)
 		str += "<tr><td colspan='5'>"+ response.customMessage +"</td></tr>"; 
 	}
 	
-	showPage('#pageVoterListView');
-	$("#tableVoterList tbody").html(str);
+	showPage('#pageCandidateListView');
+	$("#tableCandidateList tbody").html(str);
+}
+
+function getCandidateDetail(i)
+{
+	str  = "";
+	str += "<tr><td> Candidate ID </td> <td>:</td> 	<td>"+ candidatResults[i].candId + "</td></tr>";
+	str += "<tr><td> Candidate Name </td> <td>:</td><td>"+ candidatResults[i].candName + "</td></tr>";
+	str += "<tr><td> Candidate Bio </td> <td>:</td> <td>"+ candidatResults[i].candBio + "</td></tr>";
+	str += "<tr><td> Constituency </td> <td>:</td> 	<td>"+ candidatResults[i].constName + "</td></tr>";
+	str += "<tr><td> State </td> <td>:</td> 		<td>"+ candidatResults[i].constState + "</td></tr>";
+	str += "<tr><td> Enrolled Election</td> <td>:</td> <td>"+ candidatResults[i].eleTitle + "</td></tr>";
+	str += "<tr><td> Enrolled Election Description</td> <td>:</td> 	<td>"+ candidatResults[i].eleDesc + "</td></tr>";
+	
+	showPage('#pageCandDetailView');
+	$("#tableCandidateDetail").html(str);
+	
+	//populate hyperlinks
+	str = "";
+	str += "<button onclick=deleteCandidate("+i+")>Delete </button>"; 
+	$("#buttonArea").html(str);
+	
+}
+
+function deleteCandidate(index)
+{
+	obj = { "candId":candidatResults[index].candId };
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: 'http://localhost:8080/mvote/candidates/deleteCandidate',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateDeletionResponse(response);
+	    },
+	    error:function(){
+	    	alert("Connection Error. Network failure or Server unavailable");
+	    }
+	});		
+}
+
+function populateDeletionResponse(response){
+	if(response.customMessage == "SUCCESS"){
+		alert("Deleted Candidate Successfully!");
+	}else{
+		alert(response.customMessage);
+	}
+	
 }
 
 

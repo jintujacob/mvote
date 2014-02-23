@@ -155,6 +155,17 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	    
 	    return electionsMgmtDao.searchCandidateByNameConst(toSearch.getCandName(), toSearch.getConstName()) ;
 	}
+
+	@Override
+	public ElectionsCandidatesBean deleteCandidate(ElectionsCandidatesBean toDelete) throws Exception
+	{
+	    if(electionsMgmtDao.deleteCandidate(toDelete.getCandId())>0){
+		return toDelete;
+	    }else{
+		return null;
+	    }
+	    
+	}
 	
 	
 	

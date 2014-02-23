@@ -61,6 +61,8 @@ public class SQLConstants {
         	+ "and a.delete_stat <> 'Y' "
         	+ "and a.cand_name like ? and c.const_id like ?" ; ;
         
+        	
+        public static String DELETE_CANDIDATE_BY_CANDID = "update candidates set delete_stat='Y' where cand_id = ?" ;
 
 	public static String GET_CANDIDATES_BY_NAME = "select c.cand_id, c.cand_name, c.cand_logo, c.cand_bio " 
 			+ "from candidates c join elections_candidates e " 
@@ -89,8 +91,6 @@ public class SQLConstants {
 			+ "(ele_id, const_id) values ( ?, ? ) " ;
 	
 
-	
-	
 	
 	public static String SEARCH_ELECTIONS_BY_ALL_CRITERIA =  "select * from elections ELE "
 		+ "where ELE.ele_title like ? "

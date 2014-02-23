@@ -310,6 +310,14 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 		return null;	
 	}
 
+	@Override
+	public int deleteCandidate(String candId)
+	{
+	    Object[] parameters = new Object[] { candId };
+	    int numRows = jdbcTemplate.update(SQLConstants.DELETE_CANDIDATE_BY_CANDID, parameters);
+	    return numRows;	
+	}
+
 
 
 }

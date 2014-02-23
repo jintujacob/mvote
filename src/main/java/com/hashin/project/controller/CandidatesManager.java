@@ -60,8 +60,30 @@ public class CandidatesManager {
 		logger.debug("<<___________ /searchCandidate - Results : " + srchResult.toString());
 		return srchResult;
 	}
-
 	
+	@RequestMapping(value = "/deleteCandidate", method = RequestMethod.POST)
+	public @ResponseBody
+	FormListBean deleteCandidate(@RequestBody ElectionsCandidatesBean toDelete) {
+		logger.debug(">>___________ /searchCandidate - Search Params : " + toDelete.toString());
+		FormListBean resultBean = new FormListBean();
+		
+		try {
+			ElectionsCandidatesBean ecBean = electionMgmtService.deleteCandidate(toDelete);
+			if (ecBean != null ) {
+			    resultBean.setCustomMessage(CUSTOM_MSG);
+			}
+			else{
+			    resultBean.setCustomMessage("Unable to perform requested operation. "
+			    	+ "Unable to find the requested candidate");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception from backend -------> " + e.getMessage());
+			resultBean.setCustomMessage("Unable to perform requested opertation due to system exception");
+		}
+		
+		logger.debug("<<___________ /searchCandidate - Results : " + resultBean.toString());
+		return resultBean;
+	}
 
-	
+//end of the class	
 }
