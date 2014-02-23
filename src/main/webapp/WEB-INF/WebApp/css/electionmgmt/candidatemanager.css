@@ -1,0 +1,57 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+
+div{
+    border: 1px solid black;
+}
+
+.clearLine{
+    clear:both;
+    margin:0px;
+    
+}    
+
+
+span{   
+     float:left; 
+     border:1px solid #ccc;    
+    }
+
+    
+
+#pageCandidateManagerHome{
+       overflow: auto;
+    }
+    #panelRightHomePage{
+         border:1px solid red;    
+         margin-left:20px;  
+         min-height: 300px;
+         width: 400px;
+    }
+
+#pageCandidateListView td{
+    border:1px solid #ccc;
+    padding: 5px;
+    margin : 3px;
+}
+
+    #pageCandidateListView a{
+        display: block;
+        padding:3px;
+        border:1px solid blue;
+    }
+    
+        #pageCandidateListView a:hover{
+            border:1px solid red;
+        }
+        
+        #pageCandidateListView a:active{
+            background:#ccc;
+        }
+        
+#pageCandidateListView{
+       overflow:auto;
+    }
+            

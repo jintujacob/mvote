@@ -1,10 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+    <title>Manage Candidates</title>
+    <link rel="stylesheet"  href="../css/electionmgmt/candidatemanager.css" /> 
+    <link rel="stylesheet" href="../css/jquery-ui.css">
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/electionmgmt/candidatemanager.js"></script>
 </head>
 <body>
-
+<div id="container">
+    <div id="pageCandidateManagerHome">
+       <span id="panelLeftHomePage">
+           <p> 
+                <button id="goto_search_cand"> Search </button> <br/>
+                <button id="goto_add_cand"> Add New </button>         
+           </p>
+       </span>
+    
+       <span id="panelRightHomePage">
+            <div id="contentSearchCandForm">
+                   Find Candidates <br><br>
+                   
+                   Candidate Name <input type="text" id="in_srch_candname"> <br>
+                   Const : <select id="in_srch_candconst">   <!--  ajax it --> </select>    <br>
+                   <p class="input_error_msg">  <!-- ajax it  --></p>
+                   <button id="btn_submit_search"> Find </button>
+                   
+            </div>
+           <div id="contentAddCandForm">
+                   Add New Candidate <br><br>
+                   
+                   Name:   <input type="text" id="in_add_name"> <br>
+                   Details:   <input type="text" id="in_add_bio"> <br>
+                   Constituency : <select id="in_add_consts">
+                                <!--  ajax it  -->
+                                    </select>    <br><br><br>        
+                   
+                   <p class="input_error_msg">  <!-- ajax it  --></p>
+                   <button id="btn_add_cand"> Register </button>
+                   
+           </div>
+       </span>
+    </div>
+    
+    <div id="pageCandidateListView">
+        pageVoterListView
+        <div class="clearLine"> <button class="btn_backto_home"> Back to Search</button> </div>
+        <table id="tableCandidateList">
+            <thead>
+                <tr>   
+                   <td>Candidate ID</td> <td>Name </td>  <td>Election</td> <td>Constituency</td> 
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ajax it -->                
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="pageCandDetailView">
+           panelLeftDetailPage  <br><br>
+           <table id="tableCandidateDetail">  <!-- ajax it  -->  </table>
+           <div class="clearLine" >
+               <button id="btn_delete"> Delete </button> <br/>
+           </div>
+           
+           <div class="clearLine" >
+               <button class="btn_backto_home"> Back to Home </button> <br/>
+               <!-- <button class="btn_backto_reslt"> Back to Search Results </button> --> <br/>
+           </div>
+    </div>
+</div>    
 </body>
 </html>

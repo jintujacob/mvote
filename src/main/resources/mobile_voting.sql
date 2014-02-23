@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 23, 2014 at 11:19 AM
+-- Generation Time: Feb 23, 2014 at 12:50 PM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -67,6 +67,7 @@ CREATE TABLE IF NOT EXISTS `candidates` (
   `cand_name` varchar(40) NOT NULL,
   `cand_logo` varchar(100) NOT NULL,
   `cand_bio` varchar(100) NOT NULL,
+  `delete_stat` varchar(2) NOT NULL,
   PRIMARY KEY (`cand_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
@@ -74,13 +75,13 @@ CREATE TABLE IF NOT EXISTS `candidates` (
 -- Dumping data for table `candidates`
 --
 
-INSERT INTO `candidates` (`cand_id`, `cand_name`, `cand_logo`, `cand_bio`) VALUES
-(1, 'Candidate1 Piravom', 'logopath', 'candidate1 Piravom bio'),
-(2, 'Candidate2 Piravom', 'logopath', 'candidate2 Piravom bio'),
-(3, 'Candidate3 Piravom', 'logopath', 'candidate3 Piravom bio'),
-(4, 'Candidate4 Aluva', 'logopath', 'candidate4 Aluva bio'),
-(5, 'Candidate5 Aluva', 'logopath', 'candidate5 Aluva bio'),
-(6, 'Candidate6 Mvtpza', 'logopath', 'candidate6 Mvtpza  bio');
+INSERT INTO `candidates` (`cand_id`, `cand_name`, `cand_logo`, `cand_bio`, `delete_stat`) VALUES
+(1, 'Candidate1 Piravom', 'logopath', 'candidate1 Piravom bio', 'N'),
+(2, 'Candidate2 Piravom', 'logopath', 'candidate2 Piravom bio', 'N'),
+(3, 'Candidate3 Piravom', 'logopath', 'candidate3 Piravom bio', 'N'),
+(4, 'Candidate4 Aluva', 'logopath', 'candidate4 Aluva bio', 'N'),
+(5, 'Candidate5 Aluva', 'logopath', 'candidate5 Aluva bio', 'N'),
+(6, 'Candidate6 Mvtpza', 'logopath', 'candidate6 Mvtpza  bio', 'N');
 
 -- --------------------------------------------------------
 
