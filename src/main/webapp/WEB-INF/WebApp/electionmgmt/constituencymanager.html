@@ -13,7 +13,7 @@
 	   <span id="panelLeftHomePage">
            <p> 
                 <button id="goto_search_const"> Search </button> <br/>
-                <button id="goto_add_const"> Add New </button>         
+                <!-- <button id="goto_add_const"> Add New </button> -->         
            </p>
        </span>
     
@@ -22,50 +22,18 @@
                    contentSearchConstsForm <br><br>
                    
                    Const :   <input type="text" id="in_find_const"> <br>
-                   State : <select>
-                              <option> state n </option>
-                               <option> state n </option>
-                                <option> state n </option>
-                                 <option> state n </option>
-                                  <option> state n </option>
-                                   <option> state n </option>
-                           </select>    <br>
-                   
                    <button id="btn_submit_search"> Find </button>
-                   
-            </div>
-           <div id="contentAddConstsForm">
-                   contentAddConstsForm <br><br>
-                   
-                   Const :   <input type="text" id="in_add_const"> <br>
-                   State : <select>
-                              <option> state n </option>
-                               <option> state n </option>
-                                <option> state n </option>
-                                 <option> state n </option>
-                                  <option> state n </option>
-                                   <option> state n </option>
-                           </select>    <br>
-                   
-                   <button id="btn_add_const"> Register </button>
                    
            </div>
        </span>
 	</div>
 	<div id="pageConstsSummary">
 	   pageConstsSummary
-	   <table>
+	   <table id="tbl_search_summary">
             <thead>
-                <tr>   
-                   <td>Heading1</td> <td>Heading2</td> <td>Heading3</td> <td>Heading4</td> </tr>
+                <tr>  <td>Constituency Name</td> <td>Constituency State</td></tr>
             </thead>
-            <tbody>
-                <!-- ajax it -->                
-                <tr> 
-                   <td><a id="content1"> content1 </a> </td>  <td> </td>  </tr>
-                <tr> 
-                   <td><a id="content2"> content2 </a> </td>  <td> </td>  </tr>
-            </tbody>
+            <tbody>  <!-- ajax it --> </tbody>
        </table>
 	   
 	</div>

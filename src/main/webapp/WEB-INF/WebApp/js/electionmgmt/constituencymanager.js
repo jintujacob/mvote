@@ -1,25 +1,24 @@
+
+_constList= "";
+
+host = "http://localhost:8080/mvote";
+
 $(document).ready(function(){
 	showPageHome();
 	
 	
 	$('#goto_search_const').click(function(){
-		 $('#contentAddConstsForm').hide();
+		 //$('#contentAddConstsForm').hide();
 		 $('#contentSearchConstsForm').show();
 	});
 	 
-	$('#goto_add_const').click(function(){
-		 $('#contentSearchConstsForm').hide();
-		 $('#contentAddConstsForm').show();
-	});
-	 
-	$('#btn_submit_search').click(function(){
-		// function
-		showPage('#pageConstsSummary');
+	$('#btn_submit_search').click(function()
+	{
+		searchkey = $('#in_find_const').val();
+		searchForConst(searchkey);
 	});
 	
 	$('#btn_add_const').click(function(){
-		//function
-		//emulate the search for recently added voterId and show in list
 		showPage('#pageConstsSummary');
 	});
 	 
@@ -30,9 +29,57 @@ $(document).ready(function(){
 	 
 });
 
+function searchForConst(key)
+{
+	obj = {	"constName": key  };
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: host + '/consts/searchConsts',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	manageConstsSearchResults(response);
+	    },
+		error: function(response){
+			alert("Connection Error. Network failure or Server unavailable");
+		}
+	});	
 
-function getConstDetail(){
-	return true;
+}
+
+
+function manageConstsSearchResults(response)
+{
+	str = "";
+	if(response.customMessage == "SUCCESS")
+	{
+		_constList = response.constsList;
+		if(_constList.length == 0)
+		{
+			str += "<tr><td colspan='3'> No Matches found! Please try again !</td></tr>";
+		}else{
+			for(i=0; i< _constList.length; i++){
+				str += "<tr>" ;
+				str += 	"<td><a onclick=getConstDetail("+_constList[i].constId+")>"+_constList[i].constName+"</a></td>" ;
+				str +=	"<td>"+ _constList[i].constState+"</td>" ;
+				str += "</tr>" ;
+			}
+		}
+	}else{
+		str += "<tr><td colspan='3'>"+ response.customMessage +"</td></tr>"; 
+	}
+	
+	showPage('#pageConstsSummary');
+	$("#tbl_search_summary tbody").html(str);
+}
+
+
+function getConstDetail(constId){
+	//alert(constId);
+
 }
 
 
@@ -50,7 +97,7 @@ function showPage(pageId){
 function showPageHome(){
 	hideAll();
 	$('#pageConstsHome').show();
-	 	$('#contentAddConstsForm').hide();
+	 	//$('#contentAddConstsForm').hide();
 	 		$('#contentSearchConstsForm').show();
 }
 

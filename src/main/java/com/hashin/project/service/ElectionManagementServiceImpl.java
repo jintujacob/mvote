@@ -132,6 +132,15 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	   }
 	   return deleteStat;
 	}
+
+	@Override
+	public List<ConstituenciesBean> searchConstsByName(ConstituenciesBean toSearch)
+	{
+	    if(toSearch.getConstName()==null){
+		toSearch.setConstName("");
+	    }
+	    return electionsMgmtDao.searchConstsByName(toSearch.getConstName()) ;
+	}
 	
 	
 	

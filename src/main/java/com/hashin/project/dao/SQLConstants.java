@@ -122,7 +122,15 @@ public class SQLConstants {
 	 * Queries for the Constituency table;
 	 */
 	
-	public static String GET_ALL_CONSTS = "select * from constituencies";
+	public static String GET_ALL_CONSTS = "select CON.const_id, CON.const_name, ST.st_name "
+		+ "from constituencies CON, elections_states ST "
+		+ "where CON.const_state = ST.st_id " ;
+	
+	public static String GET_CONSTS_BY_NAME = "select CON.const_id, CON.const_name, ST.st_name "
+		+ "from constituencies CON, elections_states ST "
+		+ "where CON.const_state = ST.st_id and CON.const_name like ? " ;
+	
+	
 	
 	
 	

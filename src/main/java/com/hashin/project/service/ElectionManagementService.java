@@ -44,6 +44,8 @@ public interface ElectionManagementService {
 	public ElectionsBean enrollVotersForElection(ElectionsBean eleToFind);
 
 	public ElectionsBean deleteElection(ElectionsBean eleToDelete);
+
+	public List<ConstituenciesBean> searchConstsByName(ConstituenciesBean toSearch);
 	
 	/* END Constituency Management API */
 	

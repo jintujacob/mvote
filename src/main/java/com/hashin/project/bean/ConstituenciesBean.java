@@ -29,6 +29,14 @@ public class ConstituenciesBean {
 	public void setConstState(String constState) {
 		this.constState = constState;
 	}
+	@Override
+	public String toString()
+	{
+	    return "ConstituenciesBean [constId=" + constId + ", constName="
+		    + constName + ", constState=" + constState + "]";
+	}
+	
+	
 	
 	
 	

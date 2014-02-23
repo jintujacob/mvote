@@ -16,9 +16,10 @@ public class ConstituencyExtractor implements
 			DataAccessException {
 		ConstituenciesBean bean = new ConstituenciesBean();
 		
+		//- locked / dont edit- this is tested and stable;
 		bean.setConstId(rs.getString("const_id"));
 		bean.setConstName(rs.getString("const_name"));
-		bean.setConstState(rs.getString("const_state"));
+		bean.setConstState(rs.getString("st_name"));
 		
 		return bean;
 	}

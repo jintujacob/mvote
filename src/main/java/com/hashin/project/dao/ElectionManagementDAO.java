@@ -55,6 +55,8 @@ public interface ElectionManagementDAO {
 
 	public int createUnitConstituencyElections(String electId,
 		List<ElectionStatesBean> stateList);
+
+	public List<ConstituenciesBean> searchConstsByName(String constName);
 	
 	
 }

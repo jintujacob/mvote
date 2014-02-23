@@ -5,11 +5,13 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hashin.project.bean.ConstituenciesBean;
+import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.FormListBean;
 import com.hashin.project.service.ElectionManagementService;
 
@@ -45,6 +47,29 @@ public class ConstituencyManager {
 		
 		return constList;
 	}
+
+	
+	@RequestMapping(value = "/searchConsts", method = RequestMethod.POST)
+	public @ResponseBody FormListBean deleteElection(@RequestBody ConstituenciesBean toSearch) 
+	{
+		logger.debug(">>___________ /searchConsts -> Search Params : " + toSearch.toString());
+		FormListBean formBean = new FormListBean();
+		try{
+		    List<ConstituenciesBean> results = electionMgmtService.searchConstsByName(toSearch);
+		    if(results != null){
+			formBean.setConstsList(results);
+			formBean.setCustomMessage(CUSTOM_MSG);
+		    }else{
+			formBean.setCustomMessage("No Matching constituencies found");
+		    }
+		}catch(Exception e){
+		    formBean.setCustomMessage("System Exception.Unable to retreive data from server.");
+		}
+
+		logger.debug("<<____________ /searchConsts -> Results"+ formBean.toString());
+		return formBean;
+	}
+
 
 	
 

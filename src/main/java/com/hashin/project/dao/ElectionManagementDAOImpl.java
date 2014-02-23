@@ -271,6 +271,23 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	    return numRows;
 	}
 
+	@Override
+	public List<ConstituenciesBean> searchConstsByName(String constName)
+	{
+	    	constName = "%" + constName + "%";
+	    	logger.debug("___________ /searchConsts/DAO"+ constName);
+	    	Object[] parameters = new Object[] { constName };
+		List<ConstituenciesBean> constList =  jdbcTemplate.query(
+			SQLConstants.GET_CONSTS_BY_NAME, parameters,
+			new ConstituencyMapper());
+		
+		if(constList.size() > 0 ){
+		    return constList;
+		}
+		return null;
+
+	}
+
 
 
 }
