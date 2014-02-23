@@ -62,6 +62,12 @@ public interface ElectionManagementDAO {
 		String candName, String constId)throws Exception;  //incoming data is constId, however it is stored in the constName var
 
 	public int deleteCandidate(String candId);
+
+	public Long addCandidateToBaseTable(String candName, String candBio);
+
+	public Long addCandidateToEleCandidates(String newCandId, String unitEleId);
+
+	public int addCandidateToEleResults(String string, String unitEleId);
 	
 	
 }

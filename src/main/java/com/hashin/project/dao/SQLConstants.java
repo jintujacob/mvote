@@ -137,7 +137,6 @@ public class SQLConstants {
 	
 	
 	
-	
 	/**
 	 * ------------------------------------------------------------------------------------------------------------
 	 * Queries for the OnlineVoting module;
@@ -211,4 +210,19 @@ public class SQLConstants {
 			+ "where fk_voters_id = ? " ;
 
 
+	
+	//candidates
+	
+	public static String INSERT_NEW_CANDIDATE_IN_BASE = "insert into candidates "
+		+ "(cand_id, cand_name, cand_logo, cand_bio, delete_stat) "
+		+ "values (NULL,?,?,?,?)";
+	
+	public static String INSERT_NEW_CANDIDATE_IN_ELECTION_CANDS = "insert into elections_candidates "
+		+ "( ele_cand_id, unit_ele_id, cand_id) values(NULL, ?, ?)";
+	
+	
+	public static String INSERT_CANDIDATE_IN_ELE_RESULTS = "insert into elections_results"
+		+ " (unit_ele_id, ele_cand_id, vote_count) values(?,?,?)";
+	
+	
 }

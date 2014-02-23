@@ -34,10 +34,10 @@ $(document).ready(function(){
 	{
 		name = $('#in_add_name').val();
 		bio = $('#in_add_bio').val();
-		constituency = $('#in_add_consts').val();
+		unitId = $('#in_add_eles').val();
 
-		if(name != "" && constituency != "" && constituency != "none"){
-			//
+		if(name != "" && bio != "" && unitId != "none" && unitId !=""){
+			addNewCandidate(name, bio, unitId);
 		}
 		else{
 			$('.input_error_msg').html("Invalid search criteria! please search again!");
@@ -61,9 +61,31 @@ $(document).ready(function(){
 		
 	});
 	
-	
-	 
 });
+
+
+function addNewCandidate(name, bio, unitId)
+{
+	obj = { "candName": name,
+			"candBio": bio,
+			"unitEleId" : unitId
+		};
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: 'http://localhost:8080/mvote/candidates/addNewCandidate',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateAdditionResponse(response);
+	    },
+	    error:function(){
+	    	alert("Connection Error. Network failure or Server unavailable");
+	    }
+	});		
+}
 
 
 function processCandidateSearch(name, constituency )
@@ -258,7 +280,7 @@ function populateElectionDropDown(response)
 	if(response.customMessage == "SUCCESS"){
     	list = response.electionList;
      	for(var i=0; i<list.length; i++){
-     		str += "<option value='"+ list[i].electId+ "'>"+ list[i].electTitle ;
+     		str += "<option value='"+ list[i].unitEleId+ "'>"+ list[i].electTitle ;
      	 	str += "</option>";
      	}
 	}else{

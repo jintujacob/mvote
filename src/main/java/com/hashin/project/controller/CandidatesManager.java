@@ -112,6 +112,31 @@ public class CandidatesManager {
 		return resultBean;
 	}
 
+	@RequestMapping(value = "/addNewCandidate", method = RequestMethod.POST)
+	public @ResponseBody
+	FormListBean addNewCandidate(@RequestBody ElectionsCandidatesBean beanToAdd) {
+		logger.debug(">>___________ /addNewCandidate : recieved params:: "+ beanToAdd.toString());
+		FormListBean resultBean = new FormListBean();
+		
+		try {
+			ElectionsCandidatesBean cand = electionMgmtService.addNewCandidate(beanToAdd);
+			if (cand != null ) {
+			/*    resultBean.setCustomMessage(CUSTOM_MSG);
+			    resultBean.setElectionList(eleList);*/
+			}
+			else{
+			    resultBean.setCustomMessage("No Available Elections.");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception from backend -------> " + e.getMessage());
+			resultBean.setCustomMessage("Unable to perform requested opertation due to system exception");
+		}
+		
+		logger.debug("<<___________ /addNewCandidate - Results : " + resultBean.toString());
+		return resultBean;
+	}
 
+	
+	
 //end of the class	
 }

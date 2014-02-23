@@ -174,6 +174,19 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 		return electionsList;
 	}
 
+	@Override
+	public ElectionsCandidatesBean addNewCandidate(ElectionsCandidatesBean beanToAdd)
+	{
+	    Long newCandId = electionsMgmtDao.addCandidateToBaseTable(beanToAdd.getCandName(), beanToAdd.getCandBio());
+	    if(newCandId != null){
+		Long newEleCandId = electionsMgmtDao.addCandidateToEleCandidates(newCandId.toString(), beanToAdd.getUnitEleId());
+		if(newEleCandId != null){
+		    int insertStat = electionsMgmtDao.addCandidateToEleResults(newEleCandId.toString(), beanToAdd.getUnitEleId());
+		}
+	    }
+	    return null;
+	}
+
 	
 	
 	

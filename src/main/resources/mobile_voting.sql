@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 23, 2014 at 12:50 PM
+-- Generation Time: Feb 24, 2014 at 01:26 AM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `candidates` (
   `cand_bio` varchar(100) NOT NULL,
   `delete_stat` varchar(2) NOT NULL,
   PRIMARY KEY (`cand_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `candidates`
@@ -81,7 +81,8 @@ INSERT INTO `candidates` (`cand_id`, `cand_name`, `cand_logo`, `cand_bio`, `dele
 (3, 'Candidate3 Piravom', 'logopath', 'candidate3 Piravom bio', 'N'),
 (4, 'Candidate4 Aluva', 'logopath', 'candidate4 Aluva bio', 'N'),
 (5, 'Candidate5 Aluva', 'logopath', 'candidate5 Aluva bio', 'N'),
-(6, 'Candidate6 Mvtpza', 'logopath', 'candidate6 Mvtpza  bio', 'N');
+(6, 'Candidate6 Mvtpza', 'logopath', 'candidate6 Mvtpza  bio', 'N'),
+(9, 'test candidate chennai', 'logopath', 'test candidate chennai', 'N');
 
 -- --------------------------------------------------------
 
@@ -123,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `elections` (
   `vtr_enrl_stat` varchar(2) NOT NULL,
   `delete_stat` varchar(2) NOT NULL,
   PRIMARY KEY (`ele_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `elections`
@@ -146,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `elections_candidates` (
   PRIMARY KEY (`ele_cand_id`),
   KEY `cand_id` (`cand_id`),
   KEY `unit_ele_id` (`unit_ele_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `elections_candidates`
@@ -158,7 +159,8 @@ INSERT INTO `elections_candidates` (`ele_cand_id`, `unit_ele_id`, `cand_id`) VAL
 (3, 301, 3),
 (4, 303, 4),
 (5, 303, 5),
-(6, 302, 6);
+(6, 302, 6),
+(9, 401, 9);
 
 -- --------------------------------------------------------
 
@@ -201,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `elections_results` (
   PRIMARY KEY (`ele_result_id`),
   KEY `ele_cand_id` (`ele_cand_id`),
   KEY `unit_ele_id` (`unit_ele_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `elections_results`
@@ -213,7 +215,8 @@ INSERT INTO `elections_results` (`ele_result_id`, `unit_ele_id`, `ele_cand_id`, 
 (3, 301, 3, 7003),
 (4, 303, 4, 2500),
 (5, 303, 5, 3500),
-(6, 302, 6, 1501);
+(6, 302, 6, 1501),
+(9, 401, 9, 0);
 
 -- --------------------------------------------------------
 
