@@ -15,7 +15,6 @@ $(document).ready(function(){
 	$('#goto_add_cand').click(function(){
 		 $('#contentSearchCandForm').hide();
 		 $('#contentAddCandForm').show();
-		 $('#in_add_consts').html(constsDropDownContent);
 		 
 	});
 	 
@@ -53,12 +52,19 @@ $(document).ready(function(){
 		populateCandidateList(searchResult);
 	});
 	
-	$("#btn_delete").click(function(){
-		alert("to delete");
+	
+	$("#in_add_consts").change(function() {
+		constId = $(this).val();
+		if(constId != "none"){
+			getElectionsByConstituency(constId);
+		}
+		
 	});
+	
 	
 	 
 });
+
 
 function processCandidateSearch(name, constituency )
 {
@@ -224,5 +230,48 @@ function populateHomeConstsDropDown()
 	$('#in_add_consts').html(constsDropDownContent);
 }
 
+function getElectionsByConstituency(constId)
+{
 
+	obj = { "constId":constId };
+	jsonString =JSON.stringify(obj);
+	
+	$.ajax({
+	    type: "POST",
+	    url: 'http://localhost:8080/mvote/candidates/getElectionsByConst',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: jsonString,
+	    success: function(response) {
+	    	populateElectionDropDown(response);
+	    },
+	    error:function(){
+		    populateElectionDropDownError();
+	    }
+	});		
+}
+
+
+function populateElectionDropDown(response)
+{
+	str = "<option value='none'> Select any </option>" ;
+	if(response.customMessage == "SUCCESS"){
+    	list = response.electionList;
+     	for(var i=0; i<list.length; i++){
+     		str += "<option value='"+ list[i].electId+ "'>"+ list[i].electTitle ;
+     	 	str += "</option>";
+     	}
+	}else{
+		str = "<option value='none'> Information Unavailable</option>";
+	} 	
+	
+	$("#in_add_eles").html(str);
+	
+}
+
+
+function populateElectionDropDownError(){
+	str = "<option value='none'> Information Unavailable</option>";
+	$("#in_add_eles").html(str);
+}
 

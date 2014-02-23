@@ -167,6 +167,14 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	    
 	}
 	
+	@Override
+	public List<ElectionsConstsBean> getElectionsListByConst(ConstituenciesBean toFind) {
+		List<ElectionsConstsBean> electionsList = null;
+		electionsList = electionsMgmtDao.getElectionsListByConst(toFind.getConstId());
+		return electionsList;
+	}
+
+	
 	
 	
 	

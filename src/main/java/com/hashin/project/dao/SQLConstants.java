@@ -29,7 +29,7 @@ public class SQLConstants {
 	public static String GET_ELECTIONS_BY_CONST_ID = " select ec.unit_ele_id, ec.ele_id, ec.const_id, "
 		+ "e.ele_title, e.ele_start_dt, e.ele_end_dt, e.ele_desc "
 		+ "from elections_consts ec left join elections e "
-		+ "on ec.ele_id=e.ele_id where ec.const_id= ?"
+		+ "on ec.ele_id=e.ele_id where ec.const_id= ? "
 		+ "and e.delete_stat <> 'Y' " ; 
 
         public static String GET_CANDIDATES_BY_UNIT_ELE_ID = " select ec.ele_cand_id, ec.cand_id, "

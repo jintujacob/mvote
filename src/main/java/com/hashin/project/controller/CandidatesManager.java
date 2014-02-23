@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hashin.project.bean.ConstituenciesBean;
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsCandidatesBean;
+import com.hashin.project.bean.ElectionsConstsBean;
 import com.hashin.project.bean.FormListBean;
 import com.hashin.project.service.ElectionManagementService;
 
@@ -74,7 +76,7 @@ public class CandidatesManager {
 			}
 			else{
 			    resultBean.setCustomMessage("Unable to perform requested operation. "
-			    	+ "Unable to find the requested candidate");
+			    	+ "Requested candidate not found!");
 			}
 		} catch (Exception e) {
 			logger.debug("Exception from backend -------> " + e.getMessage());
@@ -84,6 +86,32 @@ public class CandidatesManager {
 		logger.debug("<<___________ /searchCandidate - Results : " + resultBean.toString());
 		return resultBean;
 	}
+
+	
+	@RequestMapping(value = "/getElectionsByConst", method = RequestMethod.POST)
+	public @ResponseBody
+	FormListBean getAvailableElections(@RequestBody ConstituenciesBean toFind) {
+		logger.debug(">>___________ /getElectionsByConst "+ toFind.toString());
+		FormListBean resultBean = new FormListBean();
+		
+		try {
+			List<ElectionsConstsBean> eleList = electionMgmtService.getElectionsListByConst(toFind);
+			if (eleList != null ) {
+			    resultBean.setCustomMessage(CUSTOM_MSG);
+			    resultBean.setElectionList(eleList);
+			}
+			else{
+			    resultBean.setCustomMessage("No Available Elections.");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception from backend -------> " + e.getMessage());
+			resultBean.setCustomMessage("Unable to perform requested opertation due to system exception");
+		}
+		
+		logger.debug("<<___________ /getElectionsByConst - Results : " + resultBean.toString());
+		return resultBean;
+	}
+
 
 //end of the class	
 }

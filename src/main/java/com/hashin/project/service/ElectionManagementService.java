@@ -51,6 +51,8 @@ public interface ElectionManagementService {
 
 	public ElectionsCandidatesBean deleteCandidate(ElectionsCandidatesBean toDelete)throws Exception;
 	
+	public List<ElectionsConstsBean> getElectionsListByConst(ConstituenciesBean toFind) ;
+	
 	/* END Constituency Management API */
 	
 }
