@@ -43,14 +43,15 @@ public class SQLConstants {
         		+ 		"select ele_cand_id from elections_candidates where cand_id = ? "
         		+ ")";
         		
-        public static String GET_CANDIDATE_DETAIL_BY_ID = "select a.cand_id, a.cand_name, a.cand_logo, a.cand_bio, " 
+        /*public static String GET_CANDIDATE_DETAIL_BY_ID = "select a.cand_id, a.cand_name, a.cand_logo, a.cand_bio, " 
         		+ "d.const_name, d.const_state, " 
         		+ "e.ele_id, c.unit_ele_id, e.ele_title, e.ele_desc " 
         		+ "from candidates a , elections_candidates b, elections_consts c, constituencies d, elections e " 
         		+ "where a.cand_id = b.cand_id and b.unit_ele_id = c.unit_ele_id " 
         		+ "and c.const_id = d.const_id and e.ele_id = c.ele_id and " 
-        		+ "a.cand_id = ?";
+        		+ "a.cand_id = ?";*/
         
+        //locked for editing - working module
         public static String GET_CANDIDATE_LIST_BY_NAME_CONST = "select a.cand_id, a.cand_name, a.cand_logo, "
         	+ "a.cand_bio, d.const_name, f.st_name, e.ele_id, c.unit_ele_id, e.ele_title, e.ele_desc  "
         	+ "from candidates a , elections_candidates b, elections_consts c, "
@@ -58,7 +59,7 @@ public class SQLConstants {
         	+ "where a.cand_id = b.cand_id and b.unit_ele_id = c.unit_ele_id and "
         	+ "c.const_id = d.const_id and e.ele_id = c.ele_id and d.const_state = f.st_id "
         	+ "and a.delete_stat <> 'Y' "
-        	+ "and a.cand_id like ? and c.const_id like ?" ; ;
+        	+ "and a.cand_name like ? and c.const_id like ?" ; ;
         
 
 	public static String GET_CANDIDATES_BY_NAME = "select c.cand_id, c.cand_name, c.cand_logo, c.cand_bio " 

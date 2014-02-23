@@ -82,6 +82,14 @@ public class ElectionsCandidatesBean extends CandidatesBean {
 	{
 	    this.eleDesc = eleDesc;
 	}
+	@Override
+	public String toString()
+	{
+	    return super.toString()+ "ElectionsCandidatesBean [eleCandidateId=" + eleCandidateId
+		    + ", unitEleId=" + unitEleId + ", constName=" + constName
+		    + ", constState=" + constState + ", eleId=" + eleId
+		    + ", eleTitle=" + eleTitle + ", eleDesc=" + eleDesc + "]";
+	}
 	
 	
 

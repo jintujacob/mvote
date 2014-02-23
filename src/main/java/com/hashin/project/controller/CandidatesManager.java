@@ -46,19 +46,16 @@ public class CandidatesManager {
 
 		try {
 			candidateList = electionMgmtService.searchCandidate(toSearch);
-
+			if (candidateList != null ) {
+			    srchResult.setCandidateList(candidateList);
+			    srchResult.setCustomMessage(CUSTOM_MSG);
+			}
+			else{
+			    srchResult.setCustomMessage("No Matches found");
+			}
 		} catch (Exception e) {
 			logger.debug("Exception from backend -------> " + e.getMessage());
-			srchResult.setCustomMessage("Unable to perform requested Operation");
-		}
-		if (candidateList != null) {
-		    srchResult.setCandidateList(candidateList);
-		    srchResult.setCustomMessage(CUSTOM_MSG);
-		}
-		if (candidateList.size() < 1) {
-			// User is either not enrolled/ or no elections available for the
-			// user
-			srchResult.setCustomMessage("No Elections Available");
+			srchResult.setCustomMessage("Unable to perform requested opertation due to system exception");
 		}
 		logger.debug("<<___________ /searchCandidate - Results : " + srchResult.toString());
 		return srchResult;

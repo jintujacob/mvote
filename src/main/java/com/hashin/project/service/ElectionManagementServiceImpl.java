@@ -144,12 +144,12 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	}
 
 	@Override
-	public List<ElectionsCandidatesBean> searchCandidate(ElectionsCandidatesBean toSearch)
+	public List<ElectionsCandidatesBean> searchCandidate(ElectionsCandidatesBean toSearch) throws Exception
 	{
-	    if(toSearch.getCandName() != null){
+	    if(toSearch.getCandName() == null){
 		toSearch.setCandName("");
 	    }
-	    if(toSearch.getConstName()!= null){
+	    if(toSearch.getConstName() == null){
 		toSearch.setConstName("");
 	    }
 	    

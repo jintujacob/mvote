@@ -24,8 +24,8 @@ $(document).ready(function(){
 		constituency = $('#in_srch_candconst').val();
 		
 		if(name != "" || constituency != ""){
-			console.log(name, constituency);
 			constituency = (constituency == 'none' )? "":constituency;
+			console.log(name, constituency);
 			processCandidateSearch(name, constituency );
 		}
 	});

@@ -38,6 +38,13 @@ public class CandidatesBean {
 	public void setCandBio(String candBio) {
 		this.candBio = candBio;
 	}
+	@Override
+	public String toString()
+	{
+	    return "CandidatesBean [candId=" + candId + ", candName="
+		    + candName + ", candLogo=" + candLogo + ", candBio="
+		    + candBio + "]";
+	}
 
 	
 	
