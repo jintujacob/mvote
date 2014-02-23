@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hashin.project.bean.ConstituenciesBean;
 import com.hashin.project.bean.ElectionStatesBean;
 import com.hashin.project.bean.ElectionsBean;
+import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
 import com.hashin.project.controller.ElectionsManager;
 import com.hashin.project.dao.ElectionManagementDAO;
@@ -140,6 +141,19 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 		toSearch.setConstName("");
 	    }
 	    return electionsMgmtDao.searchConstsByName(toSearch.getConstName()) ;
+	}
+
+	@Override
+	public List<ElectionsCandidatesBean> searchCandidate(ElectionsCandidatesBean toSearch)
+	{
+	    if(toSearch.getCandName() != null){
+		toSearch.setCandName("");
+	    }
+	    if(toSearch.getConstName()!= null){
+		toSearch.setConstName("");
+	    }
+	    
+	    return electionsMgmtDao.searchCandidateByNameConst(toSearch.getCandName(), toSearch.getConstName()) ;
 	}
 	
 	

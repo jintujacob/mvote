@@ -48,8 +48,18 @@ public class SQLConstants {
         		+ "e.ele_id, c.unit_ele_id, e.ele_title, e.ele_desc " 
         		+ "from candidates a , elections_candidates b, elections_consts c, constituencies d, elections e " 
         		+ "where a.cand_id = b.cand_id and b.unit_ele_id = c.unit_ele_id " 
-        		+ "and c.const_id = d.const_id and e.ele_id = c.ele_id " 
+        		+ "and c.const_id = d.const_id and e.ele_id = c.ele_id and " 
         		+ "a.cand_id = ?";
+        
+        public static String GET_CANDIDATE_LIST_BY_NAME_CONST = "select a.cand_id, a.cand_name, a.cand_logo, "
+        	+ "a.cand_bio, d.const_name, f.st_name, e.ele_id, c.unit_ele_id, e.ele_title, e.ele_desc  "
+        	+ "from candidates a , elections_candidates b, elections_consts c, "
+        	+ "constituencies d, elections e, elections_states f "
+        	+ "where a.cand_id = b.cand_id and b.unit_ele_id = c.unit_ele_id and "
+        	+ "c.const_id = d.const_id and e.ele_id = c.ele_id and d.const_state = f.st_id "
+        	+ "and a.delete_stat <> 'Y' "
+        	+ "and a.cand_id like ? and c.const_id like ?" ; ;
+        
 
 	public static String GET_CANDIDATES_BY_NAME = "select c.cand_id, c.cand_name, c.cand_logo, c.cand_bio " 
 			+ "from candidates c join elections_candidates e " 
@@ -77,16 +87,9 @@ public class SQLConstants {
 	public static String INSERT_CONST_IN_ELECTION_CONSTITUENCIES = " insert into elections_consts " 
 			+ "(ele_id, const_id) values ( ?, ? ) " ;
 	
+
 	
-/*	public static String SEARCH_ELECTIONS_BY_ALL_CRITERIA =  "select ELE.*, ELECON.unit_ele_id, CON.const_id "
-			+ "from elections ELE, elections_consts ELECON, constituencies CON "
-			+ "where ELE.ele_id = ELECON.ele_id and ELECON.const_id = CON.const_id "
-			+ "and ELE.ele_title like ? "
-			+ "and CON.const_id like ? "
-			+ "and CON.const_state like ? "
-			+ "and ELE.delete_stat <> 'Y' "
-			+ "group by ELE.ele_id";
-*/
+	
 	
 	public static String SEARCH_ELECTIONS_BY_ALL_CRITERIA =  "select * from elections ELE "
 		+ "where ELE.ele_title like ? "

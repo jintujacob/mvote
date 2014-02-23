@@ -57,6 +57,9 @@ public interface ElectionManagementDAO {
 		List<ElectionStatesBean> stateList);
 
 	public List<ConstituenciesBean> searchConstsByName(String constName);
+
+	public List<ElectionsCandidatesBean> searchCandidateByNameConst(
+		String candName, String constName);
 	
 	
 }

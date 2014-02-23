@@ -288,6 +288,25 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 
 	}
 
+	@Override
+	public List<ElectionsCandidatesBean> searchCandidateByNameConst(
+		String candName, String constId)
+	{
+	    	logger.debug("___________ /searchCandidateByNameConst/DAO"+ candName +"|"+ constId);
+	    	Object[] parameters = new Object[] { 
+	    		"%"+ candName + "%", 
+	    		"%"+ constId + "%"
+	    	     };
+		List<ElectionsCandidatesBean> candList =  jdbcTemplate.query(
+			SQLConstants.GET_CANDIDATE_LIST_BY_NAME_CONST, parameters,
+			new ElectionsCandidatesRowMapper());
+		
+		if(candList.size() > 0 ){
+		    return candList;
+		}
+		return null;	
+	}
+
 
 
 }
