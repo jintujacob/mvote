@@ -3,10 +3,12 @@
  */
 package com.hashin.project.dao;
 
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -47,19 +49,38 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public int addNewElection(ElectionsBean election)
+    public Long addNewElection(final ElectionsBean election)
     {
-	Object[] parameters = new Object[] { 
-		election.getElectTitle(),
-		election.getElectStartDate(), 
-		election.getElectEndDate(),
-		election.getElectDescription(), 
-		"N",
-		"N"
-		};
-	int numRows = jdbcTemplate.update(SQLConstants.INSERT_NEW_ELECTION,
-		parameters);
-	return numRows;
+	 logger.debug(">>_____________/addNewElection | DAO -> " + election.toString());
+	 Long ele_id = null;
+		try {
+			KeyHolder keyHolder = new GeneratedKeyHolder();
+			jdbcTemplate.update(new PreparedStatementCreator() {
+				public PreparedStatement createPreparedStatement(
+						Connection connection) throws SQLException {
+					PreparedStatement ps = connection.prepareStatement(
+							SQLConstants.INSERT_NEW_ELECTION,
+							new String[] { "ele_id" });
+					
+					ps.setString(1, election.getElectTitle());
+					ps.setString(2, election.getElectStartDate());
+					ps.setString(3, election.getElectEndDate());
+					ps.setString(4, election.getElectDescription());
+					ps.setString(5, "N");
+					ps.setString(6, "N");
+					
+					return ps;
+				}
+			}, keyHolder);
+
+			ele_id = keyHolder.getKey().longValue();
+			logger.debug(">>_____________/addNewElection | DAO -> Generated Election Id : " + ele_id);
+			return ele_id;
+		} catch (Exception e) {
+		    	logger.debug(">>_____________/addNewElection | DAO -> Exception, return null"); 
+			return null;
+		}
+
     }
 
     @Override
@@ -177,13 +198,16 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	@Override
 	public List<ElectionStatesBean> getAllStatesForMenu() 
 	{
+	    	logger.debug(">>_____________/addNewElection |DAO -> in getAllStatesFormenu:: ");
 		List<ElectionStatesBean> statesList =  jdbcTemplate.query(
 			SQLConstants.GET_ALL_STATES, new ElectionsStatesMapper());
 		
 		if(statesList.size() > 0 ){
+		    logger.debug(">>_____________/addNewElection |DAO -> states fetched :: "+ statesList.size());
 		    return statesList;
 		}
 
+		logger.debug(">>_____________/addNewElection |DAO -> No States found ! ");
 		return null;
 	}
 
@@ -241,13 +265,17 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	public int createUnitConstituencyElections(String electId,
 		List<ElectionStatesBean> stateList)
 	{
+	    
+	    logger.debug(">>_____________/addNewElection |DAO -> input params :: "
+		    	+ "eleid: " +electId + "states List Size: " + stateList.size());
+	    
 	    List<String> paramList = new ArrayList<String>();
 	    Object[] parameters = new Object[] {};
 	    int i = 0;
 	    
 	    paramList.add(electId);	//in first position.add(electId);	
 	    parameters[i++] = electId;
-	    logger.debug("++++++++++++++++++++++++++++++++++"+paramList.toString());
+	    
 	   
 	    
 	    String qMarks = "";
@@ -262,18 +290,18 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 		     qMarks += "," ;
 		 }
 		 itr++;
-		 logger.debug("______________________________"+paramList.toString());
 	    }
 	    
 	    String SQL = "INSERT INTO elections_consts (ele_id, const_id) SELECT ? , const_id FROM "
 			+ "(select CON.const_id from constituencies CON, elections_states STA "
 			+ "where CON.const_state = STA.st_id and STA.st_id in("+ qMarks + ")) as test";
 
-	    logger.debug("______________>> constructed Query :"+SQL);
-	    logger.debug("--------------->parameters---->>>"+parameters.toString());
-	    
+	    logger.debug(">>_____________/addNewElection |DAO -> Query constructed :: "+ SQL);
+	    logger.debug(">>_____________/addNewElection |DAO -> Parameters :: "+ Arrays.toString(parameters));	    
 	    
 	    int numRows = jdbcTemplate.update(SQL,parameters);
+	    
+	    logger.debug(">>_____________/addNewElection |DAO -> number Rows:: "+ numRows);
 	    return numRows;
 	}
 

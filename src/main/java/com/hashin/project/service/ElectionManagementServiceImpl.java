@@ -60,32 +60,29 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	@Override
 	public ElectionsBean addNewElection(ElectionsBean eleToFind, List<ElectionStatesBean> stateList)
 	{
-	     electionsMgmtDao.addNewElection(eleToFind);
-	     int statsUnitEleCreation = 0; 
-	     
-	     ElectionsBean beanJustAdded = electionsMgmtDao.getElectionDetail(eleToFind.getElectTitle(), 
-		     eleToFind.getElectDescription(), eleToFind.getElectStartDate());
-	     logger.debug("--------------->>>"+beanJustAdded.toString());
-	     
-	     if(beanJustAdded != null){
-		 if(stateList != null && stateList.size() > 0){
-		     statsUnitEleCreation = electionsMgmtDao.createUnitConstituencyElections(beanJustAdded.getElectId(), stateList);
-		 }
-		 else{
+	    logger.debug(">>_____________/addNewElection//service -> Search Params : " + eleToFind.toString());
+	    Long genElectionId = electionsMgmtDao.addNewElection(eleToFind);
+	    int statsUnitEleCreation = 0;
+	    
+	    if(genElectionId != null){
+		logger.debug(">>_____________/addNewElection |service -> generated EID is not null ");
+		 if(stateList == null ){
+		     logger.debug(">>_____________/addNewElection |service -> About to call the getAlls()tates");
 		     stateList = electionsMgmtDao.getAllStatesForMenu();
-		     logger.debug("---------------going to elections_consts__ statesList---->>>"+stateList.toString());
-		     statsUnitEleCreation = electionsMgmtDao.createUnitConstituencyElections(beanJustAdded.getElectId(), stateList);
-		     logger.debug("---------------count of affected row---->>>"+statsUnitEleCreation);
 		 }
+		 logger.debug(">>_____________/addNewElection |service -> Calling DAO -  ########, " +genElectionId+stateList);
+		 statsUnitEleCreation = electionsMgmtDao.createUnitConstituencyElections(""+genElectionId, stateList);
+		 logger.debug(">>_____________/addNewElection |service -> unitElection created? 0/1: " + eleToFind.toString());
 	     }
 	     
 	     if(statsUnitEleCreation > 0){
-		 return beanJustAdded;
+//		 return beanJustAdded;
 	     }
 	     else{
 		 return null;
 	     }
-		 
+
+	    return null;
 	}
 
 	@Transactional

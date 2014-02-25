@@ -121,7 +121,7 @@ public class ElectionsManager {
 	@RequestMapping(value = "/addNewElection", method = RequestMethod.POST)
 	public @ResponseBody FormListBean addNewElection(@RequestBody ElectionsBean eleToFind) 
 	{
-		logger.debug(">>___________ /addNewElection -> Search Params : " + eleToFind);
+		logger.debug(">>_____________/addNewElection -> Search Params : " + eleToFind.toString());
 		FormListBean formBean = new FormListBean();
 		try{
 		    

@@ -3,8 +3,8 @@ package com.hashin.project.dao;
 public class SQLConstants {
 
 	public static String INSERT_NEW_ELECTION = "insert into elections "
-			+ "(ele_title, ele_start_dt, ele_end_dt, ele_desc, vtr_enrl_stat, delete_stat) "
-			+ "values (?, ?, ?, ?, ?, ?)" ;
+			+ "(ele_id, ele_title, ele_start_dt, ele_end_dt, ele_desc, vtr_enrl_stat, delete_stat) "
+			+ "values (NULL,?, ?, ?, ?, ?, ?)" ;
 	
 
 /*	public static String BATCH_CREATE_UNIT_ELECTIONS_BY_EID_STATES = "INSERT INTO elections_consts "

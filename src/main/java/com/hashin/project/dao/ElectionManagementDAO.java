@@ -20,7 +20,7 @@ public interface ElectionManagementDAO {
 
 	public void setDataSource(DataSource dataSource);
 
-	public int addNewElection(ElectionsBean election);
+	public Long addNewElection(ElectionsBean election);
 
 
 	public List<ElectionsConstsBean> getElectionsListByConst(String constituency);
