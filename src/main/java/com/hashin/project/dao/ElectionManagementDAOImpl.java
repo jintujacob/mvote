@@ -199,16 +199,16 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	@Override
 	public List<ElectionStatesBean> getAllStatesForMenu() 
 	{
-	    	logger.debug(">>_____________/addNewElection |DAO -> in getAllStatesFormenu:: ");
+	    	logger.debug(">>_____________/getAllStatesForMenu |DAO -> in getAllStatesFormenu:: ");
 		List<ElectionStatesBean> statesList =  jdbcTemplate.query(
 			SQLConstants.GET_ALL_STATES, new ElectionsStatesMapper());
 		
 		if(statesList.size() > 0 ){
-		    logger.debug(">>_____________/addNewElection |DAO -> states fetched :: "+ statesList.size());
+		    logger.debug(">>_____________/getAllStatesForMenu |DAO -> states fetched :: "+ statesList.size());
 		    return statesList;
 		}
 
-		logger.debug(">>_____________/addNewElection |DAO -> No States found ! ");
+		logger.debug(">>_____________/getAllStatesForMenu |DAO -> No States found ! ");
 		return null;
 	}
 
@@ -286,6 +286,8 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 				return constsList.size();
 			}
 		    } );
+	    
+	    logger.debug(">>_____________createUnitConstituencyElections() |DAO -> created unitElections ");
 	    return 1;   
 	}
 	
@@ -457,16 +459,21 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	public List<ConstituenciesBean> getConstsByStatesId(
 		List<ElectionStatesBean> stateList)
 	{
+	    logger.debug("__________DAO:getConstsByStatesId|incoming params>> "+ stateList.toString());
 	    List<ConstituenciesBean> constList = null;
-	    Object[] parameters = new Object[] { };
-	    String qMarks = "";
+	    List<String> paramList = new ArrayList<String>();
+	    StringBuilder qMarks = new StringBuilder("");
 	    int i = 0;
 
 	    for(ElectionStatesBean state: stateList){
-		 if(i != stateList.size()-1){
-		     qMarks += "," ;
+		 qMarks.append("?");
+		 if(i != stateList.size()-1)
+		 {
+		     qMarks.append(", ") ;
 		 }
-		 parameters[i++] = state.getStateId();
+		 //System.out.println(state.getStateId());
+		 paramList.add(state.getStateId());
+		 i++;
 	    }
 	    
 	    String SQL  = " select CON.const_id, CON.const_name, ST.st_name "
@@ -475,9 +482,8 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	    	+ "and ST.st_id in (" + qMarks + ") ";
 
 	    logger.debug("__________DAO:getConstsByStatesId/Query >> "+ SQL);
-	    logger.debug("__________DAO:getConstsByStatesId/Query Params >> "+ Arrays.toString(parameters));
 	    
-	    constList =  jdbcTemplate.query(SQL, parameters, new ConstituencyMapper());
+	    constList =  jdbcTemplate.query(SQL, paramList.toArray(), new ConstituencyMapper());
 	    
 	    logger.debug("__________DAO:getConstsByStatesId/ Result>> "+ constList.toString());
 	    return constList;

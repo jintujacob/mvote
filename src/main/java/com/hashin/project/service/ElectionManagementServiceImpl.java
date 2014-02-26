@@ -73,7 +73,7 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 		 }
 		 logger.debug(">>_____________/addNewElection |service -> "
 		 	+ "About to create unit eles: consts list " + constList.toString());
-		 //statsUnitEleCreation = electionsMgmtDao.createUnitConstituencyElections(""+genElectionId, stateList);
+		 statsUnitEleCreation = electionsMgmtDao.createUnitConstituencyElections(""+genElectionId, constList);
 	
 	     }
 	     
