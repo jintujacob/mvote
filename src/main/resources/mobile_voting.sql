@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 24, 2014 at 01:26 AM
+-- Generation Time: Feb 27, 2014 at 02:17 AM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `elections` (
   `vtr_enrl_stat` varchar(2) NOT NULL,
   `delete_stat` varchar(2) NOT NULL,
   PRIMARY KEY (`ele_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
 
 --
 -- Dumping data for table `elections`
@@ -170,24 +170,24 @@ INSERT INTO `elections_candidates` (`ele_cand_id`, `unit_ele_id`, `cand_id`) VAL
 
 CREATE TABLE IF NOT EXISTS `elections_consts` (
   `unit_ele_id` int(20) NOT NULL AUTO_INCREMENT,
-  `ele_id` int(10) NOT NULL,
-  `const_id` int(10) NOT NULL,
+  `ele_id` varchar(10) NOT NULL,
+  `const_id` varchar(10) NOT NULL,
   PRIMARY KEY (`unit_ele_id`),
   KEY `ele_id` (`ele_id`),
   KEY `const_id` (`const_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=403 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=433 ;
 
 --
 -- Dumping data for table `elections_consts`
 --
 
 INSERT INTO `elections_consts` (`unit_ele_id`, `ele_id`, `const_id`) VALUES
-(301, 1, 1),
-(302, 1, 2),
-(303, 1, 3),
-(304, 1, 4),
-(401, 2, 5),
-(402, 2, 6);
+(301, '1', '1'),
+(302, '1', '2'),
+(303, '1', '3'),
+(304, '1', '4'),
+(401, '2', '5'),
+(402, '2', '6');
 
 -- --------------------------------------------------------
 
@@ -277,27 +277,6 @@ INSERT INTO `elections_votingstats` (`ev_id`, `e_election_id`, `ele_id`, `voting
 (46, 888855556678, 5, 'N'),
 (47, 888855556679, 5, 'N'),
 (48, 888855556680, 5, 'N');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `test`
---
-
-CREATE TABLE IF NOT EXISTS `test` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `name` varchar(10) NOT NULL,
-  `age` varchar(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `test`
---
-
-INSERT INTO `test` (`id`, `name`, `age`) VALUES
-(1, 'abc', '45'),
-(2, 'alsjdf', '2');
 
 -- --------------------------------------------------------
 

@@ -6,13 +6,10 @@ public class SQLConstants {
 			+ "(ele_id, ele_title, ele_start_dt, ele_end_dt, ele_desc, vtr_enrl_stat, delete_stat) "
 			+ "values (NULL,?, ?, ?, ?, ?, ?)" ;
 	
-
-/*	public static String BATCH_CREATE_UNIT_ELECTIONS_BY_EID_STATES = "INSERT INTO elections_consts "
-		+ "(ele_id, const_id) "
-		+ "SELECT ? , const_id FROM "
-		+ "(select CON.const_id from constituencies CON, elections_states STA "
-		+ "where CON.const_state = STA.st_id and STA.st_id in(?)) as test";
-*/	
+	
+	public static String BATCH_CREATE_UNIT_ELECTIONS_BY_CONSTS = "INSERT INTO elections_consts "
+		+ "(ele_id, const_id) values ( ?, ? )";
+	
 	
 	public static String GET_ELECTION_DETAIL_BY_ID = " select e.ele_id, e.ele_title, e.ele_start_dt, "
 		+ "e.ele_end_dt, e.ele_desc, e.vtr_enrl_stat "

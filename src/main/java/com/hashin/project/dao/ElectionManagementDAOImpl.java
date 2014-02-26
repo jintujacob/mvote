@@ -268,12 +268,11 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 		final List<ConstituenciesBean> constsList)
 	{
 	    
-	    logger.debug(">>_____________/addNewElection |DAO -> input params :: "
+	    logger.debug(">>_____________/createUnitElections |DAO -> input params :: "
 		    	+ "eleid: " +electId + "states List Size: " + constsList.size());
 	    
-	    String SQL = "INSERT INTO elections_consts (ele_id, const_id) values (?,?)";
-	    jdbcTemplate.batchUpdate(
-		    SQL, 
+	    int[] rowNum = jdbcTemplate.batchUpdate(
+		    SQLConstants.BATCH_CREATE_UNIT_ELECTIONS_BY_CONSTS, 
 		    new BatchPreparedStatementSetter() 
 		    {
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
@@ -287,8 +286,9 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 			}
 		    } );
 	    
-	    logger.debug(">>_____________createUnitConstituencyElections() |DAO -> created unitElections ");
-	    return 1;   
+	    logger.debug(">>_____________createUnitElections() |DAO -> update impact: "
+	    	+ ""+ Arrays.toString(rowNum));
+	    return rowNum[rowNum.length - 1];   
 	}
 	
 

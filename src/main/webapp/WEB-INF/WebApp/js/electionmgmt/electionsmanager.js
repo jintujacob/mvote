@@ -294,12 +294,12 @@ function processElectionAddition(){
   	__addFromDt = $('#in_add_fromdt').val();
   	__addToDt = $('#in_add_todt').val();
   	
-/*	__addTitle ="1";
-  	__addDesc = "2";
-  	__addFromDt = "3";
-  	__addToDt = "4";
-	
-*/
+/*	__addTitle ="autotestbot";
+  	__addDesc = "autotestBot";
+  	__addFromDt = "1111-11-11";
+  	__addToDt = "1111-11-11";
+*/	
+
     //alert(addTitle +"|"+ addDesc +"|"+ addFromDt +"|"+ addToDt);
   	
   	//populate entered info in the second page

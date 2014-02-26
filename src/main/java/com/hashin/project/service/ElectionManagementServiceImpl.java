@@ -60,7 +60,7 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	@Override
 	public ElectionsBean addNewElection(ElectionsBean eleToFind, List<ElectionStatesBean> stateList)
 	{
-	    logger.debug(">>_____________/addNewElection//service -> Search Params : " + eleToFind.toString());
+ 	    logger.debug(">>_____________/addNewElection//service -> Search Params : " + eleToFind.toString());
 	    Long genElectionId = electionsMgmtDao.addNewElection(eleToFind);
 	    int statsUnitEleCreation = 0;
 	    List<ConstituenciesBean> constList = null;
@@ -71,20 +71,16 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 		 }else{
 		     constList = electionsMgmtDao.getConstsByStatesId(stateList);
 		 }
-		 logger.debug(">>_____________/addNewElection |service -> "
-		 	+ "About to create unit eles: consts list " + constList.toString());
 		 statsUnitEleCreation = electionsMgmtDao.createUnitConstituencyElections(""+genElectionId, constList);
-	
 	     }
 	     
 	     if(statsUnitEleCreation > 0){
-//		 return beanJustAdded;
+		 return new ElectionsBean();
 	     }
 	     else{
 		 return null;
 	     }
 
-	    return null;
 	}
 
 	@Transactional
