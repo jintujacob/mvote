@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -260,8 +261,36 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 			parameters);
 	    return numRows;
 	}
-
+	
+	
 	@Override
+	public int createUnitConstituencyElections(final String electId,
+		final List<ConstituenciesBean> constsList)
+	{
+	    
+	    logger.debug(">>_____________/addNewElection |DAO -> input params :: "
+		    	+ "eleid: " +electId + "states List Size: " + constsList.size());
+	    
+	    String SQL = "INSERT INTO elections_consts (ele_id, const_id) values (?,?)";
+	    jdbcTemplate.batchUpdate(
+		    SQL, 
+		    new BatchPreparedStatementSetter() 
+		    {
+			public void setValues(PreparedStatement ps, int i) throws SQLException {
+				ConstituenciesBean constituency =  constsList.get(i);
+				ps.setString(1, electId );
+				ps.setString(2, constituency.getConstId());
+			}
+		 
+			public int getBatchSize() {
+				return constsList.size();
+			}
+		    } );
+	    return 1;   
+	}
+	
+
+/*	@Override
 	public int createUnitConstituencyElections(String electId,
 		List<ElectionStatesBean> stateList)
 	{
@@ -299,12 +328,12 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	    logger.debug(">>_____________/addNewElection |DAO -> Query constructed :: "+ SQL);
 	    logger.debug(">>_____________/addNewElection |DAO -> Parameters :: "+ Arrays.toString(parameters));	    
 	    
-	    int numRows = jdbcTemplate.update(SQL,parameters);
+	    int numRows = jdbcTemplate.update(SQL,paramList);
 	    
 	    logger.debug(">>_____________/addNewElection |DAO -> number Rows:: "+ numRows);
 	    return numRows;
 	}
-
+*/
 	@Override
 	public List<ConstituenciesBean> searchConstsByName(String constName)
 	{
@@ -422,6 +451,36 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	    int numRows = jdbcTemplate.update(SQLConstants.INSERT_CANDIDATE_IN_ELE_RESULTS,
 			parameters);
 	    return numRows;
+	}
+
+	@Override
+	public List<ConstituenciesBean> getConstsByStatesId(
+		List<ElectionStatesBean> stateList)
+	{
+	    List<ConstituenciesBean> constList = null;
+	    Object[] parameters = new Object[] { };
+	    String qMarks = "";
+	    int i = 0;
+
+	    for(ElectionStatesBean state: stateList){
+		 if(i != stateList.size()-1){
+		     qMarks += "," ;
+		 }
+		 parameters[i++] = state.getStateId();
+	    }
+	    
+	    String SQL  = " select CON.const_id, CON.const_name, ST.st_name "
+	    	+ "from constituencies CON, elections_states ST "
+	    	+ "where CON.const_state = ST.st_id "
+	    	+ "and ST.st_id in (" + qMarks + ") ";
+
+	    logger.debug("__________DAO:getConstsByStatesId/Query >> "+ SQL);
+	    logger.debug("__________DAO:getConstsByStatesId/Query Params >> "+ Arrays.toString(parameters));
+	    
+	    constList =  jdbcTemplate.query(SQL, parameters, new ConstituencyMapper());
+	    
+	    logger.debug("__________DAO:getConstsByStatesId/ Result>> "+ constList.toString());
+	    return constList;
 	}
 
 	 

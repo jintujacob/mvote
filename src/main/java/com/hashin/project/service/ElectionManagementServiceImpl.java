@@ -63,16 +63,18 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	    logger.debug(">>_____________/addNewElection//service -> Search Params : " + eleToFind.toString());
 	    Long genElectionId = electionsMgmtDao.addNewElection(eleToFind);
 	    int statsUnitEleCreation = 0;
+	    List<ConstituenciesBean> constList = null;
 	    
 	    if(genElectionId != null){
-		logger.debug(">>_____________/addNewElection |service -> generated EID is not null ");
 		 if(stateList == null ){
-		     logger.debug(">>_____________/addNewElection |service -> About to call the getAlls()tates");
-		     stateList = electionsMgmtDao.getAllStatesForMenu();
+		     constList = electionsMgmtDao.getAllConstituencies();
+		 }else{
+		     constList = electionsMgmtDao.getConstsByStatesId(stateList);
 		 }
-		 logger.debug(">>_____________/addNewElection |service -> Calling DAO -  ########, " +genElectionId+stateList);
-		 statsUnitEleCreation = electionsMgmtDao.createUnitConstituencyElections(""+genElectionId, stateList);
-		 logger.debug(">>_____________/addNewElection |service -> unitElection created? 0/1: " + eleToFind.toString());
+		 logger.debug(">>_____________/addNewElection |service -> "
+		 	+ "About to create unit eles: consts list " + constList.toString());
+		 //statsUnitEleCreation = electionsMgmtDao.createUnitConstituencyElections(""+genElectionId, stateList);
+	
 	     }
 	     
 	     if(statsUnitEleCreation > 0){

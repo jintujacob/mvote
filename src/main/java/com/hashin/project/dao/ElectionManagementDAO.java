@@ -54,7 +54,7 @@ public interface ElectionManagementDAO {
 	public int deleteElectionInElections(String electId);
 
 	public int createUnitConstituencyElections(String electId,
-		List<ElectionStatesBean> stateList);
+		List<ConstituenciesBean> constList);
 
 	public List<ConstituenciesBean> searchConstsByName(String constName);
 
@@ -68,6 +68,9 @@ public interface ElectionManagementDAO {
 	public Long addCandidateToEleCandidates(String newCandId, String unitEleId);
 
 	public int addCandidateToEleResults(String string, String unitEleId);
+
+	public List<ConstituenciesBean> getConstsByStatesId(
+		List<ElectionStatesBean> stateList);
 	
 	
 }

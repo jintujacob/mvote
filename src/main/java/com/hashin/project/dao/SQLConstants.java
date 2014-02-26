@@ -134,7 +134,11 @@ public class SQLConstants {
 		+ "from constituencies CON, elections_states ST "
 		+ "where CON.const_state = ST.st_id and CON.const_name like ? " ;
 	
-	
+/*	public static String GET_CONSTS_BY_STATE_ID = "select CON.const_id, CON.const_name, ST.st_name "
+		+ "from constituencies CON, elections_states ST "
+		+ "where CON.const_state = ST.st_id and ST.st_id like ? " ;
+
+*/	
 	
 	
 	/**
