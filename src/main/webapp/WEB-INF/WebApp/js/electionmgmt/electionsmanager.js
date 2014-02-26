@@ -26,7 +26,7 @@ $(document).ready(function()
 	});
 	
 	$('#btn_search_ele').click(function(){
-		searchKey = "";
+		searchKey = $("#in_find_ele").val();
 		processElectionsSearch(searchKey);
 		showPage('#pageElectionSearchSummary');
 	});
@@ -37,7 +37,7 @@ $(document).ready(function()
 	
 	$('#pageElectionSearchSummary a').click(function(){
 		//call method on hyperlink
-		electId = "5";
+		electId = "33";
 		populateElectionDetail(electId);
 	});
 	
@@ -48,12 +48,12 @@ $(document).ready(function()
 	});
 	
 	$('#btn_enroll_voters').click(function(){
-		electId = "5";
+		electId = "33";
 		enrollVotersForElection(electId);
 	});
 	
 	$('#btn_delete').click(function(){
-		electId = "5";
+		electId = "33";
 		deleteElection(electId);
 	});
 
