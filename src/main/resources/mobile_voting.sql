@@ -330,6 +330,24 @@ INSERT INTO `voters_adhaar` (`e_election_id`, `fk_voters_id`, `fk_adhaar_id`, `v
 (888855556679, 'v666', 'uid666', 'AXh+gjCQyzM=', '2014-02-16', 'F'),
 (888855556680, 'v888', 'uid888', 'AXh+gjCQyzM=', '2014-02-16', 'F');
 
+
+
+CREATE TABLE IF NOT EXISTS `system_users` (
+  `uid` varchar(30) NOT NULL,
+  `nameFirst` varchar(30) NOT NULL,
+  `nameLast` varchar(30) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  `user_active_stat` varchar(2) NOT NULL,
+   UNIQUE KEY `uid` (`uid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+
+INSERT INTO `system_users` (`uid`, `nameFirst`, `nameLast`, `email`, `password`, `user_active_stat`) VALUES
+('admin', 'admin', 'test', 'admin.test@email.com', 'abc123', 'Y'),
+('qatest', 'tester', 'test', 'qatest.test@email.com', 'abc123', 'Y'),
+('sittest', 'sit', 'test', 'sittest.test@email.com', 'abc123', 'Y');
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
