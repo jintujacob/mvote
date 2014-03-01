@@ -20,5 +20,7 @@ public interface AccessControlDAO {
 
 	public void setDataSource(DataSource dataSource);
 
+	public int validatedSystemUserCount(String uid, String password);
+
 	
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hashin.project.bean.FormListBean;
+import com.hashin.project.bean.SystemUserBean;
 import com.hashin.project.bean.VotersUserBean;
 import com.hashin.project.service.AccessControlService;;
 
@@ -29,16 +30,20 @@ public class AccessControlManager {
 	private static final String CUSTOM_MSG = "SUCCESS";
 
 	
-/*	@RequestMapping(value = "/insertNewVoter", method = RequestMethod.GET)
-	public ModelAndView getVotersByNameConstAndFlag(
-			@RequestParam VotersUserBean voterUser) {
-		Boolean insertStatus = voterListMgmtService.insertNewVoter(voterUser);
-		if (insertStatus != false) {
-			// do something
-		} else {
-			// voter not found/ invalid voterId
-		}
-		return null;
+	@RequestMapping(value = "/validateSystemUser", method = RequestMethod.GET)
+	public @ResponseBody SystemUserBean validateSystemUserEntry(
+			@RequestParam SystemUserBean loginUser) 
+	{
+	    SystemUserBean response = new SystemUserBean();
+	    Boolean loginStat = accessControlService.validateSystemUser(loginUser);
+		
+	    if(loginStat){
+		response.setCustomMessage(CUSTOM_MSG);
+	    }else{
+		response.setCustomMessage("Unable to login. Invalid Credentials provided. ");
+	    }
+	
+	    return response;
 	}
-*/
+
 }

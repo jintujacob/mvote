@@ -7,7 +7,10 @@ import com.hashin.project.bean.ElectionStatesBean;
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
+import com.hashin.project.bean.SystemUserBean;
 
 public interface AccessControlService {
+
+    Boolean validateSystemUser(SystemUserBean loginUser);
 	
 }

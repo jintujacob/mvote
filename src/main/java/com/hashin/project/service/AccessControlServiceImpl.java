@@ -11,6 +11,7 @@ import com.hashin.project.bean.ElectionStatesBean;
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
+import com.hashin.project.bean.SystemUserBean;
 import com.hashin.project.controller.ElectionsManager;
 import com.hashin.project.dao.AccessControlDAO;
 import com.hashin.project.dao.ElectionManagementDAO;
@@ -22,6 +23,18 @@ public class AccessControlServiceImpl implements AccessControlService {
 
 	private static final Logger logger = Logger
 		.getLogger(AccessControlServiceImpl.class);
+
+	@Override
+	public Boolean validateSystemUser(SystemUserBean loginUser)
+	{
+	    int rowCount = accessControlDAO.validatedSystemUserCount(loginUser.getUid(), 
+		    loginUser.getPassword());
+	    
+	    if(rowCount>0){
+		return true;
+	    }
+	    return false;
+	}
 	
 	
 }

@@ -50,6 +50,13 @@ public class AccessControlDAOImpl implements AccessControlDAO
 	this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    @Override
+    public int validatedSystemUserCount(String uid, String password)
+    {
+	// TODO Auto-generated method stub
+	return 0;
+    }
+
     
 
 }

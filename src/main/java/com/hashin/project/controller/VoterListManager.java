@@ -16,7 +16,6 @@ import com.hashin.project.bean.FormListBean;
 import com.hashin.project.bean.VotersUserBean;
 import com.hashin.project.service.VoterListManagementService;
 
-;
 
 @Controller
 @RequestMapping("voterslist")
