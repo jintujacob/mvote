@@ -35,8 +35,7 @@
     </bean>
     
     <!--  Service Modules Bean Defenition -->
-<!--     <bean id="adhaarService" class="com.hashin.project.service.AdhaarServiceImpl"   /> 
-     <bean id="electionsService" class="com.hashin.project.service.ElectionsServiceImpl" />  -->
+    <bean id="accessControlService" class="com.hashin.project.service.AccessControlService"   /> 
     <bean id="electionMgmtService" class="com.hashin.project.service.ElectionManagementServiceImpl" />
     <bean id="onlineVotingService" class="com.hashin.project.service.OnlineVotingServiceImpl" />
     <bean id="userEnrollmentService" class="com.hashin.project.service.UserEnrollmentServiceImpl" />
@@ -52,7 +51,8 @@
         <property name="dataSource" ref="dataSource" />  </bean>   
     <bean id="voterListManagementDao" class="com.hashin.project.dao.VoterListManagementDAOImpl" >
         <property name="dataSource" ref="dataSource" />  </bean>   
-    
+    <bean id="accessControlDao" class="com.hashin.project.dao.AccessControlDAOImpl" >
+        <property name="dataSource" ref="dataSource" />  </bean>   
            
         
 
