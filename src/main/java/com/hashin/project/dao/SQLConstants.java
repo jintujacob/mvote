@@ -128,6 +128,7 @@ public class SQLConstants {
 		+ "and C.delete_stat <> 'Y' " ;
 	
 	
+	
 	/**
 	 * ------------------------------------------------------------------------------------------------------------
 	 * Queries for the Constituency table;

@@ -498,6 +498,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	    Object[] parameters = new Object[] { unitEleId };	    
 	    int totalVoteCount = 0;
 	    totalVoteCount =  jdbcTemplate.queryForInt(SQLConstants.GET_TOTAL_VOTECOUNT_BY_CONSTITUENCY, parameters);
+	    logger.debug("__________DAO:getConstsByStatesId/ totalVoteCount>> "+ totalVoteCount);
 	    return totalVoteCount;
 	}
 	

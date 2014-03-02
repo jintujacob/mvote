@@ -1,6 +1,5 @@
 constsDropDownContent = "";
-candidatResults = "";
-
+constsElectionsResults = "";
 
 $(document).ready(function(){
 	getHomeContents();
@@ -45,20 +44,18 @@ function getElectionResultList(constSelected, unitEleSelected)
 	
 	$.ajax({
 	    type: "POST",
-	    url: 'http://localhost:8080/mvote/candidates/getElectionResultsDetail',
+	    url: 'http://localhost:8080/mvote/elections/getElectionResultsDetail',
 	    contentType: "application/json; charset=utf-8",
 	    dataType: "json",
 	    data: jsonString,
 	    success: function(response) {
-	    	alert("success");
-	    
+	    	constsElectionsResults = response;
+	    	populateSearchResults(response);
 	    },
 	    error:function(){
 	    	alert("Connection Error. Network failure or Server unavailable");
 	    }
 	});		
-
-
 }
 
 
@@ -69,7 +66,7 @@ function populateSearchResults(response)
 	str = "";
 	if(response.customMessage == "SUCCESS")
 	{
-		candidateList = response.candidateList;
+		searchResults = response.candidateList;
 		if(candidateList.length == 0)
 		{
 			str += "<tr><td colspan='5'> No Matches found! Please try again !</td></tr>";

@@ -1,5 +1,6 @@
 package com.hashin.project.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -188,13 +189,21 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 		ElectionsResultsBean rsltToFind)
 	{
 	    int totalVoteCount = electionsMgmtDao.getTotalVoteCountByConst(rsltToFind.getUnitEleId());
+	    logger.debug(">>_______________totalVotecount for "+rsltToFind.getUnitEleId()+ ">> "+totalVoteCount);
+	    
 	    List<ElectionsResultsBean> constResultList = electionsMgmtDao.getElectionResultsDetailByConst(rsltToFind.getUnitEleId());
 	    
-	    for(ElectionsResultsBean resltBean: constResultList){
-		resltBean.setTotalVoteCount(totalVoteCount+"");
+	    List<ElectionsResultsBean> modifiedList = new ArrayList<ElectionsResultsBean>();
+	    
+	    
+	    for(ElectionsResultsBean bean: constResultList){
+		bean.setTotalVoteCount(totalVoteCount+"");
+		logger.debug(bean.toString());
+		modifiedList.add(bean);
+		
 	    }
 	    
-	    return constResultList;
+	    return modifiedList;
 	}
 
 	

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 27, 2014 at 02:17 AM
+-- Generation Time: Mar 02, 2014 at 10:49 PM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `elections` (
   `vtr_enrl_stat` varchar(2) NOT NULL,
   `delete_stat` varchar(2) NOT NULL,
   PRIMARY KEY (`ele_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `elections`
@@ -175,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `elections_consts` (
   PRIMARY KEY (`unit_ele_id`),
   KEY `ele_id` (`ele_id`),
   KEY `const_id` (`const_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=433 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=403 ;
 
 --
 -- Dumping data for table `elections_consts`
@@ -197,12 +197,10 @@ INSERT INTO `elections_consts` (`unit_ele_id`, `ele_id`, `const_id`) VALUES
 
 CREATE TABLE IF NOT EXISTS `elections_results` (
   `ele_result_id` int(10) NOT NULL AUTO_INCREMENT,
-  `unit_ele_id` int(20) NOT NULL,
-  `ele_cand_id` int(10) NOT NULL,
+  `unit_ele_id` varchar(20) NOT NULL,
+  `ele_cand_id` varchar(10) NOT NULL,
   `vote_count` int(20) NOT NULL,
-  PRIMARY KEY (`ele_result_id`),
-  KEY `ele_cand_id` (`ele_cand_id`),
-  KEY `unit_ele_id` (`unit_ele_id`)
+  PRIMARY KEY (`ele_result_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
@@ -210,13 +208,13 @@ CREATE TABLE IF NOT EXISTS `elections_results` (
 --
 
 INSERT INTO `elections_results` (`ele_result_id`, `unit_ele_id`, `ele_cand_id`, `vote_count`) VALUES
-(1, 301, 1, 3004),
-(2, 301, 2, 5001),
-(3, 301, 3, 7003),
-(4, 303, 4, 2500),
-(5, 303, 5, 3500),
-(6, 302, 6, 1501),
-(9, 401, 9, 0);
+(1, '301', '1', 3004),
+(2, '301', '2', 5001),
+(3, '301', '3', 7003),
+(4, '303', '4', 2500),
+(5, '303', '5', 3500),
+(6, '302', '6', 1501),
+(9, '401', '9', 0);
 
 -- --------------------------------------------------------
 
@@ -274,9 +272,34 @@ CREATE TABLE IF NOT EXISTS `elections_votingstats` (
 --
 
 INSERT INTO `elections_votingstats` (`ev_id`, `e_election_id`, `ele_id`, `voting_stat`) VALUES
-(46, 888855556678, 5, 'N'),
-(47, 888855556679, 5, 'N'),
-(48, 888855556680, 5, 'N');
+(46, 888855556678, 1, 'N'),
+(47, 888855556679, 1, 'N'),
+(48, 888855556680, 1, 'N');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `system_users`
+--
+
+CREATE TABLE IF NOT EXISTS `system_users` (
+  `uid` varchar(30) NOT NULL,
+  `nameFirst` varchar(30) NOT NULL,
+  `nameLast` varchar(30) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  `user_active_stat` varchar(2) NOT NULL,
+  UNIQUE KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `system_users`
+--
+
+INSERT INTO `system_users` (`uid`, `nameFirst`, `nameLast`, `email`, `password`, `user_active_stat`) VALUES
+('admin', 'admin', 'test', 'admin.test@email.com', 'abc123', 'Y'),
+('qatest', 'tester', 'test', 'qatest.test@email.com', 'abc123', 'Y'),
+('sittest', 'sit', 'test', 'sittest.test@email.com', 'abc123', 'Y');
 
 -- --------------------------------------------------------
 
@@ -329,24 +352,6 @@ INSERT INTO `voters_adhaar` (`e_election_id`, `fk_voters_id`, `fk_adhaar_id`, `v
 (888855556678, 'v444', 'uid444', 'AXh+gjCQyzM=', '2014-02-16', 'F'),
 (888855556679, 'v666', 'uid666', 'AXh+gjCQyzM=', '2014-02-16', 'F'),
 (888855556680, 'v888', 'uid888', 'AXh+gjCQyzM=', '2014-02-16', 'F');
-
-
-
-CREATE TABLE IF NOT EXISTS `system_users` (
-  `uid` varchar(30) NOT NULL,
-  `nameFirst` varchar(30) NOT NULL,
-  `nameLast` varchar(30) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(30) NOT NULL,
-  `user_active_stat` varchar(2) NOT NULL,
-   UNIQUE KEY `uid` (`uid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
-
-INSERT INTO `system_users` (`uid`, `nameFirst`, `nameLast`, `email`, `password`, `user_active_stat`) VALUES
-('admin', 'admin', 'test', 'admin.test@email.com', 'abc123', 'Y'),
-('qatest', 'tester', 'test', 'qatest.test@email.com', 'abc123', 'Y'),
-('sittest', 'sit', 'test', 'sittest.test@email.com', 'abc123', 'Y');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
