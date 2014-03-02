@@ -491,6 +491,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	    return constList;
 	}
 
+	
 	@Override
 	public int getTotalVoteCountByConst(String unitEleId )
 	{
@@ -499,6 +500,8 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	    totalVoteCount =  jdbcTemplate.queryForInt(SQLConstants.GET_TOTAL_VOTECOUNT_BY_CONSTITUENCY, parameters);
 	    return totalVoteCount;
 	}
+	
+	
 
 	@Override
 	public List<ElectionsResultsBean> getElectionResultsDetailByConst(String unitEleId){
