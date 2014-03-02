@@ -19,7 +19,10 @@
                    Elections : <select id="in_srch_elections">   <!--  ajax it --> </select>    <br>
                    <button id="btn_search_list_const"> Find </button>
             </div>
+            
+            <!-- 
             <p id="toggle_list_state_form"> Get election results by constituency </p>
+             -->
             <div id="content_srchform_bystate">
                    Get Results By State <br><br>
                    
@@ -30,28 +33,32 @@
     </div>
     
     <div id="pageElectionResultsListView">
-        reults
-        <div class="clearLine"> <button class="btn_backto_home"> Back to Search</button> </div>
-        <table id="tableResultsListConsts">
-            <thead> <tr> <td>ConstsId</td> <td>ConstName </td>  <td>Winner Name </td> </tr> </thead>
-            <tbody> <!-- ajax it --> </tbody>
-        </table>
-        <table id="tableResultsListStates">
-            <thead> <tr> <td>ConstsId</td> <td>ConstName </td>  <td>Winner Name </td> </tr> </thead>
-            <tbody> <!-- ajax it --> </tbody>
-        </table>
-        
+       
     </div>
     
     <div id="pageElectionResultDetailView">
-           panelLeftDetailPage  <br><br>
-           <table id="tableResultDetail">  <!-- ajax it  -->  </table>
-           
-           
-           <div class="clearLine" >
-               <button class="btn_backto_home"> Back to Home </button> <br/>
-               <!-- <button class="btn_backto_reslt"> Back to Search Results </button> --> <br/>
-           </div>
+        <div id="divResultsListConsts">
+            Election Name : <p class = "titleElectionName" > </p>
+            Location : <p class = "titleLocationSelected" > </p>
+            <table class = "tableWinnerDetail">
+                <!-- ajax it  -->
+            </table>
+            
+            <table id="tableResultsListConsts">
+                <thead> <tr> <td>Candidate Id</td> <td>Candidate Name </td>  <td>Total Vote Count </td> <td>Scored Votes </td> </tr> </thead>
+                <tbody> <!-- ajax it --> </tbody>
+            </table>
+        </div>
+        
+        <div id="divResultsListStates">
+            <p class = "titleElectionName" > </p>
+            <p class = "titleLocationSelected" > </p>
+        
+            <table id="tableResultsListStates">
+                <thead> <tr> <td>ConstsId</td> <td>ConstName </td>  <td>Winner Name </td> </tr> </thead>
+                <tbody> <!-- ajax it --> </tbody>
+            </table>
+        </div>
     </div>
 </div>    
 </body>

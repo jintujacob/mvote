@@ -125,7 +125,7 @@ public class SQLConstants {
 	public static String GET_ELECTIONS_RESULTS_BY_CONSTITUENCY = "select ER.unit_ele_id, ER.vote_count, C.cand_id, "
 		+ "C.cand_name from elections_results ER, elections_candidates EC, candidates C "
 		+ "where ER.ele_cand_id = EC.ele_cand_id and EC.cand_id = C.cand_id and ER.unit_ele_id = ? "
-		+ "and C.delete_stat <> 'Y' " ;
+		+ "and C.delete_stat <> 'Y' order by ER.vote_count DESC" ;
 	
 	
 	

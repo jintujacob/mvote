@@ -1,5 +1,11 @@
 constsDropDownContent = "";
 constsElectionsResults = "";
+electionListResponse = "" ;
+constsListResponse = "";
+
+_consts_name = "";
+_election_name = "";
+
 
 $(document).ready(function(){
 	getHomeContents();
@@ -20,6 +26,7 @@ $(document).ready(function(){
 		if(constSelected != "none"){
 			getElectionsByConstituency(constSelected);
 		}
+		
 	});
 
 	$('#btn_search_list_const').click(function(){
@@ -50,7 +57,7 @@ function getElectionResultList(constSelected, unitEleSelected)
 	    data: jsonString,
 	    success: function(response) {
 	    	constsElectionsResults = response;
-	    	populateSearchResults(response);
+	    	populateConstituencyResult(response,constSelected,unitEleSelected);
 	    },
 	    error:function(){
 	    	alert("Connection Error. Network failure or Server unavailable");
@@ -58,55 +65,51 @@ function getElectionResultList(constSelected, unitEleSelected)
 	});		
 }
 
-
-
-
-function populateSearchResults(response)
+function populateConstituencyResult(response,constSelected,unitEleSelected)
 {
-	str = "";
+	str1  = "";
+	str2 = ""; 
+	lead = 0;
 	if(response.customMessage == "SUCCESS")
 	{
-		searchResults = response.candidateList;
-		if(candidateList.length == 0)
-		{
-			str += "<tr><td colspan='5'> No Matches found! Please try again !</td></tr>";
-		}else
-		{
-			for(i=0; i<candidateList.length; i++){
-				str += "<tr>" ;
-				str += 	"<td><a onclick=getCandidateDetail("+i+")>"+candidateList[i].candId+"</a></td>" ;
-				str +=	"<td>"+ candidateList[i].candName+"</td><td>"+ candidateList[i].eleTitle+"</td>" ;
-				str += 	"<td>"+candidateList[i].constName+","+ candidateList[i].constState +"</td>" ;
-				str += "</tr>" ;
+		candidateResults = response.resultList;
+		
+		if(candidateResults.length != 0 ){
+			for(i=0; i<candidateResults.length; i++){
+				str1 += "<tr>" ;
+				str1 += 	"<td>"+ candidateResults[i].candId + "</td>";
+				str1 += 	"<td>"+ candidateResults[i].candName + "</td>";
+				str1 += 	"<td>"+ candidateResults[i].totalVoteCount + "</td>";
+				str1 += 	"<td>"+ candidateResults[i].constVoteCount + "</td>";
+				str1 += "</tr>";
+				
+				if(i==1)
+					lead = candidateResults[0].constVoteCount - candidateResults[i].constVoteCount;
 			}
-		}
-	}else{
-		str += "<tr><td colspan='5'>"+ response.customMessage +"</td></tr>"; 
-	}
-	
-	showPage('#pageCandidateListView');
-	$("#tableCandidateList tbody").html(str);
-}
 
-function getCandidateDetail(i)
-{
-	str  = "";
-	str += "<tr><td> Candidate ID </td> <td>:</td> 	<td>"+ candidatResults[i].candId + "</td></tr>";
-	str += "<tr><td> Candidate Name </td> <td>:</td><td>"+ candidatResults[i].candName + "</td></tr>";
-	str += "<tr><td> Candidate Bio </td> <td>:</td> <td>"+ candidatResults[i].candBio + "</td></tr>";
-	str += "<tr><td> Constituency </td> <td>:</td> 	<td>"+ candidatResults[i].constName + "</td></tr>";
-	str += "<tr><td> State </td> <td>:</td> 		<td>"+ candidatResults[i].constState + "</td></tr>";
-	str += "<tr><td> Enrolled Election</td> <td>:</td> <td>"+ candidatResults[i].eleTitle + "</td></tr>";
-	str += "<tr><td> Enrolled Election Description</td> <td>:</td> 	<td>"+ candidatResults[i].eleDesc + "</td></tr>";
-	
-	showPage('#pageCandDetailView');
-	$("#tableCandidateDetail").html(str);
-	
-	//populate hyperlinks
-	str = "";
-	str += "<button onclick=deleteCandidate("+i+")>Delete </button>"; 
-	$("#buttonArea").html(str);
-	
+			
+			str2 += "<tr> <td>Winner </td> <td>: </td> <td> " + candidateResults[0].candName + "</td></tr>" ;
+			str2 += "<tr> <td>Lead </td> <td>: </td> <td> " + lead + "</td></tr>" ;
+			str2 += "<tr> <td>Scored Votes / Total  </td> <td>: </td> <td> " + candidateResults[0].constVoteCount+ 
+						"/"+candidateResults[0].totalVoteCount + "</td></tr>" ;
+
+			
+		}else{
+			alert("No results found for the constituency selected");
+		}
+			
+
+		electionName  = getElectionNamePrivate(unitEleSelected);
+		constName = getConstNamePrivate(constSelected);
+		
+		showPage('#pageElectionResultDetailView');
+		$("#divResultsListStates").hide();
+		
+		$(".titleElectionName").html("<b>"+electionName+"</b>");
+		$(".titleLocationSelected").html("<b>"+constName+"</b>");
+		$(".tableWinnerDetail").html(str2);
+		$("#tableResultsListConsts tbody").html(str1);
+	}
 }
 
 
@@ -148,6 +151,7 @@ function getHomeContents(){
 	    		str = "<option value='none'> Information Unavailable</option>";
 	    	} 	
 	    	constsDropDownContent = str; //to global
+	    	constsListResponse = response;
 	    	populateHomeConstsDropDown();
 	    },
 	    error:function(){
@@ -167,6 +171,17 @@ function populateHomeConstsDropDown()
 	$('#in_srch_consts').html(constsDropDownContent);
 }
 
+function getConstNamePrivate(constId){
+	constituencies = constsListResponse.constsList;
+	for(i=0; i< constituencies.length; i++){
+		if (constituencies[i].constId == constId){
+			name = constituencies[i].constName +", " +constituencies[i].constState ;
+			return name;
+		}
+	}
+	
+}
+
 function getElectionsByConstituency(constId)
 {
 
@@ -180,6 +195,7 @@ function getElectionsByConstituency(constId)
 	    dataType: "json",
 	    data: jsonString,
 	    success: function(response) {
+	    	electionListResponse = response;
 	    	populateElectionDropDown(response);
 	    },
 	    error:function(){
@@ -211,4 +227,17 @@ function populateElectionDropDownError(){
 	str = "<option value='none'> Information Unavailable</option>";
 	$("#in_add_eles").html(str);
 }
+
+
+function getElectionNamePrivate(unitEleId){
+	elections = electionListResponse.electionList;
+	for(i=0; i< elections.length; i++){
+		if (elections[i].unitEleId == unitEleId){
+			name = elections[i].electTitle ;
+			return name;
+		}
+	}
+	
+}
+
 
