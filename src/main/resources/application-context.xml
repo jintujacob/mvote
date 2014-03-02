@@ -35,7 +35,7 @@
     </bean>
     
     <!--  Service Modules Bean Defenition -->
-    <bean id="accessControlService" class="com.hashin.project.service.AccessControlService"   /> 
+    <bean id="accessControlService" class="com.hashin.project.service.AccessControlServiceImpl"   /> 
     <bean id="electionMgmtService" class="com.hashin.project.service.ElectionManagementServiceImpl" />
     <bean id="onlineVotingService" class="com.hashin.project.service.OnlineVotingServiceImpl" />
     <bean id="userEnrollmentService" class="com.hashin.project.service.UserEnrollmentServiceImpl" />

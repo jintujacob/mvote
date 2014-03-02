@@ -53,8 +53,9 @@ public class AccessControlDAOImpl implements AccessControlDAO
     @Override
     public int validatedSystemUserCount(String uid, String password)
     {
-	// TODO Auto-generated method stub
-	return 0;
+	Object[] parameters = new Object[] {uid, password };
+	int rowCount = jdbcTemplate.queryForInt(SQLConstants.VERIFY_SYSTEM_USER_LOGIN_CRED, parameters);
+	return rowCount;
     }
 
     

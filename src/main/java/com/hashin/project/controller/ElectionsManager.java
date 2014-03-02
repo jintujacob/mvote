@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hashin.project.bean.ElectionStatesBean;
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsConstsBean;
+import com.hashin.project.bean.ElectionsResultsBean;
 import com.hashin.project.bean.FormListBean;
 import com.hashin.project.service.ElectionManagementService;
 
@@ -179,7 +180,29 @@ public class ElectionsManager {
 		logger.debug("<<____________ /deleteElection -> Results"+ formBean.toString());
 		return formBean;
 	}
+	
+	
 
+
+	@RequestMapping(value = "/getElectionResultsDetail", method = RequestMethod.POST)
+	public @ResponseBody FormListBean getElectionResultsDetail(@RequestBody ElectionsResultsBean rsltToFind) 
+	{
+		logger.debug(">>___________ /getElectionResultsDetail -> Search Params : " + rsltToFind.toString());
+		FormListBean results = new FormListBean();
+		
+		try{
+		    List<ElectionsResultsBean> resultsList = electionMgmtService.getElectionResultsDetailByConst(rsltToFind);
+		    results.setResultList(resultsList);
+		    results.setCustomMessage(CUSTOM_MSG);
+		    
+		}catch(Exception e){
+		    results.setCustomMessage("System Exception.Unable to update data on the server side");
+		}
+
+		logger.debug("<<____________ /getElectionResultsDetail -> Results"+ results.toString());
+		return results;
+	}
+	
 
 // END of the class
 }

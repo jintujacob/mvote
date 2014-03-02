@@ -118,6 +118,16 @@ public class SQLConstants {
 	public static String DELETE_ELE_IN_ELECTIONS = "update elections set delete_stat = ? where ele_id = ? " ;
 	
 	
+	public static String GET_TOTAL_VOTECOUNT_BY_CONSTITUENCY = " select count(*)  from elections_votingstats "
+		+ "where voting_stat='Y' and  ele_id = (select ele_id from elections_consts where unit_ele_id = ? ) ";
+	
+	
+	public static String GET_ELECTIONS_RESULTS_BY_CONSTITUENCY = "select ER.unit_ele_id, ER.vote_count, C.cand_id, "
+		+ "C.cand_name from elections_results ER, elections_candidates EC, candidates C "
+		+ "where ER.ele_cand_id = EC.ele_cand_id and EC.cand_id = C.cand_id and ER.unit_ele_id = ? "
+		+ "and C.delete_stat <> 'Y' " ;
+	
+	
 	/**
 	 * ------------------------------------------------------------------------------------------------------------
 	 * Queries for the Constituency table;
@@ -224,6 +234,10 @@ public class SQLConstants {
 	
 	public static String INSERT_CANDIDATE_IN_ELE_RESULTS = "insert into elections_results"
 		+ " (unit_ele_id, ele_cand_id, vote_count) values(?,?,?)";
+	
+	
+	public static String VERIFY_SYSTEM_USER_LOGIN_CRED = "select count(*) from system_users where uid= ?"
+		+ " and password= ? and user_active_stat='Y' ";
 	
 	
 }

@@ -11,6 +11,7 @@ import com.hashin.project.bean.ElectionStatesBean;
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
+import com.hashin.project.bean.ElectionsResultsBean;
 import com.hashin.project.controller.ElectionsManager;
 import com.hashin.project.dao.ElectionManagementDAO;
 
@@ -180,6 +181,20 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 		}
 	    }
 	    return null;
+	}
+
+	@Override
+	public List<ElectionsResultsBean> getElectionResultsDetailByConst(
+		ElectionsResultsBean rsltToFind)
+	{
+	    int totalVoteCount = electionsMgmtDao.getTotalVoteCountByConst(rsltToFind.getUnitEleId());
+	    List<ElectionsResultsBean> constResultList = electionsMgmtDao.getElectionResultsDetailByConst(rsltToFind.getUnitEleId());
+	    
+	    for(ElectionsResultsBean resltBean: constResultList){
+		resltBean.setTotalVoteCount(totalVoteCount+"");
+	    }
+	    
+	    return constResultList;
 	}
 
 	

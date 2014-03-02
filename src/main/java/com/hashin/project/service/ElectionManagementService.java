@@ -7,6 +7,7 @@ import com.hashin.project.bean.ElectionStatesBean;
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
+import com.hashin.project.bean.ElectionsResultsBean;
 
 public interface ElectionManagementService {
 /*
@@ -54,6 +55,9 @@ public interface ElectionManagementService {
 	public List<ElectionsConstsBean> getElectionsListByConst(ConstituenciesBean toFind) ;
 
 	public ElectionsCandidatesBean addNewCandidate(ElectionsCandidatesBean beanToAdd);
+
+	public List<ElectionsResultsBean> getElectionResultsDetailByConst(
+		ElectionsResultsBean rsltToFind);
 	
 	/* END Constituency Management API */
 	

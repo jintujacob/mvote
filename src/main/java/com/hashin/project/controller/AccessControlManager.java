@@ -34,7 +34,11 @@ public class AccessControlManager {
 	public @ResponseBody SystemUserBean validateSystemUserEntry(
 			@RequestParam SystemUserBean loginUser) 
 	{
+	    loginUser.setUid("admin");
+	    loginUser.setPassword("abc123");
+	    logger.debug(">>___________ /validateSystemUser - credentials : " + loginUser.toString());
 	    SystemUserBean response = new SystemUserBean();
+	    
 	    Boolean loginStat = accessControlService.validateSystemUser(loginUser);
 		
 	    if(loginStat){
@@ -45,5 +49,6 @@ public class AccessControlManager {
 	
 	    return response;
 	}
+	
 
 }

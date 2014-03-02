@@ -12,6 +12,7 @@ import com.hashin.project.bean.ElectionStatesBean;
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
+import com.hashin.project.bean.ElectionsResultsBean;
 
 /**
  * @author jintu.jacob@gmail.com Oct 29, 2013 ElectionManagementDAO
@@ -71,6 +72,11 @@ public interface ElectionManagementDAO {
 
 	public List<ConstituenciesBean> getConstsByStatesId(
 		List<ElectionStatesBean> stateList);
+
+	public int getTotalVoteCountByConst(String unitEleId);
+
+	public List<ElectionsResultsBean> getElectionResultsDetailByConst(String unitEleId);
+
 	
 	
 }

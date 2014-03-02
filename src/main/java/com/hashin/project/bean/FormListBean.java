@@ -17,9 +17,22 @@ public class FormListBean
     private List<ConstituenciesBean> constsList;
     private List<ElectionStatesBean> statesList;
     private List<ElectionsBean> electionBasicDetailList;
+    private List<ElectionsResultsBean> resultList;
+    
+   
     
     
     
+    public List<ElectionsResultsBean> getResultList()
+    {
+        return resultList;
+    }
+
+    public void setResultList(List<ElectionsResultsBean> resultList)
+    {
+        this.resultList = resultList;
+    }
+
     public List<ElectionsBean> getElectionBasicDetailList()
     {
         return electionBasicDetailList;
@@ -97,9 +110,12 @@ public class FormListBean
 	return "FormListBean [customMessage=" + customMessage
 		+ ", electionList=" + electionList + ", candidateList="
 		+ candidateList + ", voterList=" + voterList + ", constsList="
-		+ constsList + ", statesList=" + statesList + "]";
+		+ constsList + ", statesList=" + statesList
+		+ ", electionBasicDetailList=" + electionBasicDetailList
+		+ ", resultList=" + resultList + "]";
     }
 
+    
     
     
 }

@@ -28,17 +28,19 @@ import com.hashin.project.bean.ElectionStatesBean;
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
+import com.hashin.project.bean.ElectionsResultsBean;
 import com.hashin.project.util.CandidatesRowMapper;
 import com.hashin.project.util.ConstituencyMapper;
 import com.hashin.project.util.ElectionDetailRowMapper;
 import com.hashin.project.util.ElectionsCandidatesRowMapper;
 import com.hashin.project.util.ElectionsConstsMapper;
+import com.hashin.project.util.ElectionsResultsConstsRowMapper;
 import com.hashin.project.util.ElectionsStatesMapper;
 
 /**
  * @author jintu.jacob@gmail.com Oct 29, 2013 ElectionManagementDAOImpl
  */
-public class ElectionManagementDAOImpl implements ElectionManagementDAO
+public abstract class ElectionManagementDAOImpl implements ElectionManagementDAO
 {
     private static final Logger logger = Logger
 	    .getLogger(ElectionManagementDAOImpl.class);
@@ -489,6 +491,26 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	    return constList;
 	}
 
+	@Override
+	public int getTotalVoteCountByConst(String unitEleId )
+	{
+	    Object[] parameters = new Object[] { unitEleId };	    
+	    int totalVoteCount = 0;
+	    totalVoteCount =  jdbcTemplate.queryForInt(SQLConstants.GET_TOTAL_VOTECOUNT_BY_CONSTITUENCY, parameters);
+	    return totalVoteCount;
+	}
+
+	@Override
+	public List<ElectionsResultsBean> getElectionResultsDetailByConst(String unitEleId){
+	    
+	    List<ElectionsResultsBean> resultList = null;
+	    Object[] parameters = new Object[] { unitEleId };
+	    resultList = jdbcTemplate.query(
+			SQLConstants.GET_ELECTIONS_RESULTS_BY_CONSTITUENCY, parameters,
+			new ElectionsResultsConstsRowMapper());
+	    return resultList;
+		
+	}
 	 
 
 
