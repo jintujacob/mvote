@@ -40,7 +40,7 @@ import com.hashin.project.util.ElectionsStatesMapper;
 /**
  * @author jintu.jacob@gmail.com Oct 29, 2013 ElectionManagementDAOImpl
  */
-public abstract class ElectionManagementDAOImpl implements ElectionManagementDAO
+public class ElectionManagementDAOImpl implements ElectionManagementDAO
 {
     private static final Logger logger = Logger
 	    .getLogger(ElectionManagementDAOImpl.class);
