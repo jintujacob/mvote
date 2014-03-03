@@ -12,22 +12,77 @@
 <body>
 <div id="container">
     <div>
-        Election Operations
-        <button id= "home_load_elections_btn">Elections </button>
-        <button id= "home_load_candidate_btn">Candidates </button>
-        <button id= "home_load_constituency_btn">Constituency </button>
-        <button id= "home_load_results_btn">Results </button>
-        
-        <br>
-        Voter Enrollment functions 
-        <button id= "home_load_enrollvoter_btn">Enroll Voter </button>
-        <button id= "home_load_credmanager_btn">Credential Manager </button>
-        <button id= "home_load_votermgmt_btn">Voter List View </button>
-        
-        
+        <table align="center" >
+            <tr>
+                <td> Username</td>
+                <td> : </td>
+                <td> <input type="text" id="form_login_uid" /> </td>
+            </tr>
+            <tr>
+                <td> Password</td>
+                <td> : </td>
+                <td> <input type="text" id="form_login_pass" /> </td>
+            </tr>
+            
+            <tr>
+                <td colspan="3">  <input type="submit" id="form_login_submit" /> </td>
+            </tr>
+            
+            <tr>
+                <td colspan="3"> <p class="form_login_error_msg"> <!-- ajax it --></p> </td>
+            </tr>
+        </table>
     </div>
-    
-    <div id="dataLoadContainer">basic</div>
 </div>    
 </body>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $('#form_login_submit').click(function(){
+    	username =  $('#form_login_uid').val();
+    	password =  $('#form_login_pass').val();
+    	if(username != "" && password != ""){
+    		verifyUserLogin(username, password);	
+    	}else{
+    		$('.form_login_error_msg').html("Username and Password is mandatory");
+    	}
+    });
+     
+});
+
+function verifyUserLogin(username, password)
+{
+    obj = { "uid": username,
+            "password": password
+        };
+    jsonString =JSON.stringify(obj);
+    
+    $.ajax({
+        type: "POST",
+        url: 'http://localhost:8080/mvote/access/validateSystemUser',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: jsonString,
+        success: function(response) {
+            populateLoginResponse(response);
+        },
+        error:function(){
+            alert("Connection Error. Network failure or Server unavailable");
+        }
+    });    	
+}
+
+function populateLoginResponse(response)
+{
+    if(response.customMessage == "SUCCESS"){
+    	location.href = './ui/home.html?loginstat=true';
+    }else{
+    	$('.form_login_error_msg').html(response.customMessage);
+    }	
+}
+
+
+</script>
+
 </html>

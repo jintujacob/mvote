@@ -30,12 +30,10 @@ public class AccessControlManager {
 	private static final String CUSTOM_MSG = "SUCCESS";
 
 	
-	@RequestMapping(value = "/validateSystemUser", method = RequestMethod.GET)
+	@RequestMapping(value = "/validateSystemUser", method = RequestMethod.POST)
 	public @ResponseBody SystemUserBean validateSystemUserEntry(
 			@RequestParam SystemUserBean loginUser) 
 	{
-	    loginUser.setUid("admin");
-	    loginUser.setPassword("abc123");
 	    logger.debug(">>___________ /validateSystemUser - credentials : " + loginUser.toString());
 	    SystemUserBean response = new SystemUserBean();
 	    

@@ -12,12 +12,16 @@ public class SystemUserBean
     private String activeStatus;
     private String customMessage;
     
+   
+    
+
     @Override
     public String toString()
     {
 	return "SystemUserBean [uid=" + uid + ", nameFirst=" + nameFirst
 		+ ", nameLast=" + nameLast + ", email=" + email + ", password="
-		+ password + ", activeStatus=" + activeStatus + "]";
+		+ password + ", activeStatus=" + activeStatus
+		+ ", customMessage=" + customMessage + "]";
     }
 
     public String getUid()
