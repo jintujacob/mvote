@@ -71,7 +71,7 @@ function launch(){
 	if(logged != "true"){
 		location.href = '../index.html';
 	}else{
-		
+		showAll();
 	}
 }
 
@@ -92,6 +92,10 @@ function hideAll(){
 	$('#container').hide();
 }
 
+
+function showAll(){
+	$('#container').show();
+}
 
 </script>
 

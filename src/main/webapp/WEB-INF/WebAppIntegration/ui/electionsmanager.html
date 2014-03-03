@@ -66,7 +66,7 @@
 <body>
 <div id="container">
     <div id="pageElectionsHome">
-        pageElectionsHome<br>
+        Elections Manager<br>
        <span id="panelLeftHomePage">
            <p> 
                 <button id="goto_search_ele"> Search </button> <br/>
@@ -76,15 +76,9 @@
     
        <span id="panelRightHomePage">
             <div id="contentSearchElectionForm">
-                   contentSearchElectionForm <br><br>
-                   
+                   Search Elections	 <br><br>
                    Title :   <input type="text" id="in_find_ele"> <br>
-                   
-                   
-<!--                    Date :   <input type="text" id="in_find_ele"> <br>
-                   State : <select> <option> Choose any ...</option></select> <br>
- -->               
-                    <button id="btn_search_ele"> Find </button>
+                   <button id="btn_search_ele"> Find </button>
                    
             </div>
             <div id="contentAddElectionForm">
@@ -134,18 +128,16 @@
     
     <div id="pageElectionSearchSummary">
        pageElectionSearchSummary
-       <table>
+       <table id="tableElectionsSearchResults">
             <thead>
                 <tr>   
-                   <td>Heading1</td> <td>Heading2</td> <td>Heading3</td>  </tr>
+                   <td>Election Id </td> 
+                   <td>Title</td> 
+                   <td>Start Date</td> 
+                   <td>End Date</td>
+                   <td>Voter Enrollment Status</td>  </tr>
             </thead>
-            <tbody>
-                <!-- ajax it -->                
-                <tr> 
-                   <td><a id="content1"> content1 </a> </td>  <td> </td>  </tr>
-                <tr> 
-                   <td><a id="content2"> content2 </a> </td>  <td> </td>  </tr>
-            </tbody>
+            <tbody>  <!-- ajax it --> </tbody>
        </table>
        
     </div>
@@ -153,12 +145,12 @@
     <div id="pageElectionDetail">
         pageElectionDetail <br>
         <span id="panelLeftElectionDetail">
-            panelLeftElectionDetail
-            <div>
+            
+            <div id="tableBasicEleDetail">
                 Basic info
             </div>
-            <div>
-                States info    
+            <div id="divEleStatesList">
+                <p> Applicable States </p><br>    
             </div>
             
         </span>
@@ -183,7 +175,7 @@
 			
 			host  = "http://localhost:8080/mvote" ;
 			
-			
+			_elctionListResponse = "";
 			    
 			$(document).ready(function()
 			{
@@ -203,17 +195,10 @@
 			    $('#btn_search_ele').click(function(){
 			        searchKey = $("#in_find_ele").val();
 			        processElectionsSearch(searchKey);
-			        showPage('#pageElectionSearchSummary');
 			    });
 			    
 			    $('#btn_add_ele').click(function(){
 			        processElectionAddition();
-			    });
-			    
-			    $('#pageElectionSearchSummary a').click(function(){
-			        //call method on hyperlink
-			        electId = "33";
-			        populateElectionDetail(electId);
 			    });
 			    
 			    $('#btn_add_states').click(function(){
@@ -320,13 +305,7 @@
 			
 			}
 			
-			function populateElectionDetail(electId)
-			{
-			    getElectionDetailBasic(electId);
-			    getElectionDetailStates(electId);
-			    showPage('#pageElectionDetail');
-			
-			}
+		
 			
 			function submitElectionInfo()
 			{
@@ -419,6 +398,15 @@
 			}
 			
 			
+			function populateElectionDetail(electId)
+			{
+			    getElectionDetailBasic(electId);
+			    getElectionDetailStates(electId);
+			    showPage('#pageElectionDetail');
+			
+			}
+			
+			
 			function getElectionDetailBasic(electId)
 			{
 			    obj = { "electId": electId};
@@ -431,7 +419,7 @@
 			        dataType: "json",
 			        data: jsonString,
 			        success: function(response) {
-			            populateElectionList(response);
+			            populateBasicElectionDetail(response);
 			        },
 			        error: function(response){
 			            alert("Connection Error. Network failure or Server unavailable");
@@ -451,7 +439,7 @@
 			        dataType: "json",
 			        data: jsonString,
 			        success: function(response) {
-			            //populateElectionList(response);
+			            populateStatesElectionDetail(response);
 			        },
 			        error: function(response){
 			            alert("unable to connect");
@@ -460,6 +448,49 @@
 			}
 			
 			
+			function populateStatesElectionDetail(response)
+			{
+				listOfStates = response.statesList;
+				
+				str = "";
+				
+				if(response.customMessage = "SUCCESS"){
+					for(i=0; i<listOfStates.length; i++){
+						str += "<p>";
+						str += listOfStates[i].stateName ;
+						str += "</p>";
+					}
+					
+				}else{
+						str += "<tr><td> "+ response.customMessage +"</td></tr>";
+				}
+				
+				$('#divEleStatesList').append(str);
+				
+			
+			}
+			
+			function populateBasicElectionDetail(response){
+				
+				electionDetail = response;
+				str = "";
+				
+				if(electionDetail.customMessage = "SUCCESS"){
+					str += "<tr><td> Title </td> <td>:</td> <td>" +electionDetail.electTitle + "</td></tr>";
+					str += "<tr><td> Id </td> <td>:</td> <td>" +electionDetail.electId + "</td></tr>";
+					str += "<tr><td> Voter Enrollment status</td> <td>:</td> <td>" +electionDetail.voterEnrollStat + "</td></tr>";
+					str += "<tr><td> Start Date </td> <td>:</td> <td>" +electionDetail.electStartDate + "</td></tr>";
+					str += "<tr><td> End Date</td> <td>:</td> <td>" +electionDetail.electEndDate + "</td></tr>";
+					str += "<tr><td> Description</td> <td>:</td> <td>" +electionDetail.electDescription + "</td></tr>";
+				}else{
+						str += "<tr><td> "+ electionDetail.customMessage +"</td></tr>";
+				}
+				
+				$('#tableBasicEleDetail').html(str);
+			}
+			
+			
+						
 			
 			function processElectionAddition(){
 			    //get inputs , write to db, store info in js var
@@ -505,6 +536,7 @@
 			        dataType: "json",
 			        data: jsonString,
 			        success: function(response) {
+			        	_elctionListResponse = response;
 			            populateElectionList(response);
 			        },
 			        error: function(response){
@@ -515,32 +547,30 @@
 			
 			
 			
-			function populateElectionList(response){
-			/* str = "";
+			function populateElectionList(response)
+			{
+			 	str = "";
 			    if(response.customMessage == "SUCCESS")
 			    {
-			        _elctionList = response.electionList;
-			        if(_elctionList.length == 0)
-			        {
-			            str += "<tr><td colspan='5'> No Matches found! Please try again !</td></tr>";
-			        }else{
-			            for(i=0; i< _elctionList.length; i++){
+			        _elctionList = response.electionBasicDetailList;
+			        for(i=0; i< _elctionList.length; i++){
 			                str += "<tr>" ;
-			                str +=  "<td><a onclick=getVoterDetail('"+voterList[i].votersId+"')>"+voterList[i].votersId+"</a></td>" ;
-			                str +=  "<td>"+ voterList[i].name+"</td><td>"+ voterList[i].constituency+"</td>" ;
-			                str +=  "<td>"+voterList[i].place+"</td><td>"+ voterList[i].lockOutFlag+"</td>" ;
+			                str +=  "<td><a onclick=populateElectionDetail("+ _elctionList[i].electId+")>"
+			                			+ _elctionList[i].electId +"</a></a></td>" ;
+			                str +=  "<td>"+ _elctionList[i].electTitle+"</td><td>"+ _elctionList[i].electStartDate+"</td>" ;
+			                str +=  "<td>"+_elctionList[i].electEndDate+"</td><td>"+ _elctionList[i].voterEnrollStat+"</td>" ;
 			                str += "</tr>" ;
-			            }
 			        }
-			    }else if(response.customMessage == "FAILED"){
+			    }else {
 			        str += "<tr><td colspan='5'>"+ response.customMessage +"</td></tr>"; 
 			    }
 			    
-			*/  
+			    $('#tableElectionsSearchResults tbody').html(str);
+			    showPage('#pageElectionSearchSummary');
+			
 			}
 			
-			
-			
+	
 			function hideAll(){
 			    $('#pageElectionsHome').hide();
 			    $('#pageAddElectionStatesForm').hide();
