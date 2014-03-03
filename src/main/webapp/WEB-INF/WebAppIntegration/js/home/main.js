@@ -8,6 +8,10 @@ $(document).ready(function(){
 		$('#dataLoadContainer').load('./electionmgmt/constituencymanager.html');
 	});
 
+	$('#home_load_elections_btn').click(function(){
+		$('#dataLoadContainer').load('./electionmgmt/electionsmanager.html');
+	});
+
 	
 	
 });
