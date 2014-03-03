@@ -15,9 +15,15 @@ $(document).ready(function(){
 	$('#home_load_results_btn').click(function(){
 		$('#dataLoadContainer').load('./electionmgmt/resultsmanager.html');
 	});
-	
 
-	
+	$('#home_load_credmanager_btn').click(function(){
+		$('#dataLoadContainer').load('./enroll/credentialManager.html');
+	});
+
+	$('#home_load_enrollvoter_btn').click(function(){
+		$('#dataLoadContainer').load('./enroll/enrollUser.html');
+	});
+
 	
 });
 
