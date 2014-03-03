@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link rel="stylesheet"  href="../css/main.css" /> 
+    <link rel="stylesheet" href="../css/jquery-ui.css">
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <script src="../js/jquery-ui.min.js"></script>
+    
+</head>
+<body>
+<div id="container">
+    <div>
+        Election Operations
+        <button id= "home_load_elections_btn">Elections </button>
+        <button id= "home_load_candidate_btn">Candidates </button>
+        <button id= "home_load_constituency_btn">Constituency </button>
+        <button id= "home_load_results_btn">Results </button>
+        
+        <br>
+        Voter Enrollment functions 
+        <button id= "home_load_enrollvoter_btn">Enroll Voter </button>
+        <button id= "home_load_credmanager_btn">Credential Manager </button>
+        <button id= "home_load_votermgmt_btn">Voter List View </button>
+        
+        
+    </div>
+    
+    <div id="dataLoadContainer">basic</div>
+</div>    
+</body>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	hideAll();
+	launch();
+	
+    $('#home_load_candidate_btn').click(function(){
+        $('#dataLoadContainer').load('./candidatemanager.html');
+    });
+    
+    $('#home_load_constituency_btn').click(function(){
+        $('#dataLoadContainer').load('./constituencymanager.html');
+    });
+
+    $('#home_load_elections_btn').click(function(){
+        $('#dataLoadContainer').load('./electionsmanager.html');
+    });
+    
+    $('#home_load_results_btn').click(function(){
+        $('#dataLoadContainer').load('./resultsmanager.html');
+    });
+
+    $('#home_load_credmanager_btn').click(function(){
+        $('#dataLoadContainer').load('./credentialManager.html');
+    });
+
+    $('#home_load_enrollvoter_btn').click(function(){
+        $('#dataLoadContainer').load('./enrollUser.html');
+    });
+    
+    $('#home_load_votermgmt_btn').click(function(){
+        $('#dataLoadContainer').load('./manageVoters.html');
+    });
+});
+
+
+function launch(){
+	logged = $_GET("loginstat");
+	if(logged != "true"){
+		location.href = '../index.html';
+	}else{
+		
+	}
+}
+
+
+function $_GET(varName)
+{
+    varName = varName.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]" + varName + "=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( window.location.href );
+    if( results == null )
+        return "";
+    else
+        return results[1];
+}   
+
+function hideAll(){
+	$('#container').hide();
+}
+
+
+</script>
+
+</html>
