@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Candidates</title>
+    <link rel="stylesheet"  href="../css/electionmgmt/resultsmanager.css" /> 
+    <link rel="stylesheet" href="../css/jquery-ui.css">
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/electionmgmt/resultsmanager.js"></script>
+</head>
+<body>
+<div id="container">
+    <div id="pageElectionResultsHome">
+            <p id="toggle_list_const_form"> Get election results by constituency </p>
+            <div id="content_srchform_byconst">
+                   Get Results By Constituency <br><br>
+                   
+                   Constituency : <select id="in_srch_consts">   <!--  ajax it --> </select>    <br>
+                   Elections : <select id="in_srch_elections">   <!--  ajax it --> </select>    <br>
+                   <button id="btn_search_list_const"> Find </button>
+            </div>
+            
+            <!-- 
+            <p id="toggle_list_state_form"> Get election results by constituency </p>
+             -->
+            <div id="content_srchform_bystate">
+                   Get Results By State <br><br>
+                   
+                   State : <select id="in_srch_candconst">   <!--  ajax it --> </select>    <br>
+                   Elections : <select id="in_srch_candconst">   <!--  ajax it --> </select>    <br>
+                   <button id="btn_search_list_const"> Find </button>
+            </div>
+    </div>
+    
+    <div id="pageElectionResultsListView">
+       
+    </div>
+    
+    <div id="pageElectionResultDetailView">
+        <div id="divResultsListConsts">
+            Election Name : <p class = "titleElectionName" > </p>
+            Location : <p class = "titleLocationSelected" > </p>
+            <table class = "tableWinnerDetail">
+                <!-- ajax it  -->
+            </table>
+            
+            <table id="tableResultsListConsts">
+                <thead> <tr> <td>Candidate Id</td> <td>Candidate Name </td>  <td>Total Vote Count </td> <td>Scored Votes </td> </tr> </thead>
+                <tbody> <!-- ajax it --> </tbody>
+            </table>
+        </div>
+        
+        <div id="divResultsListStates">
+            <p class = "titleElectionName" > </p>
+            <p class = "titleLocationSelected" > </p>
+        
+            <table id="tableResultsListStates">
+                <thead> <tr> <td>ConstsId</td> <td>ConstName </td>  <td>Winner Name </td> </tr> </thead>
+                <tbody> <!-- ajax it --> </tbody>
+            </table>
+        </div>
+    </div>
+</div>    
+</body>
+</html>

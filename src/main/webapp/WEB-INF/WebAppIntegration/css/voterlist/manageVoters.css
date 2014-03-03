@@ -1,0 +1,57 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+
+div{
+    border: 1px solid black;
+}
+
+.clearLine{
+	clear:both;
+	margin:0px;
+	
+}    
+
+
+span{   
+	 float:left; 
+	 border:1px solid #ccc;    
+    }
+
+    
+
+#pageVoterManagerHome{
+	   overflow: auto;
+    }
+    #panelRightHomePage{
+         border:1px solid red;    
+         margin-left:20px;  
+         min-height: 300px;
+         width: 400px;
+    }
+
+#pageVoterListView td{
+	border:1px solid #ccc;
+	padding: 5px;
+	margin : 3px;
+}
+
+	#pageVoterListView a{
+		display: block;
+		padding:3px;
+		border:1px solid blue;
+	}
+	
+	    #pageVoterListView a:hover{
+            border:1px solid red;
+        }
+        
+		#pageVoterListView a:active{
+		    background:#ccc;
+		}
+		
+#pageVoterDetailView{
+	   overflow:auto;
+    }
+			
