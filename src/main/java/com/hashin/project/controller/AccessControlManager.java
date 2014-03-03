@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.FormListBean;
 import com.hashin.project.bean.SystemUserBean;
-import com.hashin.project.bean.VotersUserBean;
-import com.hashin.project.service.AccessControlService;;
+import com.hashin.project.service.AccessControlService;
 
 
 
@@ -29,15 +29,16 @@ public class AccessControlManager {
 			.getLogger(AccessControlManager.class);
 	private static final String CUSTOM_MSG = "SUCCESS";
 
-	
 	@RequestMapping(value = "/validateSystemUser", method = RequestMethod.POST)
-	public @ResponseBody SystemUserBean validateSystemUserEntry(
-			@RequestParam SystemUserBean loginUser) 
+	public @ResponseBody
+	SystemUserBean validateSystemUser(@RequestBody SystemUserBean toValidate) 
 	{
-	    logger.debug(">>___________ /validateSystemUser - credentials : " + loginUser.toString());
+	    logger.debug("inside accessuser");
+	    
+	    logger.debug(">>___________ /validateSystemUser - credentials : " + toValidate.toString());
 	    SystemUserBean response = new SystemUserBean();
 	    
-	    Boolean loginStat = accessControlService.validateSystemUser(loginUser);
+	    Boolean loginStat = accessControlService.validateSystemUser(toValidate);
 		
 	    if(loginStat){
 		response.setCustomMessage(CUSTOM_MSG);
