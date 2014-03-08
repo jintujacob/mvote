@@ -2,11 +2,60 @@
 <html>
 <head>
     <title>Home</title>
-    <link rel="stylesheet"  href="./css/main.css" /> 
     <link rel="stylesheet" href="./css/jquery-ui.css">
     <script src="./js/jquery-1.10.2.min.js"></script>
     <script src="./js/jquery-ui.min.js"></script>
     <script src="./js/main.js"></script>
+    
+    <style type="text/css">
+         *{
+            margin:0px;
+            padding:0px;
+        }
+        
+        #container div{
+            float:left;
+            margin: 100px 0px 0px 300px;
+            padding: 40px 50px 20px 50px;
+            border: 1px solid #ccc;
+            width:auto;
+        }
+        
+        .clearLine{
+            clear:both;
+            margin:0px;
+            
+        }    
+        
+        
+        span{   
+             float:left; 
+             border:1px solid #ccc;    
+         }
+
+        td {
+            padding: 5px;
+        }   
+            
+        .form_login_error_msg{
+            color:red;
+            padding-top: 3px;
+        }
+        
+        .form_login_success{
+              color:green;
+              padding-top: 3px;
+        }
+        
+        #form_login_submit {
+             float:right;
+             margin-right:1px;
+             padding : 1px 10px 1px 10px;
+        }
+    
+    
+    </style>
+    
     
 </head>
 <body>
@@ -25,11 +74,15 @@
             </tr>
             
             <tr>
-                <td colspan="3">  <input type="submit" id="form_login_submit" /> </td>
+                <td colspan="3">  <input type="submit" id="form_login_submit" value="Login" /> </td>
             </tr>
             
             <tr>
-                <td colspan="3"> <p class="form_login_error_msg"> <!-- ajax it --></p> </td>
+                <td colspan="3"> 
+                    <p class="form_login_error_msg"> <!-- ajax it --></p>
+                    <p class="form_login_success"> <!-- ajax it --></p> 
+                    
+                </td>
             </tr>
         </table>
     </div>
@@ -40,13 +93,13 @@
 
 $(document).ready(function(){
     $('#form_login_submit').click(function(){
-    	username =  $('#form_login_uid').val();
-    	password =  $('#form_login_pass').val();
-    	if(username != "" && password != ""){
-    		verifyUserLogin(username, password);	
-    	}else{
-    		$('.form_login_error_msg').html("Username and Password is mandatory");
-    	}
+        username =  $('#form_login_uid').val();
+        password =  $('#form_login_pass').val();
+        if(username != "" && password != ""){
+            verifyUserLogin(username, password);    
+        }else{
+            $('.form_login_error_msg').html("Username and Password is mandatory");
+        }
     });
 });
 
@@ -69,16 +122,19 @@ function verifyUserLogin(username, password)
         error:function(){
             alert("Connection Error. Network failure or Server unavailable");
         }
-    });    	
+    });     
 }
 
 function populateLoginResponse(response)
 {
     if(response.customMessage == "SUCCESS"){
-    	location.href = './ui/home.html?loginstat=true';
+        $('.form_login_error_msg').hide();
+        $('.form_login_success').html("Validation Success! Redirecting to Home Page");
+        location.href = './ui/home.html?loginstat=true';
     }else{
-    	$('.form_login_error_msg').html(response.customMessage);
-    }	
+        $('.form_login_success').hide();
+        $('.form_login_error_msg').html(response.customMessage);
+    }   
 }
 
 
