@@ -80,8 +80,8 @@ public class VoterListManagementServiceImpl implements
     public List<VotersUserBean> searchVoter(VotersUserBean userToSearch)
     {
 	// id, const, name, locout lag
-	logger.debug(">>________________inside searchVoter__________________");
-	logger.debug(">>___recieved query params:"+ userToSearch.getVotersId() +" , " 
+	logger.info(">>________________inside searchVoter__________________");
+	logger.info(">>___recieved query params:"+ userToSearch.getVotersId() +" , " 
 			+ userToSearch.getConstituency() +" , "+ userToSearch.getName()+ " , "+ userToSearch.getLockOutFlag() );
 	
 	List<VotersUserBean> voterList =  null;

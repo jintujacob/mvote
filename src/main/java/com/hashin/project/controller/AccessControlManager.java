@@ -33,9 +33,9 @@ public class AccessControlManager {
 	public @ResponseBody
 	SystemUserBean validateSystemUser(@RequestBody SystemUserBean toValidate) 
 	{
-	    logger.debug("inside accessuser");
+	    logger.info("inside accessuser");
 	    
-	    logger.debug(">>___________ /validateSystemUser - credentials : " + toValidate.toString());
+	    logger.info(">>___________ /validateSystemUser - credentials : " + toValidate.toString());
 	    SystemUserBean response = new SystemUserBean();
 	    
 	    Boolean loginStat = accessControlService.validateSystemUser(toValidate);

@@ -53,7 +53,7 @@ public class OnlineVoteMgmtDAOImpl implements OnlineVoteMgmtDAO
 
     Object[] parameters = new Object[] {voterEid, electionId};
 	int rowCount = jdbcTemplate.update(SQLConstants.UPDATE_VOTINGSTAT_BY_VOTINGPIN, parameters);
-	logger.debug("____________________rowcount for the update____________"+rowCount);
+	logger.info("____________________rowcount for the update____________"+rowCount);
 	
 	return rowCount;
     }

@@ -41,7 +41,7 @@ public class CandidatesManager {
 	@RequestMapping(value = "/searchCandidate", method = RequestMethod.POST)
 	public @ResponseBody
 	FormListBean searchElection(@RequestBody ElectionsCandidatesBean toSearch) {
-		logger.debug(">>___________ /searchCandidate - Search Params : " + toSearch.toString());
+		logger.info(">>___________ /searchCandidate - Search Params : " + toSearch.toString());
 
 		List<ElectionsCandidatesBean> candidateList = null;
 		FormListBean srchResult = new FormListBean();
@@ -56,17 +56,17 @@ public class CandidatesManager {
 			    srchResult.setCustomMessage("No Matches found");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception from backend -------> " + e.getMessage());
+			logger.info("Exception from backend -------> " + e.getMessage());
 			srchResult.setCustomMessage("Unable to perform requested opertation due to system exception");
 		}
-		logger.debug("<<___________ /searchCandidate - Results : " + srchResult.toString());
+		logger.info("<<___________ /searchCandidate - Results : " + srchResult.toString());
 		return srchResult;
 	}
 	
 	@RequestMapping(value = "/deleteCandidate", method = RequestMethod.POST)
 	public @ResponseBody
 	FormListBean deleteCandidate(@RequestBody ElectionsCandidatesBean toDelete) {
-		logger.debug(">>___________ /searchCandidate - Search Params : " + toDelete.toString());
+		logger.info(">>___________ /searchCandidate - Search Params : " + toDelete.toString());
 		FormListBean resultBean = new FormListBean();
 		
 		try {
@@ -79,11 +79,11 @@ public class CandidatesManager {
 			    	+ "Requested candidate not found!");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception from backend -------> " + e.getMessage());
+			logger.info("Exception from backend -------> " + e.getMessage());
 			resultBean.setCustomMessage("Unable to perform requested opertation due to system exception");
 		}
 		
-		logger.debug("<<___________ /searchCandidate - Results : " + resultBean.toString());
+		logger.info("<<___________ /searchCandidate - Results : " + resultBean.toString());
 		return resultBean;
 	}
 
@@ -91,7 +91,7 @@ public class CandidatesManager {
 	@RequestMapping(value = "/getElectionsByConst", method = RequestMethod.POST)
 	public @ResponseBody
 	FormListBean getAvailableElections(@RequestBody ConstituenciesBean toFind) {
-		logger.debug(">>___________ /getElectionsByConst "+ toFind.toString());
+		logger.info(">>___________ /getElectionsByConst "+ toFind.toString());
 		FormListBean resultBean = new FormListBean();
 		
 		try {
@@ -104,18 +104,18 @@ public class CandidatesManager {
 			    resultBean.setCustomMessage("No Available Elections.");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception from backend -------> " + e.getMessage());
+			logger.info("Exception from backend -------> " + e.getMessage());
 			resultBean.setCustomMessage("Unable to perform requested opertation due to system exception");
 		}
 		
-		logger.debug("<<___________ /getElectionsByConst - Results : " + resultBean.toString());
+		logger.info("<<___________ /getElectionsByConst - Results : " + resultBean.toString());
 		return resultBean;
 	}
 
 	@RequestMapping(value = "/addNewCandidate", method = RequestMethod.POST)
 	public @ResponseBody
 	FormListBean addNewCandidate(@RequestBody ElectionsCandidatesBean beanToAdd) {
-		logger.debug(">>___________ /addNewCandidate : recieved params:: "+ beanToAdd.toString());
+		logger.info(">>___________ /addNewCandidate : recieved params:: "+ beanToAdd.toString());
 		FormListBean resultBean = new FormListBean();
 		
 		try {
@@ -128,11 +128,11 @@ public class CandidatesManager {
 			    resultBean.setCustomMessage("No Available Elections.");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception from backend -------> " + e.getMessage());
+			logger.info("Exception from backend -------> " + e.getMessage());
 			resultBean.setCustomMessage("Unable to perform requested opertation due to system exception");
 		}
 		
-		logger.debug("<<___________ /addNewCandidate - Results : " + resultBean.toString());
+		logger.info("<<___________ /addNewCandidate - Results : " + resultBean.toString());
 		return resultBean;
 	}
 

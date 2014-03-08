@@ -54,7 +54,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 
     public Long addNewElection(final ElectionsBean election)
     {
-	 logger.debug(">>_____________/addNewElection | DAO -> " + election.toString());
+	 logger.info(">>_____________/addNewElection | DAO -> " + election.toString());
 	 Long ele_id = null;
 		try {
 			KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -77,10 +77,10 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 			}, keyHolder);
 
 			ele_id = keyHolder.getKey().longValue();
-			logger.debug(">>_____________/addNewElection | DAO -> Generated Election Id : " + ele_id);
+			logger.info(">>_____________/addNewElection | DAO -> Generated Election Id : " + ele_id);
 			return ele_id;
 		} catch (Exception e) {
-		    	logger.debug(">>_____________/addNewElection | DAO -> Exception, return null"); 
+		    	logger.info(">>_____________/addNewElection | DAO -> Exception, return null"); 
 			return null;
 		}
 
@@ -128,7 +128,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	List<ConstituenciesBean> constList = null;
 	constList = jdbcTemplate.query(SQLConstants.GET_ALL_CONSTS,
 		new ConstituencyMapper());
-	logger.debug("_______________________Fetched the constituecies list >> "
+	logger.info("_______________________Fetched the constituecies list >> "
 		+ constList.size());
 	return constList;
     }
@@ -201,16 +201,16 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	@Override
 	public List<ElectionStatesBean> getAllStatesForMenu() 
 	{
-	    	logger.debug(">>_____________/getAllStatesForMenu |DAO -> in getAllStatesFormenu:: ");
+	    	logger.info(">>_____________/getAllStatesForMenu |DAO -> in getAllStatesFormenu:: ");
 		List<ElectionStatesBean> statesList =  jdbcTemplate.query(
 			SQLConstants.GET_ALL_STATES, new ElectionsStatesMapper());
 		
 		if(statesList.size() > 0 ){
-		    logger.debug(">>_____________/getAllStatesForMenu |DAO -> states fetched :: "+ statesList.size());
+		    logger.info(">>_____________/getAllStatesForMenu |DAO -> states fetched :: "+ statesList.size());
 		    return statesList;
 		}
 
-		logger.debug(">>_____________/getAllStatesForMenu |DAO -> No States found ! ");
+		logger.info(">>_____________/getAllStatesForMenu |DAO -> No States found ! ");
 		return null;
 	}
 
@@ -270,7 +270,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 		final List<ConstituenciesBean> constsList)
 	{
 	    
-	    logger.debug(">>_____________/createUnitElections |DAO -> input params :: "
+	    logger.info(">>_____________/createUnitElections |DAO -> input params :: "
 		    	+ "eleid: " +electId + "states List Size: " + constsList.size());
 	    
 	    int[] rowNum = jdbcTemplate.batchUpdate(
@@ -288,7 +288,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 			}
 		    } );
 	    
-	    logger.debug(">>_____________createUnitElections() |DAO -> update impact: "
+	    logger.info(">>_____________createUnitElections() |DAO -> update impact: "
 	    	+ ""+ Arrays.toString(rowNum));
 	    return rowNum[rowNum.length - 1];   
 	}
@@ -299,7 +299,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 		List<ElectionStatesBean> stateList)
 	{
 	    
-	    logger.debug(">>_____________/addNewElection |DAO -> input params :: "
+	    logger.info(">>_____________/addNewElection |DAO -> input params :: "
 		    	+ "eleid: " +electId + "states List Size: " + stateList.size());
 	    
 	    List<String> paramList = new ArrayList<String>();
@@ -329,12 +329,12 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 			+ "(select CON.const_id from constituencies CON, elections_states STA "
 			+ "where CON.const_state = STA.st_id and STA.st_id in("+ qMarks + ")) as test";
 
-	    logger.debug(">>_____________/addNewElection |DAO -> Query constructed :: "+ SQL);
-	    logger.debug(">>_____________/addNewElection |DAO -> Parameters :: "+ Arrays.toString(parameters));	    
+	    logger.info(">>_____________/addNewElection |DAO -> Query constructed :: "+ SQL);
+	    logger.info(">>_____________/addNewElection |DAO -> Parameters :: "+ Arrays.toString(parameters));	    
 	    
 	    int numRows = jdbcTemplate.update(SQL,paramList);
 	    
-	    logger.debug(">>_____________/addNewElection |DAO -> number Rows:: "+ numRows);
+	    logger.info(">>_____________/addNewElection |DAO -> number Rows:: "+ numRows);
 	    return numRows;
 	}
 */
@@ -342,7 +342,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	public List<ConstituenciesBean> searchConstsByName(String constName)
 	{
 	    	constName = "%" + constName + "%";
-	    	logger.debug("___________ /searchConsts/DAO"+ constName);
+	    	logger.info("___________ /searchConsts/DAO"+ constName);
 	    	Object[] parameters = new Object[] { constName };
 		List<ConstituenciesBean> constList =  jdbcTemplate.query(
 			SQLConstants.GET_CONSTS_BY_NAME, parameters,
@@ -360,7 +360,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 		String candName, String constId)throws Exception
 	{
 	    	
-	    	logger.debug("___________ /searchCandidateByNameConst/DAO:"+ candName +"|"+ constId+"|");
+	    	logger.info("___________ /searchCandidateByNameConst/DAO:"+ candName +"|"+ constId+"|");
 	    	Object[] parameters = new Object[] { 
 	    		"%"+ candName + "%", 
 	    		"%"+ constId + "%"
@@ -407,10 +407,10 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 			}, keyHolder);
 
 			candidateId = keyHolder.getKey().longValue();
-			logger.debug("___________________Autogenerated key >>  "+ candidateId);
+			logger.info("___________________Autogenerated key >>  "+ candidateId);
 			return candidateId;
 		} catch (Exception e) {
-			logger.debug("________________DAO Exception User already enrolled >> ");
+			logger.info("________________DAO Exception User already enrolled >> ");
 			return null;
 		}
 	
@@ -436,10 +436,10 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 			}, keyHolder);
 
 			ele_cand_id = keyHolder.getKey().longValue();
-			logger.debug("___________________Autogenerated key >>  "+ ele_cand_id);
+			logger.info("___________________Autogenerated key >>  "+ ele_cand_id);
 			return ele_cand_id;
 		} catch (Exception e) {
-			logger.debug("________________DAO Exception User already enrolled >> ");
+			logger.info("________________DAO Exception User already enrolled >> ");
 			return null;
 		}
 	}
@@ -461,7 +461,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	public List<ConstituenciesBean> getConstsByStatesId(
 		List<ElectionStatesBean> stateList)
 	{
-	    logger.debug("__________DAO:getConstsByStatesId|incoming params>> "+ stateList.toString());
+	    logger.info("__________DAO:getConstsByStatesId|incoming params>> "+ stateList.toString());
 	    List<ConstituenciesBean> constList = null;
 	    List<String> paramList = new ArrayList<String>();
 	    StringBuilder qMarks = new StringBuilder("");
@@ -483,11 +483,11 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	    	+ "where CON.const_state = ST.st_id "
 	    	+ "and ST.st_id in (" + qMarks + ") ";
 
-	    logger.debug("__________DAO:getConstsByStatesId/Query >> "+ SQL);
+	    logger.info("__________DAO:getConstsByStatesId/Query >> "+ SQL);
 	    
 	    constList =  jdbcTemplate.query(SQL, paramList.toArray(), new ConstituencyMapper());
 	    
-	    logger.debug("__________DAO:getConstsByStatesId/ Result>> "+ constList.toString());
+	    logger.info("__________DAO:getConstsByStatesId/ Result>> "+ constList.toString());
 	    return constList;
 	}
 
@@ -498,7 +498,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	    Object[] parameters = new Object[] { unitEleId };	    
 	    int totalVoteCount = 0;
 	    totalVoteCount =  jdbcTemplate.queryForInt(SQLConstants.GET_TOTAL_VOTECOUNT_BY_CONSTITUENCY, parameters);
-	    logger.debug("__________DAO:getConstsByStatesId/ totalVoteCount>> "+ totalVoteCount);
+	    logger.info("__________DAO:getConstsByStatesId/ totalVoteCount>> "+ totalVoteCount);
 	    return totalVoteCount;
 	}
 	

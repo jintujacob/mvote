@@ -37,7 +37,7 @@ public class UserEnrollmentManager {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getHomeAction() {
-		logger.debug("in UserEnrollmentManager default");
+		logger.info("in UserEnrollmentManager default");
 		return null;
 	}
 
@@ -64,7 +64,7 @@ public class UserEnrollmentManager {
 	@RequestMapping(value = "/getVoterInfoById", method = RequestMethod.POST)
 	public @ResponseBody
 	VotersUserBean getVoterInfoById(@RequestBody VotersUserBean voterToSearch) {
-		logger.debug(">>__________________recieved query params:"
+		logger.info(">>__________________recieved query params:"
 				+ voterToSearch.getVotersId());
 
 		VotersUserBean voterDetail = null;
@@ -97,7 +97,7 @@ public class UserEnrollmentManager {
 	public @ResponseBody
 	VotersAdhaarUserBean generateElectionId(
 			@RequestBody VotersAdhaarUserBean userToEnroll) {
-		logger.debug(">>_________recieved params___> "
+		logger.info(">>_________recieved params___> "
 				+ userToEnroll.getVotersId() + "," + userToEnroll.getAdhaarId());
 
 		VotersAdhaarUserBean enrolledUser = new VotersAdhaarUserBean();
@@ -131,7 +131,7 @@ public class UserEnrollmentManager {
 	public @ResponseBody
 	VotersAdhaarUserBean getUserEnrollmentInfo(@RequestBody VotersAdhaarUserBean usrToFind) 
 	{
-		logger.debug(">>________________ Recieved > " + usrToFind.geteElectionId()
+		logger.info(">>________________ Recieved > " + usrToFind.geteElectionId()
 				+ "," + usrToFind.getAdhaarId());
 
 		VotersAdhaarUserBean usrDetail = new VotersAdhaarUserBean();
@@ -142,7 +142,7 @@ public class UserEnrollmentManager {
 			try {
 				usrToFind = userEnrollmentService.getUserEnrollmentInfo(usrToFind);
 			} catch (Exception e) {
-				logger.debug("________________info fetch exception___________________________");
+				logger.info("________________info fetch exception___________________________");
 				usrToFind = null;
 			}
 			if(usrToFind != null){
@@ -162,7 +162,7 @@ public class UserEnrollmentManager {
 	@RequestMapping(value = "/changePinById", method = RequestMethod.POST)
 	public @ResponseBody
 	VotersAdhaarUserBean changeUserPin(@RequestBody VotersAdhaarUserBean updateUser) {
-		logger.debug(">>________________ Recieved >" + updateUser.geteElectionId()
+		logger.info(">>________________ Recieved >" + updateUser.geteElectionId()
 				+ "," + updateUser.getVotingPIN()+ "," + updateUser.getAdhaarId());
 
 		VotersAdhaarUserBean uiResponse = new VotersAdhaarUserBean();

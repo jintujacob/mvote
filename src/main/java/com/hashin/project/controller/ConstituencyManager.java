@@ -26,7 +26,7 @@ public class ConstituencyManager {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getHomeAction() {
-		logger.debug("in ConstituencyManager");
+		logger.info("in ConstituencyManager");
 		return null;
 	}
 
@@ -34,7 +34,7 @@ public class ConstituencyManager {
 	@RequestMapping(value = "/getAllConsts", method = RequestMethod.POST)
 	public @ResponseBody
 	FormListBean getAllConstituencies() {
-		logger.debug(">>_____________fetch all consts ");
+		logger.info(">>_____________fetch all consts ");
 		FormListBean constList =  new FormListBean();
 		
 		List<ConstituenciesBean> consts =  electionMgmtService.getAllConsts();
@@ -52,7 +52,7 @@ public class ConstituencyManager {
 	@RequestMapping(value = "/searchConsts", method = RequestMethod.POST)
 	public @ResponseBody FormListBean deleteElection(@RequestBody ConstituenciesBean toSearch) 
 	{
-		logger.debug(">>___________ /searchConsts -> Search Params : " + toSearch.toString());
+		logger.info(">>___________ /searchConsts -> Search Params : " + toSearch.toString());
 		FormListBean formBean = new FormListBean();
 		try{
 		    List<ConstituenciesBean> results = electionMgmtService.searchConstsByName(toSearch);
@@ -66,7 +66,7 @@ public class ConstituencyManager {
 		    formBean.setCustomMessage("System Exception.Unable to retreive data from server.");
 		}
 
-		logger.debug("<<____________ /searchConsts -> Results"+ formBean.toString());
+		logger.info("<<____________ /searchConsts -> Results"+ formBean.toString());
 		return formBean;
 	}
 

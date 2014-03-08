@@ -62,7 +62,7 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	@Override
 	public ElectionsBean addNewElection(ElectionsBean eleToFind, List<ElectionStatesBean> stateList)
 	{
- 	    logger.debug(">>_____________/addNewElection//service -> Search Params : " + eleToFind.toString());
+ 	    logger.info(">>_____________/addNewElection//service -> Search Params : " + eleToFind.toString());
 	    Long genElectionId = electionsMgmtDao.addNewElection(eleToFind);
 	    int statsUnitEleCreation = 0;
 	    List<ConstituenciesBean> constList = null;
@@ -95,22 +95,22 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	    int electionTableflag = 0;
 	    
 	    if(enrlstatus != true){
-		logger.debug("_____________________not enrolled_________________________");
+		logger.info("_____________________not enrolled_________________________");
 		votingstatTableflag = electionsMgmtDao.enrollVotersForElection(eleToFind.getElectId());
 		if(votingstatTableflag >0 ){
 			electionTableflag = electionsMgmtDao.updateEnrlmntStatusForElection(eleToFind.getElectId());		    
 		}
 	    }
 	    else{
-		logger.debug("_____________________already enrolled_________________________");
+		logger.info("_____________________already enrolled_________________________");
 		enrolledStatus.setCustomMessage("Unable to perform requested operation. Enrollment already completed");
 	    }
 	    
 	    if(electionTableflag > 0){
-		logger.debug("_____________________newly enrolled_________________________");
+		logger.info("_____________________newly enrolled_________________________");
 		enrolledStatus.setCustomMessage("SUCCESS");
 	    }else{
-		logger.debug("_____________________enroll failed due to sys_________________________");
+		logger.info("_____________________enroll failed due to sys_________________________");
 		enrolledStatus.setCustomMessage("Unable to perform requested operation. Database Error");
 	    }
 	    return enrolledStatus;
@@ -189,7 +189,7 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 		ElectionsResultsBean rsltToFind)
 	{
 	    int totalVoteCount = electionsMgmtDao.getTotalVoteCountByConst(rsltToFind.getUnitEleId());
-	    logger.debug(">>_______________totalVotecount for "+rsltToFind.getUnitEleId()+ ">> "+totalVoteCount);
+	    logger.info(">>_______________totalVotecount for "+rsltToFind.getUnitEleId()+ ">> "+totalVoteCount);
 	    
 	    List<ElectionsResultsBean> constResultList = electionsMgmtDao.getElectionResultsDetailByConst(rsltToFind.getUnitEleId());
 	    
@@ -198,7 +198,7 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	    
 	    for(ElectionsResultsBean bean: constResultList){
 		bean.setTotalVoteCount(totalVoteCount+"");
-		logger.debug(bean.toString());
+		logger.info(bean.toString());
 		modifiedList.add(bean);
 		
 	    }

@@ -41,7 +41,7 @@ public class OnlineVotingServiceImpl implements OnlineVotingService {
 	{
 	    	Boolean isValidUser = false;
 	    	
-	    	logger.debug("__________1 - calling getEnrollmentStatus(votingPin, adhaarId, voterId)");
+	    	logger.info("__________1 - calling getEnrollmentStatus(votingPin, adhaarId, voterId)");
 		votingPin =  Encryption.getInstance().encrypt(votingPin);
 		if (getEnrollmentStatus(eElectionId, votingPin)) {
 		    isValidUser = true;

@@ -35,7 +35,7 @@ public class ElectionsManager {
 	@RequestMapping(value = "/searchElection", method = RequestMethod.POST)
 	public @ResponseBody
 	FormListBean searchElection(@RequestBody ElectionsBean toSearch) {
-		logger.debug(">>___________ /searchElection - Search Params : " + toSearch.toString());
+		logger.info(">>___________ /searchElection - Search Params : " + toSearch.toString());
 
 		List<ElectionsBean> electionList = null;
 		FormListBean elections = new FormListBean();
@@ -44,7 +44,7 @@ public class ElectionsManager {
 			electionList = electionMgmtService.searchElection(toSearch);
 
 		} catch (Exception e) {
-			logger.debug("Exception from backend -------> " + e.getMessage());
+			logger.info("Exception from backend -------> " + e.getMessage());
 			elections.setCustomMessage("Unable to perform requested Operation");
 		}
 		if (electionList != null) {
@@ -56,7 +56,7 @@ public class ElectionsManager {
 			// user
 			elections.setCustomMessage("No Elections Available");
 		}
-		logger.debug("<<___________ /searchElection - Results : " + elections.toString());
+		logger.info("<<___________ /searchElection - Results : " + elections.toString());
 		return elections;
 	}
 	
@@ -65,7 +65,7 @@ public class ElectionsManager {
 	public @ResponseBody
 	ElectionsBean getElectionDetailById(@RequestBody ElectionsBean eleToFind) 
 	{
-		logger.debug(">>___________ /getElectionDetail - Search Params : " + eleToFind.toString());
+		logger.info(">>___________ /getElectionDetail - Search Params : " + eleToFind.toString());
 		
 		ElectionsBean eleDetails =  electionMgmtService.getElectionDetail(eleToFind);
 		if(eleDetails != null) {
@@ -76,14 +76,14 @@ public class ElectionsManager {
 		    eleDetails.setCustomMessage("No Election Detail available!"); 
 		}
 		
-		logger.debug("<<___________ /getElectionDetail - Results : " + eleDetails.toString());
+		logger.info("<<___________ /getElectionDetail - Results : " + eleDetails.toString());
 		return eleDetails;
 	}
 
 	@RequestMapping(value = "/getStatesListByElection", method = RequestMethod.POST)
 	public @ResponseBody FormListBean getStatesListByElection(@RequestBody ElectionsBean eleToFind) 
 	{
-		logger.debug(">>___________ Search Params : " + eleToFind.toString());
+		logger.info(">>___________ Search Params : " + eleToFind.toString());
 		FormListBean formBean = new FormListBean();
 		
 		List<ElectionStatesBean> statesList = electionMgmtService.getStatesByElectionId(eleToFind);
@@ -95,7 +95,7 @@ public class ElectionsManager {
 		    formBean.setCustomMessage("No states Added for the searched Election!");
 		}
 
-		logger.debug("<<____________ /getStatesListByElection Results"+ formBean.toString());
+		logger.info("<<____________ /getStatesListByElection Results"+ formBean.toString());
 		return formBean;
 	}
 
@@ -103,7 +103,7 @@ public class ElectionsManager {
 	@RequestMapping(value = "/getAllStates", method = RequestMethod.POST)
 	public @ResponseBody FormListBean getAllStates() 
 	{
-		logger.debug(">>___________ /getAllStates-> Search Params : " + null);
+		logger.info(">>___________ /getAllStates-> Search Params : " + null);
 		FormListBean formBean = new FormListBean();
 		
 		List<ElectionStatesBean> statesList = electionMgmtService.getAllStatesForMenu();
@@ -115,14 +115,14 @@ public class ElectionsManager {
 		    formBean.setCustomMessage("Unable to fetch States List!");
 		}
 
-		logger.debug("<<____________ /getAllStates -> Results"+ formBean.toString());
+		logger.info("<<____________ /getAllStates -> Results"+ formBean.toString());
 		return formBean;
 	}
 	
 	@RequestMapping(value = "/addNewElection", method = RequestMethod.POST)
 	public @ResponseBody FormListBean addNewElection(@RequestBody ElectionsBean eleToFind) 
 	{
-		logger.debug(">>_____________/addNewElection -> Search Params : " + eleToFind.toString());
+		logger.info(">>_____________/addNewElection -> Search Params : " + eleToFind.toString());
 		FormListBean formBean = new FormListBean();
 		try{
 		    
@@ -142,14 +142,14 @@ public class ElectionsManager {
 		    formBean.setCustomMessage("System Exception.Unable to update data on the server side");
 		}
 
-		logger.debug("<<____________ /getAllStates -> Results"+ formBean.toString());
+		logger.info("<<____________ /getAllStates -> Results"+ formBean.toString());
 		return formBean;
 	}
 	
 	@RequestMapping(value = "/enrollVotersForElection", method = RequestMethod.POST)
 	public @ResponseBody FormListBean enrollVotersForElection(@RequestBody ElectionsBean eleToFind) 
 	{
-		logger.debug(">>___________ /enrollVotersForElection -> Search Params : " + eleToFind);
+		logger.info(">>___________ /enrollVotersForElection -> Search Params : " + eleToFind);
 		FormListBean formBean = new FormListBean();
 		try{
 		    ElectionsBean eleResp = electionMgmtService.enrollVotersForElection(eleToFind);
@@ -159,7 +159,7 @@ public class ElectionsManager {
 		    formBean.setCustomMessage("System Exception.Unable to update data on the server side");
 		}
 
-		logger.debug("<<____________ /enrollVotersForElection -> Results"+ formBean.toString());
+		logger.info("<<____________ /enrollVotersForElection -> Results"+ formBean.toString());
 		return formBean;
 	}
 
@@ -167,7 +167,7 @@ public class ElectionsManager {
 	@RequestMapping(value = "/deleteElection", method = RequestMethod.POST)
 	public @ResponseBody FormListBean deleteElection(@RequestBody ElectionsBean eleToDelete) 
 	{
-		logger.debug(">>___________ /deleteElection -> Search Params : " + eleToDelete);
+		logger.info(">>___________ /deleteElection -> Search Params : " + eleToDelete);
 		FormListBean formBean = new FormListBean();
 		try{
 		    ElectionsBean eleResp = electionMgmtService.deleteElection(eleToDelete);
@@ -177,7 +177,7 @@ public class ElectionsManager {
 		    formBean.setCustomMessage("System Exception.Unable to update data on the server side");
 		}
 
-		logger.debug("<<____________ /deleteElection -> Results"+ formBean.toString());
+		logger.info("<<____________ /deleteElection -> Results"+ formBean.toString());
 		return formBean;
 	}
 	
@@ -187,7 +187,7 @@ public class ElectionsManager {
 	@RequestMapping(value = "/getElectionResultsDetail", method = RequestMethod.POST)
 	public @ResponseBody FormListBean getElectionResultsDetail(@RequestBody ElectionsResultsBean rsltToFind) 
 	{
-		logger.debug(">>___________ /getElectionResultsDetail -> Search Params : " + rsltToFind.toString());
+		logger.info(">>___________ /getElectionResultsDetail -> Search Params : " + rsltToFind.toString());
 		FormListBean results = new FormListBean();
 		
 		try{
@@ -199,7 +199,7 @@ public class ElectionsManager {
 		    results.setCustomMessage("System Exception.Unable to update data on the server side");
 		}
 
-		logger.debug("<<____________ /getElectionResultsDetail -> Results"+ results.toString());
+		logger.info("<<____________ /getElectionResultsDetail -> Results"+ results.toString());
 		return results;
 	}
 	

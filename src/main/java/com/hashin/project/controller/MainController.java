@@ -35,7 +35,7 @@ public class MainController {
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody CandidatesBean get() 
 	{
-	     logger.debug("####################################");
+	     logger.info("####################################");
 	      CandidatesBean person = new CandidatesBean();
 	      person.setCandId("1");
 	      person.setCandName("Jintu");
@@ -47,7 +47,7 @@ public class MainController {
 	public @ResponseBody String dopost() 
 	{
 	 
-	    logger.debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+	    logger.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	    JSONObject json = new JSONObject();
 	    json.put("city", "Mumbai");
 	    json.put("country", "India");

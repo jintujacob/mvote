@@ -32,7 +32,7 @@ public class UserEnrollmentServiceImpl implements UserEnrollmentService {
 	public VotersAdhaarUserBean manageUserEnrollement(
 			VotersAdhaarUserBean verifiedUser) throws Exception 
 	{
-		logger.debug(">>______________ UserEnrollmentServiceImpl.manageUserEnrollement service methode called____________> ");
+		logger.info(">>______________ UserEnrollmentServiceImpl.manageUserEnrollement service methode called____________> ");
 		VotersAdhaarUserBean enrolled = null;
 
 		verifiedUser.setLockOutFlag("F");
@@ -67,13 +67,13 @@ public class UserEnrollmentServiceImpl implements UserEnrollmentService {
 			throws Exception
 	{
 		VotersAdhaarUserBean userBean =  userEnrollmentDao.getEnrolledUserDetail(usrToFind);
-		logger.debug("___________________encrypted PIN from DB >> "+ userBean.getVotingPIN());
+		logger.info("___________________encrypted PIN from DB >> "+ userBean.getVotingPIN());
 		if(userBean !=null){
 			String encryptedPin = userBean.getVotingPIN(); //pin stored in DB
 			String decryptedPin =  Encryption.getInstance().decrypt(encryptedPin); 
 			userBean.setVotingPIN(decryptedPin); // storing decrypted pin 
 			
-			logger.debug("__________________decrypted PIN set to bean >> "+userBean.getVotingPIN());
+			logger.info("__________________decrypted PIN set to bean >> "+userBean.getVotingPIN());
 		}
 		return userBean;
 	}
@@ -83,10 +83,10 @@ public class UserEnrollmentServiceImpl implements UserEnrollmentService {
 			throws Exception
 	{
 		
-		logger.debug("__________________PIN set by User >> "+user.getVotingPIN());
+		logger.info("__________________PIN set by User >> "+user.getVotingPIN());
 		String encryptedPin = Encryption.getInstance().encrypt(user.getVotingPIN());
 		user.setVotingPIN(encryptedPin);
-		logger.debug("__________________encrypted PIN  >> "+user.getVotingPIN());
+		logger.info("__________________encrypted PIN  >> "+user.getVotingPIN());
 		if(userEnrollmentDao.udpateVotersAdhaarUserByPIN(user) == 0){
 			return null;
 		}

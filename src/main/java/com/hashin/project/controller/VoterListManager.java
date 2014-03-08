@@ -29,7 +29,7 @@ public class VoterListManager {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getHomeAction() {
-		logger.debug("in VotersList management Module");
+		logger.info("in VotersList management Module");
 		// do something
 		return null;
 	}
@@ -44,7 +44,7 @@ public class VoterListManager {
 	@RequestMapping(value = "/searchVoter", method = RequestMethod.POST)
 	public @ResponseBody
 	FormListBean searchVoter(@RequestBody VotersUserBean voterform) {
-		logger.debug(">>__________________recieved query params:"
+		logger.info(">>__________________recieved query params:"
 				+ voterform.getVotersId() + " , " + voterform.getConstituency()
 				+ " , " + voterform.getName() + " , "
 				+ voterform.getLockOutFlag());
@@ -66,7 +66,7 @@ public class VoterListManager {
 	@RequestMapping(value = "/getVoterInfoById", method = RequestMethod.POST)
 	public @ResponseBody
 	VotersUserBean getVoterInfoById(@RequestBody VotersUserBean voterToSearch) {
-		logger.debug(">>__________________recieved query params:"
+		logger.info(">>__________________recieved query params:"
 				+ voterToSearch.getVotersId());
 
 		VotersUserBean voterDetail = null;
@@ -84,7 +84,7 @@ public class VoterListManager {
 	@RequestMapping(value = "/activateVoter", method = RequestMethod.POST)
 	public @ResponseBody
 	VotersUserBean activateVoter(@RequestBody VotersUserBean voterToActivate) {
-		logger.debug(">>__________________recieved query params:"
+		logger.info(">>__________________recieved query params:"
 				+ voterToActivate.getVotersId()+ "/" + voterToActivate.getLockOutFlag());
 
 		VotersUserBean voterDetail = null;
@@ -101,7 +101,7 @@ public class VoterListManager {
 	@RequestMapping(value = "/deActivateVoter", method = RequestMethod.POST)
 	public @ResponseBody
 	VotersUserBean deActivateVoter(@RequestBody VotersUserBean voterToBlock) {
-		logger.debug(">>__________________recieved query params:"
+		logger.info(">>__________________recieved query params:"
 				+ voterToBlock.getVotersId());
 
 		VotersUserBean voterDetail = null;

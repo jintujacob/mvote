@@ -36,8 +36,8 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO {
 		userList = jdbcTemplate.query(SQLConstants.GET_VOTER_INFO_BY_VOTERID,
 				parameters, new VotersRowMapper());
 
-		logger.debug("VoterListManagementDAOImpl #getVoterUserById Query=> executed");
-		logger.debug("VoterListManagementDAOImpl #getVoterUserById resultCount => "
+		logger.info("VoterListManagementDAOImpl #getVoterUserById Query=> executed");
+		logger.info("VoterListManagementDAOImpl #getVoterUserById resultCount => "
 				+ userList.size());
 
 		if (userList.size() == 0) {
@@ -55,9 +55,9 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO {
 
 		numRows = jdbcTemplate.update(SQLConstants.INSERT_NEW_VOTER_IN_VOTERS,
 				parameters);
-		logger.debug("VoterListManagementDAOImpl #insertNewVoter Query=> "
+		logger.info("VoterListManagementDAOImpl #insertNewVoter Query=> "
 				+ SQLConstants.INSERT_NEW_VOTER_IN_VOTERS + "executed");
-		logger.debug("VoterListManagementDAOImpl #insertNewVoter result => "
+		logger.info("VoterListManagementDAOImpl #insertNewVoter result => "
 				+ numRows);
 
 		return numRows;
@@ -84,8 +84,8 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO {
 				SQLConstants.SEARCH_VOTERS_BY_MULTIPLE_PARAMS, parameters,
 				new VotersAdvancedRowMapper());
 
-		logger.debug("VoterListManagementDAOImpl #searchVoter Query=> executed");
-		logger.debug("VoterListManagementDAOImpl #searchVoter result count=> "
+		logger.info("VoterListManagementDAOImpl #searchVoter Query=> executed");
+		logger.info("VoterListManagementDAOImpl #searchVoter result count=> "
 				+ userList.size());
 		return userList;
 	}
@@ -100,8 +100,8 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO {
 		userList = jdbcTemplate.query(SQLConstants.GET_VOTER_DETAIL_BY_ID,
 				parameters, new VotersAdvancedRowMapper());
 
-		logger.debug("VoterListManagementDAOImpl #getVoterDetailById Query=> executed");
-		logger.debug("VoterListManagementDAOImpl #getVoterDetailById result count=> "
+		logger.info("VoterListManagementDAOImpl #getVoterDetailById Query=> executed");
+		logger.info("VoterListManagementDAOImpl #getVoterDetailById result count=> "
 				+ userList.size());
 		if (userList.size() == 0) {
 			return null;
@@ -121,7 +121,7 @@ public class VoterListManagementDAOImpl implements VoterListManagementDAO {
 
 		numRows = jdbcTemplate.update(SQLConstants.UPDATE_VOTER_STATUS_IN_ENROLLMENT_TBL,
 				parameters);
-		logger.debug("VoterListManagementDAOImpl #insertNewVoter resultCount => "+ numRows);
+		logger.info("VoterListManagementDAOImpl #insertNewVoter resultCount => "+ numRows);
 
 		return numRows;
 	}

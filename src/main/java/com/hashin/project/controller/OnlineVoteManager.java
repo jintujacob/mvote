@@ -30,7 +30,7 @@ public class OnlineVoteManager
     @RequestMapping( method = RequestMethod.GET)
     public String getHomeAction() 
     {
-	logger.debug("in Online Voting Module");
+	logger.info("in Online Voting Module");
 	return null;
     }   
     
@@ -41,7 +41,7 @@ public class OnlineVoteManager
     @RequestMapping(value="/verifyLogin", method = RequestMethod.POST)
     public @ResponseBody FormListBean verifyUserLogin(@RequestBody VotersAdhaarUserBean loginUser)
     {
-	logger.debug(">>___________ "+ loginUser.geteElectionId()+" >"+loginUser.getVotingPIN());
+	logger.info(">>___________ "+ loginUser.geteElectionId()+" >"+loginUser.getVotingPIN());
 	
 	List<ElectionsConstsBean> electionList = null;
 	FormListBean elections = new FormListBean();
@@ -52,7 +52,7 @@ public class OnlineVoteManager
 	    else
 		elections.setCustomMessage("FAILED");
 	} catch (Exception e) {
-		logger.debug("Exception from backend -------> " + e.getMessage());
+		logger.info("Exception from backend -------> " + e.getMessage());
 		elections.setCustomMessage("Unable to perform requested Operation");
 	}
 	//electionList = onlineVotingService.manageVoterEntry( "VPIN444", "UID444", "v444");
@@ -71,7 +71,7 @@ public class OnlineVoteManager
     public @ResponseBody FormListBean getCandidatesByUnitElection(
 	    @RequestBody FormBeanGetCandidates formBean)
     {
-	logger.debug(">________recieved____: " + formBean.getVotingPIN()+", "+ 
+	logger.info(">________recieved____: " + formBean.getVotingPIN()+", "+ 
 		formBean.getElectionId()+", "+ formBean.getUnitElectionId());
 	List<ElectionsCandidatesBean> candidateList = null;
 	FormListBean candidates = new FormListBean();
@@ -93,7 +93,7 @@ public class OnlineVoteManager
     public @ResponseBody FormListBean submitVoteforCandidate( 
 	    @RequestBody FormBeanGetCandidates formBean)
     {
-	logger.debug(">________recieved____: " + formBean.getVotingPIN()+", "+ 
+	logger.info(">________recieved____: " + formBean.getVotingPIN()+", "+ 
 		formBean.getElectionId()+", "+ formBean.getCandidateId());
 	FormListBean votingStat = new FormListBean();
 	

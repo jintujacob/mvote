@@ -3,8 +3,27 @@
     padding:0px;
 }
 
+/* 
 div{
     border: 1px solid black;
+}
+ */
+ 
+#container{
+	margin-left:50px;
+	margin-right:50px;
+	border: 1px solid #ccc;
+} 
+ 
+#headerRibbon{
+    height: 20px; 
+    border-bottom: 1px solid #cccfff;	
+}
+
+
+.menuContainer{
+	width:49%;
+	float:left;
 }
 
 .clearLine{
@@ -12,6 +31,11 @@ div{
     margin:0px;
     
 }    
+
+#dataLoadContainer{
+	overflow:auto;
+	
+}
 
 
 span{   
