@@ -2,21 +2,40 @@
 <html>
 <head>
     <title>Home</title>
-    <link rel="stylesheet"  href="../css/main1.css" /> 
+    <link rel="stylesheet"  href="../css/main.css" /> 
     <link rel="stylesheet" href="../css/jquery-ui.css">
     <script src="../js/jquery-1.10.2.min.js"></script>
     <script src="../js/jquery-ui.min.js"></script>
     
 </head>
 <body>
-<div id="container">
+<div id="homecontainer">
     
     
     <div>
-        <div id="headerRibbon"> header ribbon : logout button</div>
+        <div id="headerRibbon"> 
+            <img id="exitIcon" src="../images/exit.png" >
+            <img id="helpIcon" src="../images/help.png" >
+            <img id="userIcon" src="../images/user.jpeg" >
+            <img id="homeIcon" src="../images/home.png" >
+            
+            <p>
+                <b>Election Management Dashboard </b> 
+            </p>
+            
+        </div>
         <div class="clearLine"></div>
+        
         <div class="menuContainer">
             Election Operations <br>
+            <p> 
+                A paragraph about the paragraph of paragraph in the paragraph will definitely make sensee 
+                of another paragraph or a chain of paragraphs arraged as paragraphs in a page.
+                A paragraph about the paragraph of paragraph in the paragraph will definitely make sensee 
+                of another paragraph or a chain of paragraphs arraged as paragraphs in a page.
+                A paragraph about the paragraph of paragraph in the paragraph will definitely make sensee 
+                of another paragraph or a chain of paragraphs arraged as paragraphs in a page.
+            </p>
 	        <button id= "home_load_elections_btn">Elections </button>
 	        <button id= "home_load_candidate_btn">Candidates </button>
 	        <button id= "home_load_constituency_btn">Constituency </button>
@@ -24,7 +43,19 @@
         </div>
                
         <div class="menuContainer">
-            Voter Enrollment functions <br> 
+            
+            Voter Enrollment operations <br> 
+            
+            <p> 
+                A paragraph about the paragraph of paragraph in the paragraph will definitely make sensee 
+                of another paragraph or a chain of paragraphs arraged as paragraphs in a page.
+                A paragraph about the paragraph of paragraph in the paragraph will definitely make sensee 
+                of another paragraph or a chain of paragraphs arraged as paragraphs in a page.
+                A paragraph about the paragraph of paragraph in the paragraph will definitely make sensee 
+                of another paragraph or a chain of paragraphs arraged as paragraphs in a page.
+            </p>
+            
+            
 	        <button id= "home_load_enrollvoter_btn">Enroll Voter </button>
 	        <button id= "home_load_credmanager_btn">Credential Manager </button>
 	        <button id= "home_load_votermgmt_btn">Voter List View </button>
@@ -33,44 +64,69 @@
     
     <div class="clearLine"></div>
     
-    <div id="dataLoadContainer">basic</div>
+    <div id="dataLoadContainer">data load container</div>
 </div>    
 </body>
 
 <script type="text/javascript">
 
 $(document).ready(function(){
-	hideAll();
 	launch();
 	
+	
+	//-------------- start of loader events-------------------------// 
+	
     $('#home_load_candidate_btn').click(function(){
-        $('#dataLoadContainer').load('./candidatemanager.html');
+        loadDataContainer("candidatemanager.html");
     });
     
     $('#home_load_constituency_btn').click(function(){
-        $('#dataLoadContainer').load('./constituencymanager.html');
+        loadDataContainer("constituencymanager.html");
     });
 
     $('#home_load_elections_btn').click(function(){
-        $('#dataLoadContainer').load('./electionsmanager.html');
+        loadDataContainer("electionsmanager.html");
     });
     
     $('#home_load_results_btn').click(function(){
-        $('#dataLoadContainer').load('./resultsmanager.html');
+        loadDataContainer("resultsmanager.html");
     });
 
     $('#home_load_credmanager_btn').click(function(){
-        $('#dataLoadContainer').load('./credentialManager.html');
+        loadDataContainer("credentialManager.html");
     });
 
     $('#home_load_enrollvoter_btn').click(function(){
-        $('#dataLoadContainer').load('./enrollUser.html');
+    	loadDataContainer("enrollUser.html");
     });
     
     $('#home_load_votermgmt_btn').click(function(){
-        $('#dataLoadContainer').load('./manageVoters.html');
+        loadDataContainer("manageVoters.html");
     });
+    
+    $('#userIcon').click(function(){
+        loadDataContainer("manageSystemUsers.html");
+    });
+
+    $('#helpIcon').click(function(){
+        loadDataContainer("helpAndSupport.html");
+    });
+
+ 
+    //--------------------end of loader events------------------------//
+    
+    $('#homeIcon').click(function(){
+        $('#dataLoadContainer').hide("medium");
+        $('.menuContainer').show("medium");
+    });
+
+
+
+    
+    
 });
+
+
 
 
 function launch(){
@@ -78,7 +134,7 @@ function launch(){
 	if(logged != "true"){
 		location.href = '../index.html';
 	}else{
-		showAll();
+		showHome();
 	}
 }
 
@@ -95,14 +151,24 @@ function $_GET(varName)
         return results[1];
 }   
 
-function hideAll(){
-	$('#container').hide();
+
+function showHome(){
+	$('#homecontainer').show();
+	$('#dataLoadContainer').hide();
+    $('.menuContainer').show("medium");
+}
+
+function loadDataContainer(pageURI)
+{
+	   url = "./" + pageURI;
+	   $('.menuContainer').hide("medium");
+	   $('#dataLoadContainer').show("medium");
+	   $('#dataLoadContainer').load(url);
 }
 
 
-function showAll(){
-	$('#container').show();
-}
+
+
 
 </script>
 

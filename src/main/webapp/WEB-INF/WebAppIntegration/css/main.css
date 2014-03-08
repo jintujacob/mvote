@@ -9,22 +9,84 @@ div{
 }
  */
  
-#container{
+#homecontainer{
+	margin-top:10px;
 	margin-left:50px;
 	margin-right:50px;
 	border: 1px solid #ccc;
+	width:1100px;
 } 
  
 #headerRibbon{
-    height: 20px; 
-    border-bottom: 1px solid #cccfff;	
+	margin:5px 0px 5px 0px;
+	height:100px;
+    border-bottom: 1px solid #cccfff;
+    overflow:auto;  
+}
+
+#headerRibbon img{
+	float:right;
+	margin-right:10px;
+}
+
+#homeIcon{
+	height:70px;
+	width:75px;
+}
+
+#exitIcon{
+	margin-top:5px;
+	margin-left:30px;
+	height:33px;
+    width:33px;
+}
+
+#userIcon{
+    margin-top:5px;
+    height:35px;
+    width:35px;
+}
+
+#helpIcon{
+    margin-top:5px;
+    height:33px;
+    width:33px;
+}
+
+
+#headerRibbon p{
+    float:left;	
+    margin-top: 5px;
+    padding-top: 3px;
+    padding-left: 20px;
+    font-size: 23px;
+    font-family:Verdana;
+    max-width: 600px;
+       
 }
 
 
 .menuContainer{
-	width:49%;
+	width:450px;
 	float:left;
+	padding: 50px;
+	min-height: 400px;
+	overflow:auto;
 }
+
+
+.menuContainer p{
+	padding: 10px 10px 10px 0px;
+	font-size: 10px;
+	font-family:Verdana;
+	text-align: justify;
+}
+
+.menuContainer button{
+    margin-right : 10px;
+    padding:3px;
+}
+
 
 .clearLine{
     clear:both;
@@ -34,13 +96,16 @@ div{
 
 #dataLoadContainer{
 	overflow:auto;
-	
+	padding-left:55px;
+	border-top:1px solid #ccc;
 }
 
 
 span{   
      float:left; 
-     border:1px solid #ccc;    
+     /* 
+     border:1px solid #ccc;
+      */    
     }
 
     
