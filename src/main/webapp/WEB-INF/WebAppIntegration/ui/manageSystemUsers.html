@@ -63,9 +63,9 @@ function adduser(uid,nameFirst,nameLast,email,password, usertype){
 	    
 	jsonString =JSON.stringify(obj);
 	console.log(jsonString);
-	/* $.ajax({
+	 $.ajax({
         type: "POST",
-        url: 'http://localhost:8080/mvote/candidates/searchCandidate',
+        url: 'http://localhost:8080/mvote/access/addSystemUser',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: jsonString,
@@ -75,7 +75,7 @@ function adduser(uid,nameFirst,nameLast,email,password, usertype){
         error:function(){
             alert("Connection Error. Network failure or Server unavailable");
         }
-    });  */
+    });  
 }})
 </script>
 </body>
