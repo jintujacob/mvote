@@ -49,5 +49,26 @@ public class AccessControlManager {
 	    return response;
 	}
 	
+	@RequestMapping(value = "/addSystemUser", method = RequestMethod.POST)
+	public @ResponseBody
+	SystemUserBean addSystemUser(@RequestBody SystemUserBean toadd) 
+	{
+	    logger.info("inside accessuser");
+	    
+	    logger.info(">>___________ /addSystemUser - credentials : " + toadd.toString());
+	    SystemUserBean response = new SystemUserBean();
+	    
+	    Boolean addStat = accessControlService.addSystemUser(toadd);
+		
+	    if(addStat){
+		response.setCustomMessage(CUSTOM_MSG);
+	    }else{
+		response.setCustomMessage("Unable to login. Invalid Credentials provided. ");
+	    }
+	
+	    return response;
+	}
+	
+	
 
 }

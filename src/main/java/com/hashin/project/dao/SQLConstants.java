@@ -240,5 +240,8 @@ public class SQLConstants {
 	public static String VERIFY_SYSTEM_USER_LOGIN_CRED = "select count(*) from system_users where uid= ?"
 		+ " and password= ? and user_active_stat='Y' ";
 	
+	public static String INSERT_NEW_SYSTEM_USER = "insert into system_user "
+			+ "(uid,nameFirst,nameLast, email, password,user_active_stat,user_type) "
+			+ "values (?,?, ?, ?, ?, ?,?)" ;
 	
 }

@@ -12,5 +12,7 @@ import com.hashin.project.bean.SystemUserBean;
 public interface AccessControlService {
 
     Boolean validateSystemUser(SystemUserBean loginUser);
+
+	Boolean addSystemUser(SystemUserBean toadd);
 	
 }

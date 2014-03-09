@@ -28,6 +28,7 @@ import com.hashin.project.bean.ElectionStatesBean;
 import com.hashin.project.bean.ElectionsBean;
 import com.hashin.project.bean.ElectionsCandidatesBean;
 import com.hashin.project.bean.ElectionsConstsBean;
+import com.hashin.project.bean.SystemUserBean;
 import com.hashin.project.util.CandidatesRowMapper;
 import com.hashin.project.util.ConstituencyMapper;
 import com.hashin.project.util.ElectionDetailRowMapper;
@@ -57,7 +58,21 @@ public class AccessControlDAOImpl implements AccessControlDAO
 	int rowCount = jdbcTemplate.queryForInt(SQLConstants.VERIFY_SYSTEM_USER_LOGIN_CRED, parameters);
 	return rowCount;
     }
-
+    public int addSystemUser(SystemUserBean toadd)
+    {
+    	 Object[] parameters = new Object[] { 
+    			   toadd.getUid(),
+    			   toadd.getNameFirst(),
+    			   toadd.getNameLast(),
+    			   toadd.getEmail(),
+    			   toadd.getPassword(),
+    			   'Y',
+    			   toadd.getUserType()
+    			};
+    		    int numRows = jdbcTemplate.update(SQLConstants.INSERT_NEW_SYSTEM_USER,
+    				parameters);
+    		    return numRows;
+    }
     
 
 }

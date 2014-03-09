@@ -35,6 +35,16 @@ public class AccessControlServiceImpl implements AccessControlService {
 	    }
 	    return false;
 	}
+
+	@Override
+	public Boolean addSystemUser(SystemUserBean toadd) {
+		// TODO Auto-generated method stub
+		Boolean returnflag=false;
+		int rowCount=accessControlDAO.addSystemUser(toadd);
+		if(rowCount>0)
+			returnflag=true;
+		return returnflag;
+	}
 	
 	
 }
