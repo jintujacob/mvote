@@ -11,11 +11,26 @@ public class SystemUserBean
     private String password;
     private String activeStatus;
     private String customMessage;
+    private String userType;
     
    
     
 
-    @Override
+    public String getUserType() {
+		return userType;
+	}
+
+
+
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+
+
+
+	@Override
     public String toString()
     {
 	return "SystemUserBean [uid=" + uid + ", nameFirst=" + nameFirst
