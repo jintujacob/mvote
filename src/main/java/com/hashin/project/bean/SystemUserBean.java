@@ -21,25 +21,9 @@ public class SystemUserBean
 	}
 
 
-
-
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
-
-
-
-
-	@Override
-    public String toString()
-    {
-	return "SystemUserBean [uid=" + uid + ", nameFirst=" + nameFirst
-		+ ", nameLast=" + nameLast + ", email=" + email + ", password="
-		+ password + ", activeStatus=" + activeStatus
-		+ ", customMessage=" + customMessage + "]";
-    }
-
-
 
 
     public String getUid()
@@ -149,6 +133,17 @@ public class SystemUserBean
     public void setCustomMessage(String customMessage)
     {
         this.customMessage = customMessage;
+    }
+
+
+    @Override
+    public String toString()
+    {
+	return "SystemUserBean [uid=" + uid + ", nameFirst=" + nameFirst
+		+ ", nameLast=" + nameLast + ", email=" + email + ", password="
+		+ password + ", activeStatus=" + activeStatus
+		+ ", customMessage=" + customMessage + ", userType=" + userType
+		+ "]";
     }
 
 

@@ -66,12 +66,12 @@ public class AccessControlDAOImpl implements AccessControlDAO
     			   toadd.getNameLast(),
     			   toadd.getEmail(),
     			   toadd.getPassword(),
-    			   'Y',
+    			   "Y",
     			   toadd.getUserType()
     			};
-    		    int numRows = jdbcTemplate.update(SQLConstants.INSERT_NEW_SYSTEM_USER,
+    	int numRows = jdbcTemplate.update(SQLConstants.INSERT_NEW_SYSTEM_USER,
     				parameters);
-    		    return numRows;
+    	return numRows;
     }
     
 
