@@ -272,7 +272,7 @@
             <div class="tableHeadingInSpan"> Operations </div>
             <button id="btn_delete"> Delete</button> <br>
             <button id="btn_enroll_voters"> Start Election </button><br>
-            <button id="btn_enroll_voters"> Stop Election </button><br>
+            <button id="btn_stop_ele"> Stop Election </button><br>
         </span>
     </div>
 </div>    
@@ -337,6 +337,13 @@
 			        alert('gotClicked');
 			        alert($("#pageAddElectionStatesForm input[type=checkbox]").val());
 			    });
+			    
+			    $('.btn_stop_ele').click(function(){
+                    alert("Voting process ended. Voters will not be able to vote for this election from now on.");
+                });
+                
+			    
+			    
 			            
 			    
 			});
