@@ -10,8 +10,8 @@
 	
 	#pageVoterListView td{
 	    border:1px solid #ccc;
-	    padding: 5px;
-	    margin : 3px;
+	    padding-left: 3px;
+	    padding-right: 3px;
 	}
 	
 	    #pageVoterListView a{
@@ -44,6 +44,28 @@ select{
 #contentSearchVoterForm table td{
     padding: 3px;
 }
+
+
+.btn_backto_home{
+    width: 200px;
+        float:right;
+        border: 1px solid blue;
+        padding: 2px 5px 2px 5px;
+        text-align: center;
+}
+
+#tableVoterList{
+    width: 100%;
+}
+
+#tableVoterList thead td{
+    background: #585858;
+    color :white;
+    font-family:Verdana;
+    font-size: 14px;
+    padding: 5px ;
+   
+}           
 
 	        
 </style>
@@ -99,8 +121,11 @@ select{
  	</div>
 	
 	<div id="pageVoterListView">
-	    pageVoterListView
-	    <div class="clearLine"> <button class="btn_backto_home"> Back to Search</button> </div>
+        
+	    <div class="btn_backto_home"> Back to Search</button> </div>
+	    <p class="containerSubHeading">
+              <b> Search Voters</b>
+         </p>
 	    <table id="tableVoterList">
 	        <thead>
 	            <tr>   
@@ -342,11 +367,15 @@ select{
 	            str += "<tr><td colspan='5'> No Matches found! Please try again !</td></tr>";
 	        }else
 	        {
-	            for(i=0; i<voterList.length; i++){
+	            for(i=0; i<voterList.length; i++)
+	            {
+	            	if(voterList[i].lockOutFlag == "F"){
+	                    statusFlag = "Active";
+	                }
 	                str += "<tr>" ;
 	                str +=  "<td><a onclick=getVoterDetail('"+voterList[i].votersId+"')>"+voterList[i].votersId+"</a></td>" ;
 	                str +=  "<td>"+ voterList[i].name+"</td><td>"+ voterList[i].constituency+"</td>" ;
-	                str +=  "<td>"+voterList[i].place+"</td><td>"+ voterList[i].lockOutFlag+"</td>" ;
+	                str +=  "<td>"+voterList[i].place+"</td><td>"+ statusFlag+"</td>" ;
 	                str += "</tr>" ;
 	            }
 	        }
