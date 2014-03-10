@@ -220,6 +220,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	    Object[] parameters = new Object[] { electId };
 	    int numRows = jdbcTemplate.update(SQLConstants.BATCH_RUN_INSERT_VOTERS_TO_VOTINGSTAT,
 			parameters);
+	    logger.info(">>_____________/batchenroll _____"+numRows);
 	    return numRows;
 	 
 	}

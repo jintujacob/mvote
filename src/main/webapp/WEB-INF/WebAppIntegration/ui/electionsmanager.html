@@ -283,6 +283,7 @@
 			__addFromDt = "";
 			__addToDt = "";
 			
+			__detailPageEleId = "";
 			
 			__allStates = "";
 			
@@ -321,13 +322,12 @@
 			    });
 			    
 			    $('#btn_enroll_voters').click(function(){
-			        electId = "33";
-			        enrollVotersForElection(electId);
+			        enrollVotersForElection(__detailPageEleId);
 			    });
 			    
 			    $('#btn_delete').click(function(){
 			        electId = "33";
-			        deleteElection(electId);
+			        deleteElection(__detailPageEleId);
 			    });
 			
                 $('.bck_to_home').click(function(){
@@ -580,6 +580,8 @@
 				
 				electionDetail = response;
 				str = "";
+				
+				__detailPageEleId = electionDetail.electId;
 				
 				if(electionDetail.customMessage = "SUCCESS"){
 					str += "<tr><td align='right'> Title :</td> <td>" +electionDetail.electTitle + "</td></tr>";
