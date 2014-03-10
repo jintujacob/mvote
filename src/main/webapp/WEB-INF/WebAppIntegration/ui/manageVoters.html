@@ -64,9 +64,26 @@ select{
     font-family:Verdana;
     font-size: 14px;
     padding: 5px ;
-   
 }           
 
+
+
+#buttonArea button{
+    height: 30px;
+    width: 200px; 
+    padding: 2px;
+}
+
+#tableVoterDetail{
+    width: 500px;
+}
+
+
+#tableVoterDetail td{
+    padding: 2px;
+    border: 1px solid #ccc;
+    
+}
 	        
 </style>
 
@@ -138,17 +155,18 @@ select{
 	</div>
 	
 	<div id="pageVoterDetailView">
-	       panelLeftDetailPage  <br><br>
+	       <div class="btn_backto_home"> Voter Look Up</button> </div>
+            <p class="containerSubHeading">
+              <b> Voter Details</b>
+            </p>
+	       
 	       <table id="tableVoterDetail">  <!-- ajax it  -->  </table>
-	       <div class="clearLine" >
+	       
+	       <div id="buttonArea" >
                <button id="btn_activate"> Activate </button> <br/>
                <button id="btn_deactivate"> Deactivate </button> <br/>
 	       </div>
 	       
-	       <div class="clearLine" >
-               <button class="btn_backto_home"> Back to Home </button> <br/>
-               <!-- <button class="btn_backto_reslt"> Back to Search Results </button> --> <br/>
-           </div>
 	</div>
 </div>
 
@@ -303,13 +321,13 @@ select{
 	            statusFlag = "Active";
 	        }
 	        
-	        str += "<tr><td> Name </td> <td>:</td>          <td>"+ voterDetail.name + "</td></tr>";
-	        str += "<tr><td> Voters Id </td> <td>:</td>     <td>"+ voterDetail.votersId + "</td></tr>";
-	        str += "<tr><td> constituency</td><td>:</td>    <td>"+ voterDetail.constituency+ "</td></tr>";
-	        str += "<tr><td> Status </td> <td>:</td>        <td>"+ statusFlag + "</td></tr>";
-	        str += "<tr><td> Place </td> <td>:</td>         <td>"+ voterDetail.place + "</td></tr>";
-	        str += "<tr><td> E - Election ID </td><td>:</td> <td>"+ "unavailable" + "</td></tr>";
-	        str += "<tr><td> adhaar ID </td>    <td>:</td>   <td>"+ voterDetail.adhaarId + "</td></tr>";
+	        str += "<tr><td> Name :</td>          <td>"+ voterDetail.name + "</td></tr>";
+	        str += "<tr><td> Voters Id:</td>     <td>"+ voterDetail.votersId + "</td></tr>";
+	        str += "<tr><td> constituency:</td>    <td>"+ voterDetail.constituency+ "</td></tr>";
+	        str += "<tr><td> Status :</td>        <td>"+ statusFlag + "</td></tr>";
+	        str += "<tr><td> Place :</td>         <td>"+ voterDetail.place + "</td></tr>";
+	        str += "<tr><td> E - Election ID:</td> <td>"+ "unavailable" + "</td></tr>";
+	        str += "<tr><td> adhaar ID :</td>   <td>"+ voterDetail.adhaarId + "</td></tr>";
 	    }
 	    else{
 	        str += "<tr><td colspan='5'>"+ voterDetail.customMessage +"</td></tr>"; 
