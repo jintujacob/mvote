@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 02, 2014 at 10:49 PM
+-- Generation Time: Mar 10, 2014 at 03:42 PM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `elections` (
   `vtr_enrl_stat` varchar(2) NOT NULL,
   `delete_stat` varchar(2) NOT NULL,
   PRIMARY KEY (`ele_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `elections`
@@ -175,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `elections_consts` (
   PRIMARY KEY (`unit_ele_id`),
   KEY `ele_id` (`ele_id`),
   KEY `const_id` (`const_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=403 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=409 ;
 
 --
 -- Dumping data for table `elections_consts`
@@ -265,16 +265,22 @@ CREATE TABLE IF NOT EXISTS `elections_votingstats` (
   `voting_stat` varchar(2) NOT NULL,
   PRIMARY KEY (`ev_id`),
   KEY `ele_id` (`ele_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=55 ;
 
 --
 -- Dumping data for table `elections_votingstats`
 --
 
 INSERT INTO `elections_votingstats` (`ev_id`, `e_election_id`, `ele_id`, `voting_stat`) VALUES
-(46, 888855556678, 1, 'N'),
-(47, 888855556679, 1, 'N'),
-(48, 888855556680, 1, 'N');
+(46, 888855556678, 1, 'Y'),
+(47, 888855556679, 1, 'Y'),
+(48, 888855556680, 1, 'Y'),
+(49, 888855556678, 33, 'N'),
+(50, 888855556679, 33, 'N'),
+(51, 888855556680, 33, 'N'),
+(52, 888855556678, 33, 'N'),
+(53, 888855556679, 33, 'N'),
+(54, 888855556680, 33, 'N');
 
 -- --------------------------------------------------------
 
@@ -289,6 +295,7 @@ CREATE TABLE IF NOT EXISTS `system_users` (
   `email` varchar(50) NOT NULL,
   `password` varchar(30) NOT NULL,
   `user_active_stat` varchar(2) NOT NULL,
+  `user_type` varchar(5) NOT NULL,
   UNIQUE KEY `uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -296,10 +303,10 @@ CREATE TABLE IF NOT EXISTS `system_users` (
 -- Dumping data for table `system_users`
 --
 
-INSERT INTO `system_users` (`uid`, `nameFirst`, `nameLast`, `email`, `password`, `user_active_stat`) VALUES
-('admin', 'admin', 'test', 'admin.test@email.com', 'abc123', 'Y'),
-('qatest', 'tester', 'test', 'qatest.test@email.com', 'abc123', 'Y'),
-('sittest', 'sit', 'test', 'sittest.test@email.com', 'abc123', 'Y');
+INSERT INTO `system_users` (`uid`, `nameFirst`, `nameLast`, `email`, `password`, `user_active_stat`, `user_type`) VALUES
+('admin', 'admin', 'test', 'admin.test@email.com', 'abc123', 'Y', 'su'),
+('qatest', 'tester', 'test', 'qatest.test@email.com', 'abc123', 'Y', 'su'),
+('sittest', 'sit', 'test', 'sittest.test@email.com', 'abc123', 'Y', 'su');
 
 -- --------------------------------------------------------
 

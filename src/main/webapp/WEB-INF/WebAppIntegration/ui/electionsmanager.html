@@ -34,8 +34,25 @@
         border-left: 1px solid black;
     }
     
-	#pageElectionSearchSummary td{
-    	    border:1px solid #ccc;
+    #pageElectionSearchSummary table{
+        width: 100%;
+    }
+    
+    #pageElectionSearchSummary thead td{
+        border: 1px solid black;
+        padding: 2px 2px 2px 4px;
+        background: #819FF7;
+        font-family: Verdana;
+        font-size: 13px;
+        
+    }
+	
+	#pageElectionSearchSummary tbody td{
+    	    border-bottom:1px solid #ccc;
+    	    padding-left: 4px;
+    	    font-family: Verdana;
+            font-size: 13px;
+    	    
 	}
 	
 	#pageElectionSearchSummary a{
@@ -52,22 +69,11 @@
             background:#ccc;
     }
 	        
-	#panelLeftElectionDetail div{
-	       width:100%;
+	#panelLeftElectionDetail{
+	      width: 60%;
 	}
 	
-	#panelLeftElectionBasic{
-	    
-	    padding:20px;
-	    
-	}
-	
-	#panelRightElectionStates table td{
-	    margin:0;
-	    padding:0;
-	    padding-top: 10px;
-	}
-	
+		
 	#btn_search_ele{
 	   width: 100px;
 	   padding: 2px 20px 2px 20px;
@@ -76,7 +82,62 @@
     #btn_add_ele{
        width: 100px;
        padding: 2px 20px 2px 20px;
+    }	
+    
+    .bck_to_home{
+        width: 200px;
+        float:right;
+        border: 1px solid blue;
+        padding: 2px 5px 2px 5px;
+        text-align: center;   
+    }	
+    
+    .tableHeadingInSpan{
+        font-family: Verdana;
+        font-size: 14px;
+        padding-top: 5px;
+        margin-bottom:15px;
+        font-weight: bold;
+        
+    }
+    
+    #pageElectionDetail table  {
+        border: 1px solid black;
+        width:100%;
+    }
+    #pageElectionDetail table td{
+        padding: 2px;
+        border: 1px solid #ccc;
+    }
+    
+    #panelRightElectionDetail{
+        padding-left: 80px;
+    }
+
+    #panelRightElectionDetail button{
+       padding:4px 5px 4px 5px;
+       width: 150px;
+       background-color:#585858;
+       color:white;
+       border: 1px solid blue;
+       margin-bottom: 50px;
     }		
+    
+    #tbl_basicElectionInfoAdd{
+        border: 1px solid black;
+        width:700px;
+    }
+    #tbl_basicElectionInfoAdd td{
+        padding: 2px;
+        margin:2px;
+        border: 1px solid #ccc;
+    }
+    
+    #btn_add_states{
+        width: 100px;
+        padding: 2px 20px 2px 20px;
+    }
+    
 		
 </style>
 
@@ -135,47 +196,49 @@
     </div>
     
     <div id="pageAddElectionStatesForm">
-        <!-- pageAddElectionStatesForm --><br>
+        <div class="bck_to_home"> Elections Home </div>
+
+        <p class="containerSubHeading">
+            <b> Elections Form</b>
+        </p>  
         <span id="panelLeftElectionBasic">
-            
-            
-            <br>
-            <b>Basic Election Information </b>
+            <br><p> Review the Information before submitting  </p> <br>            
             
             <table id="tbl_basicElectionInfoAdd">  <!-- ajax it  --> </table>
-            
-            
-            
-            
+            <br> <br>
+            <button id="btn_add_states"> Submit</button>
         </span>
+
         <span id="panelRightElectionStates">
-            panelRightElectionStates<br><br>
-            
+        <!--
             states selections <br>
-            
-            <input type="checkbox"> test
             <table >
             	<tr> 
-            		<td class="statesListLeft">  <!-- ajax it  --></td>
-            		<td class="statesListRight">  <!-- ajax it --></td>
+            		<td class="statesListLeft">  ajax it </td>
+            		<td class="statesListRight">  ajax it</td>
             	</tr>
             </table>
            
-       
-            <button id="btn_add_states"> Add States</button>
+         -->            
         </span>
     </div>
     
     <div id="pageElectionSearchSummary">
-       pageElectionSearchSummary
+        
+        <div class="bck_to_home"> Elections Home </div>
+
+        <p class="containerSubHeading">
+            <b> Search Results</b>
+        </p>  
+        
        <table id="tableElectionsSearchResults">
             <thead>
                 <tr>   
-                   <td>Election Id </td> 
-                   <td>Title</td> 
-                   <td>Start Date</td> 
-                   <td>End Date</td>
-                   <td>Voter Enrollment Status</td>  </tr>
+                   <td> <b>Election Id </b> </td> 
+                   <td> <b>Title </b></td> 
+                   <td> <b>Start Date</b> </td> 
+                   <td> <b>End Date </b></td>
+                   <td> <b>Voter Enrollment Status </b></td>  </tr>
             </thead>
             <tbody>  <!-- ajax it --> </tbody>
        </table>
@@ -183,23 +246,32 @@
     </div>
     
     <div id="pageElectionDetail">
-        pageElectionDetail <br>
+        <div class="bck_to_home"> Elections Home </div>
+
+        <p class="containerSubHeading">
+            <b> Election Details</b>
+        </p>
+          
         <span id="panelLeftElectionDetail">
             
-            <div id="tableBasicEleDetail">
-                Basic info
-            </div>
-            <div id="divEleStatesList">
-                <p> Applicable States </p><br>    
-            </div>
+            <div class="tableHeadingInSpan"> Basic Election Information</div>            
+            <table id="tableBasicEleDetail">
+            
+            </table>
+            
+            <br><br>
+            <div class="tableHeadingInSpan"> States</div>
+            <table id="divEleStatesList">
+                    
+            </table>
             
         </span>
         <span id="panelRightElectionDetail">
-            panelRightElectionDetail <br>
-           <!--  <button id="btn_update"> Update</button><br/> -->
-            <button id="btn_delete"> Delete</button>
-            <button id="btn_enroll_voters"> Enroll Voters for the election </button>
-            buttons
+        
+            <div class="tableHeadingInSpan"> Operations </div>
+            <button id="btn_delete"> Delete</button> <br>
+            <button id="btn_enroll_voters"> Start Election </button><br>
+            <button id="btn_enroll_voters"> Stop Election </button><br>
         </span>
     </div>
 </div>    
@@ -257,16 +329,9 @@
 			        deleteElection(electId);
 			    });
 			
-			    
-			    
-			    
-			    
-			    
-			/*  $('#pageAddElectionStatesForm input[type=checkbox]').change(function(){
-			        alert(this.val());
-			        
-			    });
-			*/
+                $('.bck_to_home').click(function(){
+                	showPageHome();
+                });
 			    
 			    $("body").on("change", "#pageAddElectionStatesForm input[type=checkbox]", function(event){
 			        alert('gotClicked');
@@ -496,16 +561,16 @@
 				
 				if(response.customMessage = "SUCCESS"){
 					for(i=0; i<listOfStates.length; i++){
-						str += "<p>";
+						str += "<tr><td>";
 						str += listOfStates[i].stateName ;
-						str += "</p>";
+						str += "</td></tr>";
 					}
 					
 				}else{
 						str += "<tr><td> "+ response.customMessage +"</td></tr>";
 				}
 				
-				$('#divEleStatesList').append(str);
+				$('#divEleStatesList').html(str);
 				
 			
 			}
@@ -516,12 +581,12 @@
 				str = "";
 				
 				if(electionDetail.customMessage = "SUCCESS"){
-					str += "<tr><td> Title </td> <td>:</td> <td>" +electionDetail.electTitle + "</td></tr>";
-					str += "<tr><td> Id </td> <td>:</td> <td>" +electionDetail.electId + "</td></tr>";
-					str += "<tr><td> Voter Enrollment status</td> <td>:</td> <td>" +electionDetail.voterEnrollStat + "</td></tr>";
-					str += "<tr><td> Start Date </td> <td>:</td> <td>" +electionDetail.electStartDate + "</td></tr>";
-					str += "<tr><td> End Date</td> <td>:</td> <td>" +electionDetail.electEndDate + "</td></tr>";
-					str += "<tr><td> Description</td> <td>:</td> <td>" +electionDetail.electDescription + "</td></tr>";
+					str += "<tr><td align='right'> Title :</td> <td>" +electionDetail.electTitle + "</td></tr>";
+					str += "<tr><td align='right'> Id :</td> <td>" +electionDetail.electId + "</td></tr>";
+					str += "<tr><td align='right'> Voter Enrollment status :</td> <td>" +electionDetail.voterEnrollStat + "</td></tr>";
+					str += "<tr><td align='right'> Start Date :</td> <td>" +electionDetail.electStartDate + "</td></tr>";
+					str += "<tr><td align='right'> End Date :</td> <td>" +electionDetail.electEndDate + "</td></tr>";
+					str += "<tr><td align='right'> Description :</td> <td>" +electionDetail.electDescription + "</td></tr>";
 				}else{
 						str += "<tr><td> "+ electionDetail.customMessage +"</td></tr>";
 				}
@@ -552,10 +617,11 @@
 			    if(__addTitle != "" && __addDesc != "" && __addFromDt != "" && __addToDt != "")
 			    {
 			        str  = "";
-			        str += "<tr> <td> Election Title </td> <td>:</td>  <td>"+ __addTitle +"</td>  </tr>";
-			        str += "<tr> <td> Election Description </td> <td>:</td>  <td>"+ __addDesc +"</td>  </tr>";
-			        str += "<tr> <td> Election Start Date </td> <td>:</td>  <td>"+ __addFromDt +"</td>  </tr>";
-			        str += "<tr> <td> Election End Date </td> <td>:</td>  <td>"+ __addToDt +"</td>  </tr>";
+			        str += "<tr> <td width='300px' > Election Title :</td>  <td width='400px'>"+ __addTitle +"</td>  </tr>";
+			        str += "<tr> <td> Election Description :</td>  <td>"+ __addDesc +"</td>  </tr>";
+			        str += "<tr> <td> Election Start Date :</td>  <td>"+ __addFromDt +"</td>  </tr>";
+			        str += "<tr> <td> Election End Date :</td>  <td>"+ __addToDt +"</td>  </tr>";
+			        str += "<tr> <td> States Selected :</td>  <td> All States </td>  </tr>";
 			        
 			        showPage('#pageAddElectionStatesForm');
 			        $('#tbl_basicElectionInfoAdd').html(str);

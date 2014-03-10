@@ -13,6 +13,7 @@ div{
 	margin-top:10px;
 	margin-left:50px;
 	margin-right:50px;
+	margin-bottom: 50px;
 	border: 1px solid #ccc;
 	width:1100px;
 } 
@@ -95,10 +96,12 @@ div{
 }    
 
 #dataLoadContainer{
-	overflow:auto;
 	padding-left:55px;
+	padding-right:40px;
 	border-top:1px solid #ccc;
-	height:500px;
+	min-height:500px;
+	overflow: auto;
+	padding-bottom: 20px;
 }
 
 
@@ -120,18 +123,16 @@ span{
     font-size: 20px;
     font-family:Verdana;
     margin-top:20px;
-    margin-right:60px;
     margin-bottom: 25px;
 }
 
 .dataContainerDescription{
 	text-align: justify;
     margin-bottom: 50px;
-    margin-right:60px;
     font-size: 13px;
     font-family:Verdana;
     border : 1px solid dotted;
-    color: #848484;
+    color: #585858;
 }
 
 .containerSubHeading{
@@ -139,6 +140,7 @@ span{
     margin-bottom: 25px;
     font-size: 15px;
     font-family:Verdana;
+    width:500px;
 }
 
 
