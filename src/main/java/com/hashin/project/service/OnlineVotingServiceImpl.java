@@ -68,10 +68,15 @@ public class OnlineVotingServiceImpl implements OnlineVotingService {
 		// check if the user already voted or not // allow if not voted
 		if (!getVotingStatus(voterEid, electionId)) {
 			// get list of candidates for the unit election id
+		    	logger.debug("________user is not voted___get candidates list for "+unitElectionId);
 			candidateList = electionsMgmtDao
 					.getCandidatesListByUnitId(new Integer(unitElectionId));
-			if (candidateList.isEmpty())
-				candidateList = null;
+			if (candidateList.isEmpty()){
+			    logger.debug("Service recieved empty candidates List");
+			}
+				
+		}else{
+		    return null;
 		}
 		return candidateList;
 	}

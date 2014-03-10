@@ -100,11 +100,13 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
     public List<ElectionsCandidatesBean> getCandidatesListByUnitId(
 	    int unitElectionId)
     {
+	logger.debug("______________about to fetch candidates for unitElectionid :"+ unitElectionId);
 	List<ElectionsCandidatesBean> candidateList = null;
 	Object[] parameters = new Object[] { unitElectionId };
 	candidateList = jdbcTemplate.query(
 		SQLConstants.GET_CANDIDATES_BY_UNIT_ELE_ID, parameters,
 		new CandidatesRowMapper());
+	logger.debug("retrieved candidates list "+ candidateList.toString());
 	return candidateList;
     }
 

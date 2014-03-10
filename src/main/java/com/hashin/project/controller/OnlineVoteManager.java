@@ -81,8 +81,13 @@ public class OnlineVoteManager
 		formBean.getElectionId(), formBean.getUnitElectionId());
 	
 	if(candidateList != null){
-	    candidates.setCandidateList(candidateList);
-	    candidates.setCustomMessage(CUSTOM_MSG);
+	    if(candidateList.isEmpty()){
+		candidates.setCustomMessage("NO Candidates Enrolled for the election");
+	    }else{
+		    candidates.setCandidateList(candidateList);
+		    candidates.setCustomMessage(CUSTOM_MSG);
+	    }
+	
 	}else{
 	    candidates.setCustomMessage("Your Vote is already recorded. You can not vote again for the same election");
 	}

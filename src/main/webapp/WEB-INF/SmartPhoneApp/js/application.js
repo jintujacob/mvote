@@ -176,18 +176,27 @@ function populateCandidateList(response){
 		_candidateList = response.candidateList;
 		if(_candidateList.length == 0)
 		{
-			str += "<p> No Candidates available for the user !</p>";
+			str += "<p> No Candidates available for the Selected Election !</p>";
+			$("#btn_candlist").hide();
+			$(".btn_start_back").show();
+
 		}else{
 			for(i=0; i< _candidateList.length; i++){
 				
 				str += 	"<input type='radio' name='candidateSelected' " ;
 				str += 	"value='"+ i +"' checked='checked' /> " ;
 				str +=	 _candidateList[i].candName + ":" + _candidateList[i].candBio + "<br>" ;
-					
 			}
+			$("#btn_candlist").show();
+			$(".btn_start_back").hide();
+			
+			
 		}
 	}else{
 		str += "<p>"+ response.customMessage +"</p>";
+		$("#btn_candlist").hide();
+		$(".btn_start_back").show();
+
 	}
 	
 	showContent('#ContentCandidateList');
