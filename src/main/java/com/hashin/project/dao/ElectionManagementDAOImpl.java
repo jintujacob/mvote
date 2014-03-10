@@ -389,7 +389,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 	}
 
 	@Override
-	public Long addCandidateToBaseTable(final String candName, final String candBio)
+	public Long addCandidateToBaseTable(final String candName, final String candBio, final String candLogo)
 	{
 		Long candidateId = null;
 		try {
@@ -401,7 +401,7 @@ public class ElectionManagementDAOImpl implements ElectionManagementDAO
 							SQLConstants.INSERT_NEW_CANDIDATE_IN_BASE,
 							new String[] { "cand_id" });
 					ps.setString(1, candName);
-					ps.setString(2, "logopath");
+					ps.setString(2, candLogo);
 					ps.setString(3, candBio);
 					ps.setString(4, "N" );
 

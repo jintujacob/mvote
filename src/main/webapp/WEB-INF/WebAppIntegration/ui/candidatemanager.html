@@ -134,6 +134,12 @@ select{
        margin-bottom: 50px;
 }
 
+#buttonArea img{
+    height:70px;
+    width:70px;
+    border: 1px solid black;
+}
+
 </style>
 
 
@@ -190,6 +196,27 @@ select{
                    Election : <select id="in_add_eles"> <!--  ajax it  --> </select>    <br><br>
                    Name:   <input type="text" id="in_add_name"> <br><br>
                    Details:   <input type="text" id="in_add_bio"> <br><br>
+                   Logo:   
+                        <select id="in_add_logos"> <!--  ajax it  --> 
+                            <option value="none">     none </option>
+                            <option value="arival">     arival.jpeg </option>
+							<option value="arrow">     arrow.jpeg </option>
+                            <option value="chair">    chair.jpeg   </option> 
+							<option value="comb">    comb.jpeg</option>
+							<option value="cycle">	cycle.jpeg</option>
+							<option value="farmer">	farmer.jpeg</option>
+							<option value="hand">	hand.jpeg</option>
+							<option value="kannada">	kannada.jpeg</option>
+							<option value="kite">	kite.jpeg</option>
+							<option value="ladder">	ladder.jpeg</option>
+							<option value="lock">	lock.jpeg</option>
+							<option value="thamara">	thamara.jpeg</option>
+							<option value="thamara">	trass.jpeg</option>
+                            
+                        </select>
+                    <div id="imageLoader">
+                        
+                    </div>
                       
                    
                    <p class="input_error_msg">  <!-- ajax it  --></p>
@@ -273,9 +300,10 @@ $(document).ready(function(){
         name = $('#in_add_name').val();
         bio = $('#in_add_bio').val();
         unitId = $('#in_add_eles').val();
+        logo = $('#in_add_logos').val();
 
-        if(name != "" && bio != "" && unitId != "none" && unitId !=""){
-            addNewCandidate(name, bio, unitId);
+        if(name != "" && bio != "" && unitId != "none" && unitId !="" && logo != "none"){
+            addNewCandidate(name, bio, unitId, logo);
         }
         else{
             $('.input_error_msg').html("All fields are mandatory");
@@ -299,14 +327,23 @@ $(document).ready(function(){
         
     });
     
+    $("#in_add_logos").change(function() {
+        logopath = "../logos/" + $(this).val() + ".jpeg";
+        str = "<img src='" + logopath + "' width='70px' height='70px'>"
+        $("#imageLoader").html(str);
+         
+        
+    });
+    
 });
 
 
-function addNewCandidate(name, bio, unitId)
+function addNewCandidate(name, bio, unitId, logo)
 {
     obj = { "candName": name,
             "candBio": bio,
-            "unitEleId" : unitId
+            "unitEleId" : unitId,
+            "candLogo" : logo
         };
     jsonString =JSON.stringify(obj);
     

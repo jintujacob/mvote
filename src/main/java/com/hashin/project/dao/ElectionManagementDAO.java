@@ -64,7 +64,7 @@ public interface ElectionManagementDAO {
 
 	public int deleteCandidate(String candId);
 
-	public Long addCandidateToBaseTable(String candName, String candBio);
+	public Long addCandidateToBaseTable(String candName, String candBio, String candLogo);
 
 	public Long addCandidateToEleCandidates(String newCandId, String unitEleId);
 

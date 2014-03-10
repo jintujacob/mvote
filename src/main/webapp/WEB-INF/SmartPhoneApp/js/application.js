@@ -170,33 +170,29 @@ function manageElectionSelection()
 
 
 function populateCandidateList(response){
-	str = ""; 
+	str = "<br><br>"; 
 	if(response.customMessage == "SUCCESS")
 	{
 		_candidateList = response.candidateList;
 		if(_candidateList.length == 0)
 		{
 			str += "<p> No Candidates available for the Selected Election !</p>";
-			$("#btn_candlist").hide();
-			$(".btn_start_back").show();
-
+			
 		}else{
-			for(i=0; i< _candidateList.length; i++){
+			for(i=0; i< _candidateList.length; i++)
+			{
+				logopath = "./logos/" + _candidateList[i].candLogo  + ".jpeg";				
+				str += 	"<input type='radio' name='candidateSelected' value='"+ i +"' /> " ;
+				str +=	 "<b>"+_candidateList[i].candName +"</b>" ;
 				
-				str += 	"<input type='radio' name='candidateSelected' " ;
-				str += 	"value='"+ i +"' checked='checked' /> " ;
-				str +=	 _candidateList[i].candName + ":" + _candidateList[i].candBio + "<br>" ;
+				str +=  "<br><img src='" + logopath + "' width='70px' height='70px' >" ;
+		        str +=  "<br><br><hr>";
 			}
-			$("#btn_candlist").show();
-			$(".btn_start_back").hide();
 			
 			
 		}
 	}else{
 		str += "<p>"+ response.customMessage +"</p>";
-		$("#btn_candlist").hide();
-		$(".btn_start_back").show();
-
 	}
 	
 	showContent('#ContentCandidateList');

@@ -175,7 +175,7 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	public ElectionsCandidatesBean addNewCandidate(ElectionsCandidatesBean beanToAdd)
 	{
 	    int insertStat = 0;
-	    Long newCandId = electionsMgmtDao.addCandidateToBaseTable(beanToAdd.getCandName(), beanToAdd.getCandBio());
+	    Long newCandId = electionsMgmtDao.addCandidateToBaseTable(beanToAdd.getCandName(), beanToAdd.getCandBio(), beanToAdd.getCandLogo());
 	    if(newCandId != null){
 		Long newEleCandId = electionsMgmtDao.addCandidateToEleCandidates(newCandId.toString(), beanToAdd.getUnitEleId());
 		if(newEleCandId != null){
