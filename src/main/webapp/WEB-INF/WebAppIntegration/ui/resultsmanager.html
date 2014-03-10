@@ -45,29 +45,33 @@
 	       overflow:auto;
 	    }
           
+#btn_search_list_const{
+    height: 25px;
+    width:200px;
+    padding:4px;
+}          
+          
 
 </style>
 
 <div id="container">
+    <div class="dataContainerHeading">
+            <b>Elections Results</b>
+            <hr/>
+     </div>
+     
+     <p class="dataContainerDescription">
+            Functionality allows admin to get the results of the elections by Constituency.  
+     </p> 
+
     <div id="pageElectionResultsHome">
-            <p id="toggle_list_const_form"> Get election results by constituency </p>
             <div id="content_srchform_byconst">
-                   Get Results By Constituency <br><br>
+                <table>
+                   <tr><td>Constituency : </td><td><select id="in_srch_consts">   <!--  ajax it --> </select> </td></tr> 
+                   <tr><td>Elections : </td><td><select id="in_srch_elections">   <!--  ajax it --> </select> </td></tr>
+                   <tr><td></td><td><button id="btn_search_list_const"> Find </button></td></tr>   
                    
-                   Constituency : <select id="in_srch_consts">   <!--  ajax it --> </select>    <br>
-                   Elections : <select id="in_srch_elections">   <!--  ajax it --> </select>    <br>
-                   <button id="btn_search_list_const"> Find </button>
-            </div>
-            
-            <!-- 
-            <p id="toggle_list_state_form"> Get election results by constituency </p>
-             -->
-            <div id="content_srchform_bystate">
-                   Get Results By State <br><br>
-                   
-                   State : <select id="in_srch_candconst">   <!--  ajax it --> </select>    <br>
-                   Elections : <select id="in_srch_candconst">   <!--  ajax it --> </select>    <br>
-                   <button id="btn_search_list_const"> Find </button>
+                </table>
             </div>
     </div>
     
@@ -117,16 +121,7 @@
 	    getHomeContents();
 	    populateHomePage();
 	    
-	    $('#toggle_list_const_form').click(function(){
-	        $('#content_srchform_byconst').show();
-	        $('#content_srchform_bystate').hide();
-	    });
-	    
-	    $('#toggle_list_state_form').click(function(){
-	        $('#content_srchform_byconst').hide();
-	        $('#content_srchform_bystate').show();
-	    }); 
-	    
+	     
 	    $('#in_srch_consts').change(function(){
 	        constSelected = $(this).val();
 	        if(constSelected != "none"){
@@ -222,6 +217,8 @@
 	function populateHomePage()
 	{
 	    showPage("#pageElectionResultsHome");
+	    $('#content_srchform_byconst').show();
+        $('#content_srchform_bystate').hide();
 	}
 	
 	
