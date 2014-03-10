@@ -2,7 +2,6 @@
 
 span{   
      float:left; 
-     border:1px solid #ccc;    
     }
 
     
@@ -15,25 +14,12 @@ span{
     border:1px solid #ccc;
 }
 
-    #pageConstsSummary a{
-        display: block;
-        padding:3px;
-        border:1px solid blue;
-    }
     
-        #pageConstsSummary a:hover{
-            border:1px solid red;
-        }
-        
-        #pageConstsSummary a:active{
-            background:#ccc;
-        }
         
 #pageConstsDetail{
        overflow:auto;
     }
     #panelLeftDetailPage{
-         border:1px solid red;    
          margin-right:20px;  
          min-height: 500px;
          width: 500px;
@@ -59,24 +45,56 @@ span{
                 border-right: 5px solid blue;
             }
 
+
+#btn_submit_search{
+    width: 200px;
+    padding: 5px
+}
+
+#tbl_search_summary{
+    width: 500px;
+}
+
+#tbl_search_summary thead td{
+    padding: 5px;
+    border: 1px solid black;
+}
+
+#tbl_search_summary tbody td{
+    padding: 2px;
+}
+
+
 </style>
 
 <div id="container">
+	   
+     <div class="dataContainerHeading">
+            <b>Constituency Management</b>
+            <hr/>
+     </div>
+     
+     <p class="dataContainerDescription">
+         Search and find constituencies
+     </p> 
+	   
+	
 	<div id="pageConstsHome">
-    
        <span id="panelRightHomePage">
             <div id="contentSearchConstsForm">
-                   contentSearchConstsForm <br><br>
-                   
-                   Const :   <input type="text" id="in_find_const"> <br>
+                   Constitency Name :   
+                   <input type="text" id="in_find_const"> <br>
                    <button id="btn_submit_search"> Find </button>
                    
            </div>
        </span>
 	</div>
 	<div id="pageConstsSummary">
-	   pageConstsSummary
-	   <table id="tbl_search_summary">
+	   <p class="containerSubHeading">
+        <b> Search Results</b>
+        </p>     
+	   
+	   <table id="tbl_search_summary" >
             <thead>
                 <tr>  <td>Constituency Name</td> <td>Constituency State</td></tr>
             </thead>
