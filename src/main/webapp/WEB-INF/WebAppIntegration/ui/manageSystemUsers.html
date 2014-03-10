@@ -107,11 +107,22 @@ function addSystemUser(uid,namefirst,namelast,email,password, usertype)
         dataType: "json",
         data: jsonString,
         success: function(response) {
-           
+           manageResults(response);
         },
         error:function(){
             alert("Connection Error. Network failure or Server unavailable");
         }
     });  
-}})
+}
+
+function manageResults(response){
+    if(response.customMessage=="SUCCESS"){
+        alert("Successfully added System User");	
+    }else{
+        alert(response.customMessage);	
+    }
+	
+}
+
+
 </script>
