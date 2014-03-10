@@ -121,11 +121,10 @@ public class CandidatesManager {
 		try {
 			ElectionsCandidatesBean cand = electionMgmtService.addNewCandidate(beanToAdd);
 			if (cand != null ) {
-			/*    resultBean.setCustomMessage(CUSTOM_MSG);
-			    resultBean.setElectionList(eleList);*/
-			}
+			    resultBean.setCustomMessage(CUSTOM_MSG);	
+			 }
 			else{
-			    resultBean.setCustomMessage("No Available Elections.");
+			    resultBean.setCustomMessage("Unable to add candidate information to database");
 			}
 		} catch (Exception e) {
 			logger.info("Exception from backend -------> " + e.getMessage());

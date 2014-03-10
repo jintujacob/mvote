@@ -2,21 +2,40 @@
 <style>
 
 span{   
-     float:left; 
-     border:1px solid #ccc;    
+     float:left;
+     min-height:200px;  
+}
+
+#panelLeftHomePage{
+       width: 250px;
+    }
+    
+    
+    #panelLeftHomePage button{
+       padding:3px 5px 3px 5px;
+       width: 200px;
+       background-color:white;
+       border-top : 1px solid #ccc;
+       border-right : 1px solid #ccc;
+       border-bottom : 1px solid black;
+       border-left : 1px solid black;
+       margin-bottom: 20px;
+    }
+    
+    #panelLeftHomePage button:hover{
+            background-color:#A9A9F5;
+    }
+    
+    #panelLeftHomePage button:clicked{
+            background-color:#A9A9F5;
+    }
+    
+    #panelRightHomePage{
+        padding-left: 20px;
+        border-left: 1px solid black;
     }
 
     
-
-#pageCandidateManagerHome{
-       overflow: auto;
-    }
-    #panelRightHomePage{
-         border:1px solid red;    
-         margin-left:20px;  
-         min-height: 300px;
-         width: 400px;
-    }
 
 #pageCandidateListView td{
     border:1px solid #ccc;
@@ -41,11 +60,94 @@ span{
 #pageCandidateListView{
        overflow:auto;
     }
-            
+    
+#btn_submit_search{
+       width: 100px;
+       padding: 2px 20px 2px 20px;
+}    
+
+#btn_add_cand{
+       width: 100px;
+       padding: 2px 20px 2px 20px;
+}    
+
+
+select{
+    min-width: 150px;
+}
+
+.input_error_msg{
+    color:red;
+}
+
+#pageCandidateListView table{
+    width: 100%;
+}
+
+
+#pageCandidateListView thead td{
+        border: 1px solid black;
+        padding: 2px 2px 2px 4px;
+        background: #819FF7;
+        font-family: Verdana;
+        font-size: 13px;
+        
+}
+    
+#pageCandidateListView tbody td{
+        border-bottom:1px solid #ccc;
+        padding-left: 4px;
+        font-family: Verdana;
+        font-size: 13px;
+}
+
+.btn_backto_home{
+        width: 200px;
+        float:right;
+        border: 1px solid blue;
+        padding: 2px 5px 2px 5px;
+        text-align: center;   
+    }   
+    
+#tableCandidateDetail{
+    float:left;
+    width: 600px;
+    border : 1px solid black;
+    padding: 5px
+}    
+
+#tableCandidateDetail td{
+    padding: 2px;
+    border-bottom: 1px solid #ccc;
+}    
+
+#divOperations{
+    padding-left : 100px;
+    float:left;
+}
+
+#buttonArea button{
+      padding:4px 5px 4px 5px;
+       width: 150px;
+       background-color:#585858;
+       color:white;
+       margin-bottom: 50px;
+}
+
 </style>
 
 
 <div id="container">
+    <div class="dataContainerHeading">
+            <b>Candidate Management</b>
+            <hr/>
+     </div>
+     
+     <p class="dataContainerDescription">
+            Candidate management includes setting up the candidates, searching and updating the details 
+            of the candidates.  
+     </p> 
+     
     <div id="pageCandidateManagerHome">
        <span id="panelLeftHomePage">
            <p> 
@@ -56,22 +158,38 @@ span{
     
        <span id="panelRightHomePage">
             <div id="contentSearchCandForm">
-                   Find Candidates <br><br>
-                   
-                   Candidate Name <input type="text" id="in_srch_candname"> <br>
-                   Const : <select id="in_srch_candconst">   <!--  ajax it --> </select>    <br>
-                   <p class="input_error_msg">  <!-- ajax it  --></p>
-                   <button id="btn_submit_search"> Find </button>
-                   
+		            <p class="containerSubHeading">
+		                <b> Search Candidates</b>
+		            </p>
+
+                    <table>
+                        <tr> 
+                            <td align='right'> Candidate Name :</td>
+                            <td> <input type="text" id="in_srch_candname"> <br></td>
+                        </tr>
+                        <tr> 
+                            <td align='right'>Constituency :</td>
+                            <td> <select id="in_srch_candconst">   <!--  ajax it --> </select>  </td>
+                        </tr>
+                        <tr> 
+                            <td> </td>
+                            <td>
+                                <br><br>
+                                <p class="input_error_msg">  <!-- ajax it  --></p>
+                                <button id="btn_submit_search"> Find </button>
+                            </td>
+                        </tr>
+                    </table>
             </div>
            <div id="contentAddCandForm">
-                   Add New Candidate <br><br>
-                   Constituency : <select id="in_add_consts"> <!--  ajax it  --></select>    <br><br>     
+                    <p class="containerSubHeading">
+                        <b> Add new Candidate</b>
+                    </p>
+                    
+                   Constituency : <select id="in_add_consts"> <!--  ajax it  --></select>    <br><br>    
                    Election : <select id="in_add_eles"> <!--  ajax it  --> </select>    <br><br>
-                   
-                   
-                   Name:   <input type="text" id="in_add_name"> <br>
-                   Details:   <input type="text" id="in_add_bio"> <br>
+                   Name:   <input type="text" id="in_add_name"> <br><br>
+                   Details:   <input type="text" id="in_add_bio"> <br><br>
                       
                    
                    <p class="input_error_msg">  <!-- ajax it  --></p>
@@ -82,8 +200,10 @@ span{
     </div>
     
     <div id="pageCandidateListView">
-        pageVoterListView
-        <div class="clearLine"> <button class="btn_backto_home"> Back to Search</button> </div>
+        <div class="btn_backto_home"> Candidate Home </div>
+         <p class="containerSubHeading">
+            <b> Search Results</b>
+        </p>  
         <table id="tableCandidateList">
             <thead>
                 <tr> <td>Candidate ID</td> <td>Name </td>  <td>Election</td> <td>Constituency</td> </tr>
@@ -93,18 +213,22 @@ span{
     </div>
     
     <div id="pageCandDetailView">
-           panelLeftDetailPage  <br><br>
+           <div class="btn_backto_home"> Candidate Home </div>
+           <p class="containerSubHeading">
+                <b> Candidate Detail</b>
+           </p>
            <table id="tableCandidateDetail">  <!-- ajax it  -->  </table>
-           <div class="clearLine" >
-                <p id="buttonArea"> 
-                    <!-- ajax it --> 
-                </p>
-               
-           </div>
            
-           <div class="clearLine" >
-               <button class="btn_backto_home"> Back to Home </button> <br/>
-               <!-- <button class="btn_backto_reslt"> Back to Search Results </button> --> <br/>
+           <div id="divOperations">
+                <div class="tableHeadingInSpan"> 
+                    Manage Candidate
+                </div>
+                <br>
+                <p id="buttonArea"> 
+	                <!-- ajax it --> 
+	            </p>
+	       </div>
+               
            </div>
     </div>
 </div>    
@@ -154,7 +278,7 @@ $(document).ready(function(){
             addNewCandidate(name, bio, unitId);
         }
         else{
-            $('.input_error_msg').html("Invalid search criteria! please search again!");
+            $('.input_error_msg').html("All fields are mandatory");
         }
     });
     
@@ -199,6 +323,18 @@ function addNewCandidate(name, bio, unitId)
             alert("Connection Error. Network failure or Server unavailable");
         }
     });     
+}
+
+function populateAdditionResponse(response){
+	if(response.customMessage == "SUCCES"){
+		alert("Successfully added candidate to the system");
+		populateHomePage();
+		
+	}else{
+		alert(response.customMessage);
+		populateHomePage();
+	}
+	
 }
 
 

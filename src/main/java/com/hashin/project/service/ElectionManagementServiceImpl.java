@@ -174,14 +174,20 @@ public class ElectionManagementServiceImpl implements ElectionManagementService 
 	@Override
 	public ElectionsCandidatesBean addNewCandidate(ElectionsCandidatesBean beanToAdd)
 	{
+	    int insertStat = 0;
 	    Long newCandId = electionsMgmtDao.addCandidateToBaseTable(beanToAdd.getCandName(), beanToAdd.getCandBio());
 	    if(newCandId != null){
 		Long newEleCandId = electionsMgmtDao.addCandidateToEleCandidates(newCandId.toString(), beanToAdd.getUnitEleId());
 		if(newEleCandId != null){
-		    int insertStat = electionsMgmtDao.addCandidateToEleResults(newEleCandId.toString(), beanToAdd.getUnitEleId());
+		    insertStat = electionsMgmtDao.addCandidateToEleResults(newEleCandId.toString(), beanToAdd.getUnitEleId());
 		}
 	    }
-	    return null;
+	    if(insertStat>0){
+		return beanToAdd;
+	    }else{
+		return null;
+	    }
+	    
 	}
 
 	@Override
