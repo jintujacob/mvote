@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="./WebAppIntegration/css/jquery-ui.css">
+    <script src="./WebAppIntegration/js/jquery-1.10.2.min.js"></script>
+    <script src="./WebAppIntegration/js/jquery-ui.min.js"></script>
+    
+    <style type="text/css">
+
+         *{
+            margin:0px;
+            padding:0px;
+        }
+        
+        body{
+            width:  900px;
+            margin-left: 5px;
+            margin-top: 5px;
+            border: 1px solid black;
+            padding-left: 50px;            
+        }
+        
+        #container{
+            border: 1px solid #ccc;
+            background: #CED8F6;
+            height: 600px;
+        }
+        
+        h2{
+            padding: 30px 0 0 50px;
+        }
+        
+        hr{
+            margin: 10px 10px 10px 10px;
+        }
+        
+        #container div{
+            padding-left: 20px;
+        }
+        
+        #container p{
+            padding: 30px;
+            font-family:Verdana;
+            font-size: 15px;
+            text-align: justify;
+        }
+        
+        button{
+             background-color:#585858;
+            color:white;
+            height: 50px;
+            width : 300px;
+            margin: 20px;
+        }
+    
+    </style>
+    
+    
+</head>
+<body>
+<div id="container">
+    <h2> E- Election Portal </h2>
+    <hr>
+    
+    <p> 
+    India, also known as Bharat, is a Union of States. 
+    It is a Sovereign Socialist Secular Democratic Republic with a parliamentary system of government.
+    India has an asymmetric federal government, with elected officials at the federal, state 
+    and local levels.The Republic is governed in terms of the Constitution of India which was adopted 
+    by the Constituent Assembly on 26th November, 1949 and came into force on 26th January, 1950. 
+    Voting and elections are essential ingredient of indian democratic society. The purpose of OVS 
+    (Online Voting System) is to elect candidate through online voting and the results can be announced 
+    instantly. With the OVS, a voter can use his\her voting right online without any difficulty. In this 
+    system people who have citizenship of India and whose age is above 18 years of age and any sex can 
+    give his\her vote online without going to any physical polling station. 
+    
+    </p>
+    <div id="buttonsArea">
+        <button id="buttonOV">
+            Online Voting Portal      
+        </button>
+      
+        <button id="buttonEA"> 
+            Election management Portal
+        </button>
+       
+    </div>
+    
+</div>    
+</body>
+
+<script type="text/javascript">
+
+$(document).ready(function()
+{
+            $('#buttonOV').click(function(){
+            	alert("clc");
+            	$location.href = './SmartPhoneApp/index.html';
+            });
+            
+            $('#buttonEA').click(function(){
+                $location.href = './WebAppIntegration/index.html';
+            });
+            
+        });  
+
+</script>
+
+</html>
