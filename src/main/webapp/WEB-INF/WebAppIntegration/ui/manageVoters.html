@@ -8,9 +8,6 @@
     
 	    }
 	
-	    
-	
-	
 	#pageVoterListView td{
 	    border:1px solid #ccc;
 	    padding: 5px;
@@ -31,48 +28,75 @@
 	            background:#ccc;
 	        }
 	        
+#btn_submit_search{
+    height: 30px;
+    padding:4px;
+    width: 200px;
+}	        
+
+input{
+    width: 200px;
+}
+select{
+    width: 205px;
+}
+
+#contentSearchVoterForm table td{
+    padding: 3px;
+}
+
+	        
 </style>
 
 
 <div id="container">
+     <div class="dataContainerHeading">
+            <b>VoterList Lookup </b>
+            <hr/>
+     </div>
+     
+     <p class="dataContainerDescription">
+          Functionality allows admin to lookup the voters who have completed the one time enrollment.
+          Different criterias can be used to lookup the voters as given below.
+     </p> 
+         
+
 	<div id="pageVoterManagerHome">
-	   <span id="panelLeftHomePage">
-	       <p> 
-                <button id="goto_search_voter"> Search </button> <br/>
-                <!-- <button id="goto_add_voter"> Add New </button> -->	       
-	       </p>
-	   </span>
-	
-	   <span id="panelRightHomePage">
 	        <div id="contentSearchVoterForm">
-	               contentSearchVoterForm <br><br>
+	         
+	               <p class="containerSubHeading">
+                        <b> Search Voters</b>
+                   </p>  
 	               
-	               VoterId:<input type="text" id="in_srch_voterid"> <br>
-	               Name:   <input type="text" id="in_srch_name"> <br>
-	               Const : <select id="in_srch_const">
-	               				<!--  ajax it -->
-	                       </select>    <br>
-	               Flag :  Active<input type="radio" name="in_srch_lockflag" value="F" checked>
-	                       Inactive<input type="radio" name="in_srch_lockflag" value="T">   <br><br>        
-	               <p class="input_error_msg">  <!-- ajax it  --></p>
-	               <button id="btn_submit_search"> Find </button>
-	               
+	               <table>
+		               <tr><td>VoterId: </td><td><input type="text" id="in_srch_voterid"> </td></tr>
+		               <tr><td>Name: </td><td>  <input type="text" id="in_srch_name"> </td></tr>
+		               <tr><td>Const : </td><td> <select id="in_srch_const">
+		               				<!--  ajax it -->
+		                       </select>   </td></tr>
+		               <tr><td>Flag : </td><td>  Active<input type="radio" name="in_srch_lockflag" value="F" checked>
+		                       Inactive<input type="radio" name="in_srch_lockflag" value="T">   </td></tr>
+		               <tr><td colspan="2"><p class="input_error_msg">  <!-- ajax it  --></p></td></tr>
+		               <tr> <td></td>  <td><br><button id="btn_submit_search"> Find </button></td></tr>
+	               </table>
 	        </div>
-	       <div id="contentAddVoterForm">
+	        
+            <!--
+            <div id="contentAddVoterForm">
 	               contentAddVoterForm <br><br>
                    
                    VoterId:<input type="text" id="in_add_voterid"> <br>
                    Name:   <input type="text" id="in_add_name"> <br>
                    Const : <select id="in_add_consts">
-                             	<!--  ajax it  -->
+                             	 ajax it 
                            </select>    <br><br><br>        
                    
-                   <p class="input_error_msg">  <!-- ajax it  --></p>
+                   <p class="input_error_msg">  ajax it </p>
                    <button id="btn_add_voter"> Register </button>
 	               
 	       </div>
-	   </span>
-	</div>
+            -->
+ 	</div>
 	
 	<div id="pageVoterListView">
 	    pageVoterListView
