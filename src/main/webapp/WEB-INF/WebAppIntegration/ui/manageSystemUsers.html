@@ -1,24 +1,55 @@
 <style>
 
+
+#btn_add{
+    padding: 0px 20px 0px 20px;
+    margin-top: 20px;
+}
+
+#usertype{
+    width : 210px;
+}
+
+table{
+    margin-top:  20px;
+}
+
+
+#container p 
+{
+    font-size: 12px;
+    font-family:Verdana;
+    color: blue;
+}
+
+option{
+    padding-left:10px;
+}
+
 </style>
 
 
 <div id="container">
-  Add a system user<br>
   
-  <table>
+  <div class="dataContainerHeading">
+        <b>Add a system user</b>
+        <hr/>
+  </div>
+  
+  <p class="dataContainerDescription"> <i>All fields are mandatory </i></p>
+  <table cellpadding="5px" cellspacing="5px">
     <tr>
-        <td align="right">UID: </td> <td> <input id="uid" type="text"> </td> </tr>
+        <td align="right">UID : </td> <td> <input id="uid" type="text"> </td> </tr>
     <tr>
-        <td align="right">Password: </td> <td>  <input id="password" type="password"> </td></tr>
+        <td align="right">Password : </td> <td>  <input id="password" type="password"> </td></tr>
     <tr>
-        <td align="right">First Name </td> <td> <input id="namefirst" type="text"> </td></tr>
+        <td align="right">First Name :</td> <td> <input id="namefirst" type="text"> </td></tr>
     <tr>
-        <td align="right">Last Name </td> <td> <input id="namelast" type="text"> </td></tr>
+        <td align="right">Last Name :</td> <td> <input id="namelast" type="text"> </td></tr>
     <tr>
-        <td align="right">Email: </td> <td> <input id="email" type="text"> </td></tr>
+        <td align="right">Email : </td> <td> <input id="email" type="text"> </td></tr>
     <tr>
-        <td align="right">User Type </td> 
+        <td align="right">User Type :</td> 
         <td> 
                <select id="usertype">
 		           <option value="none">none</option>

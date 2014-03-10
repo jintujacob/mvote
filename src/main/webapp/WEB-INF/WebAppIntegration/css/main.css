@@ -98,6 +98,7 @@ div{
 	overflow:auto;
 	padding-left:55px;
 	border-top:1px solid #ccc;
+	height:500px;
 }
 
 
@@ -113,3 +114,31 @@ span{
 	color:red;
 	padding: 5px;
 }
+
+.dataContainerHeading 
+{
+    font-size: 20px;
+    font-family:Verdana;
+    margin-top:20px;
+    margin-right:60px;
+    margin-bottom: 25px;
+}
+
+.dataContainerDescription{
+	text-align: justify;
+    margin-bottom: 50px;
+    margin-right:60px;
+    font-size: 13px;
+    font-family:Verdana;
+    border : 1px solid dotted;
+    color: #848484;
+}
+
+.containerSubHeading{
+    text-align: justify;
+    margin-bottom: 25px;
+    font-size: 15px;
+    font-family:Verdana;
+}
+
+

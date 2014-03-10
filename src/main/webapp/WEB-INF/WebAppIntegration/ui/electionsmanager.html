@@ -1,78 +1,134 @@
 
 <style>
-		
-		span{   
-		     float:left; 
-		     border:1px solid red;  
-		     min-height:200px;  
-		    }
-		
-		
-		#pageElectionSearchSummary td{
-		    border:1px solid #ccc;
-		}
-		
-		    #pageElectionSearchSummary a{
-		            display: block;
-		            padding:3px;
-		            border:1px solid blue;
-		        }
-		    
-		        #pageElectionSearchSummary a:hover{
-		            border:1px solid red;
-		        }
-		        
-		        #pageElectionSearchSummary a:active{
-		            background:#ccc;
-		        }
-		        
-		#panelLeftElectionDetail div{
-		    width:100%;
-		}
-		
-		
-		
-		#panelLeftElectionBasic{
-		    
-		    padding:20px;
-		    
-		}
-		
-		#panelRightElectionStates table td{
-		    margin:0;
-		    padding:0;
-		    padding-top: 10px;
-		}
+	span{   
+	     float:left; 
+	     min-height:200px;  
+    }
+	
+	#panelLeftHomePage{
+	   width: 250px;
+	}
+	
+	
+	#panelLeftHomePage button{
+	   padding:3px 5px 3px 5px;
+	   width: 200px;
+	   background-color:white;
+	   border-top : 1px solid #ccc;
+	   border-right : 1px solid #ccc;
+       border-bottom : 1px solid black;
+       border-left : 1px solid black;
+	   margin-bottom: 20px;
+	}
+	
+	#panelLeftHomePage button:hover{
+            background-color:#A9A9F5;
+    }
+    
+    #panelLeftHomePage button:clicked{
+            background-color:#A9A9F5;
+    }
+    
+    #panelRightHomePage{
+        padding-left: 20px;
+        border-left: 1px solid black;
+    }
+    
+	#pageElectionSearchSummary td{
+    	    border:1px solid #ccc;
+	}
+	
+	#pageElectionSearchSummary a{
+	         display: block;
+	         padding:3px;
+	         border:1px solid blue;
+    }
+    
+    #pageElectionSearchSummary a:hover{
+            border:1px solid red;
+    }
+    
+    #pageElectionSearchSummary a:active{
+            background:#ccc;
+    }
+	        
+	#panelLeftElectionDetail div{
+	       width:100%;
+	}
+	
+	#panelLeftElectionBasic{
+	    
+	    padding:20px;
+	    
+	}
+	
+	#panelRightElectionStates table td{
+	    margin:0;
+	    padding:0;
+	    padding-top: 10px;
+	}
+	
+	#btn_search_ele{
+	   width: 100px;
+	   padding: 2px 20px 2px 20px;
+	}
+
+    #btn_add_ele{
+       width: 100px;
+       padding: 2px 20px 2px 20px;
+    }		
 		
 </style>
 
-</head>
-<body>
+
 <div id="container">
+
+
+	 <div class="dataContainerHeading">
+	        <b>Elections Manager</b>
+	        <hr/>
+	 </div>
+	 
+	 <p class="dataContainerDescription">
+            Central Election Management functions such as Creation of Election and search 
+            of available Elections, Open the election for public users to start voting, 
+            Stop the voting for the elections etc... Voters will be able to perform voting 
+            only after the admin Start the election.  
+     </p> 
+	 
+	  
     <div id="pageElectionsHome">
-        Elections Manager<br>
        <span id="panelLeftHomePage">
            <p> 
-                <button id="goto_search_ele"> Search </button> <br/>
-                <button id="goto_add_ele"> Add New </button>         
+                <button id="goto_search_ele"> Search Elections </button> <br/>
+                <button id="goto_add_ele"> Add New Election </button>         
            </p>
        </span>
     
        <span id="panelRightHomePage">
             <div id="contentSearchElectionForm">
-                   Search Elections	 <br><br>
-                   Title :   <input type="text" id="in_find_ele"> <br>
+                   <p class="containerSubHeading">
+                        <b> Search Elections</b>
+                   </p>	 
+                   
+                   Title to Search &nbsp;&nbsp; : &nbsp;&nbsp;  
+                   <input type="text" id="in_find_ele"> <br><br>
                    <button id="btn_search_ele"> Find </button>
                    
             </div>
             <div id="contentAddElectionForm">
-                   contentAddElectionForm <br><br>
-                   Title :   <input type="text" id="in_add_title"> <br>
-                   Desc :   <input type="text" id="in_add_desc"> <br>
-                   From Date :   <input type="text" id="in_add_fromdt"> (yyyy-mm-dd)<br>
-                   To Date :   <input type="text" id="in_add_todt"> (yyyy-mm-dd)<br>
+                   <p class="containerSubHeading">
+                        <b> Add New Election</b>
+                   </p>  
+            
+                   <table>
+                        <tr> <td align="right"> Title : </td> <td> <input type="text" id="in_add_title"> </td> </tr>
+                        <tr> <td align="right"> Desc :</td> <td>  <input type="text" id="in_add_desc">  </td> </tr>
+                        <tr> <td align="right"> From Date :</td> <td>  <input type="text" id="in_add_fromdt"> (yyyy-mm-dd)  </td> </tr>
+                        <tr> <td align="right"> To Date : </td> <td>  <input type="text" id="in_add_todt"> (yyyy-mm-dd)  </td> </tr>
+                        <tr> <td></td> <td><br> <button id="btn_add_ele"> Register </button></td> </tr>
+                   </table>
                    
-                   <button id="btn_add_ele"> Register </button>
                    
            </div>
        </span>
