@@ -228,6 +228,9 @@
 	        data: jsonString,
 	        success: function(response) {
 	            populateElectionSlip(response);
+	        },
+	        error:function(){
+	        	alert("Network unavailable");
 	        }
 	    });
 	}

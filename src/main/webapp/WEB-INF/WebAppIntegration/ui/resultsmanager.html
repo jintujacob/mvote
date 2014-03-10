@@ -50,7 +50,30 @@
     width:200px;
     padding:4px;
 }          
-          
+    
+select{
+    width: 200px; 
+}     
+
+#tableResultsListConsts{
+    width: 800px;
+}
+
+#pageElectionResultDetailView td{
+    border:1px solid #ccc;
+    padding:2px;
+}
+
+#tableResultsListConsts thead td{
+    color:white;
+    background: #585858;
+    padding-left: 5px;
+}
+
+#tableWinnerDetail{
+    width:600px;
+}
+ 
 
 </style>
 
@@ -75,18 +98,23 @@
             </div>
     </div>
     
-    <div id="pageElectionResultsListView">
-       
-    </div>
     
     <div id="pageElectionResultDetailView">
         <div id="divResultsListConsts">
+            <p class="containerSubHeading">
+                <b> Election Results</b>
+            </p>  
+            <br>
             Election Name : <p class = "titleElectionName" > </p>
+            
+            <br>
             Location : <p class = "titleLocationSelected" > </p>
+            <br><br><b> Winner </b>
             <table class = "tableWinnerDetail">
                 <!-- ajax it  -->
             </table>
             
+            <br><br><b> Summary </b>
             <table id="tableResultsListConsts">
                 <thead> <tr> <td>Candidate Id</td> <td>Candidate Name </td>  <td>Total Vote Count </td> <td>Scored Votes </td> </tr> </thead>
                 <tbody> <!-- ajax it --> </tbody>
@@ -176,7 +204,7 @@
 	        candidateResults = response.resultList;
 	        
 	        if(candidateResults.length != 0 ){
-	            for(i=0; i<candidateResults.length; i++){
+	        	for(i=0; i<candidateResults.length; i++){
 	                str1 += "<tr>" ;
 	                str1 +=     "<td>"+ candidateResults[i].candId + "</td>";
 	                str1 +=     "<td>"+ candidateResults[i].candName + "</td>";
@@ -189,15 +217,18 @@
 	            }
 	
 	            
-	            str2 += "<tr> <td>Winner </td> <td>: </td> <td> " + candidateResults[0].candName + "</td></tr>" ;
-	            str2 += "<tr> <td>Lead </td> <td>: </td> <td> " + lead + "</td></tr>" ;
-	            str2 += "<tr> <td>Scored Votes / Total  </td> <td>: </td> <td> " + candidateResults[0].constVoteCount+ 
+	            str2 += "<tr> <td align='right'>Winner : </td> <td> " + candidateResults[0].candName + "</td></tr>" ;
+	            str2 += "<tr> <td align='right'>Lead : </td> <td> " + lead + "</td></tr>" ;
+	            str2 += "<tr> <td align='right'>Scored Votes / Total  : </td> <td> " + candidateResults[0].constVoteCount+ 
 	                        "/"+candidateResults[0].totalVoteCount + "</td></tr>" ;
 	
 	            
 	        }else{
 	            alert("No results found for the constituency selected");
+	            getHomeContents();
+	            populateHomePage();
 	        }
+	     
 	            
 	
 	        electionName  = getElectionNamePrivate(unitEleSelected);
@@ -210,6 +241,10 @@
 	        $(".titleLocationSelected").html("<b>"+constName+"</b>");
 	        $(".tableWinnerDetail").html(str2);
 	        $("#tableResultsListConsts tbody").html(str1);
+	    }
+	    else{
+	    	alert("no results");
+	    	
 	    }
 	}
 	
