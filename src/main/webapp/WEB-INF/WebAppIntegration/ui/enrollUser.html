@@ -6,28 +6,56 @@
 	    }
 	    
     #pageEnrollUserSearchResults span{
-	        width:40%;
+	        width:420px;
+	        margin-right:50px;
 	        float:left;
-	        min-height:100px;
-	        }
+	        min-height:200px;
+	 }
 	        
-	        
-	.clearLine{
-	    clear:both;
-	}    
+	 hr{
+	   margin-bottom: 10px;
+	}
+	
+	#spanLeft{
+	   padding-right: 20px;
+	   border-right: 1px solid black;
+	}
+	
+	#buttonArea{
+	   clear :both;
+	   padding-top: 10px;
+	   border-top: 1px solid black;
+	}
+	
+	#buttonArea button{
+	   height: 30px;
+	   width: 200px;
+	   padding: 5px;
+	   margin-right: 20px;
+	  }
+	
 </style>
 
 
 <div id="container">    
-    <div id="pageAjaxLoader">
-    </div>
-    
-    
+
+
+     <div class="dataContainerHeading">
+            <b>Voter Enrollment </b>
+            <hr/>
+     </div>
+     
+     <p class="dataContainerDescription">
+          Functionality allows to verify the details of the 
+          user in the voterlist and adhaar sysstem. Enrollments should be done after 
+          the manual verification of the documents submitted by user.
+     </p> 
+         
 
     <div id="pageEnrollUserSearchResults">
         <div>
-            <span> 
-                <h2> Voter Enrollment Info</h2>
+            <span id="spanLeft"> 
+                <h4> Voter List lookup</h4>
                 <hr>
 	            <table id="tableVoterForm">
 	                <tr> 
@@ -40,7 +68,7 @@
                 
 	        </span>
 	        <span>
-	            <h2> Adhaar enrollment info</h2>
+	            <h4> Adhaar System lookup</h4>
 	            <hr>
 	            <table id="tableAdhaarForm">
                     <tr> 
@@ -53,8 +81,8 @@
 	            
 	        </span>
         </div>
-      
-        <div class="clearLine">
+        
+        <div id="buttonArea">      
             <button id="reset_form"> Reset  </button>
             <button id="btn_verified"> Enroll </button>
         </div>
